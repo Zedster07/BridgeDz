@@ -1,1 +1,125 @@
 
+.header-buttons {
+    display: none;
+}
+.phone-header-buttons {
+    display: flex;
+}
+.search-input {
+    width: 400px;
+}
+.search-item {
+    margin-left: 20px;
+}
+.datepickers {
+    display: none;
+}
+
+.search-form-button {
+    padding: 22px !important;
+    border-radius: 10px;
+    color: white;
+    --background: none;
+    background-color: var(--ion-color-primary);
+}
+.search-form-button:focus , .search-input:focus:focus {
+    outline: none;
+}
+.datepickers-button {
+    background-color: white;
+    color:black;
+    font-size: 13px;
+    min-width: 120px;
+    border:1px solid #f1f1f1;
+    text-align: left;   
+}
+.search-form {
+    border: 1px solid #f1f1f1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#title h4 {
+    font-family: 'Montserrat';
+} 
+#title h1 {
+    font-family: 'Lobster';
+    font-size: 3rem;
+}
+
+#title {
+    color: black;
+    text-align: center;
+}
+
+#form_container {
+    margin-top: 40px;
+    width: 90vw;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (min-width: 768px) {
+    #form_container {
+        margin-top: 20px;
+        width: 90vw;
+        height: 20vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    #title {
+        color: white;
+        text-align: center;
+    }   
+    #title h1 {
+        font-family: 'Lobster';
+        font-size: 4rem;
+    }
+    ion-grid {
+        padding: 0px;
+    }
+    #slide-container {
+        padding: 0px;
+        margin:0px;
+
+    }
+    .div-overlay {
+        --background: none;
+        background-color: rgba($color: #000000, $alpha: 0.5);
+        height: 100%;
+        width:100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .main-slide {
+        --background: none;
+        height: 92vh;
+        background-image: url(../../assets/images/slide1.jpg);
+        background-size: cover;
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        margin: 0px;
+    }
+    .phone-header-buttons {
+        display: none;
+    }
+    .header-title {
+        margin-left: 100px;
+    }
+    .header-buttons ion-button {
+        margin-left: 20px;
+    }
+    .header-buttons {
+        display: flex;
+        margin-right: 100px;
+    }    
+}

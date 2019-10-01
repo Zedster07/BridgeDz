@@ -1,14 +1,55 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
+  <ion-toolbar class="header-wrapper">
+    <ion-title slot="start" class="header-title">
+      BridgeDz
     </ion-title>
+
+    <ion-buttons slot="end" class="header-buttons">
+      <ion-button size="small">
+        Se Connecter
+      </ion-button>
+      <ion-button size="small">
+        FAQ
+      </ion-button>
+      <ion-button expand="full" size="small" color="secondary" fill="solid">
+        <span class="ion-padding">Louer mes voitures</span>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" class="phone-header-buttons">
+        <ion-button (click)="presentPopover($event)"> Menu <ion-icon name="arrow-dropdown" slot="end"></ion-icon></ion-button>
+    </ion-buttons>
+    
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" id="slide-container">
+       <div class="main-slide">
+         <div class="div-overlay">
+           <div id="title">
+              <h1>Some Title Goes Here</h1>
+              <h4>SOME SUBTITLE GOES HERE AS WELL </h4>
+           </div>
+           <div id="form_container">
+              <input placeholder="Adresse" class="search-item search-form search-input"/>
+              <button color="primary" (click)="debutDate.open()"   class="search-item search-form-button datepickers-button">
+               <ion-icon name="calendar" slot='start'></ion-icon>
+                {{debutDateStr}}
+              </button>
+              <button color="primary" (click)="finDate.open()" class="search-item search-form-button datepickers-button">
+                  <ion-icon name="calendar" slot='start'></ion-icon>
+                  {{finDateStr}}
+              </button>
+              <ion-datetime #debutDate  displayFormat="MMM DD YYYY HH mm" [pickerOptions]="customPickerOptions" [(ngModel)]="debutDateStr" class="search-item search-form datepickers"></ion-datetime>
+              <ion-datetime #finDate  [(ngModel)]="finDateStr" class="search-item search-form datepickers"></ion-datetime>
+              
+              <button color="primary" class="search-item search-form-button">Rechercher</button>
+           </div>
+         </div>
+       </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
