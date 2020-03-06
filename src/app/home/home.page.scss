@@ -1,10 +1,179 @@
+// For Mobile
 
+.div-overlay {
+    --background: none;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    height: 100%;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+#map_img {
+    --background: none;
+    background-image: url(../../assets/images/map.png);
+    background-position: center center;
+    background-size: cover;
+    margin-right: 20px;
+    height: 40vh;
+}
 .header-buttons {
     display: none;
 }
 .phone-header-buttons {
     display: flex;
 }
+#title h1 {
+    font-size: 2.5rem;
+}
+#recent-cards-container {
+    width: 100%;
+}
+.btn-app {
+    width : 100% !important;
+}
+// For desktop 
+@media only screen and (min-width: 768px) {
+    #map_img {
+        height: auto;
+    }
+    #footer-container {
+        width:80%;
+    }
+    #apps-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    #recent-cards-container {
+        width: 80%;
+    }
+    .div-overlay {
+        --background: none;
+        background-color: rgba($color: #000000, $alpha: 0.5);
+        height: 100%;
+        width:100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    } 
+    #title h1 {
+        font-size: 4rem;
+    }
+    .phone-header-buttons {
+        display: none;
+    }
+    .header-title {
+        margin-left: 100px;
+    }
+    .header-buttons ion-button {
+        margin-left: 20px;
+    }
+    .header-buttons {
+        display: flex;
+        margin-right: 100px;
+    }   
+    .btn-app {
+        line-height: 25px;
+        width: 150px;
+    } 
+    .btn-app-icon {
+        width: 25px;
+        line-height: 25px;
+    }
+    .btn-app-text {
+        width: 80%;
+        line-height: 25px;
+    }
+}
+
+// For All 
+
+
+#footer {
+    display : flex; 
+    flex-direction: row;
+    justify-content: center;
+}
+#footer h4 {
+    font-family: 'Montserrat';
+    color: rgb(99, 98, 98);
+}
+#footer p {
+    color : rgb(80, 80, 80);
+}
+#footer ul {
+    list-style: none;
+    text-align: left;
+    padding: 0px;
+    color : rgb(80, 80, 80);
+    
+}
+#recent_cars ion-card{
+    text-align: left;
+}
+.btn-app-icon , .btn-app-text {
+    display: inline-block;
+    vertical-align: middle;
+}
+.btn-app {
+    text-decoration: none;
+    color: var(--ion-color-danger);
+    border: 2px solid var(--ion-color-danger);
+    padding : 10px;
+    border-radius: 5px;
+}
+#apps ion-col {
+    margin-top :20px;
+}
+#howitworks {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 5vh;
+}
+
+#howitworks_content {
+    margin-top: 5vh;
+    width: 80%;
+    justify-content: center;
+}
+
+
+.section-title {
+    font-family: 'Montserrat';
+    font-size: 2rem;   
+    margin-bottom: 10px; 
+}
+
+#map_img {
+    box-shadow: 0px 0px 5px -3px gray;
+}
+ion-grid {
+    margin: 0px;
+    padding: 0px;
+}
+.view-high {
+    height: 100vh;
+    margin:0px;
+    padding: 0px;
+}
+
+#title {
+    color: white;
+    text-align: center;
+    margin-bottom: 80px;
+}
+#title h4 {
+    font-family: 'Montserrat';
+} 
+#title h1 {
+    font-family: 'Lobster';
+}
+
 .search-input {
     width: 400px;
 }
@@ -14,17 +183,18 @@
 .datepickers {
     display: none;
 }
-
-.search-form-button {
-    padding: 22px !important;
+.input-container {
+    padding: 10px;
+}
+ion-item:not(.datepickers) {
     border-radius: 10px;
-    color: white;
-    --background: none;
-    background-color: var(--ion-color-primary);
 }
-.search-form-button:focus , .search-input:focus:focus {
-    outline: none;
+
+ion-col .datetimepickers {
+    width: 50%;
+    display: inline-block;
 }
+
 .datepickers-button {
     background-color: white;
     color:black;
@@ -33,46 +203,43 @@
     border:1px solid #f1f1f1;
     text-align: left;   
 }
-.search-form {
-    border: 1px solid #f1f1f1;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
+.main-slide {
+    height: 100%;
+    width:100%;
+    --background: none;
+    background-image: url(../../assets/images/slide1.jpg);
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0px;
+    box-shadow: 0px 10px 30px -9px silver;
 }
 
-#title h4 {
-    font-family: 'Montserrat';
-} 
-#title h1 {
-    font-family: 'Lobster';
-    font-size: 3rem;
-}
+
+
+/*
+
+
+
+
+
 
 #title {
+    display: flex;
+    flex-direction: column;
     color: black;
+    justify-content: start;
     text-align: center;
 }
 
-#form_container {
-    margin-top: 40px;
-    width: 90vw;
-    height: 20vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 
+#slide-container {
+    padding: 0px;
+    margin:0px;
+    
+}
 @media only screen and (min-width: 768px) {
-    #form_container {
-        margin-top: 20px;
-        width: 90vw;
-        height: 20vh;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
     #title {
         color: white;
         text-align: center;
@@ -87,7 +254,7 @@
     #slide-container {
         padding: 0px;
         margin:0px;
-
+        
     }
     .div-overlay {
         --background: none;
@@ -99,6 +266,7 @@
         justify-content: center;
         align-items: center;
     }
+    
     .main-slide {
         --background: none;
         height: 92vh;
@@ -108,6 +276,7 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
         margin: 0px;
+        box-shadow: 0px 10px 30px -9px silver;
     }
     .phone-header-buttons {
         display: none;
@@ -122,4 +291,4 @@
         display: flex;
         margin-right: 100px;
     }    
-}
+}*/

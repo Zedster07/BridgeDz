@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="swipeBack()"> < </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="swipeNext()"> > </ion-button>
+    </ion-buttons>
+    <ion-title style="text-align:center; ">
+      {{title}}
+    </ion-title>
+    
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+  <ion-row>
+
+    <ion-col size="6">
+      <ion-button (click)="preBook()" expand="full" color="success">
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+        Occuper
+      </ion-button>
+    </ion-col>
+
+    <ion-col size="6">
+      <ion-button (click)="removeBook()" expand="full" color="warning"><ion-icon name="remove-circle-outline" slot="start"></ion-icon>
+        Libérer</ion-button>
+    </ion-col>
+    
+  </ion-row>
+  
+  <ng-template #template let-view="view" let-row="row" let-col="col">
+    <div class={{getEventClass(view.dates[row*7+col].events)}}>{{view.dates[row*7+col].label}}</div>
+  </ng-template>
+  <calendar [eventSource]="eventSource"
+        [calendarMode]="calendar.mode"
+        [currentDate]="calendar.currentDate"
+        (onCurrentDateChanged)="onCurrentDateChanged($event)"
+        (onRangeChanged)="onRangeChanged($event)"
+        (onEventSelected)="onEventSelected($event)"
+        autoSelect="false"
+        (onTitleChanged)="onViewTitleChanged($event)"
+        (onTimeSelected)="onTimeSelected($event)"
+        noEventsLabel="Voiture Libre"
+        step="30"
+        >      
+  </calendar>
+
+</ion-content>
+<ion-footer >
+  <ion-toolbar>
+    <ion-buttons slot="end" class="ion-padding">
+      <ion-button  color="primary"  (click)="saveChanges()"> 
+        mettre à jour
+      </ion-button>
+    </ion-buttons>
+      
+  </ion-toolbar>
+</ion-footer>

@@ -1,5 +1,7 @@
 {
   "name": "BridgeDz",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -1,0 +1,33 @@
+<ion-content class="ion-padding">
+  <div class="container">
+  <!-- <div class="row">
+      <div class="col-12 ion-margin" style="border-bottom: 1px solid silver; padding:0px; padding-bottom: 10px;">
+        <h3>Notifications</h3>
+      </div>
+  </div> -->
+  <h1 style="padding:30px; background-color:#f1f1f1;">Notifications</h1>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" (click)="setTabVal('general')">
+        <span class="nav-link" [ngClass]="{'active': showTab('general')}" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">Général <ion-badge color="primary" slot="end" *ngIf="this.glb.unreadNotif > 0">{{this.glb.unreadNotif}}</ion-badge></span>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade"  [ngClass]="{'active show': showTab('general')}" id="general" role="tabpanel" aria-labelledby="general-tab">
+          <ion-list>
+            <ion-item *ngFor="let item of this.glb.notifications; let i = index;" [ngClass]="{'item-read': item.read}" id="item-{{item.id}}">
+              <ion-icon name="{{item.icon}}" slot="start" class="noti-notread" (click)="setRead(i)" class="itemicon"></ion-icon>
+              <ion-label>
+                <h3>{{item.title}}</h3>
+                <p>{{item.desc}}</p>
+              </ion-label>
+            </ion-item>
+            <ion-item *ngIf="this.glb.notifications.length === 0">
+              <ion-label >
+                Vous n'avez aucune notification
+              </ion-label>
+            </ion-item>
+          </ion-list>
+      </div>
+    </div>
+  </div>
+</ion-content>

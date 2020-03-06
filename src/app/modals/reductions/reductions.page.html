@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end" >
+      <ion-button (click)="close()">
+        <ion-icon name="close" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="row ustify-content-center align-items-center">
+      <div class="col-12 pb-3 text-left">
+        <div class="header">
+          <h6 id="subtitle" class="ion-no-padding">Bon de réduction</h6>
+          <h2 id="title" class="ion-no-padding">{{getTitle()}}</h2>
+        </div>
+        <ion-item-divider></ion-item-divider>
+        <div class="form-row">
+          <div class="form-group col-12 text-center" style="flex-direction: column;">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Code Promo" [(ngModel)]="data.code">
+          </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-12 text-center" style="flex-direction: column;">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Nom du BR" [(ngModel)]="data.name">
+          </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+          <label for="vitesse">Type d'offre</label>
+          <ion-radio-group id="vitesse" [(ngModel)]="data.type">
+            <ion-item>
+              <ion-label>Percentage</ion-label>
+              <ion-radio slot="start" value="1" checked></ion-radio>
+            </ion-item>
+        
+            <ion-item>
+              <ion-label>Somme fix</ion-label>
+              <ion-radio slot="start" value="2" ></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-12 text-center" style="flex-direction: column;">
+            <div class="input-group">
+              <input type="number" class="form-control" [attr.max]="getType() === '%' ? 100 : 1000" id="price" placeholder="Valeur" [(ngModel)]="data.value">
+              <div class="input-group-append">
+                <span class="input-group-text">{{getType()}}</span>
+              </div>
+          </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <ion-icon name="calendar"></ion-icon>
+                    </div>
+                  </div>
+                  <ion-datetime class="form-control text-left" id="dobid" placeholder="Date de Debut" displayFormat="YYYY-MM-DD" [(ngModel)]="data.debut"> </ion-datetime>
+              </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <ion-icon name="calendar"></ion-icon>
+                    </div>
+                  </div>
+                  <ion-datetime class="form-control text-left" id="dobid" placeholder="Date de fin" displayFormat="YYYY-MM-DD" [(ngModel)]="data.fin" ></ion-datetime>
+              </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end" class="ion-padding">
+      <ion-button color="primary" fill="solid">
+        <span *ngIf="this.type === '1'" (click)="updateBR('add')">Ajouter</span>
+        <span *ngIf="this.type === '2'" (click)="updateBR('update')">Mettre à jour</span>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

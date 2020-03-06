@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title><h1>BridgeDz</h1></ion-title>
+    <ion-buttons slot='end'>
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="start"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12 text-center pb-3">
+       <div class="header pt-4 pb-4">
+        
+        <h4 *ngIf="this.type === 'create'">Création d'une agence</h4>
+        <h4 *ngIf="this.type !== 'create'">Sélectionner un compte</h4>
+       </div>
+
+        <hr>
+        <div *ngIf="this.type === 'create'">
+          <div class="form-row mt-3">
+            <div class="form-group col-md-12">
+              <input type="text" class="form-control" placeholder="Nom de l'agence" [(ngModel)]="this.newAgency.nom">  
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <ion-icon name="mail"></ion-icon>
+                      </div>
+                    </div>
+                    <input type="email" class="form-control" id="emailid" placeholder="Email" [(ngModel)]="this.newAgency.bemail">
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                          <ion-icon name="phone-portrait"></ion-icon>
+                      </div>
+                    </div>
+                    <input type="text" class="form-control" id="mobileid" placeholder="Mobile" [(ngModel)]="this.newAgency.bmobile">
+                </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                          <ion-icon name="calendar"></ion-icon>
+                      </div>
+                    </div>
+                    <ion-datetime class="form-control text-left" id="dobid" placeholder="Date de création" displayFormat="YYYY-MM-DD" [(ngModel)]="this.newAgency.cdate"></ion-datetime>
+                </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <select class="form-control" id="inputPassword4" [(ngModel)]="this.newAgency.cpays">
+                <option value="0" selected>Pays</option>
+                <option value="algeria">Algérie</option>
+                <option value="france">France</option>
+              </select>
+            </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <input type="text" class="form-control" id="inputAddress" placeholder="Adresse" [(ngModel)]="this.newAgency.address">
+          </div>
+        </div>
+          <ion-button color="primary" expand="block" (click)="createAgency()">Créer</ion-button>
+        </div>
+        <div *ngIf="this.type !== 'create'">
+          <ion-item-group>
+            <ion-item *ngFor="let account of accountsList; let i = index">
+              <ion-avatar slot="start">
+                <img src="{{glb.hostServer + account.picture}}">
+              </ion-avatar>
+              <ion-label>
+                <h2>{{account.name}}</h2>
+                <p>{{account.businessEmail}}</p>
+              </ion-label>
+              <ion-button fill="clear" color="dark" (click)="gotoMyAgency(i)">Selectionner</ion-button>
+            </ion-item>
+            <ion-item>
+              <ion-avatar slot="start">
+                <ion-icon name="add-circle-outline" size="large" color="primary"></ion-icon>
+              </ion-avatar>
+              <ion-label>
+                <ion-button fill="clear" (click)="showCreate()">Créer une nouvelle agence</ion-button>
+              </ion-label>
+
+            </ion-item>  
+      
+          </ion-item-group>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

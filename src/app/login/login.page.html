@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+    <ion-title [routerLink]="['']" routerLinkActive="router-link-active" >BridgeDz</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row style="height:100vh; display: flex;" id="login-container">
+    <ion-col class="login-form" size-lg="6" size-md="12" size-sm="12"  size-xs="12" *ngIf="pageSelected == 'login'">
+        <h1 id="login-title">Connectez-vous </h1>
+        
+        <ion-item-group>
+          <div class="login-input alert alert-danger" role="alert" id="loginerror">
+            A simple danger alert—check it out!
+          </div>
+          <ion-item  class="login-input">
+              <ion-label> <ion-icon name="mail" color="medium"></ion-icon> </ion-label>
+              <ion-input placeholder="Email" [(ngModel)]="normalLogin.email"> </ion-input>
+          </ion-item>
+          <ion-item class="login-input">
+              <ion-label> <ion-icon name="Key" color="medium"></ion-icon> </ion-label>
+              <ion-input placeholder="Password" type="password" [(ngModel)]="normalLogin.password"> </ion-input>
+          </ion-item>
+          
+          <ion-button expand="block" class="login-input" color="primary" (click)="normallogin()">
+            <ion-icon name="log-in" slot="start"></ion-icon>
+            Se connecter
+          </ion-button>
+          <ion-button expand="block" class="login-input" color="success" (click)="changepPage('register')"> 
+            <ion-icon name="add" slot="start"></ion-icon> 
+             S'inscrire
+          </ion-button>
+
+    
+        </ion-item-group>
+      
+        <span>
+          ou
+        </span>
+        
+        <firebase-ui (signInSuccessWithAuthResult)="successCallback($event)"
+        (signInFailure)="errorCallback($event)"></firebase-ui>
+    </ion-col>
+    <ion-col class="login-form" size-lg="6" size-md="12" size-sm="12"  size-xs="12" *ngIf="pageSelected == 'register'">
+        <h1 id="login-title">
+          
+          
+          S'inscrire 
+        </h1>
+        <ion-item-group>
+          <div class="login-input alert alert-danger" role="alert" id="signuperror">
+            A simple danger alert—check it out!
+          </div>
+            <ion-item  class="login-input">
+                <ion-label> <ion-icon name="person" color="medium"></ion-icon> </ion-label>
+                <ion-input placeholder="Username" [(ngModel)]="signupData.username"> </ion-input>
+            </ion-item>
+            <ion-item  class="login-input">
+                <ion-label> <ion-icon name="mail" color="medium"></ion-icon> </ion-label>
+                <ion-input placeholder="Email" [(ngModel)]="signupData.email"> </ion-input>
+            </ion-item>
+            <ion-item class="login-input">
+                <ion-label> <ion-icon name="Key" color="medium"></ion-icon> </ion-label>
+                <ion-input type="password" placeholder="Password" [(ngModel)]="signupData.password" > </ion-input>
+            </ion-item>
+            <ion-item class="login-input">
+                <ion-label> <ion-icon name="Key" color="medium"></ion-icon> </ion-label>
+                <ion-input type="password" placeholder="Confirm Password" [(ngModel)]="signupData.re_password"> </ion-input>
+            </ion-item>
+            
+            <ion-button expand="block" class="login-input" color="primary" (click)="Register()"> 
+              <ion-icon name="add" slot="start"></ion-icon> 
+               S'inscrire
+            </ion-button>
+            <ion-buttons  class="login-input">
+              <ion-button expand="block" (click)="changepPage('login')">
+                  <ion-icon name="arrow-round-back" slot="start"></ion-icon>
+                  Return 
+              </ion-button>
+            </ion-buttons>
+
+  
+      
+          </ion-item-group>
+    </ion-col>
+    <ion-col id="login-pic" size-lg="6" size-md="12" size-sm="12"  size-xs="12">
+      
+    </ion-col>
+  </ion-row>
+
+</ion-content>

@@ -1,0 +1,40 @@
+#loginerror , #signuperror {
+    display: none;
+}
+.login-form {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f1f1;
+    order:1;
+}
+.login-input {
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+#login-title {
+    margin-bottom: 50px;
+    font-family: 'Montserrat';
+}
+
+#login-pic {
+    --background: none;
+    background-image: url(../../assets/images/login-bg.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    order: 2;
+    
+}
+
+@media only screen and (max-width: 768px) {
+    #login-pic{
+        order: 1;
+        height: 30vh;
+    }
+    #login-form {
+        order: 2;
+    }
+}   

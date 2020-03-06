@@ -1,0 +1,52 @@
+<ion-content class="ion-padding">
+    <div class="row">
+        <div class="col-12 ion-margin" style="border-bottom: 1px solid silver; padding:0px; padding-bottom: 10px;">
+          <ion-button (click)="showAddReductions()">
+            <ion-icon name="add"></ion-icon>
+            Ajouter Un Bon de réduction</ion-button>
+        </div>
+    </div>
+     <div class="row" *ngIf="bonredList.length === 0">
+       <div class="col">
+        <p>Vous n'avez aucun bon de reduction!</p>
+       </div>
+     </div> 
+  <table class="table" *ngIf="bonredList.length > 0">
+      <thead>
+          <tr>
+            <th scope="col">#Code Promo</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Status</th>
+            <th scope="col">Offre</th>
+            <th scope="col">Debut</th>
+            <th scope="col">Fin</th>
+            <th scope="col">options</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of bonredList; let i = index;"> 
+              <th scope="row">{{item.code}}</th>
+              <td>{{item.name}}</td>
+              <td [attr.class] = "getClass(i)">{{item.status}}</td>
+              <th>-{{item.value}}{{getType(i)}}</th>
+              <td>{{item.debut}}</td>
+              <td>{{item.fin}}</td>
+              <td><ion-button (click)="showEditReductions(i)">Editer</ion-button>&nbsp;&nbsp;&nbsp;<ion-button color="danger" (click)="delReduction(i)">supprimer</ion-button></td>
+            </tr>
+        </tbody>
+  </table>
+  <ion-item-divider></ion-item-divider>
+  <br>
+  <!-- <nav aria-label="Page navigation example">
+      <ul class="pagination pagination-lg justify-content-center">
+          <li class="page-item active" aria-current="page">
+            <span class="page-link">
+              1
+              <span class="sr-only">(current)</span>
+            </span>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+        </ul>
+    </nav> -->
+</ion-content>

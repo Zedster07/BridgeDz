@@ -1,0 +1,272 @@
+<ion-content class="ion-padding">
+    <h1 style="padding:30px; background-color:#f1f1f1;">Mon Profile</h1>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" (click)="setTabVal('edit')">
+          <span class="nav-link" [ngClass]="{'active': showTab('edit')}" id="edit-tab" data-toggle="tab" href="#edit" role="tab" aria-controls="edit" aria-selected="true">Modifier mon profile</span>
+        </li>
+        <li class="nav-item" (click)="setTabVal('verify')">
+          <span class="nav-link" [ngClass]="{'active': showTab('verify')}" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Verifier mon profile</span>
+        </li>
+        <li class="nav-item" (click)="setTabVal('param')">
+          <span class="nav-link" [ngClass]="{'active': showTab('param')}" id="param-tab" data-toggle="tab" href="#param" role="tab" aria-controls="param" aria-selected="false">Paramètres du compte</span>
+        </li>
+        <li class="nav-item" (click)="setTabVal('pay')">
+            <span class="nav-link" [ngClass]="{'active': showTab('pay')}" id="pay-tab" data-toggle="tab" href="#pay" role="tab" aria-controls="pay" aria-selected="false">Paramètres de paiement</span>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade"  [ngClass]="{'active show': showTab('edit')}" id="edit" role="tabpanel" aria-labelledby="edit-tab">
+            <div class="mt-5 p-1">
+                <div style="width: fit-content; margin: 0 auto;" >
+                    <img src="assets/images/profd.jfif" width="250"/>
+                    
+                    <ion-button expand="full" class=" ion-no-margin" style="position: relative; bottom: 35px;" (click)="changepic()">Change Picture</ion-button>
+                   <input type="file" id="changepichandler" style="display: none;">
+                </div>
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">Contact et Login</legend>
+                    <div class="form-row mt-3">
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <ion-icon name="mail"></ion-icon>
+                                  </div>
+                                </div>
+                                <input type="email" class="form-control" id="inlineFormInputGroup" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                      <ion-icon name="phone-portrait"></ion-icon>
+                                  </div>
+                                </div>
+                                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Mobile">
+                            </div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                          <div class="form-group col-md-6">
+                              <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                      <ion-icon name="person"></ion-icon>
+                                    </div>
+                                  </div>
+                                  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">
+                              </div>
+                          </div>
+                          <div class="form-group col-md-6">
+                              <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <ion-icon name="key"></ion-icon>
+                                    </div>
+                                  </div>
+                                  <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
+                              </div>
+                          </div>
+                        </div>
+                </fieldset>
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">Personal Info</legend>
+                
+              <div class="form-row mt-3">
+                <div class="form-group col-md-6">
+                  <input type="text" class="form-control" id="inputEmail4" placeholder="Nom">
+                </div>
+                <div class="form-group col-md-6">
+                  <input type="text" class="form-control" id="inputPassword4" placeholder="Prénom">
+                </div>
+              </div>
+              <div class="form-row">
+                  <div class="form-group col-md-6">
+                      <div class="input-group">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <ion-icon name="calendar"></ion-icon>
+                            </div>
+                          </div>
+                          <ion-datetime class="form-control" placeholder="Date de naissance"></ion-datetime>
+                      </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="inputPassword4" placeholder="Lieu de naissance">
+                  </div>
+                </div>
+              
+              <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                    <select id="inputState" class="form-control">
+                        <option selected>Pays</option>
+                        <option>...</option>
+                        <option>...</option>
+                      </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <select id="inputState" class="form-control">
+                    <option selected>Ville</option>
+                    <option>...</option>
+                    <option>...</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <input type="text" class="form-control" id="inputZip" placeholder="Code Postal">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="apropos">A propos</label>
+                  <textarea class="form-control" placeholder="Description" id="apropos" rows="5"></textarea>
+                </div>
+              </div>
+              
+            </fieldset>
+            <ion-button color="primary" expand="block">Save</ion-button>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="verify" [ngClass]="{'active show': showTab('verify')}" role="tabpanel" aria-labelledby="verify-tab">
+          <div class="mt-5 p-1">
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="permisID">KBIS</label>
+                <input class="form-control" type="text" placeholder="KBIS"/>
+              </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <input class="form-control" type="text" placeholder="Numéro de TVA Inter"/>
+                  </div>
+                  
+                <div class="form-group col-md-4">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                              <ion-icon name="calendar"></ion-icon>
+                          </div>
+                        </div>
+                        <ion-datetime class="form-control" placeholder="Date de création"></ion-datetime>
+                    </div>
+                </div>
+                
+                <div class="form-group col-md-4">
+                    <input class="form-control" type="text" placeholder="Ville"/>
+                </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="permisFile">Piece jointe du KBIS</label>
+              </div>
+              <div class="form-group col-md-2">
+                <ion-button color="success"> Parcourir </ion-button>
+                <input type="file"  id="permisFile" class="form-control" style="display: none;" />
+              </div>
+            </div>
+            <ion-button color="primary" expand="block">Mettre à jour</ion-button>
+
+          </div>
+        </div>
+        <div class="tab-pane fade" id="param"  [ngClass]="{'active show': showTab('param')}" role="tabpanel" aria-labelledby="param-tab">
+            <div class="mt-5 p-1">
+                <div class="form-row">
+                  <div class="form-group col-md-6"></div>
+                  <div class="form-group col-md-2">Email</div>
+                  <div class="form-group col-md-2">SMS</div>
+                  <div class="form-group col-md-2">Push Notification</div>
+                </div>
+                <ion-item-divider></ion-item-divider>
+                <br>
+                <div class="form-row">
+                    <div class="form-group col-md-6">Demande d’une location</div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                </div>
+    
+                <div class="form-row">
+                    <div class="form-group col-md-6">Relance d’une demande de location</div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                </div>
+    
+                <div class="form-row">
+                    <div class="form-group col-md-6">Location Acceptée</div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                </div>
+    
+                <div class="form-row">
+                    <div class="form-group col-md-6">Annulation de location</div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                </div>
+    
+                <div class="form-row">
+                    <div class="form-group col-md-6">Rappel de location</div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                </div>
+    
+                <div class="form-row">
+                    <div class="form-group col-md-6">E-mail promotion</div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                    <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                </div>
+                <ion-item-divider></ion-item-divider>
+                <br>
+                <ion-button color="primary" expand="block">Mettre à jour</ion-button>
+              </div>
+        </div>
+        <div class="tab-pane fade" id="pay"  [ngClass]="{'active show': showTab('pay')}"  role="tabpanel" aria-labelledby="pay-tab">
+            <div class="mt-5 p-1">
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <input class="form-control" type="text" placeholder="N° IBAN"/>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <input class="form-control" type="text" placeholder="Nom du compte"/>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                      <input class="form-control" type="text" placeholder="Nom"/>
+                  </div>
+                  <div class="form-group col-md-6">
+                      <input class="form-control" type="text" placeholder="Prénom"/>
+                  </div>
+                </div>
+                <div class="form-row">
+                    <ion-radio-group>
+                        <ion-list-header>
+                            <ion-label>Vos préférence de paiement</ion-label>
+                          </ion-list-header>
+                        <ion-item>
+                            <ion-label>Via un virement bancaire à chaque location</ion-label>
+                            <ion-radio slot="start" value="v1" ></ion-radio>
+                          </ion-item>
+                          <ion-item>
+                              <ion-label>Cash via un cumul de crédit</ion-label>
+                              <ion-radio slot="start" value="v2" checked></ion-radio>
+                            </ion-item>
+                    </ion-radio-group>
+                </div>
+                <ion-item-divider></ion-item-divider>
+                <br>
+                <ion-button color="primary" expand="block">Mettre à jour</ion-button>
+            </div>
+        </div>
+      </div>
+</ion-content>

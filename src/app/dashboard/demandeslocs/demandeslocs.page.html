@@ -1,0 +1,29 @@
+<ion-content>
+  <div class="ion-padding">
+    <h1 style="padding:30px; background-color:#f1f1f1;">Demandes de locations</h1>
+      <ion-item *ngFor="let item of this.glb.AgencyLogData.demandeLoc; let i = index;" [attr.class]="item.isread === '1' ? 'item-read' : ''"  id="item-dem-{{item.id}}">
+        <ion-icon [attr.name]="item.isread === '1' ? 'radio-button-on-outline' : 'radio-button-off-outline'" slot="start" class="noti-notread" (click)="setRead(item.id)" class="itemicon"></ion-icon>
+        <ion-label>
+          <h1>{{item.brand+' '+item.model}}</h1>
+        
+          <p>Début de la location: {{item.startDate}}</p>
+          <p>Fin de la location: {{item.endDate}}</p>
+          <!-- <p>Durée: {{item.duree}}</p> -->
+          <p>Prix: {{item.totalPrice}}</p>
+          <!-- <p>Rendez-vous: {{item.rdv}}</p> -->
+          <!-- <p>Ancienneté du permis: {{item.apermis}}</p> -->
+          <hr>
+          <ion-buttons *ngIf="item.status !== '1'">
+            <ion-button color="success" (click)="acceptDemand(i)">Accepter</ion-button>
+            <ion-button color="primary" (click)="rejectDemand(i)">Decliner</ion-button>
+          </ion-buttons>
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="this.glb.AgencyLogData.demandeLoc.length === 0">
+        <ion-label >
+          Vous n'avez aucune demande
+        </ion-label>
+      </ion-item>
+  </div>
+  
+</ion-content>

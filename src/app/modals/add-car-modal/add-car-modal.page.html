@@ -1,0 +1,316 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="end" >
+        <ion-button (click)="close()">
+          <ion-icon name="close" ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-progress-bar color="primary" [value]="steps"></ion-progress-bar>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-slides #AddCarForm [options]="slideOptsOne">
+    
+    <ion-slide>
+      <div class="container">
+        <div class="row ustify-content-center align-items-center">
+          <div class="col-12 pb-3 text-left">
+            <div class="header">
+              <h6 id="subtitle" class="ion-no-padding">AJOUTER UNE VOITURE</h6>
+              <h2 id="title" class="ion-no-padding">Confirmez le modèle de votre voiture</h2>
+            </div>
+            <ion-item-divider></ion-item-divider>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="marque">Marque</label>
+                <ion-select class="form-control" id="marque" [(ngModel)]="formData[0].marque[0]" (ionChange)="chosenMarqueID($event)">
+                  <ion-select-option value="0" selected>Marque</ion-select-option>
+                  <ion-select-option *ngFor="let item of this.Marks" value="{{item.value}}">{{item.marque}}</ion-select-option>
+                  
+                </ion-select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="marque">Modèle</label>
+                <ion-select class="form-control" id="modele" [(ngModel)]="formData[0].model[0]">
+                  <ion-select-option value="0" selected>Modèle</ion-select-option>
+                  <ion-select-option *ngFor="let item of Models[formData[0].marque[0]]"  value="{{item.value}}">{{item.model}}</ion-select-option>
+                </ion-select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <div class="alert alert-info shadow-sm">
+                  Dans quelque minutes, votre annonce sera mise en ligne.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </ion-slide>
+    <ion-slide>
+      <div class="container">
+        <div class="row ustify-content-center align-items-center">
+          <div class="col-12 pb-3 text-left">
+            <div class="header">
+              <h6 id="subtitle" class="ion-no-padding">AJOUTER UNE VOITURE</h6>
+              <h2 id="title" class="ion-no-padding">Ajoutez plus de détails</h2>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="marque">Carburant</label>
+                <ion-select class="form-control" id="carburant" [(ngModel)]="formData[1].carburant[0]">
+                  <ion-select-option value="0" selected>Carburant</ion-select-option>
+                  <ion-select-option value="diesel">Diesel</ion-select-option>
+                  <ion-select-option value="ess ence">Essence</ion-select-option>
+                </ion-select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+              <label for="vitesse">Boite de vitesse</label>
+              <ion-radio-group id="vitesse" [(ngModel)]="formData[1].boitevitesse">
+                <ion-item>
+                  <ion-label>Manuelle</ion-label>
+                  <ion-radio slot="start" value="manuelle" checked></ion-radio>
+                </ion-item>
+            
+                <ion-item>
+                  <ion-label>Automatique</ion-label>
+                  <ion-radio slot="start" value="automatique" ></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </div>
+            </div>
+            <!-- <div class="form-row">
+              <div class="form-group col-md-12">
+                <div class="alert alert-info shadow-sm">
+                  Ces informations permetront aux conducteurs de choisir votre véhicule.
+                </div>
+              </div>
+            </div> -->
+             
+          </div>
+        </div>
+      </div>
+      
+    </ion-slide>
+    <ion-slide>
+      <div class="container">
+        <div class="row ustify-content-center align-items-center">
+          <div class="col-12 pb-3 text-left">
+            <div class="header">
+              <h6 id="subtitle" class="ion-no-padding">AJOUTER UNE VOITURE</h6>
+              <h2 id="title" class="ion-no-padding">Des options en plus ?</h2>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <ion-list>
+                  <ion-item>
+                    <label>Climatisation</label>
+                    <ion-checkbox slot="end" [(ngModel)]="formData[2].clim"></ion-checkbox>
+                  </ion-item>
+                  <ion-item>
+                    <label>Régulateur de vitesse</label>
+                    <ion-checkbox slot="end" [(ngModel)]="formData[2].regvit"></ion-checkbox>
+                  </ion-item>
+                  <ion-item>
+                    <label>GPS</label>
+                    <ion-checkbox slot="end" [(ngModel)]="formData[2].gps"></ion-checkbox>
+                  </ion-item>
+                  <ion-item>
+                    <label>Siege bébé</label>
+                    <ion-checkbox slot="end" [(ngModel)]="formData[2].siegebb"></ion-checkbox>
+                  </ion-item>
+                  <ion-item>
+                    <label>Lecteur CD</label>
+                    <ion-checkbox slot="end" [(ngModel)]="formData[2].leCD"></ion-checkbox>
+                  </ion-item>
+                </ion-list>
+                
+              </div>
+            </div>
+             
+          </div>
+        </div>
+      </div>
+      
+    </ion-slide>
+    <ion-slide>
+      <div class="container">
+        <div class="row ustify-content-center align-items-center">
+          <div class="col-12 pb-3 text-left">
+            <div class="header">
+              <h6 id="subtitle" class="ion-no-padding">AJOUTER UNE VOITURE</h6>
+              <h2 id="title" class="ion-no-padding">Ou donnerez-vous rendez-vous au locataire ?</h2>
+            </div>
+            <ion-item-divider></ion-item-divider>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <label for="adr">Adresse du rendez-vous</label>
+                <div class="input-group" id="adr">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <ion-icon name="pin"></ion-icon>
+                      </div>
+                    </div>
+                    <input type="text" class="form-control" id="adresserdv" placeholder="Adresse" [(ngModel)]="formData[3].address[0]">
+                </div>
+            </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <div class="alert alert-info shadow-sm">
+                  Cette adresse sera utilisé pour permettre aux locataires de rèserver votre voiture.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </ion-slide>
+    <ion-slide>
+      <div class="container">
+        <div class="row ustify-content-center align-items-center">
+          <div class="col-12 pb-3 text-left">
+            <div class="header">
+              <h6 id="subtitle" class="ion-no-padding">AJOUTER UNE VOITURE</h6>
+              <h2 id="title" class="ion-no-padding">Votre prix</h2>
+            </div>
+            <ion-item-divider></ion-item-divider>
+            <div class="form-row">
+              <div class="form-group col-12 text-center" style="flex-direction: column;">
+                <div class="input-group">
+                  <input type="number" class="form-control" id="price" placeholder="Prix" [(ngModel)]="formData[4].prix[0]">
+                  <div class="input-group-append">
+                    <span class="input-group-text">€ / J</span>
+                  </div>
+              </div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <div class="alert alert-info shadow-sm">
+                  Vous pouvez modifier vos prix plus tard.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </ion-slide>
+
+    <!--  -->
+    <ion-slide>
+      <div class="container">
+        <div class="row ustify-content-center align-items-center">
+          <div class="col-12 pb-3 text-left">
+            <div class="header">
+              <h6 id="subtitle" class="ion-no-padding">AJOUTER UNE VOITURE</h6>
+              <h2 id="title" class="ion-no-padding">Les photos</h2>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-12 text-center">
+                <ion-list>
+                  <ion-item (click)="uploadPic('avant')" id="avantitem">
+                    <!-- <ion-icon size="large" name="camera" slot="start"></ion-icon> -->
+                    <ion-thumbnail slot="start">
+                      <img src="http://localhost/bridgedz/images/uppic.png" id="avantpreview"/>
+                      <input type="file" id="avantfile" style="display: none;">
+                    </ion-thumbnail>
+                    <ion-label>
+                      Photo Avant
+                      <p><ion-progress-bar *ngIf="this.formData[5].picsMeta['avant'][0]" [attr.color]="this.formData[5].picsMeta['avant'][2] === 1 ? 'success' : 'primary'" value="this.formData[5].picsMeta['avant'][2]"></ion-progress-bar></p>
+                    </ion-label>
+                  </ion-item>
+                  <ion-item (click)="uploadPic('arriere')" id="arriereitem">
+                    <ion-thumbnail slot="start">
+                      <img src="http://localhost/bridgedz/images/uppic.png" id="arrierepreview" />
+                      <input type="file" id="arrierefile" style="display: none;">
+                    </ion-thumbnail>
+                    <ion-label>
+                      Photo Arrière
+                      <p><ion-progress-bar *ngIf="this.formData[5].picsMeta['arriere'][0]" [attr.color]="this.formData[5].picsMeta['arriere'][2] === 1 ? 'success' : 'primary'" value="this.formData[5].picsMeta['arriere'][2]"></ion-progress-bar></p>
+                    </ion-label>
+                    
+                      
+                    
+                  </ion-item>
+                  <ion-item (click)="uploadPic('cote1')" id="cote1item">
+                    <ion-thumbnail slot="start">
+                      <img src="http://localhost/bridgedz/images/uppic.png" id="cote1preview" />
+                      <input type="file" id="cote1file" style="display: none;">
+                    </ion-thumbnail>
+                    <ion-label>
+                      Photo Coté
+                      <p><ion-progress-bar *ngIf="this.formData[5].picsMeta['cote1'][0]" [attr.color]="this.formData[5].picsMeta['cote1'][2] === 1 ? 'success' : 'primary'" value="this.formData[5].picsMeta['cote1'][2]"></ion-progress-bar></p>
+                    </ion-label>
+                  </ion-item>
+                  <ion-item (click)="uploadPic('cote2')" id="cote2item">
+                    <ion-thumbnail slot="start">
+                      <img src="http://localhost/bridgedz/images/uppic.png" id="cote2preview"/>
+                      <input type="file" id="cote2file" style="display: none;">
+                    </ion-thumbnail>
+                    <ion-label>
+                      Photo Coté
+                      <p><ion-progress-bar *ngIf="this.formData[5].picsMeta['cote2'][0]" [attr.color]="this.formData[5].picsMeta['cote2'][2] === 1 ? 'success' : 'primary'" value="this.formData[5].picsMeta['cote2'][2]"></ion-progress-bar></p>
+                    </ion-label>
+                  </ion-item>
+                  <ion-item (click)="uploadPic('inside')" id="insideitem">
+                    <ion-thumbnail slot="start">
+                      <img src="http://localhost/bridgedz/images/uppic.png" id="insidepreview"/>
+                      <input type="file" id="insidefile" style="display: none;">
+                    </ion-thumbnail>
+                    <ion-label>
+                      Photo intérieur
+                      <p><ion-progress-bar *ngIf="this.formData[5].picsMeta['inside'][0]" [attr.color]="this.formData[5].picsMeta['inside'][2] === 1 ? 'success' : 'primary'" value="this.formData[5].picsMeta['inside'][2]"></ion-progress-bar></p>
+                    </ion-label>
+                  </ion-item>
+                  
+                </ion-list>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>
+<ion-footer>
+    <ion-toolbar *ngIf="this.currentStep === 3">
+      <ion-item>
+        <label>
+          <h5>Need Confirmation</h5>
+          <p>Chaque réservation nécessite votre confirmation</p>
+        </label>
+        <ion-checkbox slot="end" [(ngModel)]="formData[2].needConf"></ion-checkbox>
+      </ion-item>
+    </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-buttons slot="end" class="ion-padding">
+      <ion-button color="dark" (click)="slidePrev(AddCarForm)" *ngIf="this.steps !== 0">
+        <ion-icon name="arrow-round-back" slot="start"></ion-icon>
+        Précedent
+      </ion-button>
+      <ion-button color="primary" fill="solid" (click)="slideNext(AddCarForm)">
+        <span *ngIf="this.steps < 1">Suivant</span>
+        <span *ngIf="this.steps === 1">Confirmer</span>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

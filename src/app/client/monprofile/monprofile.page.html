@@ -1,0 +1,253 @@
+<ion-content class="ion-padding">
+  <div class="container">
+  <h1 style="padding:30px; background-color:#f1f1f1;">Mon Profile</h1>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" (click)="setTabVal('edit')">
+        <span class="nav-link" [ngClass]="{'active': showTab('edit')}" id="edit-tab" data-toggle="tab" href="#edit" role="tab" aria-controls="edit" aria-selected="true">Modifier mon profile</span>
+      </li>
+      <li class="nav-item" (click)="setTabVal('verify')">
+        <span class="nav-link" [ngClass]="{'active': showTab('verify')}" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Verifier mon profile</span>
+      </li>
+      <li class="nav-item" (click)="setTabVal('param')">
+        <span class="nav-link" [ngClass]="{'active': showTab('param')}" id="param-tab" data-toggle="tab" href="#param" role="tab" aria-controls="param" aria-selected="false">Paramètres du compte</span>
+      </li>
+      <li class="nav-item" (click)="setTabVal('pay')">
+          <span class="nav-link" [ngClass]="{'active': showTab('pay')}" id="pay-tab" data-toggle="tab" href="#pay" role="tab" aria-controls="pay" aria-selected="false">Paramètres de paiement</span>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade"  [ngClass]="{'active show': showTab('edit')}" id="edit" role="tabpanel" aria-labelledby="edit-tab">
+        <div class="mt-5 p-1">
+            <div style="width: fit-content; margin: 0 auto;" >
+                <img [src]="this.glb.user.pic" width="250" id="changeprofilepic"/>
+                
+                <ion-button expand="full" class=" ion-no-margin" style="position: relative; bottom: 35px;" (click)="changepic()">Change Picture</ion-button>
+               <input type="file" id="changepichandler" style="display: none;" (ionChange)="this.changepicUrl()">
+            </div>
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Contact et Login</legend>
+                <div class="form-row mt-3">
+                    <div class="form-group col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">
+                                <ion-icon name="mail"></ion-icon>
+                              </div>
+                            </div>
+                            <input type="email" class="form-control" id="emailid" placeholder="Email" value="{{glb.user.email}}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">
+                                  <ion-icon name="phone-portrait"></ion-icon>
+                              </div>
+                            </div>
+                            <input type="text" class="form-control" id="mobileid" placeholder="Mobile" value="{{glb.user.phoneNumber}}" [(ngModel)]="usertmp.phoneNumber">
+                        </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-md-6">
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                  <ion-icon name="person"></ion-icon>
+                                </div>
+                              </div>
+                              <input type="text" class="form-control" id="usernameid" placeholder="Username" value="{{glb.user.username}}" [(ngModel)]="usertmp.username">
+                          </div>
+                      </div>
+                      <div class="form-group col-md-6">
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <ion-icon name="key"></ion-icon>
+                                </div>
+                              </div>
+                              <input type="password" class="form-control" id="passwordid" placeholder="Password" value="{{this.glb.user.password}}"  [(ngModel)]="usertmp.password">
+                          </div>
+                      </div>
+                    </div>
+            </fieldset>
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Personal Info</legend>
+            
+          <div class="form-row mt-3">
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="lnameid" placeholder="Nom" value="{{glb.user.lname}}" [(ngModel)]="usertmp.lname">
+            </div>
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="fnameid" placeholder="Prénom" value="{{glb.user.fname}}" [(ngModel)]="usertmp.fname">
+            </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group col-md-6">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <ion-icon name="calendar"></ion-icon>
+                        </div>
+                      </div>
+                      <ion-datetime class="form-control" (ionChange)="changedDOB()" id="dobid" placeholder="Date de naissance" displayFormat="YYYY-MM-DD" [(ngModel)]="usertmp.dob"></ion-datetime>
+                  </div>
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="pobid" placeholder="Lieu de naissance" [(ngModel)]="usertmp.pob">
+              </div>
+            </div>
+          
+          <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" [(ngModel)]="usertmp.address">
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+                <select id="inputState" class="form-control">
+                    <option selected>Pays</option>
+                    <option>...</option>
+                    <option>...</option>
+                  </select>
+            </div>
+            <div class="form-group col-md-4">
+              <select id="inputState" class="form-control">
+                <option selected>Ville</option>
+                <option>...</option>
+                <option>...</option>
+              </select>
+            </div>
+            <div class="form-group col-md-4">
+              <input type="text" class="form-control" id="inputZip" placeholder="Code Postal"  [(ngModel)]="usertmp.codeP">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="apropos">A propos</label>
+              <textarea class="form-control" placeholder="Description" id="apropos" rows="5" [(ngModel)]="usertmp.propos"> {{glb.user.propos}} </textarea>
+            </div>
+          </div>
+          
+        </fieldset>
+        <ion-button color="primary" expand="block" (click)="UpdateProfile()">Mettre à jour</ion-button>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="verify" [ngClass]="{'active show': showTab('verify')}" role="tabpanel" aria-labelledby="verify-tab">
+          <div class="mt-5 p-1">
+            <div class="login-input alert alert-warning" *ngIf="verified === '1'" role="alert" id="loginerror">
+              Account is being reviewed.
+            </div>
+            <div class="login-input alert alert-success" *ngIf="verified === '2'" role="alert">
+              Account verified.
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="permisID">Permis de conduire (<strong>ID</strong>)</label>
+                <input class="form-control" type="text" placeholder="Permis ID" value="{{verifyAccData.lid}}" [(ngModel)]="verifyAccData.lid"/>
+              </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                              <ion-icon name="calendar"></ion-icon>
+                          </div>
+                        </div>
+                        <ion-datetime class="form-control" placeholder="Date de d’obtention" value="{{verifyAccData.dateo}}" [(ngModel)]="verifyAccData.dateo"></ion-datetime>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <select class="form-control" id="inputPassword4" value="{{verifyAccData.payso}}" [(ngModel)]="verifyAccData.payso">
+                    <option value="0" selected>Pays d’obtention</option>
+                    <option value="algeria">Algérie</option>
+                    <option value="france">France</option>
+                  </select>
+                </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="permisFile">Piece jointe </label>
+              </div>
+              <div class="form-group col-md-6">
+                <ion-button color="light" expand="full" (click)="changepic2( 'rectoImg' , 'rectoid')">
+                  <ion-icon name="add" slot="start"></ion-icon>
+                  Recto
+                </ion-button>
+                <img [src]=""  id="rectoImg" />
+                <input type="file"  id="rectoid" class="form-control" style="display: none;" />
+              </div>
+              <div class="form-group col-md-6">
+                <ion-button color="light" expand="full" (click)="changepic2( 'versoImg' , 'versoid')">
+                  <ion-icon name="add" slot="start"></ion-icon>
+                  Verso
+                </ion-button>
+                <img [src]=""  id="versoImg" />
+                <input type="file"  id="versoid" class="form-control" style="display: none;" />
+              </div>
+            </div>
+            <ion-button color="primary" expand="block" [attr.disabled]="verified !== '0'" (click)="VerifyAccount()">Mettre à jour</ion-button>
+
+          </div>
+      </div>
+      <div class="tab-pane fade" id="param"  [ngClass]="{'active show': showTab('param')}" role="tabpanel" aria-labelledby="param-tab">
+          <div class="mt-5 p-1">
+            <div class="form-row">
+              <div class="form-group col-md-6"></div>
+              <div class="form-group col-md-2">Email</div>
+              <div class="form-group col-md-2">SMS</div>
+              <div class="form-group col-md-2">Push Notification</div>
+            </div>
+            <ion-item-divider></ion-item-divider>
+            <br>
+            <div class="form-row">
+                <div class="form-group col-md-6">Demande d’une location</div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.demandlocation[0]"></ion-toggle></div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.demandlocation[1]"></ion-toggle></div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.demandlocation[2]"></ion-toggle></div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">Relance d’une demande de location</div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.redemandlocation[0]"></ion-toggle></div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.redemandlocation[1]"></ion-toggle></div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.redemandlocation[2]"></ion-toggle></div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">Location Acceptée</div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.locAccept[0]"></ion-toggle></div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.locAccept[1]"></ion-toggle></div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.locAccept[2]"></ion-toggle></div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">Annulation de location</div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.loccancel[0]"></ion-toggle></div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.loccancel[1]"></ion-toggle></div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.loccancel[2]"></ion-toggle></div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">Rappel de location</div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.locrappel[0]"></ion-toggle></div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.locrappel[1]"></ion-toggle></div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.locrappel[2]"></ion-toggle></div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">E-mail promotion</div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.emailpromo[0]"></ion-toggle></div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.emailpromo[1]"></ion-toggle></div>
+                <div class="form-group col-md-2"><ion-toggle [(ngModel)]="this.accparams.emailpromo[2]"></ion-toggle></div>
+            </div>
+            <ion-item-divider></ion-item-divider>
+            <br>
+            <ion-button color="primary" expand="block" (click)="accParamsUpdate()">Mettre à jour</ion-button>
+          </div>
+          
+      </div>
+      <div class="tab-pane fade" id="pay"  [ngClass]="{'active show': showTab('pay')}"  role="tabpanel" aria-labelledby="pay-tab">Paiement</div>
+    </div>
+  </div>
+</ion-content>

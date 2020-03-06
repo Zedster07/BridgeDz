@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from '../services/globals.service';
 
 @Component({
   selector: 'app-menu-list',
@@ -7,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private glb: GlobalsService) {
 
+  }
+  dissmisPopover() {
+    this.glb.popover.dismiss();
+  }
   ngOnInit() {}
 
 }

@@ -1,0 +1,70 @@
+<ion-grid>
+  <ion-row>
+    <ion-col size="12" id="slide-container" class="view-high">
+     <div class="main-slide">
+       <div class="div-overlay">
+        
+           <ion-row> 
+             <ion-col size-lg="4" size-md="12" size-sm="12"  size-xs="12">
+               <ion-item class="form-item">
+                 <ion-label position="floating">
+                  <ion-icon name="search"></ion-icon> Adresse
+                 </ion-label>
+                 <div class="input-container">
+                   <ion-input placeholder="Adresse" class="" [(ngModel)]="this.glb.searchQuery.address"></ion-input>
+                  </div>
+                </ion-item>
+             </ion-col>
+
+             <ion-col size-lg="3" size-md="12" size-sm="12" size-xs="12">
+              <ion-item>
+              <ion-item class="datetimepickers">
+                <ion-label position="floating">
+                  <ion-icon name="calendar"></ion-icon> Debut 
+                </ion-label>
+                <div class="input-container">
+                <ion-input readonly [(ngModel)]="this.glb.searchQuery.startdate" [liIonic4Datepicker]="datePickerObj" (ionchange)="myFunction()"></ion-input>
+                </div>
+              </ion-item>
+              <ion-item class="datetimepickers">
+                <ion-label position="floating">
+                  <ion-icon name="Clock"></ion-icon> Temps 
+                </ion-label>
+                <div class="input-container">
+                  <ion-input readonly [(ngModel)]="this.glb.searchQuery.starttime" [liIonicTimepicker]="timePickerObj" (ionchange)="myFunction()"></ion-input>
+                </div>
+                </ion-item>
+              </ion-item>
+             </ion-col>
+
+             <ion-col  size-lg="3" size-md="12" size-sm="12"  size-xs="12">
+              <ion-item> 
+              <ion-item class="datetimepickers">
+                  <ion-label position="floating">
+                    <ion-icon name="calendar"></ion-icon> Fin 
+                  </ion-label>
+                  <div class="input-container">
+                    <ion-input readonly [(ngModel)]="this.glb.searchQuery.enddate" [liIonic4Datepicker]="datePickerObj" (ionchange)="myFunction()"></ion-input>
+                  </div>
+                </ion-item>
+                <ion-item class="datetimepickers">
+                  <ion-label position="floating">
+                    <ion-icon name="Clock"></ion-icon> Temps
+                  </ion-label>
+                  <div class="input-container">
+                    <ion-input readonly [(ngModel)]="this.glb.searchQuery.endtime" [liIonicTimepicker]="timePickerObj" (ionchange)="myFunction()"></ion-input>
+                  </div>
+                </ion-item>
+              </ion-item>
+               </ion-col>
+               <ion-col>
+                  
+                    <button color="primary" expand="full" (click)="gotosearch()" padding style="height: 100%; width: 100%; font-size: 1.2rem; border-radius:10px !important; background-color: var(--ion-color-primary); color: white;">Rechercher</button>
+              
+               </ion-col>
+           </ion-row>
+
+         
+       </div>
+     </div>
+    </ion-col></ion-row></ion-grid>

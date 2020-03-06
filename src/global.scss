@@ -25,6 +25,9 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 @import url('https://fonts.googleapis.com/css?family=Lobster|Montserrat&display=swap');
+@import '~firebaseui/dist/firebaseui.css';
+
+
 
 .myPicker{
     flex-direction: column;
@@ -33,4 +36,40 @@
 
 .myPicker .picker-wrapper{
     bottom: 50% !important;
+}
+.tp-active {
+    width: 100% !important;
+}
+
+::-webkit-scrollbar, *::-webkit-scrollbar {
+  display: none;
+  overflow: hidden;
+}
+
+.monthview-container {
+    height: auto !important;
+}
+
+.monthview-primary-with-event:has(.prebookedclass) {
+    background-color: red !important;
+}
+
+@media only screen and (min-width: 768px) {
+
+    .dashboard-content {
+        margin-left: 20vw;
+    }
+    .container {
+        max-width: 70vw !important;
+    }
+    .modal-wrapper.sc-ion-modal-md {
+        height: 80vh;
+        overflow-y: hidden;
+    } 
+    
+    #navbarSupportedContent li .active {
+        color:red !important;
+        background-color: black;
+    }
+
 }

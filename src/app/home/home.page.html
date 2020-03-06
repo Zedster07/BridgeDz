@@ -1,17 +1,19 @@
+
 <ion-header>
   <ion-toolbar class="header-wrapper">
     <ion-title slot="start" class="header-title">
       BridgeDz
     </ion-title>
+    
 
     <ion-buttons slot="end" class="header-buttons">
-      <ion-button size="small">
+      <ion-button size="small" (click)="LoginAct()"  > 
         Se Connecter
       </ion-button>
       <ion-button size="small">
         FAQ
       </ion-button>
-      <ion-button expand="full" size="small" color="secondary" fill="solid">
+      <ion-button expand="full" size="small" color="primary" fill="solid">
         <span class="ion-padding">Louer mes voitures</span>
       </ion-button>
     </ion-buttons>
@@ -25,31 +27,237 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col size="12" id="slide-container">
+      <ion-col size="12" id="slide-container" class="view-high">
        <div class="main-slide">
          <div class="div-overlay">
-           <div id="title">
-              <h1>Some Title Goes Here</h1>
-              <h4>SOME SUBTITLE GOES HERE AS WELL </h4>
-           </div>
-           <div id="form_container">
-              <input placeholder="Adresse" class="search-item search-form search-input"/>
-              <button color="primary" (click)="debutDate.open()"   class="search-item search-form-button datepickers-button">
-               <ion-icon name="calendar" slot='start'></ion-icon>
-                {{debutDateStr}}
-              </button>
-              <button color="primary" (click)="finDate.open()" class="search-item search-form-button datepickers-button">
-                  <ion-icon name="calendar" slot='start'></ion-icon>
-                  {{finDateStr}}
-              </button>
-              <ion-datetime #debutDate  displayFormat="MMM DD YYYY HH mm" [pickerOptions]="customPickerOptions" [(ngModel)]="debutDateStr" class="search-item search-form datepickers"></ion-datetime>
-              <ion-datetime #finDate  [(ngModel)]="finDateStr" class="search-item search-form datepickers"></ion-datetime>
-              
-              <button color="primary" class="search-item search-form-button">Rechercher</button>
-           </div>
+          
+            <ion-row>
+              <ion-col id="title">
+                  <h1>Some Title Goes Here</h1>
+                  <h4>SOME SUBTITLE GOES HERE AS WELL </h4>
+              </ion-col>
+            </ion-row>
+             <ion-row> 
+               <ion-col size-lg="4" size-md="12" size-sm="12"  size-xs="12">
+                 <ion-item class="form-item">
+                   <ion-label position="floating">
+                    <ion-icon name="search"></ion-icon> Adresse
+                   </ion-label>
+                   <div class="input-container">
+                     <ion-input placeholder="Adresse" class="" [(ngModel)]="glb.searchQuery.address"></ion-input>
+                    </div>
+                  </ion-item>
+               </ion-col>
+
+               <ion-col size-lg="3" size-md="12" size-sm="12" size-xs="12">
+                <ion-item>
+                <ion-item class="datetimepickers">
+                  <ion-label position="floating">
+                    <ion-icon name="calendar"></ion-icon> Debut 
+                  </ion-label>
+                  <div class="input-container">
+                  <ion-input readonly [(ngModel)]="glb.searchQuery.startdate" [liIonic4Datepicker]="datePickerObj" (ionchange)="myFunction()"></ion-input>
+                  </div>
+                </ion-item>
+                <ion-item class="datetimepickers">
+                  <ion-label position="floating">
+                    <ion-icon name="Clock"></ion-icon> Temps 
+                  </ion-label>
+                  <div class="input-container">
+                    <ion-input readonly [(ngModel)]="glb.searchQuery.starttime" [liIonicTimepicker]="timePickerObj" (ionchange)="myFunction()"></ion-input>
+                  </div>
+                  </ion-item>
+                </ion-item>
+               </ion-col>
+
+               <ion-col  size-lg="3" size-md="12" size-sm="12"  size-xs="12">
+                <ion-item> 
+                <ion-item class="datetimepickers">
+                    <ion-label position="floating">
+                      <ion-icon name="calendar"></ion-icon> Fin 
+                    </ion-label>
+                    <div class="input-container">
+                      <ion-input readonly [(ngModel)]="glb.searchQuery.enddate" [liIonic4Datepicker]="datePickerObj" (ionchange)="myFunction()"></ion-input>
+                    </div>
+                  </ion-item>
+                  <ion-item class="datetimepickers">
+                    <ion-label position="floating">
+                      <ion-icon name="Clock"></ion-icon> Temps
+                    </ion-label>
+                    <div class="input-container">
+                      <ion-input readonly [(ngModel)]="glb.searchQuery.endtime" [liIonicTimepicker]="timePickerObj" (ionchange)="myFunction()"></ion-input>
+                    </div>
+                  </ion-item>
+                </ion-item>
+                 </ion-col>
+                 <ion-col>
+                   
+                      <button color="primary" expand="full" (click)="gotosearch()" padding style="height: 100%; width: 100%; font-size: 1.2rem; border-radius:10px !important; background-color: var(--ion-color-primary); color: white;">Rechercher</button>
+                
+                 </ion-col>
+             </ion-row>
+
+           
          </div>
        </div>
       </ion-col>
+      <ion-col size="12" style="padding-bottom: 10vh;">
+        <div id="howitworks">
+          <h1 class="section-title">Voici la nouvelle manière de louer une voiture</h1>
+          <ion-row id="howitworks_content">
+            <ion-col size-lg="5" size-md="12" size-sm="12"  size-xs="12" id="map_img">
+             
+            </ion-col>
+            <ion-col size-lg="6" size-md="12" size-sm="12"  size-xs="12" style="text-align: left;">
+                <ion-row>
+                  <ion-col>
+                    <h3>Louez pour une heure ou pour plusieurs jours</h3>
+                    <p>Un prix adapté pour chaque trajet</p>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                      <h3>Louez pour une heure ou pour plusieurs jours</h3>
+                      <p>Un prix adapté pour chaque trajet</p>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col>
+                        <h3>Louez pour une heure ou pour plusieurs jours</h3>
+                        <p>Un prix adapté pour chaque trajet</p>
+                      </ion-col>
+                    </ion-row>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="12" id="recent_cars" style="padding-bottom: 10vh; padding-top: 10vh;  text-align: center; --background: none; background-color: #f1f1f1;">
+        <h1 class="section-title">Une voiture est réservée toutes les 3 minutes</h1>
+        <ion-row id="recent-cards-container" style="margin:0 auto;">
+          <ion-col size-lg="4" size-md="12" size-sm="12"  size-xs="12">
+              <ion-card style="background-color: white;">
+                  <ion-card-header>
+                    <ion-img src="assets/images/clio.jpg"></ion-img>
+                    <ion-card-subtitle>2014  5 places</ion-card-subtitle>
+                    <ion-card-title>Renault Clio</ion-card-title>
+                  </ion-card-header>
+                
+                  <ion-card-content>
+                      <ion-icon name="star" color="warning"></ion-icon>
+                      <ion-icon name="star" color="warning"></ion-icon>
+                      <ion-icon name="star" color="warning"></ion-icon>
+                      <ion-icon name="star" color="warning"></ion-icon>
+                      <ion-icon name="star" color="warning"></ion-icon>
+                  </ion-card-content>
+                </ion-card>
+          </ion-col>
+          <ion-col size-lg="4" size-md="12" size-sm="12"  size-xs="12">
+              <ion-card style="background-color: white;">
+                  <ion-card-header>
+                    <ion-img src="assets/images/clio.jpg"></ion-img>
+                    <ion-card-subtitle>2014  5 places</ion-card-subtitle>
+                    <ion-card-title>Renault Clio</ion-card-title>
+                  </ion-card-header>
+                
+                  <ion-card-content>
+                      <ion-icon name="star" color="warning"></ion-icon>
+                      <ion-icon name="star" color="warning"></ion-icon>
+                      <ion-icon name="star" color="warning"></ion-icon>
+                      <ion-icon name="star" color="warning"></ion-icon>
+                      <ion-icon name="star" color="warning"></ion-icon>
+                  </ion-card-content>
+                </ion-card>
+          </ion-col>
+          <ion-col size-lg="4" size-md="12" size-sm="12"  size-xs="12">
+              <ion-card style="background-color: white;">
+                  <ion-card-header>
+                    <ion-img src="assets/images/clio.jpg"></ion-img>
+                    <ion-card-subtitle>2014  5 places</ion-card-subtitle>
+                    <ion-card-title>Renault Clio</ion-card-title>
+                  </ion-card-header>
+                
+                  <ion-card-content>
+                    <ion-icon name="star" color="warning"></ion-icon>
+                    <ion-icon name="star" color="warning"></ion-icon>
+                    <ion-icon name="star" color="warning"></ion-icon>
+                    <ion-icon name="star" color="warning"></ion-icon>
+                    <ion-icon name="star" color="warning"></ion-icon>
+                  </ion-card-content>
+                </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col id="apps" size="12" style="padding-bottom: 10vh; padding-top: 10vh; text-align: center;" >
+          <h1 class="section-title">Encore plus simple avec l'appli</h1>
+          <ion-row id="apps-content">
+            <ion-col  size-lg="4" size-md="12" size-sm="12"  size-xs="12">
+              <a class="btn-app" href="#">
+                <span class="btn-app-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.681 4.391c-.746.91-1.905 1.571-3.148 1.406-.167-1.157.414-2.481 1.076-3.225.829-.827 2.072-1.49 3.15-1.572.165 1.24-.332 2.481-1.078 3.391zm2.653 7.857c.082 3.144 2.816 4.219 2.9 4.384 0 .082-.414 1.49-1.492 2.977-.911 1.24-1.823 2.564-3.232 2.564-1.408 0-1.905-.827-3.48-.827-1.657 0-2.154.744-3.481.827-1.326.083-2.403-1.323-3.315-2.646-1.823-2.646-3.23-7.443-1.326-10.67.912-1.571 2.57-2.646 4.31-2.646 1.326-.082 2.651.91 3.48.91.828 0 2.404-1.159 4.061-.992.662 0 2.651.247 3.894 2.067-.165.082-2.32 1.406-2.32 4.052z" fill="var(--ion-color-danger)"></path></svg>
+                </span>
+                <span class="btn-app-text">
+                  App Store
+                </span>
+              </a>
+            </ion-col>
+            <ion-col  size-lg="4" size-md="12" size-sm="12"  size-xs="12">
+                <a class="btn-app" href="#">
+                  <span class="btn-app-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2.335 21.845l-.003-.002.003.002zm13.462-6.573L4.072 21.925c-.332.165-.662.248-.911.248-.182 0-.337-.028-.482-.091l10-9.922 3.118 3.112zm4.434-2.445l-3.665 2.049-.102-.109-3.197-3.19 3.196-3.171-.189-.189 3.957 2.212c1.16.662 1.16 1.736 0 2.398zM2.156 21.434a1.835 1.835 0 0 1-.156-.75V2.49c0-.367.04-.63.128-.86l9.965 9.946-9.937 9.859zM2.729 1.06C2.861 1.022 3 1 3.161 1c.249 0 .58.083.91.248l11.726 6.653-3.116 3.09-9.952-9.93z" fill="var(--ion-color-danger)" ></path> </svg>
+                  </span>
+                
+                  <span class="btn-app-text">
+                    Google Play
+                  </span>
+                </a>
+            </ion-col>
+          </ion-row>
+      </ion-col>
+      <ion-item-divider style="width: 80%; margin: 0 auto;"></ion-item-divider>
+      <ion-col id="footer" size="12" style=" padding-top: 10vh;">
+        <div id="footer-container">
+          <ion-row>
+            <ion-col id="about" size-lg="6" size-md="12" size-sm="12"  size-xs="12">
+              <h4>À PROPOS</h4>
+              <p>
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam,
+                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+              </p>
+            </ion-col>
+            <ion-col id="links" offset-lg="2" size-lg="2" size-md="12" size-sm="12"  size-xs="12">
+              <h4>EN SAVOIR PLUS</h4>
+              <ul>
+                <li>lorem ipsum</li>
+                <li>lorem ipsum</li>
+                <li>lorem ipsum</li>
+                <li>lorem ipsum</li>
+              </ul>
+            </ion-col>
+
+            <ion-col id="links2" size-lg="2" size-md="12" size-sm="12"  size-xs="12">
+              <h4>DÉCOUVRIR</h4>
+                <ul>
+                  <li>lorem ipsum</li>
+                  <li>lorem ipsum</li>
+                  <li>lorem ipsum</li>
+                  <li>lorem ipsum</li>
+                </ul>
+            </ion-col>
+          </ion-row>
+          <ion-item-divider></ion-item-divider>
+          <ion-row>
+            <ion-col size="12" style="text-align: center; padding: 20px;">
+                © BridgeDz 2019 - Tous droits réservés
+            </ion-col>
+          </ion-row>
+          
+        </div>
+      </ion-col>
+      
     </ion-row>
   </ion-grid>
 </ion-content>

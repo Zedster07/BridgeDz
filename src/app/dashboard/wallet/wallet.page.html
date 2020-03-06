@@ -1,0 +1,97 @@
+<ion-content class="ion-padding" >
+    <ion-card class="credit text-center">
+      <ion-card-header>
+        <ion-title class="ion-padding">Mon Portefeuille</ion-title>
+        
+        <ion-icon name="wallet" style="font-size: 75px;"></ion-icon>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>Solde Actuel : 0 €</h2>
+      </ion-card-content>
+      <ion-button expand="full" class="ion-no-margin">ENCAISSER</ion-button>
+    </ion-card>
+
+    <ion-card class="credit text-center">
+      <ion-card-header>
+        <ion-title class="ion-padding">Mes paiement à venir</ion-title>
+        
+        <ion-icon name="cash" style="font-size: 75px;"></ion-icon>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>A payer : 0 € prévu le DD/MM/YYYY</h2>
+      </ion-card-content>
+      <ion-button expand="full" color="success" class="ion-no-margin">Payer</ion-button>
+    </ion-card>
+
+
+    <ion-item-divider style="margin-bottom: 30px;"></ion-item-divider>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" (click)="setTabVal('pe')">
+        <span class="nav-link" [ngClass]="{'active': showTab('pe')}" id="pe-tab" data-toggle="tab" href="#pe" role="tab" aria-controls="pe" aria-selected="true">Paiement Effectués</span>
+      </li>
+      <li class="nav-item" (click)="setTabVal('pf')">
+        <span class="nav-link" [ngClass]="{'active': showTab('pf')}" id="pf-tab" data-toggle="tab" href="#pf" role="tab" aria-controls="pf" aria-selected="false">Paiement à Venir</span>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade"  [ngClass]="{'active show': showTab('pe')}" id="pe" role="tabpanel" aria-labelledby="pe-tab">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th>Facture</th>
+                  <th>Date</th>
+                  <th>Somme</th>
+                  <th>Demmande</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>12/03/2019</td>
+                  <td>300, 00 Euros</td>
+                  <td>A la demande / Fin du mois</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>12/04/2019</td>
+                  <td>253, 12 Euros</td>
+                  <td>A la demande / Fin du mois</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="pf"  [ngClass]="{'active show': showTab('pf')}"  role="tabpanel" aria-labelledby="pf-tab">
+          <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                    <tr>
+                      <th>Facture</th>
+                      <th>Date</th>
+                      <th>Voiture</th>
+                      <th>Somme</th>
+                      <th>Date de paiement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>12/04/2019</td>
+                      <td>Mégane</td>
+                      <td>200, 00 euros</td>
+                      <td>01/06/2019</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>12/04/2019</td>
+                      <td>Clio</td>
+                      <td>150, 00 euros</td>
+                      <td>01/07/2019</td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+      </div>
+    </div>
+</ion-content>
