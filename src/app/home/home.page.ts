@@ -16,6 +16,21 @@ export class HomePage implements OnInit {
 
   @ViewChild('finDate' , {static: true} ) finDate;
   @ViewChild('debutDate' , {static: true} ) debutDate;
+  isPhone = false;
+  mySlideOptionsPhone = {
+    initialSlide: 0,
+    slidesPerView: 1,
+    loop: true,
+    pager: true,
+    paginationType: 'bullets'
+  };
+  mySlideOptions = {
+    initialSlide: 0,
+    slidesPerView: 3,
+    loop: true,
+    pager: true,
+    paginationType: 'bullets'
+  };
   todaysDate = new Date();
   myDate = this.todaysDate.getFullYear() + '-' + (this.todaysDate.getMonth() + 1)  + '-' + this.todaysDate.getDay();
   disabledDates: Date[] = [
@@ -93,6 +108,11 @@ export class HomePage implements OnInit {
     public glb: GlobalsService,
     private route: Router,
     private loading: LoadingService ) {
+      if (window.screen.width <= 360 ) {
+        this.isPhone = true;
+      } else {
+        this.isPhone = false;
+      }
       this.glb.globalLoading(true);
     }
   customPickerOptions: PickerOptions = {
@@ -131,8 +151,30 @@ export class HomePage implements OnInit {
     });
     return await pop.present();
   }
+  ionViewWillEnter() {
+    console.log(window.screen.width);
+    if (window.screen.width <= 360 ) {
+      this.isPhone = true;
+    } else {
+      this.isPhone = false;
+    }
+    this.glb.isMainPage = true;
+  }
 
+  onScroll(event) {
+    if (event.detail.scrollTop > 100) {
+      this.glb.isMainPage = false;
+    } else {
+      this.glb.isMainPage = true;
+    }
+    console.log(event);
+  }
   ngOnInit() {
+    if (window.screen.width <= 360 ) {
+      this.isPhone = true;
+    } else {
+      this.isPhone = false;
+    }
     this.glb.globalLoading(false);
   }
 }

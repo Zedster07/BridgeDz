@@ -35,6 +35,10 @@ import { AccessHoursPage } from './modals/access-hours/access-hours.page';
 import { CarAvailabilityPage } from './modals/car-availability/car-availability.page';
 import { NgCalendarModule  } from 'ionic2-calendar';
 import { ReservePage } from './modals/reserve/reserve.page';
+import { MenuListComponent } from './menu-list/menu-list.component';
+import { ClientMenuListComponent } from './client/client-menu-list/client-menu-list.component';
+import { Ionic4DatepickerModule } from '@logisticinfotech/ionic4-datepicker';
+import { IonicTimepickerModule } from '@logisticinfotech/ionic-timepicker';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -57,12 +61,22 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
 };
 
 @NgModule({
-  declarations: [AppComponent, AgencyModalPage , AddCarModalPage , ReductionsPage , AccessHoursPage , CarAvailabilityPage , ReservePage],
-  entryComponents: [AgencyModalPage, AddCarModalPage, ReductionsPage, AccessHoursPage , CarAvailabilityPage , ReservePage],
+  declarations: [AppComponent, AgencyModalPage , AddCarModalPage , ReductionsPage , AccessHoursPage , CarAvailabilityPage , ReservePage , 
+    MenuListComponent , ClientMenuListComponent],
+  entryComponents: [
+    AgencyModalPage,
+    AddCarModalPage,
+    ReductionsPage,
+    AccessHoursPage ,
+    CarAvailabilityPage ,
+    ReservePage ,
+    MenuListComponent, ClientMenuListComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     FormsModule,
     AngularFireAuthModule,
+    Ionic4DatepickerModule,
+    IonicTimepickerModule,
     HttpClientModule ,
     IonicStorageModule.forRoot(),
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),

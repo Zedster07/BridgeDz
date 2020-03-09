@@ -23,7 +23,7 @@ import { MenuListComponent } from '../menu-list/menu-list.component';
       }
     ])
   ],
-  entryComponents: [MenuListComponent ],
-  declarations: [HomePage, MenuListComponent]
+  entryComponents: [],
+  declarations: [HomePage]
 })
 export class HomePageModule {}

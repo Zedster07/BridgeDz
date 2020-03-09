@@ -67,7 +67,9 @@ export class ClientPage implements OnInit {
     });
     return await modal.present();
   }
-  
+  ionViewWillEnter() {
+    this.glb.isMainPage = false;
+  }
   ngOnInit() {
     this.glb.globalLoading(false);
   }

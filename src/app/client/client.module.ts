@@ -52,7 +52,7 @@ const routes: Routes = [
     IonicTimepickerModule,
     RouterModule.forChild(routes)
   ],
-  entryComponents: [ClientMenuListComponent],
-  declarations: [ClientPage , ClientMenuListComponent]
+  entryComponents: [],
+  declarations: [ClientPage]
 })
 export class ClientPageModule {}

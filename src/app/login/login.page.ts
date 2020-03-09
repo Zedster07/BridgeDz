@@ -145,7 +145,10 @@ export class LoginPage implements OnInit {
   errorCallback(errorData: FirebaseUISignInFailure) {
 
   }
-  
+
+  ionViewWillEnter() {
+    this.glb.isMainPage = false;
+  }
   ngOnInit() {
     this.glb.globalLoading(false);
     if (this.authService.isLoggedIn()) {

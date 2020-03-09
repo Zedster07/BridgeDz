@@ -11,7 +11,7 @@ export class ClientMenuListComponent implements OnInit {
 
   constructor(
     private logins: LoginService,
-    private glb: GlobalsService ) { }
+    public glb: GlobalsService ) { }
   logout() {
     this.dissmisPopover();
     this.logins.logOut();

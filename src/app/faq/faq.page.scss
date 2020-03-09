@@ -1,0 +1,18 @@
+.accordion {
+    .card-header {
+        h2 {
+            span , ion-button {
+                vertical-align: top;
+            }
+        }
+        button {
+            color: black !important;
+        }
+        background-color: rgb(245,245,245);
+        border: 1px solid rgb(245,245,245);
+    }
+    
+}
+.faqMain {
+    --ion-background-color:rgb(245,245,245);
+}

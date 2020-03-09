@@ -1,3 +1,157 @@
 <ion-app>
+  <ion-header *ngIf="!glb.isDashbPage" color="white" no-border>
+  
+    <nav [attr.class]="glb.isMainPage ? 'transNav navbar navbar-dark' : 'whiteNav navbar navbar-white'" id="Mainnavbar">
+      <div class="container" style="color: white; font-size: 20px;">
+      <a class="navbar-brand" [routerLink]="['/']" routerLinkActive="router-link-active" >
+        <img [src]="glb.hostServer + 'images/Logo.png'" height="60"/>
+      </a>
+      <span class="navbar-text" style="color:white">
+        <ion-buttons slot="end" class="header-buttons">
+          <ion-chip *ngIf="this.loginServ.isLoggedIn()" [attr.color]="glb.isMainPage ? 'light' : 'dark'">
+            <ion-avatar>
+              <img src="{{glb.user.pic}}">
+            </ion-avatar>
+            <ion-label class="ion-hide-md-down">{{glb.user.lname}}</ion-label>
+            <ion-label (click)="presentPopover($event)">
+              <ion-icon name="arrow-dropdown"></ion-icon>
+            </ion-label>
+          </ion-chip>
+          <ion-button size="small" *ngIf="!this.loginServ.isLoggedIn()" (click)="LoginAct()"> 
+            Se Connecter
+          </ion-button>
+          <ion-button size="small" *ngIf="!this.loginServ.isLoggedIn()" [routerLink]="['/faq']" routerLinkActive="router-link-active" >
+            FAQ
+          </ion-button>
+          <ion-button expand="full" size="small" color="primary" fill="solid" style="margin-left: 20px;">
+            <span class="ion-padding">Louer mes voitures</span>
+          </ion-button>
+        </ion-buttons>
+      </span>
+    </div>
+    </nav>
+    <!-- <ion-toolbar class="header-wrapper container">
+      
+      <ion-title slot="start" class="header-title">
+        BridgeDz
+      </ion-title>
+      
+  
+      <ion-buttons slot="end" class="header-buttons">
+        <ion-chip *ngIf="this.loginServ.isLoggedIn()">
+          <ion-avatar>
+            <img src="{{glb.user.pic}}">
+          </ion-avatar>
+          <ion-label class="ion-hide-md-down">{{glb.user.lname}}</ion-label>
+          <ion-label (click)="presentPopover($event)">
+            <ion-icon name="arrow-dropdown"></ion-icon>
+          </ion-label>
+        </ion-chip>
+        <ion-button size="small" *ngIf="!this.loginServ.isLoggedIn()"> 
+          Se Connecter
+        </ion-button>
+        <ion-button size="small" *ngIf="!this.loginServ.isLoggedIn()">
+          FAQ
+        </ion-button>
+        <ion-button expand="full" size="small" color="primary" fill="solid">
+          <span class="ion-padding">Louer mes voitures</span>
+        </ion-button>
+      </ion-buttons>
+    
+    </ion-toolbar> -->
+    <ion-toolbar class="navbar2" *ngIf="this.loginServ.isLoggedIn() && !glb.isMainPage">
+      <div class="container navbar navbar-light navbar-expand-lg">
+            <button class="navbar-toggler" id="respMenu"  type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active" [routerLink]="['/client/accueil']" id="accueil" >
+                  <span class="nav-link"> Je loue une voiture <span class="sr-only">(current)</span></span>
+                </li>
+                <li class="nav-item" [routerLink]="['/client/mplocations']"  id="mplocations">
+                  <span class="nav-link"  > Mes Locations </span>
+                </li>
+                <li class="nav-item" [routerLink]="['/client/cnotifications']" id="cnotifications" >
+                  <span class="nav-link">Notifications <ion-badge color="primary" slot="end" size="small" *ngIf="this.glb.unreadNotif > 0">{{this.glb.unreadNotif}}</ion-badge></span>
+                </li>
+                <li class="nav-item" [routerLink]="['/client/monprofile']" id="monprofile" >
+                    <span class="nav-link">Mon Compte</span>
+                </li>
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                 <!-- <ion-button expand="full" [routerLink]="['/agency']" routerLinkActive="router-link-active"  routerDirection="forward" color="light" >  Mes Agences </ion-button> -->
+                 <ion-button expand="full" (click)="showAgencyModal()"  color="light" >  Mes Agences </ion-button>
+              </form>
+            </div>
+          </div>
+    </ion-toolbar>
+
+
+
+
+    <!-- Search ToolBar -->
+    <ion-toolbar *ngIf="glb.isSearchPage" color="light" class="ion-padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <ion-item class="form-item searchinput">
+              <ion-label position="floating">
+               <ion-icon name="search"></ion-icon> Adresse
+              </ion-label>
+              <div class="input-container">
+                <ion-input placeholder="Adresse" class="searchItem" [(ngModel)]="glb.searchQuery.address" (ionChange)="myFunction()"></ion-input>
+               </div>
+             </ion-item>
+            <!-- <input type="text" class="form-control searchinput" placeholder="First name"> -->
+          </div>
+          <div class="col-3">
+            <ion-item class="searchinput">
+              <ion-item class="datetimepickers">
+                <ion-label position="floating">
+                  <ion-icon name="calendar"></ion-icon> Debut 
+                </ion-label>
+                <div class="input-container">
+                <ion-input readonly [(ngModel)]="glb.searchQuery.startdate" [liIonic4Datepicker]="datePickerObj" (ionChange)="myFunction()"></ion-input>
+                </div>
+              </ion-item>
+              <ion-item class="datetimepickers">
+                <ion-label position="floating">
+                  <ion-icon name="Clock"></ion-icon> Temps 
+                </ion-label>
+                <div class="input-container">
+                  <ion-input readonly [(ngModel)]="glb.searchQuery.starttime" [liIonicTimepicker]="timePickerObj" (ionChange)="myFunction()"></ion-input>
+                </div>
+                </ion-item>
+              </ion-item>
+            <!-- <input type="text" class="form-control searchinput" placeholder="Last name"> -->
+          </div>
+          <div class="col-3">
+            <ion-item class="searchinput"> 
+              <ion-item class="datetimepickers">
+                  <ion-label position="floating">
+                    <ion-icon name="calendar"></ion-icon> Fin 
+                  </ion-label>
+                  <div class="input-container">
+                    <ion-input readonly [(ngModel)]="glb.searchQuery.enddate" [liIonic4Datepicker]="datePickerObj" (ionChange)="myFunction()"></ion-input>
+                  </div>
+                </ion-item>
+                <ion-item class="datetimepickers">
+                  <ion-label position="floating">
+                    <ion-icon name="Clock"></ion-icon> Temps
+                  </ion-label>
+                  <div class="input-container">
+                    <ion-input readonly [(ngModel)]="glb.searchQuery.endtime" [liIonicTimepicker]="timePickerObj" (ionChange)="myFunction()"></ion-input>
+                  </div>
+                </ion-item>
+              </ion-item>
+            <!-- <input type="text" class="form-control searchinput" placeholder="Last name"> -->
+          </div>
+        </div>
+      </div>
+      
+    </ion-toolbar>
+  </ion-header>
   <ion-router-outlet></ion-router-outlet>
 </ion-app>

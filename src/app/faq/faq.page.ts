@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from '../services/globals.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+  selector: 'app-faq',
+  templateUrl: './faq.page.html',
+  styleUrls: ['./faq.page.scss'],
 })
-export class RegisterPage implements OnInit {
+export class FaqPage implements OnInit {
 
   constructor(private glb: GlobalsService) { }
 
@@ -15,4 +15,5 @@ export class RegisterPage implements OnInit {
   ionViewWillEnter() {
     this.glb.isMainPage = false;
   }
+
 }

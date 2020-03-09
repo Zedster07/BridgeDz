@@ -37,8 +37,21 @@
     #map_img {
         height: auto;
     }
+    #footer {
+        background-color: var(--ion-color-dark);
+    }
     #footer-container {
+        
         width:80%;
+    }
+    #footer-container {
+        p , li {
+            color: rgb(185,185,185) !important;
+        }
+        
+    }
+    #footer-container h4 {
+        color: white !important;
     }
     #apps-content {
         display: flex;
@@ -173,7 +186,10 @@ ion-grid {
 #title h1 {
     font-family: 'Lobster';
 }
-
+.searchFormCol {
+    margin: 0px; 
+    padding: 0px;
+}
 .search-input {
     width: 400px;
 }
@@ -187,7 +203,8 @@ ion-grid {
     padding: 10px;
 }
 ion-item:not(.datepickers) {
-    border-radius: 10px;
+   // border-radius: 10px;
+   margin: 0px !important;
 }
 
 ion-col .datetimepickers {

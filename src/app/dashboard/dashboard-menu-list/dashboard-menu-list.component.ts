@@ -14,7 +14,7 @@ import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 export class DashboardMenuListComponent implements OnInit {
 
   constructor(
-    private glb: GlobalsService,
+    public glb: GlobalsService,
     private router: Router,
     private angularFireAuth: AngularFireAuth,
     private db: DbinteractionsService,

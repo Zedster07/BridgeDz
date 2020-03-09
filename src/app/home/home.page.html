@@ -1,30 +1,7 @@
 
-<ion-header>
-  <ion-toolbar class="header-wrapper">
-    <ion-title slot="start" class="header-title">
-      BridgeDz
-    </ion-title>
-    
 
-    <ion-buttons slot="end" class="header-buttons">
-      <ion-button size="small" (click)="LoginAct()"  > 
-        Se Connecter
-      </ion-button>
-      <ion-button size="small">
-        FAQ
-      </ion-button>
-      <ion-button expand="full" size="small" color="primary" fill="solid">
-        <span class="ion-padding">Louer mes voitures</span>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end" class="phone-header-buttons">
-        <ion-button (click)="presentPopover($event)"> Menu <ion-icon name="arrow-dropdown" slot="end"></ion-icon></ion-button>
-    </ion-buttons>
-    
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
+<ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
   <ion-grid>
     <ion-row>
       <ion-col size="12" id="slide-container" class="view-high">
@@ -33,12 +10,12 @@
           
             <ion-row>
               <ion-col id="title">
-                  <h1>Some Title Goes Here</h1>
-                  <h4>SOME SUBTITLE GOES HERE AS WELL </h4>
+                  <h1>Anticiper en quelque seconde votre voyage en Algérie</h1>
+                  <h4>Réserver votre voiture en ligne, et récupérer là dès votre arrivée à l’aéroport.</h4>
               </ion-col>
             </ion-row>
-             <ion-row> 
-               <ion-col size-lg="4" size-md="12" size-sm="12"  size-xs="12">
+             <ion-row style="padding: 20px; background-color: rgba(0,0,0,.6)"> 
+               <ion-col size-lg="4" size-md="12" size-sm="12"  size-xs="12" class="searchFormCol">
                  <ion-item class="form-item">
                    <ion-label position="floating">
                     <ion-icon name="search"></ion-icon> Adresse
@@ -49,7 +26,7 @@
                   </ion-item>
                </ion-col>
 
-               <ion-col size-lg="3" size-md="12" size-sm="12" size-xs="12">
+               <ion-col size-lg="3" size-md="12" size-sm="12" size-xs="12" class="searchFormCol">
                 <ion-item>
                 <ion-item class="datetimepickers">
                   <ion-label position="floating">
@@ -70,7 +47,7 @@
                 </ion-item>
                </ion-col>
 
-               <ion-col  size-lg="3" size-md="12" size-sm="12"  size-xs="12">
+               <ion-col  size-lg="3" size-md="12" size-sm="12"  size-xs="12" class="searchFormCol">
                 <ion-item> 
                 <ion-item class="datetimepickers">
                     <ion-label position="floating">
@@ -90,9 +67,9 @@
                   </ion-item>
                 </ion-item>
                  </ion-col>
-                 <ion-col>
+                 <ion-col style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px;">
                    
-                      <button color="primary" expand="full" (click)="gotosearch()" padding style="height: 100%; width: 100%; font-size: 1.2rem; border-radius:10px !important; background-color: var(--ion-color-primary); color: white;">Rechercher</button>
+                      <button color="primary" expand="full" (click)="gotosearch()" padding style="height: 100%; width: 100%; font-size: 1.2rem !important; background-color: var(--ion-color-primary); color: white;">Rechercher</button>
                 
                  </ion-col>
              </ion-row>
@@ -101,41 +78,51 @@
          </div>
        </div>
       </ion-col>
-      <ion-col size="12" style="padding-bottom: 10vh;">
-        <div id="howitworks">
-          <h1 class="section-title">Voici la nouvelle manière de louer une voiture</h1>
-          <ion-row id="howitworks_content">
-            <ion-col size-lg="5" size-md="12" size-sm="12"  size-xs="12" id="map_img">
-             
-            </ion-col>
-            <ion-col size-lg="6" size-md="12" size-sm="12"  size-xs="12" style="text-align: left;">
-                <ion-row>
-                  <ion-col>
-                    <h3>Louez pour une heure ou pour plusieurs jours</h3>
-                    <p>Un prix adapté pour chaque trajet</p>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col>
-                      <h3>Louez pour une heure ou pour plusieurs jours</h3>
-                      <p>Un prix adapté pour chaque trajet</p>
-                    </ion-col>
-                  </ion-row>
-                  <ion-row>
-                      <ion-col>
-                        <h3>Louez pour une heure ou pour plusieurs jours</h3>
-                        <p>Un prix adapté pour chaque trajet</p>
-                      </ion-col>
-                    </ion-row>
-            </ion-col>
-          </ion-row>
+      <ion-col size="12" style="padding-bottom: 10vh;  padding-top: 10vh; text-align: center;">
+        <div class="container">
+          <div class="card-group">
+            <div class="card">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">J’indique l’aéroport de ma destination et la période mon voyage</h5>
+                <p class="card-text">Je personnalise encore plus ma recherche en indiquant l’heure de mon arrivée.</p>
+                <p class="card-text"><small class="text-muted">1st Step</small></p>
+              </div>
+            </div>
+            <div class="card">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Je sélectionne le véhicule qui me convient et je le réserve</h5>
+                <p class="card-text">Je fais attention. Certains véhicules nécessitent une confirmation au préalable</p>
+                <p class="card-text"><small class="text-muted">2nd Step</small></p>
+              </div>
+            </div>
+            <div class="card">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Je récupérer le véhicule à mon arrivée à l’aéroport</h5>
+                <p class="card-text">Avant de récupérer le véhicule, je le photographie en présence du bailleur et je télécharge les photos</p>
+                <p class="card-text"><small class="text-muted">3rd Step</small></p>
+              </div>
+            </div>
+            <div class="card">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Je restitue le véhicule avant mon départ à l’aéroport</h5>
+                <p class="card-text">Avant de restituer le véhicule, je le photographie en présence du bailleur et je télécharge les photos</p>
+                <p class="card-text"><small class="text-muted">4th Step</small></p>
+              </div>
+            </div>
+          </div>
         </div>
       </ion-col>
       <ion-col size="12" id="recent_cars" style="padding-bottom: 10vh; padding-top: 10vh;  text-align: center; --background: none; background-color: #f1f1f1;">
         <h1 class="section-title">Une voiture est réservée toutes les 3 minutes</h1>
         <ion-row id="recent-cards-container" style="margin:0 auto;">
-          <ion-col size-lg="4" size-md="12" size-sm="12"  size-xs="12">
-              <ion-card style="background-color: white;">
+          <ion-col size="12">
+            <ion-slides [options]="isPhone ? mySlideOptionsPhone : mySlideOptions">
+              <ion-slide>
+                <ion-card style="background-color: white;">
                   <ion-card-header>
                     <ion-img src="assets/images/clio.jpg"></ion-img>
                     <ion-card-subtitle>2014  5 places</ion-card-subtitle>
@@ -150,9 +137,9 @@
                       <ion-icon name="star" color="warning"></ion-icon>
                   </ion-card-content>
                 </ion-card>
-          </ion-col>
-          <ion-col size-lg="4" size-md="12" size-sm="12"  size-xs="12">
-              <ion-card style="background-color: white;">
+              </ion-slide>
+              <ion-slide>
+                <ion-card style="background-color: white;">
                   <ion-card-header>
                     <ion-img src="assets/images/clio.jpg"></ion-img>
                     <ion-card-subtitle>2014  5 places</ion-card-subtitle>
@@ -167,9 +154,9 @@
                       <ion-icon name="star" color="warning"></ion-icon>
                   </ion-card-content>
                 </ion-card>
-          </ion-col>
-          <ion-col size-lg="4" size-md="12" size-sm="12"  size-xs="12">
-              <ion-card style="background-color: white;">
+              </ion-slide>
+              <ion-slide>
+                <ion-card style="background-color: white;">
                   <ion-card-header>
                     <ion-img src="assets/images/clio.jpg"></ion-img>
                     <ion-card-subtitle>2014  5 places</ion-card-subtitle>
@@ -177,14 +164,17 @@
                   </ion-card-header>
                 
                   <ion-card-content>
-                    <ion-icon name="star" color="warning"></ion-icon>
-                    <ion-icon name="star" color="warning"></ion-icon>
-                    <ion-icon name="star" color="warning"></ion-icon>
-                    <ion-icon name="star" color="warning"></ion-icon>
-                    <ion-icon name="star" color="warning"></ion-icon>
+                      <ion-icon name="star" color="warning"></ion-icon>
+                      <ion-icon name="star" color="warning"></ion-icon>
+                      <ion-icon name="star" color="warning"></ion-icon>
+                      <ion-icon name="star" color="warning"></ion-icon>
+                      <ion-icon name="star" color="warning"></ion-icon>
                   </ion-card-content>
                 </ion-card>
+              </ion-slide>
+            </ion-slides>
           </ion-col>
+         
         </ion-row>
       </ion-col>
       <ion-col id="apps" size="12" style="padding-bottom: 10vh; padding-top: 10vh; text-align: center;" >
@@ -214,44 +204,57 @@
           </ion-row>
       </ion-col>
       <ion-item-divider style="width: 80%; margin: 0 auto;"></ion-item-divider>
-      <ion-col id="footer" size="12" style=" padding-top: 10vh;">
+      <ion-col id="footer" size="12" style=" padding-top: 10vh;" >
         <div id="footer-container">
           <ion-row>
-            <ion-col id="about" size-lg="6" size-md="12" size-sm="12"  size-xs="12">
-              <h4>À PROPOS</h4>
-              <p>
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-              </p>
+            <ion-col id="about" size-lg="4" size-md="12" size-sm="12"  size-xs="12">
+              <ion-row>
+                <ion-col size="2">
+                  <ion-img [src]="glb.hostServer + 'images/LogoVB.png'" width="200"></ion-img>
+                </ion-col>
+                <ion-col size="10">
+                  <h4>À PROPOS</h4>
+                  <p>
+                      Drivy est une plateforme de mise en relation qui rapproche les voyageurs souhaitant se rendre en Algérie aux agences de location de véhicule locales. Elle fournit un moyen facilement accessible via son navigateur web ou via son smartphone d’anticiper l’organisation de son voyage en Algérie. 
+                      Avec Drivy, votre voyage s’anticipe.  Réserver en quelques clics une voiture, récupérez-la à l’aéroport, profitez de votre voyage et restituez-la le jour de votre départ à l’aéroport.
+                  </p>
+                </ion-col>
+              </ion-row>
             </ion-col>
             <ion-col id="links" offset-lg="2" size-lg="2" size-md="12" size-sm="12"  size-xs="12">
               <h4>EN SAVOIR PLUS</h4>
               <ul>
-                <li>lorem ipsum</li>
-                <li>lorem ipsum</li>
-                <li>lorem ipsum</li>
-                <li>lorem ipsum</li>
+                <li>Comment ça marche ?</li>
+                <li>Besoin d’aide ?</li>
+                <li>CSG-CSV</li>
+                <li>Contact. 
+                </li>
               </ul>
             </ion-col>
 
             <ion-col id="links2" size-lg="2" size-md="12" size-sm="12"  size-xs="12">
               <h4>DÉCOUVRIR</h4>
                 <ul>
-                  <li>lorem ipsum</li>
-                  <li>lorem ipsum</li>
-                  <li>lorem ipsum</li>
-                  <li>lorem ipsum</li>
+                  <li>Je souhaite devenir partenaire</li>
+                  <li>Tarifs de location. </li>
+                  <li>Notre responsabilité. </li>
+                  <li>On recrute</li>
+                </ul>
+            </ion-col>
+            <ion-col id="links3" size-lg="2" size-md="12" size-sm="12"  size-xs="12">
+              <h4>Suivez-Nous</h4>
+                <ul>
+                  <li><ion-item color="dark"><ion-icon name="logo-facebook" size="large"></ion-icon><span style="margin-left: 15px;" >Facebook</span></ion-item></li>
+                 <li>  <ion-item color="dark"><ion-icon name="logo-linkedin" size="large"></ion-icon> <span style="margin-left: 15px;" >LinkedIn</span> </ion-item></li>
+                  <li> <ion-item color="dark"><ion-icon name="logo-instagram" size="large"></ion-icon> <span style="margin-left: 15px;" >Instagram</span> </ion-item></li>
+                  <li> <ion-item color="dark"><ion-icon name="logo-twitter" size="large"></ion-icon> <span style="margin-left: 15px;" >Twitter</span> </ion-item></li>
                 </ul>
             </ion-col>
           </ion-row>
-          <ion-item-divider></ion-item-divider>
+          <ion-item-divider color="dark"></ion-item-divider>
           <ion-row>
-            <ion-col size="12" style="text-align: center; padding: 20px;">
-                © BridgeDz 2019 - Tous droits réservés
+            <ion-col size="12" style="text-align: center; padding: 20px; color: rgb(185,185,185);">
+                © Bridgy 2019 - Tous droits réservés
             </ion-col>
           </ion-row>
           

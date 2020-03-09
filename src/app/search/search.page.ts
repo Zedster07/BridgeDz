@@ -149,11 +149,11 @@ export class SearchPage implements OnInit {
 
     const result = await this.db.fetchSearchreq(searchRequest);
     if (result['status'] === 'success') {
-      console.log(result);
       this.cars = result['data'];
       this.isLoading = false;
     } else {
-
+      this.cars = [];
+      this.isLoading = false;
     }
 
   }
@@ -198,7 +198,12 @@ export class SearchPage implements OnInit {
   ngOnInit() {
     this.updateSearch();
   }
+  ionViewWillLeave() {
+    this.glb.isSearchPage = false;
+  }
   async ionViewWillEnter() {
+    this.glb.isSearchPage = true;
+    this.glb.isMainPage = false;
     if (this.glb.prevAction === 'book') {
       this.glb.prevAction = '';
       const modal = await this.modalController.create({

@@ -106,7 +106,13 @@ export class DashboardPage implements OnInit {
       i += 1;
     }
   }
+  ionViewWillLeave() {
+    this.glb.isDashbPage = false;
+  }
+  
   async ionViewWillEnter() {
+    this.glb.isDashbPage = true;
+    this.glb.isMainPage = false;
     if (window.screen.width <= 360 ) {
       this.ismobile = true;
     } else {

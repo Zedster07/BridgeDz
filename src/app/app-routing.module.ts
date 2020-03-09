@@ -10,14 +10,8 @@ const routes: Routes = [
   { path: 'client', canActivate: [AuthGuardService] , loadChildren: './client/client.module#ClientPageModule' },
   { path: 'agency/:type', loadChildren: './agency/agency.module#AgencyPageModule' },
   { path: 'agency', loadChildren: './agency/agency.module#AgencyPageModule' },
-  { path: 'agency-modal', loadChildren: './modals/agency-modal/agency-modal.module#AgencyModalPageModule' },
-  { path: 'add-car-modal', loadChildren: './modals/add-car-modal/add-car-modal.module#AddCarModalPageModule' },
-  { path: 'access-hours', loadChildren: './modals/access-hours/access-hours.module#AccessHoursPageModule' },
-  { path: 'car-availability', loadChildren: './modals/car-availability/car-availability.module#CarAvailabilityPageModule' },
-  { path: 'reductions', loadChildren: './modals/reductions/reductions.module#ReductionsPageModule' },
   { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
-  { path: 'demandeslocs', loadChildren: './dashboard/demandeslocs/demandeslocs.module#DemandeslocsPageModule' },
-  { path: 'reserve', loadChildren: './modals/reserve/reserve.module#ReservePageModule' },
+  { path: 'faq', loadChildren: './faq/faq.module#FaqPageModule' },
 ];
 
 @NgModule({

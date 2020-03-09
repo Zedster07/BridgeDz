@@ -7,6 +7,9 @@ import { LoadingService } from './loading.service';
   providedIn: 'root'
 })
 export class GlobalsService {
+  isMainPage = true;
+  isSearchPage = false;
+  isDashbPage = false;
   searchQuery = {
     address: '',
     startdate: '',
@@ -14,6 +17,7 @@ export class GlobalsService {
     starttime: '',
     endtime: ''
   };
+
   hasAgency = false;
   AgencyLogData = {
     loggedin: false,
@@ -25,6 +29,7 @@ export class GlobalsService {
     bemail: '',
     data: []
   };
+
   prevAction = '';
   prevBook = {};
   myCars = [];
@@ -52,9 +57,9 @@ export class GlobalsService {
 
   isLoading = false;
   todaysDate = new Date();
-  //public hostServer = 'http://localhost/bridgedz/';
+  public hostServer = 'http://localhost/bridgedz/';
   //public hostServer = 'https://bridgedz.000webhostapp.com/';
-  public hostServer = '';
+  //public hostServer = '';
 
   constructor(
     public popover: PopoverController,
