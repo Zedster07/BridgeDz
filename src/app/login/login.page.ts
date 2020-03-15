@@ -50,16 +50,29 @@ export class LoginPage implements OnInit {
       error.style.display = 'block';
       return false;
     }
+    switch (this.glb.correctPassword(this.signupData.password)) {
+      case 0:
+        error.textContent = 'Entrez votre mot de pass';
+        error.style.display = 'block';
+        return false;
+        break;
+      case 1:
+        error.textContent = 'Votre mot de pass doit etre superieur à 6 caractéres';
+        error.style.display = 'block';
+        return false;
+      default:
+        break;
+    }
     if ( this.signupData.password !== this.signupData.re_password ) {
-      error.textContent = 'Password doesn\'t match';
+      error.textContent = 'Votre mot de pass de confirmation ne correspond pas à votre mot de pass';
       error.style.display = 'block';
       return false;
     }
     error.style.display = 'none';
-    this.loading.presentLoading();
+    this.loading.registerLoading();
     const result = await this.authService.register( null , this.angularFireAuth.auth , '2' , this.signupData);
     if ( result.status === 'exists') {
-      error.textContent = 'Email already exists';
+      error.textContent = this.signupData.email + ' est déja utilisé. Veuillez resnginer un autre e-mail. ';
       error.style.display = 'block';
     } else if ( result.status === 'success' ) {
       this.route.navigate(['login']);
@@ -87,7 +100,7 @@ export class LoginPage implements OnInit {
       }
     } else {
       error.style.display = 'none';
-      this.loading.presentLoading();
+      this.loading.signupLoading();
       const result = await this.authService.logIn(null , this.angularFireAuth.auth , '2' , this.normalLogin);
       if (result.status === 'Failure') {
         error.textContent = result.message;
