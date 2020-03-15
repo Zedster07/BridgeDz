@@ -65,6 +65,15 @@ export class AgencyPage implements OnInit {
   }
 
   async createAgency() {
+    const error = document.getElementById('loginerror');
+    if (this.glb.validateEmail(this.newAgency.bemail) === false) {
+      error.textContent = 'Entrez une adresse email valide.';
+      error.style.display = 'block';
+    }
+    if (this.glb.validatePhone(this.newAgency.bmobile) === false) {
+      error.textContent = 'Entrez un numéro de téléphonr valide.';
+      error.style.display = 'block';
+    }
     this.loading.presentLoading();
     const res = await this.db.dbcreateAgency(this.newAgency);
     this.loading.dismissLoading();
