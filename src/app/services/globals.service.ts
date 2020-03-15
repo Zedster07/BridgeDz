@@ -57,7 +57,7 @@ export class GlobalsService {
 
   isLoading = false;
   todaysDate = new Date();
-  public hostServer = 'http://localhost/bridgedz/';
+  public hostServer = 'http://localhost:8081/bridgedz/';
   //public hostServer = 'https://bridgedz.000webhostapp.com/';
   //public hostServer = '';
 
@@ -126,4 +126,16 @@ export class GlobalsService {
       return 2;
     }
   }
+
+  validateEmail(email: string) {
+    const re = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  validatePhone(phone: string) {
+    const re = /^(?:0|\(?\+213\)?\s?|00213\s?)[1-79](?:[\.\-\s]?\d\d){4}/;
+    return re.test(String(phone));
+  }
+
+
 }
