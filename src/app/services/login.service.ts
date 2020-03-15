@@ -56,6 +56,7 @@ export class LoginService {
       .append('lname' , this.glb.user.lname)
       .append('email' , this.glb.user.email)
       .append('pic' , this.glb.user.pic);
+
       const result = await this.http.post<Httpresponse>(this.glb.hostServer + 'register.php' , httpparams )
       .toPromise().then(resp => {
         console.log(resp);
@@ -98,7 +99,7 @@ export class LoginService {
       .toPromise().then(resp => {
         console.log(resp);
         if (resp.status === 'success') {
-          this.alertt.presentAlert('Success' , 'Successfully Singed Up!');
+          this.alertt.presentAlert('Success' , 'Bonne nouvelle, votre compte est crée.');
         }
         return resp;
       })
