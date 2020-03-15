@@ -20,6 +20,8 @@
 
         <hr>
         <div *ngIf="this.type === 'create'">
+          <div class="login-input alert alert-danger" role="alert" id="loginerror" aria-hidden="true">
+          </div>
           <div class="form-row mt-3">
             <div class="form-group col-md-12">
               <input type="text" class="form-control" placeholder="Nom de l'agence" [(ngModel)]="this.newAgency.nom">  
@@ -33,20 +35,29 @@
                         <ion-icon name="mail"></ion-icon>
                       </div>
                     </div>
-                    <input type="email" class="form-control" id="emailid" placeholder="Email" [(ngModel)]="this.newAgency.bemail">
+                    <input type="email" class="form-control" id="emailid" placeholder="Email" pattern ="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="this.newAgency.bemail">
                 </div>
             </div>
-            <div class="form-group col-md-12">
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                  <select class="form-control" id="inputPassword4" [(ngModel)]="this.newAgency.cpays">
+                    <option value="0" selected>Pays</option>
+                    <option value="algeria">Algérie</option>
+                    <option value="france">France</option>
+                  </select>
+                </div>
+            </div>
+            <div class="form-group col-md-18">
                 <div class="input-group">
-                    <div class="input-group-prepend">
                       <div class="input-group-text">
                           <ion-icon name="phone-portrait"></ion-icon>
                       </div>
-                    </div>
-                    <input type="text" class="form-control" id="mobileid" placeholder="Mobile" [(ngModel)]="this.newAgency.bmobile">
+                    <input type="text" class="form-control" id="mobileid" placeholder="Mobile" pattern ="/^(?:0|\(?\+213\)?\s?|00213\s?)[1-79](?:[\.\-\s]?\d\d){4}/" [(ngModel)]="this.newAgency.bmobile">
                 </div>
             </div>
-          </div>
+        </div>
+
           <div class="form-row">
             <div class="form-group col-md-12">
                 <div class="input-group">
@@ -59,15 +70,9 @@
                 </div>
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <select class="form-control" id="inputPassword4" [(ngModel)]="this.newAgency.cpays">
-                <option value="0" selected>Pays</option>
-                <option value="algeria">Algérie</option>
-                <option value="france">France</option>
-              </select>
-            </div>
-        </div>
+
+        
+
         <div class="form-row">
           <div class="form-group col-md-12">
             <input type="text" class="form-control" id="inputAddress" placeholder="Adresse" [(ngModel)]="this.newAgency.address">
