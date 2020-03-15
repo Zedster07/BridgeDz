@@ -68,6 +68,8 @@
                   <ion-select-option value="0" selected>Carburant</ion-select-option>
                   <ion-select-option value="diesel">Diesel</ion-select-option>
                   <ion-select-option value="ess ence">Essence</ion-select-option>
+                  <ion-select-option value="diesel">Electrique</ion-select-option>
+                  <ion-select-option value="ess ence">Hybride</ion-select-option>
                 </ion-select>
               </div>
             </div>
@@ -225,7 +227,7 @@
                   <ion-item (click)="uploadPic('avant')" id="avantitem">
                     <!-- <ion-icon size="large" name="camera" slot="start"></ion-icon> -->
                     <ion-thumbnail slot="start">
-                      <img src="http://localhost/bridgedz/images/uppic.png" id="avantpreview"/>
+                      <img src="http://localhost:8081/bridgedz/images/front.jpg" id="avantpreview"/>
                       <input type="file" id="avantfile" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
@@ -235,7 +237,7 @@
                   </ion-item>
                   <ion-item (click)="uploadPic('arriere')" id="arriereitem">
                     <ion-thumbnail slot="start">
-                      <img src="http://localhost/bridgedz/images/uppic.png" id="arrierepreview" />
+                      <img src="http://localhost:8081/bridgedz/images/back.jpg" id="arrierepreview" />
                       <input type="file" id="arrierefile" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
@@ -248,7 +250,7 @@
                   </ion-item>
                   <ion-item (click)="uploadPic('cote1')" id="cote1item">
                     <ion-thumbnail slot="start">
-                      <img src="http://localhost/bridgedz/images/uppic.png" id="cote1preview" />
+                      <img src="http://localhost:8081/bridgedz/images/right.jpg" id="cote1preview" />
                       <input type="file" id="cote1file" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
@@ -258,7 +260,7 @@
                   </ion-item>
                   <ion-item (click)="uploadPic('cote2')" id="cote2item">
                     <ion-thumbnail slot="start">
-                      <img src="http://localhost/bridgedz/images/uppic.png" id="cote2preview"/>
+                      <img src="http://localhost:8081/bridgedz/images/left.jpg" id="cote2preview"/>
                       <input type="file" id="cote2file" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
@@ -268,7 +270,7 @@
                   </ion-item>
                   <ion-item (click)="uploadPic('inside')" id="insideitem">
                     <ion-thumbnail slot="start">
-                      <img src="http://localhost/bridgedz/images/uppic.png" id="insidepreview"/>
+                      <img src="http://localhost:8081/bridgedz/images/interior.jpg" id="insidepreview"/>
                       <input type="file" id="insidefile" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
