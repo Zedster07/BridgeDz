@@ -7,6 +7,7 @@ export class LoadingService {
 
   isLoading = false;
   constructor(public loadingController: LoadingController) { }
+  
   async presentLoading() {
     this.isLoading = true;
     const loading = await this.loadingController.create({
@@ -19,6 +20,33 @@ export class LoadingService {
       });
     });
   }
+
+  async registerLoading() {
+    this.isLoading = true;
+    const loading = await this.loadingController.create({
+      message: 'Veuillez patienter svp. Nous créons votre compte',
+    }).then(a => {
+      a.present().then(() => {
+        if (!this.isLoading) {
+          a.dismiss();
+        }
+      });
+    });
+  }
+
+  async signupLoading() {
+    this.isLoading = true;
+    const loading = await this.loadingController.create({
+      message: 'Un instant svp.',
+    }).then(a => {
+      a.present().then(() => {
+        if (!this.isLoading) {
+          a.dismiss();
+        }
+      });
+    });
+  }
+
   async dismissLoading() {
     this.isLoading = false;
     return await this.loadingController.dismiss();
