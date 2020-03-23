@@ -14,6 +14,10 @@ import { LoadingService } from '../services/loading.service';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+
+  first_pages = [
+
+  ];
   pages = [
     {
       title: 'DASHBOARD',
@@ -54,9 +58,51 @@ export class DashboardPage implements OnInit {
       title: 'Bon de Réduction',
       url: '/dashboard/brpage',
       icon: 'trending-down'
-    }
+    },
   ];
+
+  pages_admin = [
+    {
+      title: 'DASHBOARD',
+      url: '/dashboard/home',
+      icon: 'stats'
+    },
+    {
+      title: 'USERS',
+      url: '/dashboard/duser',
+      icon: 'person'
+    },
+    {
+      title: 'AGENCES',
+      url: '/dashboard/dagency',
+      icon: 'stats'
+    },
+    {
+      title: 'MES VOITURES',
+      url: '/dashboard/voitures',
+      icon: 'car'
+    },
+    {
+      title: 'MON WALLET',
+      url: '/dashboard/wallet',
+      icon: 'wallet'
+    },
+    {
+      title: 'MES LOCATIONS',
+      url: '/dashboard/locations',
+      icon: 'list-box'
+    },
+    {
+      title: 'NOTIFICATION',
+      url: '/dashboard/notifications',
+      icon: 'notifications'
+    },
+    
+  ];
+
+  
   ismobile = false;
+  isAdmin = this.glb.ifAdmin(this.glb.user.role);
   selectedPath = '/dashboard/home';
   constructor(
     private router: Router ,
@@ -81,6 +127,8 @@ export class DashboardPage implements OnInit {
     }
   }
   logout() {
+    console.log("let's try log out");
+    this.isAdmin = false;
     this.router.navigate(['agency' , 'loggedout']);
   }
   dissmisPopover() {
@@ -130,7 +178,7 @@ export class DashboardPage implements OnInit {
       this.glb.AgencyLogData.name =  data['name'];
       this.glb.AgencyLogData.bemail =  data['businessEmail'];
       this.loading.dismissLoading();
-    } else {
+    } else if (!this.glb.ifAdmin(this.glb.user.role)){
       this.router.navigate(['client']);
     }
   }

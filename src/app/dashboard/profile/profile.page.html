@@ -4,13 +4,17 @@
         <li class="nav-item" (click)="setTabVal('edit')">
           <span class="nav-link" [ngClass]="{'active': showTab('edit')}" id="edit-tab" data-toggle="tab" href="#edit" role="tab" aria-controls="edit" aria-selected="true">Modifier mon profile</span>
         </li>
-        <li class="nav-item" (click)="setTabVal('verify')">
+        <li *ngIf= "!this.isAdmin" class="nav-item" (click)="setTabVal('verify')">
           <span class="nav-link" [ngClass]="{'active': showTab('verify')}" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Verifier mon profile</span>
         </li>
+        <li *ngIf= "this.isAdmin" class="nav-item" (click)="setTabVal('verify_license')">
+          <span class="nav-link" [ngClass]="{'active': showTab('verify_license')}" id="verify_license-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Verifier mon profile</span>
+        </li>
+      
         <li class="nav-item" (click)="setTabVal('param')">
           <span class="nav-link" [ngClass]="{'active': showTab('param')}" id="param-tab" data-toggle="tab" href="#param" role="tab" aria-controls="param" aria-selected="false">Paramètres du compte</span>
         </li>
-        <li class="nav-item" (click)="setTabVal('pay')">
+        <li *ngIf= "!this.isAdmin" class="nav-item" (click)="setTabVal('pay')">
             <span class="nav-link" [ngClass]="{'active': showTab('pay')}" id="pay-tab" data-toggle="tab" href="#pay" role="tab" aria-controls="pay" aria-selected="false">Paramètres de paiement</span>
         </li>
       </ul>
@@ -20,7 +24,7 @@
                 <div style="width: fit-content; margin: 0 auto;" >
                     <img src="assets/images/profd.jfif" width="250"/>
                     
-                    <ion-button expand="full" class=" ion-no-margin" style="position: relative; bottom: 35px;" (click)="changepic()">Change Picture</ion-button>
+                    <ion-button expand="full" class=" ion-no-margin" style="position: relative; bottom: 35px;" (click)="changepic()">Modifier la photo</ion-button>
                    <input type="file" id="changepichandler" style="display: none;">
                 </div>
                 <fieldset class="scheduler-border">
@@ -33,7 +37,7 @@
                                     <ion-icon name="mail"></ion-icon>
                                   </div>
                                 </div>
-                                <input type="email" class="form-control" id="inlineFormInputGroup" placeholder="Email">
+                                <input type="email" class="form-control" id="inlineFormInputGroup"  placeholder="Ema" value="{{glb.user_modify.email}}" [(ngModel)]="usertmp.email">
                             </div>
                         </div>
                         <div class="form-group col-md-6">
@@ -43,7 +47,7 @@
                                       <ion-icon name="phone-portrait"></ion-icon>
                                   </div>
                                 </div>
-                                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Mobile">
+                                <input type="text" class="form-control" id="mobileid" placeholder="Mobile" value="{{glb.user_modify.phone}}" [(ngModel)]="usertmp.phoneNumber">
                             </div>
                         </div>
                       </div>
@@ -55,7 +59,7 @@
                                       <ion-icon name="person"></ion-icon>
                                     </div>
                                   </div>
-                                  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">
+                                  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username" value="{{glb.user_modify.username}}" [(ngModel)]="usertmp.username"> 
                               </div>
                           </div>
                           <div class="form-group col-md-6">
@@ -65,7 +69,7 @@
                                         <ion-icon name="key"></ion-icon>
                                     </div>
                                   </div>
-                                  <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
+                                  <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="Password" value="{{this.glb.user_modify.password}}"  [(ngModel)]="usertmp.password">
                               </div>
                           </div>
                         </div>
@@ -75,10 +79,10 @@
                 
               <div class="form-row mt-3">
                 <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="inputEmail4" placeholder="Nom">
+                  <input type="text" class="form-control" id="inputEmail4" placeholder="Nom" value="{{glb.user_modify.lname}}" [(ngModel)]="usertmp.lname">
                 </div>
                 <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="inputPassword4" placeholder="Prénom">
+                  <input type="text" class="form-control" id="inputPassword4" placeholder="Prénom" value="{{glb.user_modify.fname}}" [(ngModel)]="usertmp.fname">
                 </div>
               </div>
               <div class="form-row">
@@ -89,11 +93,11 @@
                                 <ion-icon name="calendar"></ion-icon>
                             </div>
                           </div>
-                          <ion-datetime class="form-control" placeholder="Date de naissance"></ion-datetime>
+                          <ion-datetime class="form-control" (ionChange)="changedDOB()" id="dobid" placeholder="Date de naissance" displayFormat="YYYY-MM-DD" [(ngModel)]="usertmp.dob"></ion-datetime>
                       </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <input type="text" class="form-control" id="inputPassword4" placeholder="Lieu de naissance">
+                    <input type="text" class="form-control" id="pobid" placeholder="Lieu de naissance" [(ngModel)]="usertmp.pob">
                   </div>
                 </div>
               
@@ -128,10 +132,75 @@
               </div>
               
             </fieldset>
-            <ion-button color="primary" expand="block">Save</ion-button>
+            <ion-button color="primary" expand="block" (click)="UpdateProfile()">Mettre à jour</ion-button>
             </div>
         </div>
-        <div class="tab-pane fade" id="verify" [ngClass]="{'active show': showTab('verify')}" role="tabpanel" aria-labelledby="verify-tab">
+
+        <div class="tab-pane fade" id="verify_license" [ngClass]="{'active show': showTab('verify_license')}" role="tabpanel" aria-labelledby="verify_license-tab">
+          <div class="mt-5 p-1">
+            <div class="login-input alert alert-warning" *ngIf="verified === '1'" role="alert" id="loginerror">
+              Account is being reviewed.
+            </div>
+            <div class="login-input alert alert-success" *ngIf="verified === '2'" role="alert">
+              Account verified.
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="permisID">Permis de conduire (<strong>ID</strong>)</label>
+                <input class="form-control" type="text" placeholder="Permis ID" value="{{verifyAccData.lid}}" [(ngModel)]="verifyAccData.lid"/>
+              </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                              <ion-icon name="calendar"></ion-icon>
+                          </div>
+                        </div>
+                        <ion-datetime class="form-control" placeholder="Date de d’obtention" value="{{verifyAccData.dateo}}" [(ngModel)]="verifyAccData.dateo"></ion-datetime>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <select class="form-control" id="inputPassword4" value="{{verifyAccData.payso}}" [(ngModel)]="verifyAccData.payso">
+                    <option value="0" selected>Pays d’obtention</option>
+                    <option value="algeria">Algérie</option>
+                    <option value="france">France</option>
+                  </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="permisFile">Piece jointe </label>
+              </div>       
+              <div class="form-group col-md-6">
+                <ion-button color="light" expand="full" (click)="changepic2( 'rectoImg' , 'rectoid')">
+                  <ion-icon name="add" slot="start"></ion-icon>
+                  Recto
+                </ion-button>
+                <img *ngIf= "!this.recto_temp" [src]="verifyAccData.rectoimg"  id="rectoImg" />
+                <img *ngIf= "this.recto_temp" [src]=""  id="rectoImg_1" />
+                <input type="file"  id="rectoid" class="form-control" style="display: none;" />
+              </div>
+              <div class="form-group col-md-6">
+                <ion-button color="light" expand="full" (click)="changepic2( 'versoImg' , 'versoid')">
+                  <ion-icon name="add" slot="start"></ion-icon>
+                  Verso
+                </ion-button>
+                  <img *ngIf= "!this.verso_temp" [src]="verifyAccData.versoimg"  id="versoImg" /> 
+                <img *ngIf= "this.verso_temp" [src]=""  id="versoImg_1" />
+                <input type="file"  id="versoid" class="form-control" style="display: none;" />
+              </div>
+            </div>
+
+            <ion-button color="primary" expand="block" [attr.disabled]="verified !== '0'" (click)="VerifyAccount()">Mettre à jour</ion-button>
+          </div>
+      </div>
+      
+
+
+        <div  class="tab-pane fade" id="verify" [ngClass]="{'active show': showTab('verify')}" role="tabpanel" aria-labelledby="verify-tab">
           <div class="mt-5 p-1">
             <div class="form-row">
               <div class="form-group col-md-12">

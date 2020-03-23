@@ -1,3 +1,6 @@
+
+
+
 export interface UserData {
     type: string;
     id: string;
@@ -16,4 +19,6 @@ export interface UserData {
     codeP: string;
     propos: string;
     userStatus: string;
+    role: string;
+    
 }

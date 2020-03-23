@@ -15,8 +15,13 @@ const TOKEN_KEY = 'logToken';
 @Injectable({
   providedIn: 'root'
 })
+
+
+
 export class LoginService {
   authenticationState = new BehaviorSubject(this.hasToken());
+
+  
 
   constructor(
     private glb: GlobalsService,
@@ -167,6 +172,8 @@ export class LoginService {
         localStorage.setItem('userville' , resp.data['ville']);
         localStorage.setItem('userpropos' , resp.data['propos']);
         localStorage.setItem('userStatus' , resp.data['activeAccount']);
+        localStorage.setItem('userrole', resp.data['role']);
+
         this.reloadUserData();
         return resp;
       }
@@ -201,6 +208,7 @@ export class LoginService {
     this.glb.user.ville = localStorage.getItem('userville');
     this.glb.user.propos = localStorage.getItem('userpropos');
     this.glb.user.userStatus = localStorage.getItem('userStatus');
+    this.glb.user.role = localStorage.getItem('userrole');
     
    // this.glb.usertmp = this.glb.user;
   }

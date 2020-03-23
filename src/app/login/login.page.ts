@@ -106,9 +106,11 @@ export class LoginPage implements OnInit {
         error.textContent = result.message;
         error.style.display = 'block';
       } else if (result.status === 'success') {
-        if (this.glb.prevAction === '') {
+        if (this.glb.ifAdmin(this.glb.user.role) === true){
+          this.route.navigate(['dashboard']);
+        } else if (this.glb.prevAction === '' && this.glb.ifAdmin(this.glb.user.role)  === false){
           this.route.navigate(['client']);
-        } else if (this.glb.prevAction === 'book') {
+        } else if (this.glb.prevAction === 'book' && this.glb.ifAdmin(this.glb.user.role) === false) {
           this.route.navigate(['search']);
         }
       }
@@ -129,9 +131,11 @@ export class LoginPage implements OnInit {
       const result = await this.authService.register(signInSuccessData , this.angularFireAuth.auth , '1' , null);
       if ( result ) {
         console.log('redirecting to client');
-        if (this.glb.prevAction === '') {
-          this.route.navigate(['client', 'monprofile']);
-        } else if (this.glb.prevAction === 'book') {
+        if (this.glb.ifAdmin(this.glb.user.role) === true){
+          this.route.navigate(['dashboard']);
+        } else if (this.glb.prevAction === '' && this.glb.ifAdmin(this.glb.user.role)  === false){
+          this.route.navigate(['client']);
+        } else if (this.glb.prevAction === 'book' && this.glb.ifAdmin(this.glb.user.role) === false) {
           this.route.navigate(['search']);
         }
         error.style.display = 'none';
@@ -143,14 +147,19 @@ export class LoginPage implements OnInit {
       console.log('not a new user');
       const result = await this.authService.logIn(signInSuccessData , this.angularFireAuth.auth , '1' , null );
       if ( result.status !== 'Failure' ) {
-        if (this.glb.prevAction === '') {
+        if (this.glb.ifAdmin(this.glb.user.role) === true){
+          console.log("ADMIN");
+          this.route.navigate(['dashboard']);
+        } else if (this.glb.prevAction === '' && this.glb.ifAdmin(this.glb.user.role)  === false){
+          console.log("this.route.navigate(['client']);");
           this.route.navigate(['client']);
-        } else if (this.glb.prevAction === 'book') {
+        } else if (this.glb.prevAction === 'book' && this.glb.ifAdmin(this.glb.user.role) === false) {
+          console.log("this.route.navigate(['search']);");
           this.route.navigate(['search']);
         }
         error.style.display = 'none';
       } else {
-        error.textContent = '505 - Something went wrong';
+        error.textContent = '505 - hSomething went wrong';
         error.style.display = 'block';
       }
     }
@@ -164,7 +173,8 @@ export class LoginPage implements OnInit {
   }
   ngOnInit() {
     this.glb.globalLoading(false);
-    if (this.authService.isLoggedIn()) {
+    if (this.authService.isLoggedIn() && this.glb.ifAdmin(this.glb.user.role) === false) {
+      console.log("this.route.navigate(['client']);");
       this.route.navigate(['client']);
     }
   }

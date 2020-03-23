@@ -130,6 +130,7 @@ export class HomePage implements OnInit {
 
   LoginAct() {
     if (this.loginserv.isLoggedIn()) {
+      console.log("home.page.ts");
       this.route.navigate(['client']);
     } else {
       this.route.navigate(['login']);

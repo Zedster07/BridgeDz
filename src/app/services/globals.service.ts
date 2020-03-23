@@ -3,10 +3,17 @@ import { PopoverController } from '@ionic/angular';
 import { UserData } from '../interfaces/user-data';
 import { HttpClient } from '@angular/common/http';
 import { LoadingService } from './loading.service';
+import { role_user}  from '../interfaces/role_user';
+
+
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class GlobalsService {
+
+
   isMainPage = true;
   isSearchPage = false;
   isDashbPage = false;
@@ -33,6 +40,11 @@ export class GlobalsService {
   prevAction = '';
   prevBook = {};
   myCars = [];
+  users =[];
+  user_modify =[];
+  agencies  =[];
+  agency_modify =[];
+  permis=[];
   notifications = [];
   unreadNotif = 0;
   public user: UserData = {
@@ -52,7 +64,9 @@ export class GlobalsService {
     ville: '',
     codeP: '',
     propos: '',
-    userStatus: ''
+    userStatus: '',
+    role: '',
+  
   };
 
   isLoading = false;
@@ -114,7 +128,8 @@ export class GlobalsService {
       ville: '',
       codeP: '',
       propos: '',
-      userStatus: ''
+      userStatus: '',
+      role: '',
     };
   }
   correctPassword( pass: string ) {
@@ -137,5 +152,39 @@ export class GlobalsService {
     return re.test(String(phone));
   }
 
+  ifAdmin(role: string) {
+    if (parseInt(role) === role_user.admin){
+      return true;
+    } else {
+      return false;
+    }  
+  } 
 
-}
+  ifAgency(role: string) {
+    if (parseInt(role) === role_user.agency){
+      return true;
+    } else {
+      return false;
+    }  
+  }
+
+  ifClient(role: string) {
+    if (parseInt(role) === role_user.client){
+      return true;
+    } else {
+      return false;
+    }  
+  }
+
+  generateURLPicture(urlImage: string){
+    if (urlImage.includes(this.hostServer) === true) {
+      var newURL = urlImage.replace(this.hostServer,'');   
+      return newURL;
+  }
+  }
+
+  }
+
+
+
+

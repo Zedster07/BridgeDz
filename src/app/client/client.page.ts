@@ -47,6 +47,8 @@ export class ClientPage implements OnInit {
       
     }
     console.log(this.glb.user.id);
+ 
+    
     document.getElementById(id).className += ' active';
     if ( this.respMenu === false ) {
       const MenuList = document.getElementById('navbarSupportedContent');

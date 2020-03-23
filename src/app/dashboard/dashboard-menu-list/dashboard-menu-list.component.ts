@@ -25,7 +25,11 @@ export class DashboardMenuListComponent implements OnInit {
     this.dissmisPopover();
     this.db.setStorage('accloggedin' , false);
     this.glb.AgencyLogData.loggedin = false;
+    if (this.glb.ifAdmin(this.glb.user.role)){
+        this.authser.logOut();
+    } else {
     this.router.navigate(['client']);
+  }
   }
   dissmisPopover() {
     this.glb.popover.dismiss();

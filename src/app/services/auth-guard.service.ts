@@ -18,6 +18,7 @@ export class AuthGuardService implements CanActivate  {
     console.log(loggedIn);
     if (loggedIn) {
       if ( allowed.notAuth.indexOf(url) !== -1 ) {
+        console.log("auth.guard.ts");
         this.route.navigate(['client']);
         return false;
       }

@@ -92,6 +92,9 @@ export class DbinteractionsService {
 
     }
 
+  
+    
+
     async reserveCar(req) {
       const httpparams = new HttpParams().append('request' , 'bookCar')
       .append('iduser' , req.idClient).append('startdate' , req.startdate)
@@ -201,10 +204,78 @@ export class DbinteractionsService {
       });
     }
 
-    async fetchCars(id: string): Promise<any> {
-      console.log(id);
-      const httpparams = new HttpParams().append('request' , 'fetchCars').append('agencyid' , id);
+
+    async deleteUserAccount(index: string): Promise<any> {
+      const httpparams = new HttpParams().
+      append('request' , 'deleteUser').
+      append('id_user' ,index ).
+      append('id_requestor',this.glb.user.id);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async de_activateAccount(index: string): Promise<any> {
+      const httpparams = new HttpParams().
+      append('request' , 'de_activateUser').
+      append('id_user' ,index).
+      append('id_requestor',this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async fetchProfilInfo(index: string): Promise<any> {
+      const httpparams = new HttpParams().
+      append('request' , 'fetchProfil').
+      append('id_user' ,index).
+      append('id_requestor',this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async fetchCars(id: string, userid: string): Promise<any> {
+      console.log(userid);
+      const httpparams = new HttpParams().append('request' , 'fetchCars').append('agencyid' , id).append('userid',userid);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async fetchAgencies(id: string, requesotr: string): Promise<any> {
+      //console.log(userid);
+      const httpparams = new HttpParams().append('request' , 'fetchAgencies').append('id_agency' , id).append('id_requestor',requesotr);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async fetchUsers(userid: string): Promise<any> {
+      console.log(userid);
+      const httpparams = new HttpParams().append('request' , 'fetchUsers').append('userid',userid);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
         return resp;
       }).catch(err => {
         console.error(err);
@@ -369,10 +440,11 @@ export class DbinteractionsService {
     }
 
 
-    async finishVerifyAcc(data: any , pics: any) {
+    async finishVerifyAcc(data: any , pics: any, user: any) {
       const httpparams = new HttpParams()
+      .append('id_requestor',this.glb.user.id)
       .append('request' , 'verifyAcc')
-      .append('id' , this.glb.user.id )
+      .append('id_user' , user.id)
       .append('Lid' , data.lid)
       .append('dateo' , data.dateo)
       .append('payso' , data.payso)
@@ -400,7 +472,7 @@ export class DbinteractionsService {
     async updateprofileinfos(usertmp: UserData) {
       const httpparams = new HttpParams()
       .append('request' , 'profileUpdate')
-      .append('id' , usertmp.id )
+      .append('id_user' , usertmp.id )
       .append('fname', usertmp.fname)
       .append('lname' , usertmp.lname)
       .append('username' , usertmp.username )
@@ -413,12 +485,13 @@ export class DbinteractionsService {
       .append('pays' , usertmp.country)
       .append('ville', usertmp.ville)
       .append('codeP' , usertmp.codeP)
-      .append('propos' , usertmp.propos);
+      .append('propos' , usertmp.propos)
+      .append('id_requestor', this.glb.user.id)
       await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php',  httpparams)
       .toPromise().then( (resp) => {
         console.log(resp.data['pass']);
-        this.glb.user = usertmp;
-        this.glb.user.password = resp.data['password'];
+        //this.glb.user = usertmp;
+        //this.glb.user.password = resp.data['password'];
         this.alertt.presentAlert('Success' , 'Profile info has been updated successfully');
       }).catch( err => {
         console.log(err);

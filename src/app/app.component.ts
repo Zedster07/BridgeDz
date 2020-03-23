@@ -130,6 +130,7 @@ export class AppComponent   {
   }
   LoginAct() {
     if (this.loginServ.isLoggedIn()) {
+      console.log("app.component.ts");
       this.route.navigate(['client']);
     } else {
       this.route.navigate(['login']);

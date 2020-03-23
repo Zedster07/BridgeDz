@@ -34,9 +34,18 @@
 
     <ion-content>
       <ion-list>
+        <ion-menu-toggle auto-hide="false" *ngFor="let item of pages_admin">
+          <ion-item  *ngIf= "this.isAdmin" [routerLink]="item.url" routerDirection="root" [class.active-item]='this.selectedPath === item.url' (click)="this.selectedPath = item.url">
+          <ion-label *ngIf= "this.isAdmin">
+            <ion-icon name="{{item.icon}}"></ion-icon>
+            {{item.title}}
+          </ion-label>
+        </ion-item>
+        </ion-menu-toggle>
+        
         <ion-menu-toggle auto-hide="false" *ngFor="let item of pages">
-          <ion-item [routerLink]="item.url" routerDirection="root" [class.active-item]='this.selectedPath === item.url' (click)="this.selectedPath = item.url">
-            <ion-label>
+          <ion-item  *ngIf= "!this.isAdmin" [routerLink]="item.url" routerDirection="root" [class.active-item]='this.selectedPath === item.url' (click)="this.selectedPath = item.url">
+            <ion-label *ngIf= "!this.isAdmin">
               <ion-icon name="{{item.icon}}"></ion-icon>
             </ion-label>
             {{item.title}}<ion-badge color="primary" slot="end" *ngIf="item.url === '/dashboard/demandeslocs' && glb.AgencyLogData.DemandesCount !== 0">{{glb.AgencyLogData.DemandesCount}}</ion-badge>

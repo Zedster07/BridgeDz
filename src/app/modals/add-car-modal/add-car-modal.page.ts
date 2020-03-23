@@ -20,24 +20,342 @@ export class AddCarModalPage implements OnInit {
   selectedMarque = '';
   Marks = [
     {
-      marque: 'Volkswagen' ,
-      value: 'volkswagen'
+      marque: 'Peugeot' ,
+      value: 'peugeot'
     },
     {
       marque: 'Renault' ,
       value: 'renault'
+    },
+    {
+      marque: 'Daçia' ,
+      value: 'dacia'
+    },
+    {
+      marque: 'Citroën' ,
+      value: 'citroën'
+    },
+    {
+      marque: 'Volkswagen' ,
+      value: 'volkswagen'
+    },
+    {
+      marque: 'Seat' ,
+      value: 'seat'
+    },
+    {
+      marque: 'Opel' ,
+      value: 'opel'
+    },
+    {
+      marque: 'Skoda' ,
+      value: 'skoda'
+    },
+    {
+      marque: 'Nissan' ,
+      value: 'nissan'
+    },
+    {
+      marque: 'Toyota' ,
+      value: 'toyota'
+    },
+    {
+      marque: 'Hyundai' ,
+      value: 'hyundai'
+    },
+    {
+      marque: 'KIA' ,
+      value: 'Kia'
+    },
+    {
+      marque: 'Renault' ,
+      value: 'renault'
+    },
+    {
+      marque: 'Audi' ,
+      value: 'audi'
+    },
+    {
+      marque: 'BMW' ,
+      value: 'bmw'
+    },
+    {
+      marque: 'Mercedes' ,
+      value: 'mercedes'
+    },
+    {
+      marque: 'Fiat' ,
+      value: 'fiat'
+    },
+    {
+      marque: 'DS' ,
+      value: 'ds'
+    },
+    {
+      marque: 'Ford' ,
+      value: 'ford'
+    },
+    {
+      marque: 'Infiniti' ,
+      value: 'infiniti'
+    },
+    {
+      marque: 'Luxus' ,
+      value: 'luxus'
+    },
+    {
+      marque: 'Land Rovor' ,
+      value: 'land_Rovor'
+    },
+    {
+      marque: 'Volvo' ,
+      value: 'volvo'
+    },
+    {
+      marque: 'Alfa Romeo ' ,
+      value: 'alfa_Romeo '
+    },
+    {
+      marque: 'Jeep' ,
+      value: 'jeep'
+    },
+    {
+      marque: 'Mitsubishi' ,
+      value: 'mitsubishi'
     }
   ];
   Models = {
     0: [],
     volkswagen: [
       {model: 'Golf' , value: 'golf'},
-      {model: 'Polo' , value: 'polo'}
+      {model: 'Polo' , value: 'polo'},
+      {model: 'Passat' , value: 'passat'},
+      {model: 'Tiguan' , value: 'tiguan'},
+      {model: 'T-ROC' , value: 't-roc'},
+      {model: 'T-CROSS' , value: 't-cross'},
+      {model: 'Touareg' , value: 'touareg'},
+      {model: 'Caddy' , value: 'caddy'},
+      {model: 'Passat sw' , value: 'passat_sw'},
+      {model: 'Fox' , value: 'fox'}
     ],
     renault: [
-      {model: 'Clio', value: 'clio'},
-      {model: 'Symbol', value: 'symbol'}
-    ]
+      {model: 'Clio' , value: 'clio'},
+      {model: 'Kango' , value: 'kango'},
+      {model: 'Megane' , value: 'megane'},
+      {model: 'Talsiman' , value: 'talsiman'},
+      {model: 'Lagauna' , value: 'lagauna'},
+      {model: 'Capture' , value: 'capture'},
+      {model: 'Kadjar' , value: 'kadjar'},
+      {model: 'Koleos' , value: 'koleos'},
+      {model: 'Twingo' , value: 'twingo'},
+      {model: 'Trafic' , value: 'trafic'}
+    ],
+    peugeot: [
+      {model: '208' , value: '208'},
+      {model: '207' , value: '207'},
+      {model: '2008' , value: '2008'},
+      {model: '308' , value: '308'},
+      {model: '3008' , value: '3008'},
+      {model: '307' , value: '307'},
+      {model: '508' , value: '508'},
+      {model: '407' , value: '407'},
+      {model: '5008' , value: '5008'},
+      {model: '4008' , value: '4008'},
+      {model: '206' , value: '206'},
+      {model: '108' , value: '108'},
+      {model: 'Partner' , value: 'partner'},
+    ],
+    dacia: [
+      {model: 'Logan' , value: 'logan'},
+      {model: 'Sandero' , value: 'sandero'},
+      {model: 'Duster' , value: 'duster'},
+      {model: 'Dokker' , value: 'dokker'},
+      {model: 'Lodgy' , value: 'lodgy'},
+    ],
+    citroën: [
+      {model: 'C3' , value: 'C3'},
+      {model: 'C4' , value: 'C4'},
+      {model: 'C4 Cactus' , value: 'c4_cactus'},
+      {model: 'C4 Picasso' , value: 'c4_picasso'},
+      {model: 'C5' , value: 'C5'},
+      {model: 'C5 crossback,' , value: 'c5_crossback,'},
+      {model: 'Berlingo' , value: 'berlingo'},
+      {model: 'Spacetourer' , value: 'spacetourer'},
+      {model: 'C1' , value: 'C1'},
+    ],
+    mitsubishi: [
+      {model: 'ASX' , value: 'asx'},
+      {model: 'Eclipse Cross' , value: 'eclipse_cross'},
+      {model: 'Space Star,' , value: 'space_star,'},
+      {model: 'Outlander HPEV' , value: 'outlander hpev'},
+    ],
+    mercedes: [
+      {model: 'Class A' , value: 'a'},
+      {model: 'Class B' , value: 'b'},
+      {model: 'Class C' , value: 'c'},
+      {model: 'class E' , value: 'e'},
+      {model: 'class S' , value: 's'},
+      {model: 'CLA' , value: 'cla'},
+      {model: 'SLA' , value: 'SLA'},
+      {model: 'GLK' , value: 'glk'},
+      {model: 'GLC' , value: 'glc'},
+      {model: 'GLC Coupé' , value: 'glc_coupé'},
+      {model: 'GLE' , value: 'gle'},
+      {model: 'GLE coupé' , value: 'gle_coupé'},
+      {model: 'GLS' , value: 'GLS'}
+    ],
+    jeep: [
+      {model: 'Compass' , value: 'compass'},
+      {model: 'Cherroke' , value: 'cherroke'},
+      {model: 'Wrangler' , value: 'wrangler'},
+      {model: 'Wrangler limited' , value: 'wrangler_limited'},
+      {model: 'Renegade' , value: 'renegade'}
+    ],
+    nissan: [
+      {model: 'Micra' , value: 'micra'},
+      {model: 'Juke' , value: 'juke'},
+      {model: 'Qashkai Leaf' , value: 'qashkai_leaf'},
+      {model: 'Qashkai ' , value: 'qashkai Leaf'},
+      {model: 'X-Trail' , value: 'x-trail'},
+      {model: 'Navara' , value: 'navara'}
+    ],
+    toyota: [
+      {model: 'Yaris' , value: 'yaris'},
+      {model: 'Corolla' , value: 'corolla'},
+      {model: 'Auris' , value: 'auris'},
+      {model: 'Camry' , value: 'camry'},
+      {model: 'RAV4' , value: 'rav4'},
+      {model: 'Landcruiser' , value: 'landcruiser'},
+      {model: 'Prius' , value: 'prius'}
+    ],
+    audi: [
+      {model: 'A1' , value: 'A1'},
+      {model: 'A3' , value: 'A3'},
+      {model: 'S3' , value: 'S3'},
+      {model: 'Q2' , value: 'Q2'},
+      {model: 'Q3' , value: 'Q3'},
+      {model: 'A4' , value: 'A4'},
+      {model: 'S4' , value: 'S4'},
+      {model: 'A5' , value: 'A5'},
+      {model: 'Q5' , value: 'Q5'},
+      {model: 'A6' , value: 'A6'},
+      {model: 'A7' , value: 'A7'},
+      {model: 'Q7' , value: 'Q7'},
+      {model: 'Q8' , value: 'Q8'}
+    ],
+    alfa_Romeo: [
+      {model: 'Mito' , value: 'mito'},
+      {model: 'Guilietta' , value: 'guilietta'},
+      {model: 'Guilia' , value: 'guilia'},
+      {model: 'Stelvio' , value: 'stelvio'},
+    ],
+    land_Rovor: [
+      {model: 'Ronge Rover' , value: 'ronge_rover'},
+      {model: 'Ronge Rover sport' , value: 'ronge_rover_sport'},
+      {model: 'Ronge Rover Valer' , value: 'ronge_rover_valer'},
+      {model: 'Defender' , value: 'defender'},
+      {model: 'Discovery' , value: 'discovery'},
+      {model: 'Discovery sport' , value: 'discovery_sport'},
+      {model: 'Evoque' , value: 'evoque'},
+    ],
+    fiat: [
+      {model: 'Typo' , value: 'typo'},
+      {model: 'Punto' , value: 'punto'},
+      {model: 'Panda' , value: 'panda'},
+      {model: '500' , value: '500'},
+      {model: '500 X' , value: '500_x'}
+    ],
+    bmw: [
+      {model: 'S1' , value: 'S1'},
+      {model: 'X1' , value: 'X1'},
+      {model: 'X2' , value: 'X2'},
+      {model: 'S3' , value: 'S3'},
+      {model: 'X3' , value: 'X3'},
+      {model: 'X4' , value: 'X4'},
+      {model: 'S5' , value: 'S5'},
+      {model: 'X5' , value: 'X5'},
+      {model: 'X6' , value: 'X6'},
+      {model: 'X7' , value: 'X7'},
+      {model: 'S7' , value: 'S7'}
+    ],
+    luxus: [
+      {model: 'IS' , value: 'is'},
+      {model: 'RX' , value: 'rx'},
+      {model: 'LS' , value: 'ls'},
+      {model: 'ES' , value: 'es'},
+      {model: 'NX' , value: 'nx'},
+      {model: 'CT' , value: 'ct'},
+      {model: 'LC' , value: 'lc'},
+      {model: 'UX' , value: 'ux'},
+      {model: 'RC' , value: 'rc'},
+    ],
+    infiniti: [
+      {model: 'Q30' , value: 'Q30'},
+      {model: 'QX30' , value: 'QX30'},
+      {model: 'Q50' , value: 'Q50'},
+      {model: 'Q70' , value: 'Q70'},
+    ],
+    kia: [
+      {model: 'Picanto' , value: 'picanto'},
+      {model: 'Rio' , value: 'rio'},
+      {model: 'Sportage' , value: 'sportage'},
+      {model: 'Seed' , value: 'seed'},
+      {model: 'Stonic' , value: 'stonic'},
+      {model: 'Nero' , value: 'Nero'},
+      {model: 'XSeed' , value: 'xseed'},
+      {model: 'ProSeed' , value: 'proSeed'},
+      {model: 'Stinger' , value: 'stinger'},
+    ],
+    skoda: [
+      {model: 'Fabia' , value: 'fabia'},
+      {model: 'Octavia' , value: 'octavia'},
+      {model: 'Superb' , value: 'superb'},
+      {model: 'Kodiaq' , value: 'kodiaq'},
+      {model: 'Citigo' , value: 'citigo'},
+      {model: 'Karoq' , value: 'karoq'},
+      {model: 'Scala' , value: 'scala'},
+      {model: 'Kamiq' , value: 'kamiq'}
+    ],
+    seat: [
+      {model: 'Ibiza' , value: 'ibiza'},
+      {model: 'Leon' , value: 'leon'},
+      {model: 'Toledo' , value: 'toledo'},
+      {model: 'Alhembra' , value: 'alhembra'},
+      {model: 'Ateca' , value: 'ateca'},
+      {model: 'Arona' , value: 'arona'},
+      {model: 'Tarraco' , value: 'tarraco'},
+      {model: 'SportTourer' , value: 'sportTourer'},
+      {model: 'Golf' , value: 'golf'},
+      {model: 'Polo' , value: 'polo'}     
+    ],
+    opel: [
+      {model: 'Corsa' , value: 'corsa'},
+      {model: 'Astra' , value: 'astra'},
+      {model: 'Crossland' , value: 'crossland'},
+      {model: 'Grandland' , value: 'grandland'},
+      {model: 'Antara' , value: 'antara'},
+      {model: 'Zafira' , value: 'zafira'},
+      {model: 'Combo Life' , value: 'combo_life'},
+      {model: 'Insigina' , value: 'insigina'},
+    ],
+    ds: [
+      {model: 'DS3' , value: 'ds3'},
+      {model: 'DS3 Crossback' , value: 'ds3_crossback'},
+      {model: 'DS5' , value: 'ds5'},
+      {model: 'DS5 Crossback' , value: 'ds5_rossback'},
+      {model: 'DS7' , value: 'DS7'},
+      {model: 'DS7 Crossback' , value: 'ds7_crossback'},
+    ],
+    hyundai: [
+      {model: 'i10' , value: 'i10'},
+      {model: 'i20' , value: 'i20'},
+      {model: 'i30' , value: 'i30'},
+      {model: 'i40' , value: 'i40'},
+      {model: 'i30 fastback' , value: 'i30_fastback'},
+      {model: 'Santafe' , value: 'Santafe'},
+      {model: 'Tucson' , value: 'Tucson'},
+      {model: 'Kona' , value: 'Kona'},
+    ],
   };
   steps = 0;
   currentStep = 1;
@@ -331,7 +649,7 @@ export class AddCarModalPage implements OnInit {
   }
   async finalize() {
     const id = this.db.getStorage('accID');
-    const res = await this.db.fetchCars(id);
+    const res = await this.db.fetchCars(id, this.glb.user.id);
     if (res && res.status !== 'failure') {
       this.glb.myCars = res.data;
       this.closeModal();
@@ -349,7 +667,7 @@ export class AddCarModalPage implements OnInit {
       slideView.slideNext(500);
       this.AddCarForm.lockSwipes(true);
       this.currentStep += 1;
-      if (this.currentStep === 7) {
+      if (this.currentStep > 6) { // just for debug purpose (have to be === 7)
         this.confirmAddCar();
       }
     }

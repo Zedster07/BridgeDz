@@ -48,7 +48,16 @@ const routes: Routes = [
       {
         path: 'brpage',
         loadChildren: './brpage/brpage.module#BrpagePageModule'
-      }
+      },
+      {
+        path: 'dagency',
+        loadChildren: './dagency/dagency.module#DagencyPageModule'
+      },
+      {
+        path: 'duser',
+        loadChildren: './duser/duser.module#DuserPageModule'
+      },
+
     ]
   }
 ];

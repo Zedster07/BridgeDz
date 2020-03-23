@@ -5,6 +5,7 @@ import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { AlertService } from '../../services/alert.service';
 import { LoginService } from '../../services/login.service';
 import { UserData } from '../../interfaces/user-data';
+
 @Component({
   selector: 'app-monprofile',
   templateUrl: './monprofile.page.html',
@@ -55,7 +56,8 @@ export class MonprofilePage implements OnInit {
     ville: '',
     codeP: '',
     propos: '',
-    userStatus: ''
+    userStatus: '',
+    role:'',
   };
 
   
@@ -170,7 +172,7 @@ export class MonprofilePage implements OnInit {
             rectoimg: recto['path'] ,
             versoimg: verso['path']
           };
-          const result = await this.db.finishVerifyAcc(this.verifyAccData , LiImgPaths);
+          const result = await this.db.finishVerifyAcc(this.verifyAccData , LiImgPaths, this.glb.user_modify);
           if (result) {
             this.glb.user.userStatus = '1';
             this.verified = '1';

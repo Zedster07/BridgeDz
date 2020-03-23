@@ -1,0 +1,74 @@
+
+<ion-content>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<hr>
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box no-header">
+                <div class="main-box-body clearfix">
+                    <div class="table-responsive">
+                        <table class="table user-list">
+                            <thead>
+                                <tr>
+                                <th><span>client</span></th>
+                                <th><span>crée le</span></th>
+                                <th class="text-center"><span>Status</span></th>
+                                <th><span>role</span></th>
+                                <th><span>Derniére connexion</span></th>
+                                <th><span>Email</span></th>
+                                <th><span>téléphone</span></th>
+                                <th><span>adresse</span></th>
+                                <th>&nbsp; Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                                <tr *ngFor="let item of this.glb.users; let i = index;">
+                                    <td>                                   
+                                        <ion-img src="{{getFrontPic(item)}}" ></ion-img>
+                                        <a href="#" class="user-link">{{item['fname']}}  {{item['lname']}} </a>
+                                    </td>
+                                    <td>{{item['lastOnline']}}</td>
+                                    <td class="text-center">
+                                        <span id="activaccount{{item['id']}}" class="label label-default">{{item['activeAccount']}}</span>
+                                    </td>
+                                    <td>{{item['role']}}</td>
+                                    <td>{{item['lastOnline']}}</td>               
+                                    <td>
+                                        <a href="#">{{item['email']}}</a>
+                                    </td>
+                                    <td>{{item['phone']}}</td>
+                                    <td>{{item['address']}}</td>
+
+                                    <td style="width: 20%;">
+                                      <ion-button class="table-link" (click)="de_activateAccount(item['id'])">
+                                            <span class="fa-stack">                                         
+                                                <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                          </ion-button>
+                                          <ion-button class="table-link" color="warning"  (click)="modifyAccount(item['id'])">
+                                            <span class="fa-stack">  
+                                                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                          </ion-button>
+                                          <ion-button class="table-link" color="danger" (click)="deleteUserAccount(item['id'])">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                          </ion-button>
+                                    </td>
+                                </tr> 
+                              
+                            
+                        </tbody>
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</ion-content>
