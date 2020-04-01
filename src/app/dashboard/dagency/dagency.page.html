@@ -1,7 +1,22 @@
 
+<ion-content>
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<div class="row">
+<form class="navbar-search">
+    <div class="input-group">
+   <input type="text" id="search_1" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" >
+   <div class="input-group-append">
+     <button class="btn btn-primary" type="button" (click)="filter()">
+       <i class="fa fa-search"></i>
+     </button>
+   </div>  
+ </div> 
+ </form>
+<h1> {{this.agsNbr}}  Agences </h1>
+</div> 
+
 <hr>
-<div class="container bootstrap snippet">
+<div class="io">
     <div class="row">
         <div class="col-lg-12">
             <div class="main-box no-header">
@@ -12,7 +27,7 @@
                                 <tr>
                                 <th><span>AGENCE</span></th>
                                 <th><span>CREE LE</span></th>
-                                <th class="text-center"><span>STATUS</span></th>
+                                <th><span (click)="byStatus()">STATUS </span></th>
                                 <th><span>DERNIERE CONNEXION</span></th>
                                 <th><span>EMAIL</span></th>
                                 <th><span>PROPRIETAIRE</span></th>
@@ -23,47 +38,43 @@
                             </thead>
                             <tbody>
                             
-                                <tr *ngFor="let item of this.glb.agencies; let i = index;">
+                                <tr *ngFor="let item of this.glb.agencies; let i = index; ">
+                                    <ng-container *ngIf="item['visible']">
                                     <td>                                   
-                                        <ion-img src="{{getFrontPic(item)}}" ></ion-img>
-                                        <a (click)="agencyClick(item['id'])" class="creator">{{item['name']}} </a>
+                                        <ion-img src="{{getFrontPic(item)}}" ></ion-img> 
+                                        <a> {{item['name']}}</a> 
                                     </td>
                                     <td>{{item['creationDate']}}</td>
-                                    <td class="text-center">
-                                        <span class="label label-default">{{item['status']}}</span>
-                                    </td>
+                                    <td>{{item['status']}}</td>
                                     <td>{{item['lastConnexion']}}</td>
                                     <td>{{item['businessEmail']}}</td>               
-                                    <td>
-                                        <a (click)="ownerClick(item['id'])" class="creator">{{item['creatorID']}}</a>
-                                    </td>
+                                    <td> {{item['creatorID']}} </td>
                                     <td>{{item['address']}}</td>
                                     <td>{{item['bmobile']}}</td>
 
-                                    <td style="width: 10%;">
-                                      <ion-button class="table-link" (click)="displayCar(item['id'])">
-                                        <span class="fa-stack">
-                                            <i class="fa fa-info fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                      </ion-button>
-                                          <ion-button class="table-link" color="warning"  (click)="modifyAccount(item['id'])">
+                                    <td style="width: 20%;">
+                                          <ion-button class="table-link"  (click)="ownerClick(item['id'])">
                                             <span class="fa-stack">  
                                                 <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                             </span>
                                           </ion-button>
-                                          <ion-button class="table-link" color="danger" (click)="deleteUserAccount(item['id'])">
-                                            <span class="fa-stack">
-                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                          </ion-button>
-                                          <ion-button class="table-link" color="danger" (click)="displayCar(item['id'])">
+                                       
+                                          <ion-button class="table-link" color="warning" (click)="de_activateAgency(item['id'])">
                                             <span class="fa-stack">
                                                 <i class="fa fa-ban fa-stack-1x fa-inverse"></i>
                                             </span>
                                           </ion-button>
+
+                                          <ion-button class="table-link" color="danger" (click)="deleteAgencyAccount(item['id'], i)">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                          </ion-button>
                                     </td>
-                                </tr> 
+                                </ng-container>
                               
+                                </tr> 
+                                
                             
                         </tbody>
 
@@ -75,3 +86,4 @@
         </div>
     </div>
 </div>
+</ion-content>

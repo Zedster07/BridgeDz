@@ -66,9 +66,42 @@ a {
     font-size: 1.125em;
     font-weight: 300;
 }
+
+
 .table tbody tr td {
     font-size: 0.875em;
     vertical-align: middle;
     border-top: 1px solid #e7ebee;
     padding: 12px 8px;
 }
+
+.io{ 
+
+    margin-right: 2em;
+    margin-left: 2em;
+}
+
+.navbar-search{
+    margin-right: 3em;
+    margin-left: 3em;
+    margin-top: 3em;
+    width: 25rem;
+   
+} 
+
+.navbar-search input{
+    height: 3rem;
+    font-size: 0.85rem;  
+} 
+.navbar-search btn{
+    height: 4rem;
+    font-size: 0.85rem;  
+} 
+
+h1{
+    position : relative;
+    left: 1000px;
+    margin-top: 2em;
+    margin-right: 2em;
+    margin-left: 2em;
+}   

@@ -1,0 +1,665 @@
+<ion-content class="ion-padding">
+  <h1 style="padding:30px; background-color:#f1f1f1;">AGENCE  {{this.glb.agency_modify['id']}}  </h1>
+  <ul class="nav nav-pills" color="primary" id="myTab" role="tablist">
+      <li class="nav-item" (click)="setTabVal('edit')">
+        <span class="nav-link" [ngClass]="{'active': showTab('edit')}" id="edit-tab" data-toggle="tab" href="#edit" role="tab" aria-controls="edit" aria-selected="true">Modifier mon profile</span>
+      </li>
+      <li *ngIf= "!this.isAdmin" class="nav-item" (click)="setTabVal('verify')">
+        <span class="nav-link " [ngClass]="{'active': showTab('verify')}" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">KBIS</span>
+      </li>
+      <li *ngIf= "!this.isAdmin" class="nav-item" (click)="setTabVal('pay')">
+        <span class="nav-link" [ngClass]="{'active': showTab('pay')}" id="pay-tab" data-toggle="tab" href="#pay" role="tab" aria-controls="pay" aria-selected="false">Paramètres de paiement</span>
+    </li> 
+      <li class="nav-item" (click)="setTabVal('vehicle')">
+        <span class="nav-link" [ngClass]="{'active': showTab('vehicle')}" id="vehicle-tab" data-toggle="tab" href="#vehicle" role="tab" aria-controls="vehicle" aria-selected="false">Voitures</span>
+      </li>
+      <li class="nav-item" (click)="setTabVal('renting')">
+        <span class="nav-link" [ngClass]="{'active': showTab('renting')}" id="renting-tab" data-toggle="tab" href="#renting" role="tab" aria-controls="renting" aria-selected="false">Location</span>
+      </li>
+      <li class="nav-item" (click)="setTabVal('wallet')">
+        <span class="nav-link" [ngClass]="{'active': showTab('wallet')}" id="wallet-tab" data-toggle="tab" href="#wallet" role="tab" aria-controls="wallet" aria-selected="false">Wallet</span>
+      </li>
+      <li class="nav-item" (click)="setTabVal('discount')">
+        <span class="nav-link" [ngClass]="{'active': showTab('discount')}" id="discount-tab" data-toggle="tab" href="#discount" role="tab" aria-controls="discount" aria-selected="false">Bon de réduction</span>
+      </li>
+      <li class="nav-item" (click)="setTabVal('param')">
+        <span class="nav-link" [ngClass]="{'active': showTab('param')}" id="param-tab" data-toggle="tab" href="#param" role="tab" aria-controls="param" aria-selected="false">Paramètres du compte</span>
+      </li>
+    </ul>
+
+    <!-- profil  --------------------------------------------------------------------------------------------------------------- -->
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade"  [ngClass]="{'active show': showTab('edit')}" id="edit" role="tabpanel" aria-labelledby="edit-tab">
+          <div class="mt-5 p-1">
+              <div style="width: fit-content; margin: 0 auto;" >
+                  <img src="assets/images/profd.jfif" width="250"/>
+                  
+                  <ion-button expand="full" class=" ion-no-margin" style="position: relative; bottom: 35px;" (click)="changepic()">Modifier la photo</ion-button>
+                 <input type="file" id="changepichandler" style="display: none;">
+              </div>
+              <fieldset class="scheduler-border">
+                  <legend class="scheduler-border">Agence information</legend>
+                  <div class="form-row mt-3">
+                      <div class="form-group col-md-6">
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                  <ion-icon name="mail"></ion-icon>
+                                </div>
+                              </div>
+                              <input type="email" class="form-control" id="EmailAgencyId"  placeholder="Email" [(ngModel)]="this.glb.agency_modify['businessEmail']">
+                          </div>
+                      </div>
+                      <div class="form-group col-md-6">
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <ion-icon name="phone-portrait"></ion-icon>
+                                </div>
+                              </div>
+                              <input type="text" class="form-control" id="mobileAgencyid" placeholder="Téléphone" [(ngModel)]="this.glb.agency_modify['bmobile']">
+                          </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <ion-icon name="person"></ion-icon>
+                                  </div>
+                                </div>
+                                <input type="text" class="form-control" id="nomAgencyId" placeholder="Nom" [(ngModel)]="this.glb.agency_modify['name']"> 
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <ion-icon name="calendar"></ion-icon>
+                                </div>
+                              </div>
+                              <ion-datetime class="form-control" (ionChange)="changedDOB()" id="dobid" placeholder="Date de création" displayFormat="YYYY-MM-DD" [(ngModel)]="this.glb.agency_modify['creationDate']"></ion-datetime>
+                          </div>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">
+                                <ion-icon name="mail"></ion-icon>
+                              </div>
+                            </div>
+                            <input type="text" class="form-control" id="AgencyStatusId"  placeholder="Status" [(ngModel)]="this.glb.agency_modify['status']">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <div class="input-group">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                              <ion-icon name="mail"></ion-icon>
+                            </div>
+                          </div>
+                          <input type="text" class="form-control" id="noteAgencyId"  placeholder="note" [(ngModel)]="this.glb.agency_modify['reviewsAVG']">
+                      </div>
+                   </div>
+                      </div>
+              </fieldset>
+              <fieldset class="scheduler-border">
+                  <legend class="scheduler-border">Propriétaire information</legend>
+              
+            <div class="form-row mt-3">
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="nameClientId" placeholder="Nom" [(ngModel)]="this.glb.user_modify['fname']">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="lnameCleintId" placeholder="Prénom" [(ngModel)]="this.glb.user_modify['lname']">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="emailClientId" placeholder="Email" [(ngModel)]="this.glb.user_modify['email']">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="phoneClientId" placeholder="Téléphone" [(ngModel)]="this.glb.user_modify['phone']">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="statusClientId" placeholder="status" [(ngModel)]="this.glb.user_modify['activeAccount']" >
+              </div>
+              <div class="form-group col-md-6">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                          <ion-icon name="calendar"></ion-icon>
+                      </div>
+                    </div>
+                    <ion-datetime class="form-control" (ionChange)="changedDOB()" id="LastConnexionClientId" placeholder="Derniére connexion" displayFormat="YYYY-MM-DD" [(ngModel)]="this.glb.user_modify['lastOnline']"></ion-datetime>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                              <ion-icon name="calendar"></ion-icon>
+                          </div>
+                        </div>
+                        <ion-datetime class="form-control" (ionChange)="changedDOB()" id="dobClientId" placeholder="Date de naissance" displayFormat="YYYY-MM-DD" [(ngModel)]="this.glb.user_modify['dob']"></ion-datetime>
+                        
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <input type="text" class="form-control" id="pobId" placeholder="Lieu de naissance" [(ngModel)]="this.glb.user_modify['ville']">
+                </div>
+              </div>
+            
+            <div class="form-group">
+              <label for="inputAddress">Address</label>
+              <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" [(ngModel)]="this.glb.user_modify['address']">
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                  <select id="inputState" class="form-control">
+                      <option selected>Pays</option>
+                      <option>...</option>
+                      <option>...</option>
+                    </select>
+              </div>
+              <div class="form-group col-md-4">
+                <select id="inputState" class="form-control">
+                  <option selected>Ville</option>
+                  <option>...</option>
+                  <option>...</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <input type="text" class="form-control" id="inputZip" placeholder="Code Postal">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="apropos">A propos</label>
+                <textarea class="form-control" placeholder="Description" id="apropos" rows="5"></textarea>
+              </div>
+            </div>
+            
+          </fieldset>
+          <div class="form-row col-md-12">
+          <ion-button color="primary" expand="block" (click)="updateAgencyInfo()">Mettre à jour</ion-button>
+          <ion-button color="primary" expand="block" (click)="modifyCancel()">Annuler</ion-button>
+          </div>
+          </div>
+      </div>
+      <!-- profil end  --------------------------------------------------------------------------------------------------------------- -->
+
+      <!-- license parameter --------------------------------------------------------------------------------------------------------------- -->
+      <div class="tab-pane fade" id="verify_license" [ngClass]="{'active show': showTab('verify_license')}" role="tabpanel" aria-labelledby="verify_license-tab">
+        <div class="mt-5 p-1">
+          <div class="login-input alert alert-warning" *ngIf="verified === '1'" role="alert" id="loginerror">
+            Account is being reviewed.
+          </div>
+          <div class="login-input alert alert-success" *ngIf="verified === '2'" role="alert">
+            Account verified.
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="permisID">Permis de conduire (<strong>ID</strong>)</label>
+              <input class="form-control" type="text" placeholder="Permis ID"/>
+            </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group col-md-6">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <ion-icon name="calendar"></ion-icon>
+                        </div>
+                      </div>
+                      <ion-datetime class="form-control" placeholder="Date de d’obtention"></ion-datetime>
+                  </div>
+              </div>
+              <div class="form-group col-md-6">
+                <select class="form-control" id="inputPassword4">
+                  <option value="0" selected>Pays d’obtention</option>
+                  <option value="algeria">Algérie</option>
+                  <option value="france">France</option>
+                </select>
+              </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="permisFile">Piece jointe </label>
+            </div>       
+            <div class="form-group col-md-6">
+              <ion-button color="light" expand="full">
+                <ion-icon name="add" slot="start"></ion-icon>
+                Recto
+              </ion-button>
+   
+              <img *ngIf= "this.recto_temp" [src]=""  id="rectoImg_1" />
+              <input type="file"  id="rectoid" class="form-control" style="display: none;" />
+            </div>
+            <div class="form-group col-md-6">
+              <ion-button color="light" expand="full">
+                <ion-icon name="add" slot="start"></ion-icon>
+                Verso
+              </ion-button>
+    
+              <img *ngIf= "this.verso_temp" [src]=""  id="versoImg_1" />
+              <input type="file"  id="versoid" class="form-control" style="display: none;" />
+            </div>
+          </div>
+
+          <ion-button color="primary" expand="block" [attr.disabled]="verified !== '0'">Mettre à jour</ion-button>
+        </div>
+    </div>
+   <!-- license  parameter end--------------------------------------------------------------------------------------------------------------- --> 
+
+    <!-- KBIS parameter --------------------------------------------------------------------------------------------------------------- -->
+      <div  class="tab-pane fade" id="verify" [ngClass]="{'active show': showTab('verify')}" role="tabpanel" aria-labelledby="verify-tab">
+        <div class="mt-5 p-1">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="permisID">KBIS</label>
+              <input class="form-control" type="text" placeholder="KBIS" [(ngModel)]="this.glb.kbis_modify['kbis_ref']"/>
+            </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group col-md-4">
+                  <input class="form-control" type="text" placeholder="Numéro de TVA Inter" [(ngModel)]="this.glb.kbis_modify['tva']"/>
+                </div>
+                
+              <div class="form-group col-md-4">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <ion-icon name="calendar"></ion-icon>
+                        </div>
+                      </div>
+                      <ion-datetime class="form-control" (ionChange)="changedDOB()" id="dobkbisId" placeholder="Date de naissance" displayFormat="YYYY-MM-DD" [(ngModel)]="this.glb.kbis_modify['creationDate']"></ion-datetime>
+                  </div>
+              </div>
+              
+              <div class="form-group col-md-4">
+                  <input class="form-control" type="text" placeholder="Adresse" [(ngModel)]="this.glb.kbis_modify['adresse']"/>
+              </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="permisFile">KBIS Piéce jointe </label>
+            </div>       
+            <div class="form-group col-md-6">
+              <ion-button color="light" expand="full" (click)="changepic2( 'rectoImg' , 'rectoid')">
+                <ion-icon name="add" slot="start"></ion-icon>
+                Recto
+              </ion-button>
+              <img *ngIf= "!this.recto_temp" [src]="this.glb.kbis_modify['picture_recto']"  id="rectoImg" />
+              <img *ngIf= "this.recto_temp" [src]=""  id="rectoImg_1" />
+              <input type="file"  id="rectoid" class="form-control" style="display: none;" />
+            </div>
+            <div class="form-group col-md-6">
+              <ion-button color="light" expand="full" (click)="changepic2( 'versoImg' , 'versoid')">
+                <ion-icon name="add" slot="start"></ion-icon>
+                Verso
+              </ion-button>
+                <img *ngIf= "!this.verso_temp" [src]="this.glb.kbis_modify['picture_verso']"  id="versoImg" /> 
+              <img *ngIf= "this.verso_temp" [src]=""  id="versoImg_1" />
+              <input type="file"  id="versoid" class="form-control" style="display: none;" />
+            </div>
+          </div>
+          <ion-button color="primary" expand="block" (click)="updateKbisInfo()">Mettre à jour</ion-button>
+
+        </div>
+      </div>
+      <!-- KBIS end --------------------------------------------------------------------------------------------------------------- -->
+
+      <!-- notif parameter --------------------------------------------------------------------------------------------------------------- -->
+      <div class="tab-pane fade" id="param"  [ngClass]="{'active show': showTab('param')}" role="tabpanel" aria-labelledby="param-tab">
+          <div class="mt-5 p-1">
+              <div class="form-row">
+                <div class="form-group col-md-6"></div>
+                <div class="form-group col-md-2">Email</div>
+                <div class="form-group col-md-2">SMS</div>
+                <div class="form-group col-md-2">Push Notification</div>
+              </div>
+              <ion-item-divider></ion-item-divider>
+              <br>
+              <div class="form-row">
+                  <div class="form-group col-md-6">Demande d’une location</div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+              </div>
+  
+              <div class="form-row">
+                  <div class="form-group col-md-6">Relance d’une demande de location</div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+              </div>
+  
+              <div class="form-row">
+                  <div class="form-group col-md-6">Location Acceptée</div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+              </div>
+  
+              <div class="form-row">
+                  <div class="form-group col-md-6">Annulation de location</div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+              </div>
+  
+              <div class="form-row">
+                  <div class="form-group col-md-6">Rappel de location</div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+              </div>
+  
+              <div class="form-row">
+                  <div class="form-group col-md-6">E-mail promotion</div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+                  <div class="form-group col-md-2"><ion-toggle></ion-toggle></div>
+              </div>
+              <ion-item-divider></ion-item-divider>
+              <br>
+              <ion-button color="primary" expand="block">Mettre à jour</ion-button>
+            </div>
+      </div>
+      <!-- notif parameter end--------------------------------------------------------------------------------------------------------------- -->
+
+    <!-- payment parameter --------------------------------------------------------------------------------------------------------------- -->  
+      <div class="tab-pane fade" id="pay"  [ngClass]="{'active show': showTab('pay')}"  role="tabpanel" aria-labelledby="pay-tab">
+          <div class="mt-5 p-1">
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <input class="form-control" type="text" placeholder="N° IBAN" [(ngModel)]="this.glb.rib_modify['iban']"/>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <input class="form-control" type="text" placeholder="Numéro du compte" [(ngModel)]="this.glb.rib_modify['account_n']"/>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input class="form-control" type="text" placeholder="Réference" [(ngModel)]="this.glb.rib_modify['reference']"/>
+                </div>
+                <div class="form-group col-md-6">
+                    <input class="form-control" type="text" placeholder="Banque" [(ngModel)]="this.glb.rib_modify['bank']"/>
+                </div>
+              </div>
+              <div class="form-row">
+                  <ion-radio-group>
+                      <ion-list-header>
+                          <ion-label>Vos préférence de paiement</ion-label>
+                        </ion-list-header>
+                      <ion-item>
+                          <ion-label>Via un virement bancaire à chaque location</ion-label>
+                          <ion-radio name="pay" slot="start" value="0" ></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Cash via un cumul de crédit</ion-label>
+                            <ion-radio name="pay" slot="start" value="1" checked></ion-radio>
+                          </ion-item>
+                  </ion-radio-group>
+              </div>
+              <ion-item-divider></ion-item-divider>
+              <br>
+              <ion-button color="primary" expand="block" (click)="updateRibInfo()">Mettre à jour</ion-button>
+          </div>
+      </div>
+      <!-- payment parameter end------------------------------------------------------------------------------------------------------------- -->
+
+      <!-- Vehicule ------------------------------------------------------------------------------------------------------------------------ -->
+      <div class="tab-pane fade" id="vehicle"  [ngClass]="{'active show': showTab('vehicle')}"  role="tabpanel" aria-labelledby="vehicle-tab">
+        <div class="row" *ngFor="let item of this.glb.myCars; let i = index;">
+        <div class="row">
+          <div class="col-lg-3 col-md-12">
+            <ion-img src="{{getFrontPic(item)}}"></ion-img>
+          </div>
+          <div class="col-lg-5 col-md-12">
+            <h3>{{item['brand'].toUpperCase() + ' ' + item['model'].toUpperCase()}}</h3>
+            <span>
+                <ion-icon name="star" color="warning"></ion-icon>
+                <ion-icon name="star" color="warning"></ion-icon>
+                <ion-icon name="star" color="warning"></ion-icon>
+                <ion-icon name="star" color="warning"></ion-icon>
+                <ion-icon name="star" color="warning"></ion-icon>
+            </span>
+            <p> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+            <ion-button fill="outline" color="warning" (click)="showCarAvailModal(i)">
+              <ion-icon name="calendar" slot="start"></ion-icon>
+              Gérer les disponibilité
+            </ion-button>
+    
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <ion-card class="" style="border-left: 3px solid red;">
+              <ion-card-header>
+                <ion-title>
+                  <ion-icon name="hourglass" slot="start"> </ion-icon>
+                  En attente de validation
+                </ion-title>
+                
+              </ion-card-header>
+              <ion-card-content>
+                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
+              </ion-card-content>
+            </ion-card>
+          </div>
+          <ion-item-divider style="margin-bottom: 40px;" ></ion-item-divider>
+        </div>  
+      </div> 
+    </div>
+  <!-- Vehicule ENd ------------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+
+    <!-- RENTING ------------------------------------------------------------------------------------------------------------------------ -->
+    <div class="tab-pane fade" id="renting"  [ngClass]="{'active show': showTab('renting')}"  role="tabpanel" aria-labelledby="renting-tab">
+      <div class="row">
+        <div class="col-12">
+          
+          <div class="row">
+            <div class="col-lg-3 col-md-12">
+              <ion-img src="assets/images/clio.jpg"></ion-img>
+            </div>
+            <div class="col-lg-5 col-md-12">
+              <h3>Renault Clio</h3>
+              <span>
+                  <ion-icon name="star" color="warning"></ion-icon>
+                  <ion-icon name="star" color="warning"></ion-icon>
+                  <ion-icon name="star" color="warning"></ion-icon>
+                  <ion-icon name="star" color="warning"></ion-icon>
+                  <ion-icon name="star" color="warning"></ion-icon>
+              </span>
+              <p> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+              <h3>200 €</h3>
+              <ion-button color="primary" disabled>
+                <ion-icon name="clock" slot="start"></ion-icon>
+                Non Payé
+              </ion-button>
+            </div>
+          </div>     
+        </div>
+      </div>
+   </div>
+   <!-- RENTING end------------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+  <!-- Wallet ------------------------------------------------------------------------------------------------------------------------ -->
+  <div class="tab-pane fade" id="wallet"  [ngClass]="{'active show': showTab('wallet')}"  role="tabpanel" aria-labelledby="wallet-tab">
+    <ion-row>
+      <ion-col size="2" size-md>
+      <ion-card class="credit text-center">
+        <ion-card-header>
+          <ion-title class="ion-padding">Mon Portefeuille</ion-title>
+          <ion-icon name="cash" style="font-size: 75px;"></ion-icon>
+        </ion-card-header>
+        <ion-card-content>
+          <h2>Solde Actuel : {{this.glb.wallet['theoBalance']}}  €</h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="2" size-md>
+      <ion-card class="credit text-center">
+        <ion-card-header>
+          <ion-title class="ion-padding">Mes paiement à venir</ion-title>    
+          <ion-icon name="calendar" style="font-size: 75px;"></ion-icon>
+        </ion-card-header>
+        <ion-card-content>
+          <h2>A payer : {{this.glb.wallet['realBalance']}} € prévu le {{this.glb.wallet['next_pay']}}</h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="2" size-md>
+      <ion-card class="credit text-center">
+        <ion-card-header>
+          <ion-title class="ion-padding">Mon Portefeuille</ion-title>
+          <ion-icon name="wallet" style="font-size: 75px;"></ion-icon>
+        </ion-card-header>
+        <ion-card-content>
+          <h2>Solde Actuel : {{this.glb.wallet['monthBalance']}}  € </h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col size="2" size-md>
+      <ion-card class="credit text-center">
+        <ion-card-header>
+          <ion-title class="ion-padding">Mon Portefeuille</ion-title>
+          <ion-icon name="card" style="font-size: 75px;"></ion-icon>
+        </ion-card-header>
+        <ion-card-content>
+          <h2>Solde Actuel : {{this.glb.wallet['totalBalance']}}  €</h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  
+      <ion-item-divider style="margin-bottom: 30px;"></ion-item-divider>
+      <ul class="nav nav-tabs" id="myTab1" role="tablist1">
+        <li class="nav-item" (click)="setTabVal('pe')">
+          <span class="nav-link" [ngClass]="{'active': showTab('pe')}" id="pe-tab" data-toggle="tab" href="#pe" role="tab1" aria-controls="pe" aria-selected="true">Paiement Effectués</span>
+        </li>
+        <li class="nav-item" (click)="setTabVal('pf')">
+          <span class="nav-link" [ngClass]="{'active': showTab('pf')}" id="pf-tab" data-toggle="tab" href="#pf" role="tab1" aria-controls="pf" aria-selected="false">Paiement à Venir</span>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade"  [ngClass]="{'active show': showTab('pe')}" id="pe" role="tabpanel" aria-labelledby="pe-tab1">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                  <tr>
+                    <th>Facture</th>
+                    <th>Date</th>
+                    <th>Somme</th>
+                    <th>Demmande</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>12/03/2019</td>
+                    <td>300, 00 Euros</td>
+                    <td>A la demande / Fin du mois</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>12/04/2019</td>
+                    <td>253, 12 Euros</td>
+                    <td>A la demande / Fin du mois</td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="pf"  [ngClass]="{'active show': showTab('pf')}"  role="tabpanel" aria-labelledby="pf-tab1">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                      <tr>
+                        <th>Facture</th>
+                        <th>Date</th>
+                        <th>Voiture</th>
+                        <th>Somme</th>
+                        <th>Date de paiement</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>12/04/2019</td>
+                        <td>Mégane</td>
+                        <td>200, 00 euros</td>
+                        <td>01/06/2019</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>12/04/2019</td>
+                        <td>Clio</td>
+                        <td>150, 00 euros</td>
+                        <td>01/07/2019</td>
+                      </tr>
+                  </tbody>
+                </table>
+              </div>
+        </div>
+      </div>
+ </div>
+<!-- Wallet End ------------------------------------------------------------------------------------------------------------------------ -->
+
+<!-- RENTING ------------------------------------------------------------------------------------------------------------------------ -->
+<div class="tab-pane fade" id="discount"  [ngClass]="{'active show': showTab('discount')}"  role="tabpanel" aria-labelledby="discount-tab">
+  <div class="row">
+    <div class="col-12 ion-margin" style="border-bottom: 1px solid silver; padding:0px; padding-bottom: 10px;">
+      <ion-button (click)="showAddReductions()">
+        <ion-icon name="add"></ion-icon>
+          Ajouter Un Bon de réduction</ion-button>
+    </div>
+  </div>
+ <div class="row" *ngIf="this.glb.discounts.length === 0">
+   <div class="col">
+    <p>Vous n'avez pas de bon de reduction!</p>
+   </div>
+ </div> 
+<table class="table" *ngIf="this.glb.discounts.length > 0">
+  <thead>
+      <tr>
+        <th scope="col">#Code Promo</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Status</th>
+        <th scope="col">Offre</th>
+        <th scope="col">Debut</th>
+        <th scope="col">Fin</th>
+        <th scope="col">options</th>
+      </tr>
+  </thead>
+  <tbody>
+        <tr *ngFor="let item of this.glb.discounts; let i = index;"> 
+          <th scope="row">{{item['code']}}</th>
+          <td>{{item['name']}}</td>
+          <td [attr.class] = "getClass(i)">{{item['status']}}</td>
+          <th>-{{item['value']}} {{getType(i)}} </th>
+          <td displayFormat="YYYY-MM-DD" > {{item['startDate']}}</td>
+          <td displayFormat="YYYY-MM-DD" > {{item['endDate']}}</td>        
+          <td>
+            <ion-button (click)="changeDiscountState(item['id'], i)">activer</ion-button>&nbsp;&nbsp;&nbsp;
+            <ion-button color="warning"  (click)="showEditReductions(i)">Editer</ion-button>&nbsp;&nbsp;&nbsp;
+            <ion-button color="danger" (click)="delReduction(item['id'], i)">supprimer</ion-button>
+        </td>
+        </tr>
+  </tbody>
+</table>
+</div>
+<!-- RENTING end------------------------------------------------------------------------------------------------------------------------ -->
+
+    </div>
+</ion-content>
