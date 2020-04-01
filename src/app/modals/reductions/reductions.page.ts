@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { LoadingService } from 'src/app/services/loading.service';
+import { GlobalsService } from 'src/app/services/globals.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-reductions',
@@ -19,14 +21,19 @@ export class ReductionsPage implements OnInit {
     type: '1',
     value: '',
     debut: '',
-    fin: ''
+    fin: '',
+    agency: ''
   };
+
+  agency = [];
 
   constructor(
     public modalCtrl: ModalController,
     public navParams: NavParams,
     private loading: LoadingService,
-    private db: DbinteractionsService) { }
+    private db: DbinteractionsService,
+    public glb: GlobalsService,
+    public util: UtilService) { }
   close() {
     this.modalCtrl.dismiss({
       dismissed: true
@@ -35,12 +42,22 @@ export class ReductionsPage implements OnInit {
 
   async updateBR(request: string) {
     this.loading.presentLoading();
-    const res = await this.db.addBR(request , this.data);
-    console.log(res);
+    let id_agency = this.glb.AgencyLogData.id;
+    if (this.glb.ifAdmin(this.glb.user.role)){
+      id_agency = this.glb.agency_modify['id'];
+    } 
+    const res = await this.db.addBR(request , this.data, id_agency);
+    console.log("res : " + res);
     if (res.message === 'Success') {
+      console.log("sucess  : " + res.message);
       this.loading.dismissLoading();
       this.close();
-    }
+    } else {
+      console.log("  : " + res.message);
+      this.loading.dismissLoading();
+      this.close();
+    }  
+
   }
 
   getTitle() {
@@ -69,7 +86,9 @@ export class ReductionsPage implements OnInit {
   }
 
   async ionViewWillEnter() {
-    console.log('view enter');
+  }
+
+  ionViewDidLeave(){
   }
 
 }

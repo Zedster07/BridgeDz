@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'agency', loadChildren: './agency/agency.module#AgencyPageModule' },
   { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
   { path: 'faq', loadChildren: './faq/faq.module#FaqPageModule' },
+  { path: 'ddetagency', loadChildren: './dashboard/dagency/ddetagency/ddetagency.module#DdetagencyPageModule' },
 ];
 
 @NgModule({

@@ -158,8 +158,11 @@ export class DbinteractionsService {
 
 
 
-    async delBR(id): Promise<any> {
-      const httpparams = new HttpParams().append('request' , 'delbonreduction').append('id' , id);
+    async delBR(id_discount, id_agency): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'delbonreduction').
+      append('id' , id_discount).
+      append('id_agency' , id_agency).
+      append('id_requestor' , this.glb.user.id);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         if (resp && resp.message === 'Success') {
           return true;
@@ -174,9 +177,10 @@ export class DbinteractionsService {
     }
 
 
-    async fetchBR(id): Promise<any> {
+    async fetchBR(id: string, id_requestor: string): Promise<any> {
       const httpparams = new HttpParams().append('request' , 'fetchbonreduction')
-      .append('offset' , '0').append('agencyid' , id);
+      .append('offset' , '0').append('agencyid' , id).
+      append('id_requestor', id_requestor);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         return resp;
       }).catch(err => {
@@ -185,13 +189,15 @@ export class DbinteractionsService {
       });
     }
 
-    async addBR(request: string , data: any): Promise<any> {
+    async addBR(request: string , data: any, id_agency: string): Promise<any> {
       let id = '0';
       if (request === 'update') {
         id = data.id;
       }
       const httpparams = new HttpParams().append('request' , 'addbonreduction')
-      .append('for' , request).append('id' , id + '').append('agencyid' , this.glb.AgencyLogData.id)
+      .append('for' , request).append('id' , id + '')
+      .append('agencyid' , id_agency)
+      .append('id_requestor', this.glb.user.id)
       .append('name' , data.name).append('value' , data.value)
       .append('type' , data.type).append('code' , data.code)
       .append('dated' , data.debut).append('datef' , data.fin).append('status' , data.status);
@@ -219,11 +225,119 @@ export class DbinteractionsService {
       });
     }
 
+    async updateBRStatus(index: string): Promise<any> {
+      const httpparams = new HttpParams().
+      append('request' , 'updateBR').
+      append('id_discount', index).
+      append('id_requestor',this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    } 
+
+    async deleteAgencyAccount(index: string): Promise<any> {
+      const httpparams = new HttpParams().
+      append('request' , 'deleteAgency').
+      append('id_agency' ,index ).
+      append('id_requestor',this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
     async de_activateAccount(index: string): Promise<any> {
       const httpparams = new HttpParams().
       append('request' , 'de_activateUser').
       append('id_user' ,index).
       append('id_requestor',this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async de_activateAgency(index: string): Promise<any> {
+      const httpparams = new HttpParams().
+      append('request' , 'de_activateAgency').
+      append('id_agency' ,index).
+      append('id_requestor',this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async updateRibInfo(): Promise<any> {
+      let request = "";
+      let id = "";
+      let owner_id = "";
+      
+      if (this.glb.rib_modify.length === 0) {
+        request = "addRib";
+        id ="";
+      } else {
+        request = "updateRib"
+        id = this.glb.rib_modify['id'];
+      }
+      const httpparams = new HttpParams().
+      append('request' , request).
+      append('id' , id).
+      append('pay_choice' ,this.glb.rib_modify['pay_choice']).
+      append('bank' ,this.glb.rib_modify['bank']).
+      append('reference' ,this.glb.rib_modify['reference']).
+      append('account_n' ,this.glb.rib_modify['account_n']).
+      append('iban' ,this.glb.rib_modify['iban']).
+      append('id_agency' ,this.glb.agency_modify['id']).
+      append('id_requestor',this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async updateKbisInfo(LiImgPaths: any): Promise<any> {
+      let request = "";
+      let id = "";
+      let owner_id = "";
+      
+      if (this.glb.kbis_modify.length === 0) {
+        request = "addKbis";
+        id ="";
+      } else {
+        console.log("we are here");
+        request = "updateKbis"
+        id = this.glb.kbis_modify['id'];
+      }
+      console.log("we are here _1 ");
+      const httpparams = new HttpParams().
+      append('request' , request).
+      append('id' , id).
+      append('kbis_ref' ,this.glb.kbis_modify['kbis_ref']).
+      append('tva' ,this.glb.kbis_modify['tva']).
+      append('creationDate' ,this.glb.kbis_modify['creationDate']).
+      append('adresse' ,this.glb.kbis_modify['adresse']).
+      append('picture_recto' ,this.glb.hostServer + LiImgPaths['rectoimg']).
+      append('picture_verso' ,this.glb.hostServer + LiImgPaths['versoimg']).
+      append('id_agency' ,this.glb.agency_modify['id']).
+      append('id_requestor',this.glb.user.id);
+      console.log(this.glb.kbis_modify);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         console.log(resp);
         return resp;
@@ -259,9 +373,48 @@ export class DbinteractionsService {
       });
     }
 
+    async fetchCarsUsers(id: string, userid: string): Promise<any> {
+      console.log(userid);
+      const httpparams = new HttpParams().append('request' , 'fetchCarsUser').append('user_id' , id).append('requestor_id',userid);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
     async fetchAgencies(id: string, requesotr: string): Promise<any> {
       //console.log(userid);
       const httpparams = new HttpParams().append('request' , 'fetchAgencies').append('id_agency' , id).append('id_requestor',requesotr);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async fetchAgenciesRelatedData(id: string, requesotr: string): Promise<any> {
+      //console.log(userid);
+      const httpparams = new HttpParams().append('request' , 'fetchAgenciesRelatedData').append('id_agency' , id).append('id_requestor',requesotr);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.log("hello");
+        console.error(err);
+        return false;
+      });
+    }
+
+    
+
+    async fetchAgenciesUser(id: string, requesotr: string): Promise<any> {
+      //console.log(userid);
+      const httpparams = new HttpParams().append('request' , 'fetchAgenciesUser').append('user_id' , id).append('id_requestor',requesotr);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         console.log(resp);
         return resp;

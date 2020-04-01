@@ -4,6 +4,7 @@ import { UserData } from '../interfaces/user-data';
 import { HttpClient } from '@angular/common/http';
 import { LoadingService } from './loading.service';
 import { role_user}  from '../interfaces/role_user';
+import { account_status}  from '../interfaces/account_status';
 
 
 @Injectable({
@@ -40,10 +41,21 @@ export class GlobalsService {
   prevAction = '';
   prevBook = {};
   myCars = [];
+  isViewCars = false;
   users =[];
   user_modify =[];
   agencies  =[];
   agency_modify =[];
+  cars  =[];
+  car_modify =[];
+  kbis =[];
+  kbis_modify = [];
+  ribs =[];
+  rib_modify = [];
+  wallet=[];
+  discounts=[];
+  discount_modify=[];
+  isViewAgency = false;
   permis=[];
   notifications = [];
   unreadNotif = 0;
@@ -175,6 +187,9 @@ export class GlobalsService {
       return false;
     }  
   }
+
+
+
 
   generateURLPicture(urlImage: string){
     if (urlImage.includes(this.hostServer) === true) {

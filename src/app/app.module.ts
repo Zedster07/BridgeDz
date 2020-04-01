@@ -39,6 +39,7 @@ import { MenuListComponent } from './menu-list/menu-list.component';
 import { ClientMenuListComponent } from './client/client-menu-list/client-menu-list.component';
 import { Ionic4DatepickerModule } from '@logisticinfotech/ionic4-datepicker';
 import { IonicTimepickerModule } from '@logisticinfotech/ionic-timepicker';
+import { UtilService } from './services/util.service';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -86,6 +87,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     StatusBar,
     SplashScreen,
     GlobalsService,
+    UtilService,
     LoadingService,
     AlertService,
     LoginService,

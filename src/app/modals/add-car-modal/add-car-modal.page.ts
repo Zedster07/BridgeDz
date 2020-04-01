@@ -686,4 +686,8 @@ export class AddCarModalPage implements OnInit {
     this.AddCarForm.lockSwipes(true);
   }
 
+  
+
+  
+
 }
