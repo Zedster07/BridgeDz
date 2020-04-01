@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from 'src/app/services/globals.service';
+import { UtilService } from 'src/app/services/util.service';
 import { ReductionsPage } from 'src/app/modals/reductions/reductions.page';
 import { ModalController } from '@ionic/angular';
 import { LoadingService } from 'src/app/services/loading.service';
@@ -14,43 +15,62 @@ import { Router } from '@angular/router';
 })
 export class DuserPage implements OnInit {
 
+  usrNbr = 0;
+
   constructor(
     public modalController: ModalController,
     public glb: GlobalsService,
+    public util: UtilService,
     private db: DbinteractionsService,
     private loading:LoadingService,
-    private route: Router,) { }
+    private route: Router,) {
+      console.log(this.util.dsiplayRole("1"));
+     }
 
   async ionViewWillEnter() {
       const res = await this.db.fetchUsers( this.glb.user.id);
       if (res && res.status !== 'failure') {
         this.glb.users = res.data;
-        this.glb.users.forEach(function(item){
-          switch (parseInt(item['role'])) {
-            case 0 : 
-            item['role'] = "Client";
-            break;
-            case 1 : 
-            item['role'] = "Agency";
-            break;
-            case 2 : 
-            item['role'] = "Admin";
-            break;
-          }
-          switch (parseInt(item['activeAccount'])) {
-            case 0 : 
-            item['activeAccount'] = "Activated";
-            break;
-            case 1 : 
-            item['activeAccount'] = "Deactivated";
-            break;
-            case 2 : 
-            item['activeAccount'] = "Hidden";
-            break;
-          }
-        })
+        for (let i = 0; i < this.glb.users.length ; i++) {
+          this.glb.users[i]['role'] = this.util.dsiplayRole(this.glb.users[i]['role']);
+          this.glb.users[i]['activeAccount'] = this.util.dsiplayStatus(this.glb.users[i]['activeAccount']);
+          this.glb.users[i]['visible'] = true;
+        }
+        this.usrNbr = this.glb.users.length;
       }
       console.log(this.glb.users);
+    }
+
+    filter(){
+      const pass = document.getElementById("search") as HTMLInputElement;
+      console.log(pass.value);
+      
+      if (pass.value ==='') {
+      this.usrNbr = this.glb.users.length;
+      for (let i=0; i<this.glb.users.length ; i++){
+          this.glb.users[i]['visible'] = true;
+        } 
+      } else {
+        this.usrNbr  = 0;
+        for (let i=0; i<this.glb.users.length ; i++){
+          if (!this.glb.users[i]['lname'].includes(pass.value) &&
+           !this.glb.users[i]['fname'].includes(pass.value) && 
+           !this.glb.users[i]['email'].includes(pass.value) &&
+           !this.glb.users[i]['username'].includes(pass.value)&&
+           !this.glb.users[i]['activeAccount'].includes(pass.value) && 
+           !this.glb.users[i]['role'].includes(pass.value) ) {
+            console.log("let's check");
+            this.glb.users[i]['visible'] = false;
+          } else {
+            this.glb.users[i]['visible'] = true;
+            this.usrNbr++;
+          }
+      }
+    }
+    }
+
+    byStatus(){
+     // this.glb.users.sort(function(a,b){ return a['activeAccount'] - b['activeAccount'] });
     }
 
     
@@ -74,9 +94,15 @@ export class DuserPage implements OnInit {
       this.loading.presentLoading();
       const res = await this.db.deleteUserAccount(index);
       this.loading.dismissLoading();
-      console.log(res);
-      if (res.message === 'Success'){   
-        this.close();
+      console.log(this.glb.users);
+      if (res.status === 'Success'){   
+        for (let i = 0; i < this.glb.users.length ; i++) {
+          if (this.glb.users[i]['id'] === index)
+          {
+            this.glb.users.splice(i, 1);
+          } 
+        }
+        console.log(this.glb.users);
       }
     } 
 
@@ -88,7 +114,7 @@ export class DuserPage implements OnInit {
       if (res.message === 'Success'){ 
         console.log(index);
         let elem = document.getElementById('activaccount'+index);
-        elem.textContent = res.data;
+        elem.textContent = this.util.dsiplayStatus(res.data);
         this.close();
       }
     }
@@ -105,11 +131,60 @@ export class DuserPage implements OnInit {
       }   
     }
 
+    async displayInfo(index) {    
+        this.route.navigate(['dashboard']);
+        
+    }
 
+    async displayCar(index) {  
+      this.loading.presentLoading();
+      const res = await this.db.fetchCarsUsers(index, this.glb.user.id);
+      this.loading.dismissLoading();
+      if (res.status === 'success'){   
+        this.glb.myCars = res.data;
+        this.glb.isViewCars = true;
+        this.route.navigate(['dashboard', 'voitures']);
+      } 
+  }
 
-    async fetchAgencies(index) {
+    async displayAgency(index) {
+      this.loading.presentLoading();
+      const res = await this.db.fetchAgenciesUser(index, this.glb.user.id);
+      this.loading.dismissLoading();
+      if (res.status === 'success'){   
+        this.glb.agencies = res.data;
+        this.glb.isViewAgency = true;
+        this.route.navigate(['dashboard', 'dagency']);
+      } 
   
     }
+
+
+    async displayRenting(index) {
+     /* this.loading.presentLoading();
+      const res = await this.db.fetchAgenciesUser(index, this.glb.user.id);
+      this.loading.dismissLoading();
+      if (res.status === 'success'){   
+        this.glb.agencies = res.data;
+        this.glb.isViewAgency = true;
+        this.route.navigate(['dashboard', 'dagency']);
+      } */
+      this.route.navigate(['dashboard', 'locations']);
+  
+    }
+
+    async displayWallet(index) {
+      /* this.loading.presentLoading();
+       const res = await this.db.fetchAgenciesUser(index, this.glb.user.id);
+       this.loading.dismissLoading();
+       if (res.status === 'success'){   
+         this.glb.agencies = res.data;
+         this.glb.isViewAgency = true;
+         this.route.navigate(['dashboard', 'dagency']);
+       } */
+       this.route.navigate(['dashboard', 'wallet']);
+   
+     }
 
 
 

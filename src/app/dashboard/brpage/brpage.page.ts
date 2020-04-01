@@ -3,12 +3,16 @@ import { ReductionsPage } from 'src/app/modals/reductions/reductions.page';
 import { ModalController } from '@ionic/angular';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { LoadingService } from 'src/app/services/loading.service';
+import { GlobalsService } from 'src/app/services/globals.service';
+import { UtilService } from 'src/app/services/util.service';
+import { account_status } from 'src/app/interfaces/account_status';
 @Component({
   selector: 'app-brpage',
   templateUrl: './brpage.page.html',
   styleUrls: ['./brpage.page.scss'],
 })
 export class BrpagePage implements OnInit {
+  ifAdmin = false;
   ismobile = false;
   bonredList = [ {
     index: 0,
@@ -25,7 +29,9 @@ export class BrpagePage implements OnInit {
   constructor(
     private modalController: ModalController,
     private loading: LoadingService,
-    private db: DbinteractionsService) { }
+    private db: DbinteractionsService,
+    public glb: GlobalsService,
+    public util: UtilService) { }
   async showAddReductions() {
     const modal = await this.modalController.create({
       component: ReductionsPage,
@@ -43,8 +49,12 @@ export class BrpagePage implements OnInit {
   }
 
   async delReduction(i) {
+    let id = this.db.getStorage('accID');
     this.loading.presentLoading();
-    const res = await this.db.delBR(this.bonredList[i].id);
+    if(this.glb.ifAdmin(this.glb.user.role)){
+      id = this.glb.agency_modify['id'];
+    } 
+    const res = await this.db.delBR(this.bonredList[i].id, id);
     if (res) {
       this.fetchBR();
     }
@@ -75,22 +85,31 @@ export class BrpagePage implements OnInit {
 
   getClass(id: number) {
     switch (this.bonredList[id].status) {
-      case 'Active':
+      case 'ACTIVATED':
         return 'text-success';
         break;
-      case 'In Review':
+      case 'DEACTIVATED':
         return 'text-warning';
-      case 'Failed':
+        break;
+      case 'DEPRICATED':
         return 'text-danger';
-    }
+        break;
+      case 'HIDDEN':
+        return 'text-danger';
+        break;
+      }
+        
   }
   ngOnInit() {
   }
   async fetchBR() {
-    const id = this.db.getStorage('accID');
+    let id = this.db.getStorage('accID');
     const bnredListtmp = [];
     this.loading.presentLoading();
-    const res = await this.db.fetchBR(id);
+    if(this.glb.ifAdmin(this.glb.user.role)){
+      id = '';
+    } 
+    const res = await this.db.fetchBR(id, this.glb.user.id);
     const data = res.data;
     console.log(data);
     let i = 0;
@@ -100,10 +119,11 @@ export class BrpagePage implements OnInit {
         id: data[i]['id'],
         code: data[i]['code'],
         name: data[i]['name'],
-        status: data[i]['status'],
+        status: this.util.dsiplayStatus(data[i]['status']),
         type: data[i]['type'],
         value: data[i]['value'],
         debut: data[i]['startDate'],
+        agencyID: data[i]['agencyID'],
         fin: data[i]['endDate']
       };
       bnredListtmp.push(tmp);
@@ -112,12 +132,14 @@ export class BrpagePage implements OnInit {
     this.loading.dismissLoading();
     this.bonredList = bnredListtmp;
   }
+            
   async ionViewWillEnter() {
     if (window.screen.width <= 360 ) {
       this.ismobile = true;
     } else {
       this.ismobile = false;
+      
     }
-    await this.fetchBR();
+    const res = await this.fetchBR();
   }
 }

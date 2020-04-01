@@ -5,6 +5,7 @@ import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { AlertService } from '../../services/alert.service';
 import { LoginService } from '../../services/login.service';
 import { UserData } from '../../interfaces/user-data';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -69,7 +70,8 @@ export class ProfilePage implements OnInit {
     private log: LoginService,
     private db: DbinteractionsService,
     private alertt: AlertService,
-    private loading: LoadingService  ) { 
+    private loading: LoadingService,
+    private route: Router ) { 
     this.usertmp = JSON.parse(JSON.stringify(this.glb.user_modify));
     this.verifyAccData.dateo = this.glb.user_modify['dlicenceDate'];
     this.verifyAccData.lid = this.glb.user_modify['dlicenceID'];
@@ -330,6 +332,10 @@ export class ProfilePage implements OnInit {
     const res = await this.getAccParam();
     console.log(this.accparams);
   }
+
+  async modifyCancel(index) {    
+    this.route.navigate(['dashboard','duser']);
+}
 
  
 

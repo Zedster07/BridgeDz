@@ -5,7 +5,7 @@
           <span class="nav-link" [ngClass]="{'active': showTab('edit')}" id="edit-tab" data-toggle="tab" href="#edit" role="tab" aria-controls="edit" aria-selected="true">Modifier mon profile</span>
         </li>
         <li *ngIf= "!this.isAdmin" class="nav-item" (click)="setTabVal('verify')">
-          <span class="nav-link" [ngClass]="{'active': showTab('verify')}" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Verifier mon profile</span>
+          <span class="nav-link " [ngClass]="{'active': showTab('verify')}" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Verifier mon profile</span>
         </li>
         <li *ngIf= "this.isAdmin" class="nav-item" (click)="setTabVal('verify_license')">
           <span class="nav-link" [ngClass]="{'active': showTab('verify_license')}" id="verify_license-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Verifier mon profile</span>
@@ -132,7 +132,10 @@
               </div>
               
             </fieldset>
+            <div class="form-row col-md-12">
             <ion-button color="primary" expand="block" (click)="UpdateProfile()">Mettre à jour</ion-button>
+            <ion-button color="primary" expand="block" (click)="modifyCancel()">Annuler</ion-button>
+            </div>
             </div>
         </div>
 

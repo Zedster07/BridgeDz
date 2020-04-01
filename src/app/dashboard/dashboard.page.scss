@@ -1,10 +1,15 @@
 .active-item {
     border-left: 5px solid blue;
+    
 }
 .menu-pane-visible {
     max-width: 20% !important;
 }
+
 ion-menu ion-item ion-label{
     max-width: fit-content;
     margin-right: 15px;
+    
 }
+
+

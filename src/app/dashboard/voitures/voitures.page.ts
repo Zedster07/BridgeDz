@@ -69,14 +69,19 @@ export class VoituresPage implements OnInit {
     } else {
       this.ismobile = false;
     }
-    const id = this.db.getStorage('accID');
-    const res = await this.db.fetchCars(id, this.glb.user.id);
-    if (res && res.status !== 'failure') {
-      this.glb.myCars = res.data;
+    if (this.glb.isViewCars === false){
+      const id = this.db.getStorage('accID');
+      const res = await this.db.fetchCars(id, this.glb.user.id);
+      if (res && res.status !== 'failure') {
+        this.glb.myCars = res.data;
+      }
     }
     console.log(this.glb.myCars);
   }
 
+  async ionViewDidLeave() {
+    this.glb.isViewCars = false;
+  }
 
   ngOnInit() {
   }

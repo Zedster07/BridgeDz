@@ -3,6 +3,7 @@ import { Router, RouterEvent } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PopoverController } from '@ionic/angular';
 import { GlobalsService } from '../services/globals.service';
+import { UtilService } from '../services/util.service';
 import { DashboardMenuListComponent } from './dashboard-menu-list/dashboard-menu-list.component';
 import { LoginService } from '../services/login.service';
 import { DbinteractionsService } from '../services/dbinteractions.service';
@@ -97,6 +98,11 @@ export class DashboardPage implements OnInit {
       url: '/dashboard/notifications',
       icon: 'notifications'
     },
+    {
+      title: 'Bon de Réduction',
+      url: '/dashboard/brpage',
+      icon: 'trending-down'
+    },
     
   ];
 
@@ -156,6 +162,7 @@ export class DashboardPage implements OnInit {
   }
   ionViewWillLeave() {
     this.glb.isDashbPage = false;
+    this.isAdmin = false;
   }
   
   async ionViewWillEnter() {
@@ -166,6 +173,9 @@ export class DashboardPage implements OnInit {
     } else {
       this.ismobile = false;
     }
+    if(this.glb.ifAdmin(this.glb.user.role)) {
+       this.isAdmin = true;
+      }
     const islogged = this.db.getStorage('accloggedin');
     if (islogged === 'true') {
       this.loading.presentLoading();
