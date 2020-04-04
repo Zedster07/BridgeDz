@@ -20,5 +20,6 @@ export interface UserData {
     propos: string;
     userStatus: string;
     role: string;
+    session_guid: string;
     
 }

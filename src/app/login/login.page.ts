@@ -5,6 +5,12 @@ import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { LoadingService } from '../services/loading.service';
 import { GlobalsService } from '../services/globals.service';
+import { DbinteractionsService } from '../services/dbinteractions.service';
+import { role_user } from '../interfaces/role_user';
+import { login_type } from '../interfaces/login_type';
+import { support_type } from '../interfaces/support_type';
+import { UtilService } from '../services/util.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-login',
@@ -27,10 +33,14 @@ export class LoginPage implements OnInit {
   constructor(
      private firebaseuiAngularLibraryService: FirebaseuiAngularLibraryService ,
      private glb: GlobalsService,
+     private db : DbinteractionsService,
      private angularFireAuth: AngularFireAuth ,
      private authService: LoginService,
      private loading: LoadingService,
-     private route: Router ) {
+     private route: Router,
+     private util: UtilService,
+     private deviceService: DeviceDetectorService,
+     ) {
       this.glb.globalLoading(true);
   }
   changepPage(page: string) {
@@ -106,6 +116,18 @@ export class LoginPage implements OnInit {
         error.textContent = result.message;
         error.style.display = 'block';
       } else if (result.status === 'success') {
+        console.log(this.deviceService.ua);
+        const res = await this.db.addHistoricalLogIn(this.deviceService.getDeviceInfo().device,
+                                                     this.util.getLocation(),
+                                                      login_type.normal,
+                                                      this.deviceService.getDeviceInfo().os,
+                                                      this.deviceService.getDeviceInfo().os_version,
+                                                      this.deviceService.getDeviceInfo().browser,
+                                                      this.deviceService.getDeviceInfo().browser_version,
+                                                      this.deviceService.getDeviceInfo().userAgent,
+                                                      this.util.getSupportType());
+        
+  
         if (this.glb.ifAdmin(this.glb.user.role) === true){
           this.route.navigate(['dashboard']);
         } else if (this.glb.prevAction === '' && this.glb.ifAdmin(this.glb.user.role)  === false){
@@ -147,6 +169,17 @@ export class LoginPage implements OnInit {
       console.log('not a new user');
       const result = await this.authService.logIn(signInSuccessData , this.angularFireAuth.auth , '1' , null );
       if ( result.status !== 'Failure' ) {
+
+        const res = await this.db.addHistoricalLogIn(this.deviceService.getDeviceInfo().device,
+                                                      this.util.getLocation(),
+                                                      login_type.gmail,
+                                                      this.deviceService.getDeviceInfo().os,
+                                                      this.deviceService.getDeviceInfo().os_version,
+                                                      this.deviceService.getDeviceInfo().browser,
+                                                      this.deviceService.getDeviceInfo().browser_version,
+                                                      this.deviceService.getDeviceInfo().userAgent,
+                                                      this.util.getSupportType());
+
         if (this.glb.ifAdmin(this.glb.user.role) === true){
           console.log("ADMIN");
           this.route.navigate(['dashboard']);

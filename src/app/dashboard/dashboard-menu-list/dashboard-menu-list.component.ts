@@ -27,6 +27,7 @@ export class DashboardMenuListComponent implements OnInit {
     this.glb.AgencyLogData.loggedin = false;
     if (this.glb.ifAdmin(this.glb.user.role)){
         this.authser.logOut();
+        const res = this.db.updateHistoricalLogIn();
     } else {
     this.router.navigate(['client']);
   }

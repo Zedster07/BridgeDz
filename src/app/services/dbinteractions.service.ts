@@ -253,6 +253,43 @@ export class DbinteractionsService {
       });
     }
 
+    async addHistoricalLogIn(support, location, login_type, os, os_version, browser, browser_version, user_agent, support_type): Promise<any> {
+      const httpparams = new HttpParams().
+      append('request' , 'addHistoricalLogIn').
+      append('client_id' ,this.glb.user.id).
+      append('role' ,this.glb.user.role).
+      append('location' , location).
+      append('support' ,support).
+      append('support_type' ,support_type).
+      append('login_type', login_type).
+      append('os', os).
+      append('os_version', os_version).
+      append('browser', browser).
+      append('browser_version', browser_version).
+      append('user_agent', user_agent).
+      append('id', this.glb.user.session_guid);
+
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async updateHistoricalLogIn(): Promise<any> {
+      const httpparams = new HttpParams().
+      append('request' , 'updateHistoricalLogIn').append('id', this.glb.user.session_guid);  
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
     async de_activateAccount(index: string): Promise<any> {
       const httpparams = new HttpParams().
       append('request' , 'de_activateUser').

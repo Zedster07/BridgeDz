@@ -58,6 +58,7 @@ export class MonprofilePage implements OnInit {
     propos: '',
     userStatus: '',
     role:'',
+    session_guid: '',
   };
 
   

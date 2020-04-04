@@ -5,6 +5,9 @@ import { GlobalsService } from './globals.service';
 import { LoadingService } from './loading.service';
 import { Storage } from '@ionic/storage';
 import { Httpresponse } from '../interfaces/httpresponse';
+import { support_type } from '../interfaces/support_type';
+import { login_type } from '../interfaces/login_type';
+
 import { Httprequest } from '../interfaces/httprequest';
 import { UserData } from '../interfaces/user-data';
 import { account_status} from '../interfaces/account_status';
@@ -12,6 +15,7 @@ import { role_user } from '../interfaces/role_user';
 import { Router } from '@angular/router';
 import { FirebaseUISignInSuccessWithAuthResult } from 'firebaseui-angular';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { AlertService } from './alert.service';
 
 @Injectable({
@@ -24,6 +28,7 @@ export class UtilService {
   constructor(
     private glb: GlobalsService,
     private loading: LoadingService,
+    private device: DeviceDetectorService,
   ) {
 
   }
@@ -94,6 +99,35 @@ export class UtilService {
     }  
   }
 
+  getSupportType(){
+    if (this.device.isDesktop() === true) {
+      return support_type.desktop;
+    }  else if (this.device.isMobile() === true){
+      return support_type.phone;
+    }  else if  (this.device.isMobile() === true){
+      return support_type.tablet
+    }  else { 
+      return support_type.unknown;
+    } 
+  }
+
+  getLoginType(){
+  }
+
+  newGuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0,
+        v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
+  getLocation(){
+    let location = 'PARIS';
+    return location;
+  }
+
+
   deleteElementFromArray(arr: any, index: string){
     for (let i = 0; i < arr.length ; i++) {
         if (arr[i]['id'] === index)
@@ -140,6 +174,8 @@ export class UtilService {
     }
     return s.join(dec);
   }
+
+  
   
   
 }  

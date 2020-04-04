@@ -78,6 +78,8 @@ export class GlobalsService {
     propos: '',
     userStatus: '',
     role: '',
+    session_guid: '',
+   
   
   };
 
@@ -142,6 +144,7 @@ export class GlobalsService {
       propos: '',
       userStatus: '',
       role: '',
+      session_guid: '',
     };
   }
   correctPassword( pass: string ) {

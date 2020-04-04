@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient , HttpErrorResponse , HttpParams } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { GlobalsService } from './globals.service';
+import { UtilService } from './util.service';
 import { LoadingService } from './loading.service';
 import { Storage } from '@ionic/storage';
 import { Httpresponse } from '../interfaces/httpresponse';
@@ -30,7 +31,8 @@ export class LoginService {
     private loading: LoadingService,
     private route: Router,
     private fireauth: AngularFireAuth,
-    private alertt: AlertService
+    private alertt: AlertService,
+    private util:UtilService,
   ) {
 
   }
@@ -173,6 +175,7 @@ export class LoginService {
         localStorage.setItem('userpropos' , resp.data['propos']);
         localStorage.setItem('userStatus' , resp.data['activeAccount']);
         localStorage.setItem('userrole', resp.data['role']);
+        localStorage.setItem('session_guid', this.util.newGuid());
 
         this.reloadUserData();
         return resp;
@@ -209,13 +212,14 @@ export class LoginService {
     this.glb.user.propos = localStorage.getItem('userpropos');
     this.glb.user.userStatus = localStorage.getItem('userStatus');
     this.glb.user.role = localStorage.getItem('userrole');
+    this.glb.user.session_guid = localStorage.getItem('session_guid');
     
    // this.glb.usertmp = this.glb.user;
   }
   getStorage(index) {
     return localStorage.getItem(index);
   }
-  logOut() {
+   logOut() {
     localStorage.removeItem(TOKEN_KEY);
     this.authenticationState.next(false);
     this.fireauth.auth.signOut().then(() => {

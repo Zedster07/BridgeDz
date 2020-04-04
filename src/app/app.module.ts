@@ -40,6 +40,8 @@ import { ClientMenuListComponent } from './client/client-menu-list/client-menu-l
 import { Ionic4DatepickerModule } from '@logisticinfotech/ionic4-datepicker';
 import { IonicTimepickerModule } from '@logisticinfotech/ionic-timepicker';
 import { UtilService } from './services/util.service';
+import { DeviceDetectorModule } from 'ngx-device-detector';
+
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -75,6 +77,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     FormsModule,
+    DeviceDetectorModule.forRoot(),
     AngularFireAuthModule,
     Ionic4DatepickerModule,
     IonicTimepickerModule,

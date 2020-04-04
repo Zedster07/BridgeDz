@@ -61,6 +61,7 @@ export class ProfilePage implements OnInit {
     propos: '',
     userStatus: '',
     role:'',
+    session_guid: '',
   };
 
 
