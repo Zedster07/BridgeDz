@@ -1,23 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DashboardMenuListComponent } from './dashboard-menu-list.component';
+import { LanguagePage } from './language.page';
 
-
-describe('DashboardMenuListComponent', () => {
-  let component: DashboardMenuListComponent;
-  let fixture: ComponentFixture<DashboardMenuListComponent>;
+describe('LanguagePage', () => {
+  let component: LanguagePage;
+  let fixture: ComponentFixture<LanguagePage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardMenuListComponent ],
+      declarations: [ LanguagePage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DashboardMenuListComponent);
+    fixture = TestBed.createComponent(LanguagePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

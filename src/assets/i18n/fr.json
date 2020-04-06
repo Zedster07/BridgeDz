@@ -1,0 +1,130 @@
+{
+    "COMMON" : {
+      "CARS" : "Voitures",
+      "CAR"  : "Voiture",
+      "RENTED_CAR" : "Voitures louées",
+      "INCOME" : "Revenu",
+      "CREDIT" : "Crédit",
+      "MY_PROFILE" : "Mon profil",
+      "MODIFY_PROFILE" : "Modifier mon profil",
+      "VERIFY_PROFILE" : "Valider mon profil",
+      "ACCOUNT_PARAM" : "Paramétres",
+      "KBIS" : "KBis",
+      "RIB" : "Rib",
+      "LICENSE_DRIVE" : "Permis de conduire",
+      "Adress" : "Adresse",
+      "BROWSE" : "Parcourir",
+      "SAVE"   : "Enregistrer",
+      "UPDATE" : "Mettre à jour",
+      "Validate" : "Valider",
+      "OK" : "Ok",
+      "PICTURE_MODIFY" : "Modifier la photo"
+    },
+
+    "DASHBOARD": {
+      "DASHBOARD" :"Tableau de bord",
+      "USER": "Utilisateur",
+      "AGENCIES": "Agences",
+      "CARS": "Voiture",
+      "RENTINGS": "Locations",
+      "WALLET": "Porte feuille",
+      "NOTIFICATIONS": "Notifications",
+      "DISCOUNTS": "Bons de réduction",
+      "RENTINGS_WAITING_FOR_VALID": "Demande de locations",
+      "PROFILE": "Profile"
+    },
+
+    "PROFILE" : {
+      "FNAME" : "Prénom", 
+      "LNAME" : "Nom", 
+      "TELEPHONE" : "Téléphone", 
+      "EMAIL" : "E-mail", 
+      "USERNAME" : "Pseudo", 
+      "PASSWORD" : "mot de passe", 
+      "PASSWORD_CONF" : "Confirmez mot de passe", 
+      "DOB" : "Date de naissance",
+      "Adress" : "Adresse",
+      "SHORT_INFO" : "A propos",
+      "PERSONAL_INFO" : "information personnelle",
+      "CONTACT" : "Contact"
+    },
+
+    "KBIS" : {
+      "TVA" : "VAT number",
+      "DOC"  : "CREATION DATE",
+      "KBIS_attachment" : "Piéce jointe du Kbis"
+   },
+
+   "RIB" : {
+    "IBAN" : "Iban", 
+    "ACCOUNT_NAME" : "Nom du compte",
+    "BANK" : "Banque",
+    "ACCOUNT_REF" : "Réf. compte",
+    "preference_paiment" : "Vos préferenes de paiement",
+    "preference_paiment_O1" : "Virement aprés chaque location",
+    "preference_paiment_O2" : "Virement à la fin du mois"
+   },
+
+   "CAR" : {
+    "ADD_CAR" : "Ajouter une voiture",
+    "MANAGE_CAR" : "Gérer les disponibilités",
+    "MANAGE_AGENCY" : "Gérer les horaires d'accés",
+    "WAITING_FOR_VALIDATION_S" : "En attente de validation",
+    "WAITING_FOR_VALIDATION_M" : "Votre voiture peut etre louée aprés validation",
+    "WAITING_FOR_VALIDATION_M1" : "Votre voiture va etre validée dans les prochaines 24 Heurs",
+    "MODIFY_CAR_INFO" : "Modifier les info de la voiture"
+  },
+
+  "WALLET" : {
+    "REAL_BALANCE" : "Revenu réel",
+    "THEO_BALANCE" : "Revenu prévisionel",
+    "MONTH_BALANCE" : "Paiement du mois",
+    "TOTAL BALANCE" : "Total des paiments",
+    "CURRENT_BALANCE" : "Balance actuelle",
+    "EXPECTED_DATE_PAY" : "Date de paiement prévu",
+    "PAIEMENT_MADE" : "Paiement effectués",
+    "EXPECTED_PAIEMENT" : "Paiement à venir",
+    "BILLING_Num" : "Facture n°. ",
+    "DATE" : "Date",
+    "AMOUNT" : "Montant",
+    "FUTUR_PAIMENT" : "paiement future"
+  },
+
+  "RENTRING" :{
+    "PAID" : "Payé",
+    "CONFIRMED" : "Confirmé",
+    "WAITING_FOR_CONFIRM" : "En attente de confirmation",
+    "CANCLED" : "Annulé",
+    "CANCEL"  : "Annuler",
+    "PAY" : "Payer",
+    "VALIDATED" : "Validé",
+    "NOT_PAID" : "Pas encore payé"
+    
+  },
+  "RENTRING_REQUEST" :{
+    "RENTING_REQUEST" : "Demandes de location",
+    "NO_RENTING" : "Vous n'avez pas de demande de location",
+    "Validate" : "Valider",
+    "INFO_RENT_CLIENT" : "Qui veut louer ma voiture"
+  },
+  "DISCOUNT" :{
+    "ADD_DISCOUNT" : "Ajouter un coupon de réduction",
+    "CODE" : "Code",
+    "REF" : "Réference",
+    "STATUS" : "Status",
+    "OFFER" : "Offre",
+    "START_DATE" : "Début",
+    "END_DATE" : "Fin",
+    "ACTION" : "Action"
+  }
+
+    
+
+ 
+   
+
+
+
+
+
+  }

@@ -3,15 +3,24 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Dashboard</ion-title>
+    <ion-title>{{ 'DASHBOARD.DASHBOARD'  | translate }}"</ion-title>
     <ion-buttons  *ngIf="!this.ismobile" slot="secondary" style="order: 2;">
       <ion-button>BridgeDz</ion-button>
     </ion-buttons>
+
+    <ion-buttons slot="end" style="margin-right: 20px; order:9;">
+      <img src="{{ this.path_lang }}">
+      <ion-label (click)="selectLang($event)">
+        <ion-icon name="arrow-dropdown"></ion-icon>
+      </ion-label>
+    </ion-buttons>
+
     <ion-buttons slot="end" style="margin-right: 20px; order:9;">
       <!-- <ion-button fill="solid" color="primary" [routerLink]="['/agency/create']" routerLinkActive="router-link-active">
         <ion-icon name="add" slot="start"></ion-icon>
         Créer une nouvelle agence
       </ion-button> -->
+  
         <ion-chip>
           <ion-avatar>
             <img src="{{ this.glb.hostServer + this.glb.AgencyLogData.data['picture'] }}">
@@ -38,7 +47,7 @@
           <ion-item  *ngIf= "this.isAdmin" [routerLink]="item.url" routerDirection="root" [class.active-item]='this.selectedPath === item.url' (click)="this.selectedPath = item.url">
           <ion-label *ngIf= "this.isAdmin">
             <ion-icon name="{{item.icon}}"></ion-icon>
-            {{item.title}}
+            {{item.title | translate}}
           </ion-label>
         </ion-item>
         </ion-menu-toggle>
@@ -48,7 +57,8 @@
             <ion-label *ngIf= "!this.isAdmin">
               <ion-icon name="{{item.icon}}"></ion-icon>
             </ion-label>
-            {{item.title}}<ion-badge color="primary" slot="end" *ngIf="item.url === '/dashboard/demandeslocs' && glb.AgencyLogData.DemandesCount !== 0">{{glb.AgencyLogData.DemandesCount}}</ion-badge>
+            {{item.title | translate}}
+            <ion-badge color="primary" slot="end" *ngIf="item.url === '/dashboard/demandeslocs' && glb.AgencyLogData.DemandesCount !== 0">{{glb.AgencyLogData.DemandesCount}}</ion-badge>
             <ion-badge color="primary" slot="end" *ngIf="item.url === '/dashboard/notifications' && glb.AgencyLogData.notificationsCount !== 0">{{glb.AgencyLogData.notificationsCount}}</ion-badge>
           </ion-item>
         </ion-menu-toggle>

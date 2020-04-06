@@ -32,6 +32,8 @@
     "@ionic/storage": "^2.2.0",
     "@logisticinfotech/ionic-timepicker": "^1.0.3",
     "@logisticinfotech/ionic4-datepicker": "^1.4.3",
+    "@ngx-translate/core": "^12.1.2",
+    "@ngx-translate/http-loader": "^4.0.0",
     "cordova": "^9.0.0",
     "cordova-android": "8.1.0",
     "cordova-browser": "^6.0.0",
@@ -46,7 +48,8 @@
     "ion2-calendar": "^3.0.0-rc.0",
     "ionic2-calendar": "^0.5.8",
     "moment": "^2.24.0",
-    "rxjs": "^6.5.4",
+    "ngx-device-detector": "^1.4.1",
+    "rxjs": "^6.5.5",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },

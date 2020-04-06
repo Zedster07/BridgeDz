@@ -9,6 +9,8 @@ import { GlobalsService } from './services/globals.service';
 import { AgencyModalPage } from './modals/agency-modal/agency-modal.page';
 import { ClientMenuListComponent } from './client/client-menu-list/client-menu-list.component';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -118,12 +120,20 @@ export class AppComponent   {
     private statusBar: StatusBar,
     public loginServ: LoginService,
     private route: Router,
+    translate: TranslateService,
 
   ) {
     this.initializeApp();
     if ( this.loginServ.isLoggedIn() ) {
       this.loginServ.reloadUserData();
     }
+    translate.addLangs(['en', 'fr', 'ar']);
+    translate.setDefaultLang('ar');
+    translate.setDefaultLang('en');
+    const browserLang = translate.getBrowserLang();
+    this.glb.currentLang = browserLang.match(/en|fr|ar|br/) ? browserLang : 'en';
+    translate.use(this.glb.currentLang);
+    
   }
   onScroll(event) {
     console.log(event);

@@ -253,7 +253,7 @@ export class DbinteractionsService {
       });
     }
 
-    async addHistoricalLogIn(support, location, login_type, os, os_version, browser, browser_version, user_agent, support_type): Promise<any> {
+    async addHistoricalLogIn(support, location, lang, login_type, os, os_version, browser, browser_version, user_agent, support_type): Promise<any> {
       const httpparams = new HttpParams().
       append('request' , 'addHistoricalLogIn').
       append('client_id' ,this.glb.user.id).
@@ -267,6 +267,7 @@ export class DbinteractionsService {
       append('browser', browser).
       append('browser_version', browser_version).
       append('user_agent', user_agent).
+      append('user_language', lang).
       append('id', this.glb.user.session_guid);
 
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {

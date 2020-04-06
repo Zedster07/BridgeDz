@@ -1,0 +1,119 @@
+{
+    "COMMON" : {
+      "CARS" : "Cars",
+      "CAR"  : "Car",
+      "RENTED_CAR" : "Rented cars",
+      "INCOME" : "Income",
+      "CREDIT" : "Credit",
+      "MY_PROFILE" : "My profile",
+      "MODIFY_PROFILE" : "Modify my profile",
+      "VERIFY_PROFILE" : "Validate my profile",
+      "ACCOUNT_PARAM" : "Settings",
+      "KBIS" : "KBis",
+      "RIB" : "Rib",
+      "LICENSE_DRIVE" : "Driving license",
+      "Adress" : "Adress",
+      "BROWSE" : "Browse",
+      "SAVE"   : "Save",
+      "UPDATE" : "Update",
+      "Validate" : "Validate",
+      "OK" : "Ok",
+      "PICTURE_MODIFY" : "Modify picture"
+
+    },
+
+    "DASHBOARD": {
+        "DASHBOARD" : "Dashboard",
+        "USER": "Users",
+        "AGENCIES": "Agencies",
+        "CARS": "Cars",
+        "RENTINGS": "Rentings",
+        "WALLET": "Wallet",
+        "NOTIFICATIONS": "Notifications",
+        "DISCOUNTS": "Discounts",
+        "RENTINGS_WAITING_FOR_VALID": "Rentings requests",
+        "PROFILE": "Profile"
+      },
+
+      "PROFILE" : {
+        "FNAME" : "First name", 
+        "LNAME" : "Last name", 
+        "TELEPHONE" : "Telephone", 
+        "EMAIL" : "E-mail", 
+        "USERNAME" : "Username", 
+        "PASSWORD" : "Password", 
+        "PASSWORD_CONF" : "Confirm password", 
+        "DOB" : "Date of birth",
+        "SHORT_INFO" : "Short information",
+        "PERSONAL_INFO" : "Personal information",
+        "CONTACT" : "Contact"
+      },
+
+      "KBIS" : {
+         "TVA" : "VAT number",
+         "DOC"  : "CREATION DATE",
+         "KBIS_attachment" : "KBis attachment"
+      },
+
+      "RIB" : {
+          "IBAN" : "Iban", 
+          "ACCOUNT_NAME" : "Account name",
+          "BANK" : "BANK",
+          "ACCOUNT_REF" : "Account ref",
+          "preference_paiment" : "Your paiement method choice",
+          "preference_paiment_O1" : "Transfer after each renting",
+          "preference_paiment_O2" : "At the last of month"
+
+      },
+
+      "CAR" : {
+        "ADD_CAR" : "Add new car",
+        "MANAGE_CAR" : "Manage car availabilities",
+        "MANAGE_AGENCY" : "Modify acess hours",
+        "WAITING_FOR_VALIDATION_S" : "Waiting for validation",
+        "WAITING_FOR_VALIDATION_M0" : "You car can be rented after validation",
+        "WAITING_FOR_VALIDATION_M1" : "You car will be validated withtin 24 Hours",
+        "MODIFY_CAR_INFO" : "Modify car information"
+      },
+
+      "WALLET" : {
+        "REAL_BALANCE" : "Real revenue",
+        "THEO_BALANCE" : "Forecast revenue",
+        "MONTH_BALANCE" : "Month paiement",
+        "TOTAL BALANCE" : "Total paimeent",
+        "CURRENT_BALANCE" : "Current balance",
+        "EXPECTED_DATE_PAY" : "Expected date of paiement",
+        "PAIEMENT_MADE" : "paiement already made",
+        "EXPECTED_PAIEMENT" : "Expected paiement",
+        "BILLING_Num" : "Billing n°. ",
+        "DATE" : "Date",
+        "AMOUNT" : "Amount",
+        "FUTUR_PAIMENT" : "Future paiement"
+      },
+      "RENTRING" :{
+        "PAID" : "Paid",
+        "CONFIRMED" : "Confirmed",
+        "WAITING_FOR_CONFIRM" : "Waiting for confirmation",
+        "CANCLED" : "Cancled",
+        "CANCEL"  : "Cancel",
+        "PAY" : "Pay",
+        "VALIDATED" : "Validated",
+        "NOT_PAID" : "Not yet paid"
+      },
+      "RENTRING_REQUEST" :{
+        "RENTING_REQUEST" : "Renting requests",
+        "NO_RENTING" : "You have no renting request for the moment",
+        "Validate" : "Validate",
+        "INFO_RENT_CLIENT" : "Who rent my car"
+      },
+      "DISCOUNT" :{
+        "ADD_DISCOUNT" : "Add new discount coupon",
+        "CODE" : "Code",
+        "REF" : "Reference",
+        "STATUS" : "Status",
+        "OFFER" : "Offer",
+        "START_DATE" : "Start date",
+        "END_DATE" : "End date",
+        "ACTION" : "Action"
+      }
+  }

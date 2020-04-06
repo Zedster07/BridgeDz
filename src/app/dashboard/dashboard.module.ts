@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { DashboardPage } from './dashboard.page';
 import { DashboardMenuListComponent } from './dashboard-menu-list/dashboard-menu-list.component';
+import { LanguagePage } from '../language/language.page';
+import {TranslateModule} from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -67,9 +69,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    TranslateModule.forChild(),
   ],
-  entryComponents: [DashboardMenuListComponent],
-  declarations: [DashboardPage , DashboardMenuListComponent]
+  entryComponents: [DashboardMenuListComponent, LanguagePage],
+  declarations: [DashboardPage , DashboardMenuListComponent, LanguagePage]
 })
 export class DashboardPageModule {}

@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {FirebaseUIModule} from 'firebaseui-angular';
 import * as firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 
 import {AngularFireModule} from '@angular/fire';
@@ -41,6 +41,9 @@ import { Ionic4DatepickerModule } from '@logisticinfotech/ionic4-datepicker';
 import { IonicTimepickerModule } from '@logisticinfotech/ionic-timepicker';
 import { UtilService } from './services/util.service';
 import { DeviceDetectorModule } from 'ngx-device-detector';
+import {TranslateModule, TranslateLoader, TranslatePipe} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
 
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -63,6 +66,10 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
 };
 
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 @NgModule({
   declarations: [AppComponent, AgencyModalPage , AddCarModalPage , ReductionsPage , AccessHoursPage , CarAvailabilityPage , ReservePage , 
     MenuListComponent , ClientMenuListComponent],
@@ -81,10 +88,21 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AngularFireAuthModule,
     Ionic4DatepickerModule,
     IonicTimepickerModule,
-    HttpClientModule ,
+    HttpClientModule,
+
     IonicStorageModule.forRoot(),
+    TranslateModule.forRoot({
+      defaultLanguage: 'fr',
+      loader: {
+          provide: TranslateLoader,
+          useFactory: (createTranslateLoader),
+          deps: [HttpClient]
+      }
+   }),
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }) , NgCalendarModule],
+
+
     
   providers: [
     StatusBar,
@@ -99,6 +117,11 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     WebView,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
+
+  exports: [
+    TranslateModule
+], 
+
   bootstrap: [AppComponent]
 })
 export class AppModule {}

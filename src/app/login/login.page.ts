@@ -11,6 +11,7 @@ import { login_type } from '../interfaces/login_type';
 import { support_type } from '../interfaces/support_type';
 import { UtilService } from '../services/util.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,7 @@ export class LoginPage implements OnInit {
      private route: Router,
      private util: UtilService,
      private deviceService: DeviceDetectorService,
+     private translate: TranslateService,
      ) {
       this.glb.globalLoading(true);
   }
@@ -117,15 +119,17 @@ export class LoginPage implements OnInit {
         error.style.display = 'block';
       } else if (result.status === 'success') {
         console.log(this.deviceService.ua);
-        const res = await this.db.addHistoricalLogIn(this.deviceService.getDeviceInfo().device,
-                                                     this.util.getLocation(),
+        const res = await this.db.addHistoricalLogIn( this.deviceService.getDeviceInfo().device,
+                                                      this.util.getLocation(),
+                                                      this.translate.getBrowserLang(),
                                                       login_type.normal,
                                                       this.deviceService.getDeviceInfo().os,
                                                       this.deviceService.getDeviceInfo().os_version,
                                                       this.deviceService.getDeviceInfo().browser,
                                                       this.deviceService.getDeviceInfo().browser_version,
                                                       this.deviceService.getDeviceInfo().userAgent,
-                                                      this.util.getSupportType());
+                                                      this.util.getSupportType(),
+                                                      );
         
   
         if (this.glb.ifAdmin(this.glb.user.role) === true){
@@ -172,6 +176,7 @@ export class LoginPage implements OnInit {
 
         const res = await this.db.addHistoricalLogIn(this.deviceService.getDeviceInfo().device,
                                                       this.util.getLocation(),
+                                                      this.translate.getBrowserLang(),
                                                       login_type.gmail,
                                                       this.deviceService.getDeviceInfo().os,
                                                       this.deviceService.getDeviceInfo().os_version,

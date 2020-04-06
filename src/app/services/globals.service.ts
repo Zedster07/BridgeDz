@@ -79,10 +79,8 @@ export class GlobalsService {
     userStatus: '',
     role: '',
     session_guid: '',
-   
-  
   };
-
+  currentLang ='';
   isLoading = false;
   todaysDate = new Date();
   public hostServer = 'http://localhost:8081/bridgedz/';

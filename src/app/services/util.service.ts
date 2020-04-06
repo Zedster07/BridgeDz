@@ -127,6 +127,23 @@ export class UtilService {
     return location;
   }
 
+  getImgLang(lang: string){
+    switch (lang) {
+      case 'ar' :
+          return 'algeria.svg'
+        break;
+      case 'fr' :
+          return 'france.svg'
+        break;
+      case 'en' :
+        return 'usa.svg'
+        break;
+      case 'br' :
+        return 'br.svg'
+        break;
+    } 
+  }  
+
 
   deleteElementFromArray(arr: any, index: string){
     for (let i = 0; i < arr.length ; i++) {

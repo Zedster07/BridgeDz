@@ -5,9 +5,12 @@ import { PopoverController } from '@ionic/angular';
 import { GlobalsService } from '../services/globals.service';
 import { UtilService } from '../services/util.service';
 import { DashboardMenuListComponent } from './dashboard-menu-list/dashboard-menu-list.component';
+import { LanguagePage } from '../language/language.page';
 import { LoginService } from '../services/login.service';
 import { DbinteractionsService } from '../services/dbinteractions.service';
 import { LoadingService } from '../services/loading.service';
+
+import {TranslateService, TranslatePipe, TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,89 +20,93 @@ import { LoadingService } from '../services/loading.service';
 export class DashboardPage implements OnInit {
 
   first_pages = [
-
   ];
+
+  path_lang ="";
+
   pages = [
     {
-      title: 'DASHBOARD',
+      title: 'DASHBOARD.DASHBOARD',
       url: '/dashboard/home',
       icon: 'stats'
     },
     {
-      title: 'MON PROFILE',
+      title: 'DASHBOARD.PROFILE',
       url: '/dashboard/profile',
       icon: 'person'
     },
     {
-      title: 'MES VOITURES',
+      title: 'DASHBOARD.CARS',
       url: '/dashboard/voitures',
       icon: 'car'
     },
     {
-      title: 'MON WALLET',
+      title: 'DASHBOARD.WALLET',
       url: '/dashboard/wallet',
       icon: 'wallet'
     },
     {
-      title: 'MES LOCATIONS',
+      title: 'DASHBOARD.RENTINGS',
       url: '/dashboard/locations',
       icon: 'list-box'
     },
     {
-      title: 'NOTIFICATION',
+      title: 'DASHBOARD.NOTIFICATIONS',
       url: '/dashboard/notifications',
       icon: 'notifications'
     },
     {
-      title: 'DEMANDES DE LOCATIONS',
+      title: 'DASHBOARD.RENTINGS_WAITING_FOR_VALID',
       url: '/dashboard/demandeslocs',
       icon: 'notifications'
     },
     {
-      title: 'Bon de Réduction',
+      title: 'DASHBOARD.DISCOUNTS',
       url: '/dashboard/brpage',
       icon: 'trending-down'
     },
   ];
+  
 
+ 
   pages_admin = [
     {
-      title: 'DASHBOARD',
+      title: 'DASHBOARD.DASHBOARD',
       url: '/dashboard/home',
       icon: 'stats'
     },
     {
-      title: 'USERS',
+      title: 'DASHBOARD.USER',
       url: '/dashboard/duser',
       icon: 'person'
     },
     {
-      title: 'AGENCES',
+      title: 'DASHBOARD.AGENCIES',
       url: '/dashboard/dagency',
       icon: 'stats'
     },
     {
-      title: 'MES VOITURES',
+      title: 'DASHBOARD.CARS',
       url: '/dashboard/voitures',
       icon: 'car'
     },
     {
-      title: 'MON WALLET',
+      title: 'DASHBOARD.WALLET',
       url: '/dashboard/wallet',
       icon: 'wallet'
     },
     {
-      title: 'MES LOCATIONS',
+      title: 'DASHBOARD.RENTINGS',
       url: '/dashboard/locations',
       icon: 'list-box'
     },
     {
-      title: 'NOTIFICATION',
+      title: 'DASHBOARD.NOTIFICATIONS',
       url: '/dashboard/notifications',
       icon: 'notifications'
     },
     {
-      title: 'Bon de Réduction',
+      title: 'DASHBOARD.DISCOUNTS',
       url: '/dashboard/brpage',
       icon: 'trending-down'
     },
@@ -116,12 +123,16 @@ export class DashboardPage implements OnInit {
     public popoverController: PopoverController,
     public glb: GlobalsService,
     private db: DbinteractionsService,
+    private util: UtilService,
     private loading: LoadingService,
-    private authser: LoginService) {
+    private authser: LoginService,
+    public translate: TranslateModule,
+    private translator: TranslateService) {
     this.selectedPath = this.router.url;
     setInterval(() => {
       this.fetchDemandes();
      }, 3000);
+
   }
   async fetchDemandes() {
     const res = await this.db.fetchDemands(this.glb.AgencyLogData.id);
@@ -133,12 +144,27 @@ export class DashboardPage implements OnInit {
     }
   }
   logout() {
-    console.log("let's try log out");
     this.isAdmin = false;
     this.router.navigate(['agency' , 'loggedout']);
   }
   dissmisPopover() {
     this.glb.popover.dismiss();
+  }
+
+  async selectLang(ev: any) {
+    const pop = await this.popoverController.create({
+      component: LanguagePage,
+      event: ev,
+      translucent: false,
+    });
+    pop.onDidDismiss().then((result) => {
+      if(result['data'] !==  undefined) {
+        console.log(result['data']);
+        this.path_lang = '../../assets/images/' + this.util.getImgLang(result['data']);
+      }
+    });
+    
+    const resp = await pop.present(); 
   }
 
   async presentPopover(ev: any) {
@@ -166,6 +192,7 @@ export class DashboardPage implements OnInit {
   }
   
   async ionViewWillEnter() {
+    this.path_lang = '../../assets/images/' + this.util.getImgLang(this.glb.currentLang);
     this.glb.isDashbPage = true;
     this.glb.isMainPage = false;
     if (window.screen.width <= 360 ) {
