@@ -51,15 +51,20 @@ export class DashboardPage implements OnInit {
       icon: 'list-box'
     },
     {
-      title: 'DASHBOARD.NOTIFICATIONS',
-      url: '/dashboard/notifications',
-      icon: 'notifications'
+      title: 'DASHBOARD.RENTINGS_EX',
+      url: '/dashboard/renting',
+      icon: 'list-box'
     },
     {
       title: 'DASHBOARD.RENTINGS_WAITING_FOR_VALID',
       url: '/dashboard/demandeslocs',
       icon: 'notifications'
     },
+    {
+      title: 'DASHBOARD.NOTIFICATIONS',
+      url: '/dashboard/notifications',
+      icon: 'notifications'
+    },  
     {
       title: 'DASHBOARD.DISCOUNTS',
       url: '/dashboard/brpage',
@@ -208,12 +213,14 @@ export class DashboardPage implements OnInit {
       this.loading.presentLoading();
       const id = this.db.getStorage('accID');
       const res = await this.db.FetchAcc();
+      if (res.status === 'success'){
       console.log(this.getData(res.data , id));
       const data = this.getData(res.data , id);
       this.glb.AgencyLogData.id =  data['id'];
       this.glb.AgencyLogData.data = data;
       this.glb.AgencyLogData.name =  data['name'];
       this.glb.AgencyLogData.bemail =  data['businessEmail'];
+    } 
       this.loading.dismissLoading();
     } else if (!this.glb.ifAdmin(this.glb.user.role)){
       this.router.navigate(['client']);

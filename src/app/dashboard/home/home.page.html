@@ -1,52 +1,252 @@
 <ion-content class="ion-padding">
-  <ion-row>
-    <ion-col  size-xl="3" size-lg="4" size-md="6" size-sm="12"  size-xs="12">
-        <ion-card class="text-center">
-            <ion-card-header>
-              <ion-title class="ion-padding">{{ 'COMMON.CARS'  | translate }}</ion-title>
-              <ion-icon name="logo-model-s" style="font-size: 100px;"></ion-icon>
-            </ion-card-header>
-            <ion-card-content>
-              <h1>3</h1>
-            </ion-card-content>
-          </ion-card>
-    </ion-col>
-    <ion-col  size-xl="3" size-lg="4" size-md="6" size-sm="12"  size-xs="12">
-        <ion-card class="text-center" color="light">
-            <ion-card-header>
-              <ion-title class="ion-padding">{{ 'COMMON.RENTED_CAR'  | translate }}</ion-title>
-              <ion-icon name="logo-model-s" style="font-size: 100px;"></ion-icon>
-            </ion-card-header>
-            <ion-card-content>
-              <h1>2</h1>
-            </ion-card-content>
-          </ion-card>
-    </ion-col>
-    <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12"  size-xs="12">
-        <ion-card class="text-center">
-            <ion-card-header>
-              <ion-title class="ion-padding">{{ 'COMMON.INCOME'  | translate }}</ion-title>
-              <ion-icon name="cash" style="font-size: 100px;"></ion-icon>
-            </ion-card-header>
-            <ion-card-content>
-             <h1> 1 200.62 € </h1>
-              
-            </ion-card-content>
-          </ion-card>
-    </ion-col>
 
-    <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12"  size-xs="12">
-        <ion-card class="text-center">
-            <ion-card-header>
-              <ion-title class="ion-padding">{{ 'COMMON.CREDIT'  | translate }}</ion-title>
-              <ion-icon name="wallet" style="font-size: 100px;"></ion-icon>
-            </ion-card-header>
-            <ion-card-content>
-              <h1>0 €</h1>
-            </ion-card-content>
-          </ion-card>
-    </ion-col>
-  </ion-row>
-    
-    
+  <div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ 'COMMON.RENTED_CAR'  | translate }}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{summariez_info.rented_car}}</div>
+            </div>
+            <ion-icon name="car" style="font-size: 75px;color:#595959;"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">{{ 'COMMON.CARS'  | translate }}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{summariez_info.free_car}}</div>
+            </div>
+            <ion-icon name="car" style="font-size: 75px; color:#AEAEAE;"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ 'COMMON.INCOME'  | translate }}</div>
+              <div class="row no-gutters align-items-center">
+                <div class="col-auto">
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50</div>
+                </div>
+                <div class="col">
+                  <div class="progress progress-sm mr-2">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ion-icon name="wallet" style="font-size: 75px;color:#595959"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">{{ 'COMMON.CREDIT'  | translate }}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+            </div>
+            <ion-icon name="wallet" style="font-size: 75px;color:#AEAEAE;"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Content Row -->
+
+  <div class="row">
+
+    <!-- Area Chart -->
+    <div class="col-xl-8 col-lg-7">
+      <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">{{ 'COMMON.PAY_HISTORICAL'  | translate }}</h6>
+          <div class="dropdown no-arrow">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+              <div class="dropdown-header">Dropdown Header:</div>
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+          <div class="chart-area">
+            <canvas id="myAreaChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pie Chart -->
+    <div class="col-xl-4 col-lg-5">
+      <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary" (click)="displayAll()">{{ 'COMMON.CAR_RENTED'  | translate }}</h6>
+          <div class="dropdown no-arrow">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+            </div>
+          </div>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body_table">
+            <table class="table">
+              <thead>
+                  <tr>
+                    <th scope="col">Voiture</th>
+                    <th scope="col">Matricule</th>
+                    <th scope="col" (click)="sortNbrRenting()">No. </th>
+                    <th scope="col" (click)="sortSum()">Somme.</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of car_perf_display; let i = index;"> 
+                  <th scope="row">{{item.model}}</th>
+                  <td>{{item.matricule}}</td>
+                  <td>{{item.sum}}</td>
+                  <td>{{item.nbr_renting}}</td>        
+                </tr>       
+            </tbody>
+            </table>
+           
+ 
+         
+                
+ 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+
+    <!-- Content Column -->
+    <div class="col-lg-6 mb-4">
+
+      <!-- Project Card Example -->
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">{{ 'COMMON.RENTING_IN_HISTORICAL'  | translate }}</h6>
+        </div>
+        <div class="card-body">
+          <h4 class="small font-weight-bold"> {{ 'RENTRING.ONGOING_DISPLAY'  | translate }} <span class="float-right">{{ this.booking_state.on_going }}</span></h4>
+          <div class="progress mb-4">
+            <div class="progress-bar bg-danger" role="progressbar" [style.width]="this.booking_state_c.on_going" aria-valuenow="booking_state[0]['done']" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <h4 class="small font-weight-bold">{{ 'RENTRING.CANCLED_DISPLAY'  | translate }} <span class="float-right">{{ this.booking_state.cancled}}</span></h4>
+          <div class="progress mb-4">
+            <div class="progress-bar bg-warning" role="progressbar" [style.width]="this.booking_state_c.cancled"aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <h4 class="small font-weight-bold">{{ 'RENTRING.WAITING_FOR_CONFIRM_DISPLAY'  | translate }} <span class="float-right">{{ this.booking_state.waiting_for_validation}}</span></h4>
+          <div class="progress mb-4">
+            <div class="progress-bar" role="progressbar" [style.width]="this.booking_state_c.waiting_for_validation" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <h4 class="small font-weight-bold">{{ 'RENTRING.VALIDATED_DISPLAY'  | translate }} <span class="float-right">{{ this.booking_state.verified }}</span></h4>
+          <div class="progress mb-4">
+            <div class="progress-bar bg-info" role="progressbar" [style.width]="this.booking_state_c.verified" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <h4 class="small font-weight-bold"> {{ 'RENTRING.DONE_DISPLAY'  | translate }} <span class="float-right">{{  this.booking_state.done }}</span></h4>
+          <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" [style.width]="this.booking_state_c.done" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">{{ 'COMMON.RENTING_EX_HISTORICAL'  | translate }}</h6>
+        </div>
+        <div class="card-body">
+          <h4 class="small font-weight-bold"> {{ 'RENTRING.ONGOING_DISPLAY'  | translate }} <span class="float-right">20%</span></h4>
+          <div class="progress mb-4">
+            <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <h4 class="small font-weight-bold">{{ 'RENTRING.CANCLED_DISPLAY'  | translate }} <span class="float-right">40%</span></h4>
+          <div class="progress mb-4">
+            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <h4 class="small font-weight-bold">{{ 'RENTRING.WAITING_FOR_CONFIRM_DISPLAY'  | translate }} <span class="float-right">60%</span></h4>
+          <div class="progress mb-4">
+            <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <h4 class="small font-weight-bold">{{ 'RENTRING.VALIDATED_DISPLAY'  | translate }} <span class="float-right">80%</span></h4>
+          <div class="progress mb-4">
+            <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <h4 class="small font-weight-bold"> {{ 'RENTRING.DONE_DISPLAY'  | translate }} <span class="float-right">Complete!</span></h4>
+          <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" value="25" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-6 mb-4">
+
+      <!-- Illustrations -->
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">{{ 'COMMON.GENERALE'  | translate }}</h6>
+        </div>
+        <div class="card-body">
+          <div class="text-center">
+            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="">
+          </div>
+          <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
+          <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Approach -->
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">{{ 'COMMON.INDICATOR'  | translate }}</h6>
+        </div>
+        <div class="card-body">
+          <p>d</p>
+          <p >s</p>
+          <p class="mb-0">s</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+
+
 </ion-content>

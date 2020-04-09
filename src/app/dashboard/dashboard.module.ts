@@ -59,6 +59,10 @@ const routes: Routes = [
         path: 'duser',
         loadChildren: './duser/duser.module#DuserPageModule'
       },
+      {
+        path: 'renting',
+        loadChildren: './renting/renting.module#RentingPageModule'
+      },
 
     ]
   }
