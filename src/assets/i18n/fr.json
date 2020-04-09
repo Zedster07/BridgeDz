@@ -18,7 +18,13 @@
       "UPDATE" : "Mettre à jour",
       "Validate" : "Valider",
       "OK" : "Ok",
-      "PICTURE_MODIFY" : "Modifier la photo"
+      "PICTURE_MODIFY" : "Modifier la photo",
+      "PAY_HISTORICAL" : "Historique des revenus de l'agence",
+      "CAR_RENTED" : "Liste des voitures les plus performates",
+      "RENTING_IN_HISTORICAL" : "Historique des locations via Bridgy",
+      "RENTING_EX_HISTORICAL" : "Historique des locations hors Bridgy",
+      "INDICATOR" : "Indicateurs",
+      "GENERALE" : "Vue Génrale"
     },
 
     "DASHBOARD": {
@@ -30,6 +36,7 @@
       "WALLET": "Porte feuille",
       "NOTIFICATIONS": "Notifications",
       "DISCOUNTS": "Bons de réduction",
+      "RENTINGS_EX": "Locations hors Birdgy",
       "RENTINGS_WAITING_FOR_VALID": "Demande de locations",
       "PROFILE": "Profile"
     },
@@ -98,7 +105,14 @@
     "CANCEL"  : "Annuler",
     "PAY" : "Payer",
     "VALIDATED" : "Validé",
-    "NOT_PAID" : "Pas encore payé"
+    "NOT_PAID" : "Pas encore payé",
+    "ONGOING_DISPLAY" : "Locations en cours",
+    "CANCLED_DISPLAY" : "Locations annulées",
+    "WAITING_FOR_CONFIRM_DISPLAY" : "Demande de location en attente de ma confirmation",
+    "VALIDATED_DISPLAY" : "Locations validées",
+    "CONFIRMED_DISPLAY" : "Locations confirmées",
+    "GENERALE" : "",
+    "DONE_DISPLAY" : "Location déja effectuées"
     
   },
   "RENTRING_REQUEST" :{

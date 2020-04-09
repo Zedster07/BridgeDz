@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
   { path: 'faq', loadChildren: './faq/faq.module#FaqPageModule' },
   { path: 'ddetagency', loadChildren: './dashboard/dagency/ddetagency/ddetagency.module#DdetagencyPageModule' },
+  { path: 'renting', loadChildren: './dashboard/renting/renting.module#RentingPageModule' },
 ];
 
 @NgModule({

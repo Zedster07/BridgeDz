@@ -18,7 +18,14 @@
     "UPDATE" : "تحديث",
     "Validate" : "تحقق",
     "OK" : "تحقق",
-    "PICTURE_MODIFY" : "تعديل الصورة"
+    "PICTURE_MODIFY" : "تعديل الصورة",
+    "PAY_HISTORICAL" : "تاريخ دخل الوكالة",
+    "CAR_RENTED" : "أكثر السيارات المستأجرة",
+    "RENTING_IN_HISTORICAL" : "سجل التأجير عبر التطبيق",
+    "RENTING_EX_HISTORICAL" : "سجل التأجير خارج التطبيق",
+    "INDICATOR" : "المؤشرات",
+    "GENERALE" : "نظرة عامة"
+  
   },
 
   "DASHBOARD": {
@@ -27,6 +34,7 @@
       "AGENCIES": "وكالاتي",
       "CARS": "سياراتي",
       "RENTINGS": "إيجاراتي",
+      "RENTINGS_EX": "استأجر خارج التطبيق",
       "WALLET": "محفظتى",
       "NOTIFICATIONS": "إشعارات",
       "DISCOUNTS": "قسيمة خصم ",
@@ -98,7 +106,14 @@
     "CANCEL"  : "Cancel",
     "PAY" : "Pay",
     "VALIDATED" : "Validated",
-    "NOT_PAID" : "Not yet paid"
+    "NOT_PAID" : "Not yet paid",
+    "ONGOING_DISPLAY" : "الإيجارات الحالية",
+    "CANCLED_DISPLAY" : "الإيجارات الملغاة",
+    "WAITING_FOR_CONFIRM_DISPLAY" : "طلبات الإيجار في انتظار التأكيد",
+    "VALIDATED_DISPLAY" : "الإيجارات المصدق عليها",
+    "CONFIRMED_DISPLAY" : "الإيجارات المؤكدة",
+    "DONE_DISPLAY" : "الإيجارات التي تم إجراؤه"
+
     
   },
 

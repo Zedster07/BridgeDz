@@ -18,7 +18,14 @@
       "UPDATE" : "Update",
       "Validate" : "Validate",
       "OK" : "Ok",
-      "PICTURE_MODIFY" : "Modify picture"
+      "PICTURE_MODIFY" : "Modify picture",
+      "PAY_HISTORICAL" : "Agency paiement historical",
+      "CAR_RENTED" : "List of the most rented cars",
+      "RENTING_IN_HISTORICAL" : "Renting Historical via Bridgy",
+      "RENTING_EX_HISTORICAL" : "Renting Historical outside Bridgy",
+      "INDICATOR" : "Indicators",
+      "GENERALE" : "Global view"
+      
 
     },
 
@@ -30,6 +37,7 @@
         "RENTINGS": "Rentings",
         "WALLET": "Wallet",
         "NOTIFICATIONS": "Notifications",
+        "RENTINGS_EX": "Rentings outside bridgy",
         "DISCOUNTS": "Discounts",
         "RENTINGS_WAITING_FOR_VALID": "Rentings requests",
         "PROFILE": "Profile"
@@ -98,8 +106,15 @@
         "CANCEL"  : "Cancel",
         "PAY" : "Pay",
         "VALIDATED" : "Validated",
-        "NOT_PAID" : "Not yet paid"
+        "NOT_PAID" : "Not yet paid",
+        "ONGOING_DISPLAY" : "On going rentring",
+        "CANCLED_DISPLAY" : "Cancled renting",
+        "WAITING_FOR_CONFIRM_DISPLAY" : "Renting requests waiting for my validation",
+        "VALIDATED_DISPLAY" : "Validated renting",
+        "CONFIRMED_DISPLAY" : "Confirmed renting",
+        "DONE_DISPLAY" : "Renting done"
       },
+      
       "RENTRING_REQUEST" :{
         "RENTING_REQUEST" : "Renting requests",
         "NO_RENTING" : "You have no renting request for the moment",

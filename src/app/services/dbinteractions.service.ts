@@ -610,6 +610,21 @@ export class DbinteractionsService {
       });
     }
 
+    async fetchBooking(car_id: string, id_agency: string): Promise<any>  {
+      const httpparams = new HttpParams()
+      .append('request' , 'fetchBooking')
+      .append('id_requestor' , this.glb.user.id)
+      .append('id_agency', id_agency)
+      .append('id_car', car_id);  
+      return await this.http.post(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
     async getAccParams(): Promise<any> {
       const httpparams = new HttpParams().append('request' , 'getParams').append('id' , this.glb.user.id);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
