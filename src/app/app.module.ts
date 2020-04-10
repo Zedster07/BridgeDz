@@ -43,6 +43,7 @@ import { UtilService } from './services/util.service';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import {TranslateModule, TranslateLoader, TranslatePipe} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { ChartsModule } from 'ng2-charts';
 
 
 
@@ -89,7 +90,7 @@ export function createTranslateLoader(http: HttpClient) {
     Ionic4DatepickerModule,
     IonicTimepickerModule,
     HttpClientModule,
-
+    ChartsModule,
     IonicStorageModule.forRoot(),
     TranslateModule.forRoot({
       defaultLanguage: 'fr',

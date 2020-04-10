@@ -5,6 +5,9 @@ import { HttpClient } from '@angular/common/http';
 import { LoadingService } from './loading.service';
 import { role_user}  from '../interfaces/role_user';
 import { account_status}  from '../interfaces/account_status';
+import { Label } from 'ng2-charts';
+import {TranslateService, TranslatePipe, TranslateModule} from '@ngx-translate/core';
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 
 
 @Injectable({
@@ -59,6 +62,15 @@ export class GlobalsService {
   permis=[];
   notifications = [];
   unreadNotif = 0;
+  barChartLabels: Label[] = ['MONTH.YEAR_BEFOR','MONTH.JANUARY', 'MONTH.FEBRUARY', 'MONTH.MARCH', 'MONTH.APRIL', 'MONTH.MAI', 'MONTH.JUNE', 'MONTH.JULY', 'MONTH.AUGUST','MONTH.SEPTMBER','MONTH.OCOTOBER','MONTH.NOVOMBER','MONTH.DECEMBER'];
+  barChartData: ChartDataSets[] = [
+    { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], backgroundColor: '#4e73df', hoverBackgroundColor: '#6610f2', label: 'WALLET.INSIDE_BRIDGY' },
+    { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], backgroundColor: '#858796', hoverBackgroundColor: '#5a5c69',  label: 'WALLET.OUTSIDE_BRIDGY' }
+  ];
+  gaugeLabel_rent = 'INDICATOR.NBR_RENTING';
+  gaugeLabel_price = 'INDICATOR.PRICE_MEAN';
+  pieChartLabels: Label[] = [['WALLET.INSIDE_BRIDGY'], ['WALLET.OUTSIDE_BRIDGY']];
+
   public user: UserData = {
     type: '',
     id: '',

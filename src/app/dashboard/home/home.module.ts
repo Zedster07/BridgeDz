@@ -4,9 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
-
+import { NgxGaugeModule } from 'ngx-gauge';
 import { HomePage } from './home.page';
 import {TranslateModule} from '@ngx-translate/core';
+import { ChartsModule } from 'ng2-charts';
 
 const routes: Routes = [
   {
@@ -22,6 +23,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     TranslateModule.forChild(),
+    ChartsModule,
+    NgxGaugeModule
   ],
   declarations: [HomePage]
 })

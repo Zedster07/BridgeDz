@@ -10555,8 +10555,12 @@ a:focus {
 
 .chart-area {
   position: relative;
-  height: 10rem;
-  width: 100%;
+   width:30vw
+}
+
+.chart-area-pie {
+  position: relative;
+   width:20vw
 }
 
 @media (min-width: 768px) {

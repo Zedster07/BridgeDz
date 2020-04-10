@@ -8,6 +8,8 @@ import { Httpresponse } from '../interfaces/httpresponse';
 import { support_type } from '../interfaces/support_type';
 import { login_type } from '../interfaces/login_type';
 
+import { isDevMode } from '@angular/core';
+
 import { Httprequest } from '../interfaces/httprequest';
 import { UserData } from '../interfaces/user-data';
 import { account_status} from '../interfaces/account_status';
@@ -29,6 +31,7 @@ export class UtilService {
     private glb: GlobalsService,
     private loading: LoadingService,
     private device: DeviceDetectorService,
+
   ) {
 
   }
@@ -166,6 +169,50 @@ export class UtilService {
     }
     return toReturn; 
   }
+
+  debug(msg: any){
+    if(isDevMode()){
+        console.log(msg);
+    } 
+  } 
+
+  getYearString(){
+    let today = new Date();
+    return today.getFullYear().toString();
+  } 
+  getYearNumber(){
+    let today = new Date();
+    return today.getFullYear();
+  } 
+  getYearEpoch(){
+  }  
+  
+  getMonthString(){
+    let today = new Date();
+    return (today.getMonth()+1).toString();
+  } 
+  getMonthNumber(){
+    let today = new Date();
+    return (today.getMonth()+1);
+  } 
+ 
+
+  getDayString(){
+    let today = new Date();
+    return (today.getDay()+1).toString();
+  } 
+  getDayNumber(){
+    let today = new Date();
+    return (today.getDay()+1);
+  } 
+
+  gettodayString(){
+    let today = new Date();
+    return today.toString();
+  } 
+  gettodayEpoch(){
+    return new Date();
+  } 
 
    number_format(number, decimals, dec_point, thousands_sep) {
     // *     example: number_format(1234.56, 2, ',', ' ');

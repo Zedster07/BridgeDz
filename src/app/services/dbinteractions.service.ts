@@ -411,6 +411,28 @@ export class DbinteractionsService {
       });
     }
 
+    async fetchWallet(id: string, userid: string): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'fetchWallet').append('agencyid' , id).append('id_requestor',userid);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async fetchHistoricalWallet(id: string, userid: string, id_wallet: string): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'fetchHistoricalWallet').append('id_wallet', id_wallet).append('agencyid' , id).append('id_requestor',userid);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
     async fetchCarsUsers(id: string, userid: string): Promise<any> {
       console.log(userid);
       const httpparams = new HttpParams().append('request' , 'fetchCarsUser').append('user_id' , id).append('requestor_id',userid);

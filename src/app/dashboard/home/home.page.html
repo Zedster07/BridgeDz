@@ -41,7 +41,7 @@
               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ 'COMMON.INCOME'  | translate }}</div>
               <div class="row no-gutters align-items-center">
                 <div class="col-auto">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50</div>
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{summariez_info.real_balance}}</div>
                 </div>
                 <div class="col">
                   <div class="progress progress-sm mr-2">
@@ -63,7 +63,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">{{ 'COMMON.CREDIT'  | translate }}</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{summariez_info.theo_balance}}</div>
             </div>
             <ion-icon name="wallet" style="font-size: 75px;color:#AEAEAE;"></ion-icon>
           </div>
@@ -98,9 +98,30 @@
         </div>
         <!-- Card Body -->
         <div class="card-body">
+          <div class="row">
           <div class="chart-area">
-            <canvas id="myAreaChart"></canvas>
+              <canvas baseChart 
+              [datasets]="this.glb.barChartData"
+              [labels]="this.glb.barChartLabels"
+              [colors]="lineChartColors"
+              [options]="barChartOptions"
+              [plugins]="barChartPlugins"
+              [legend]="barChartLegend"
+              [chartType]="barChartType">
+            </canvas>
           </div>
+          <div class="chart-area-pie">
+            <canvas baseChart 
+              [datasets]="bpiChartData" 
+              [labels]="this.glb.pieChartLabels" 
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              
+              [plugins]="pieChartPlugins"
+              [legend]="pieChartLegend">
+          </canvas>
+          </div>
+        </div>
         </div>
       </div>
     </div>
@@ -225,7 +246,7 @@
         </div>
         <div class="card-body">
           <div class="text-center">
-            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="">
+            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="../../../assets/images/dashbaord.jpg" alt="">
           </div>
           <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
           <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw &rarr;</a>
@@ -238,9 +259,26 @@
           <h6 class="m-0 font-weight-bold text-primary">{{ 'COMMON.INDICATOR'  | translate }}</h6>
         </div>
         <div class="card-body">
-          <p>d</p>
-          <p >s</p>
-          <p class="mb-0">s</p>
+          <div class="row">
+          <div class ="col-1"></div>
+          <ngx-gauge [type]="gaugeType" 
+           [value]="gaugeValue" 
+           [label]="this.glb.gaugeLabel_price"  
+           [append]="gaugeAppendText"
+           [foregroundColor]="foregroundColor"
+           [backgroundColor]="backgroundColor">
+          </ngx-gauge>
+          <canvas></canvas>
+          <ngx-gauge [type]="gaugeType" 
+           [value]="gaugeValue" 
+           [label]="this.glb.gaugeLabel_rent"  
+           [foregroundColor]="foregroundColor"
+           [backgroundColor]="backgroundColor"
+           [type]="type"
+           [type]="cap"
+           >
+          </ngx-gauge>
+        </div>
         </div>
       </div>
 

@@ -5,6 +5,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { Router , ActivatedRoute } from '@angular/router';
+import { UtilService} from 'src/app/services/util.service';
 @Component({
   selector: 'app-agency-modal',
   templateUrl: './agency-modal.page.html',
@@ -30,7 +31,8 @@ export class AgencyModalPage implements OnInit {
     private loading: LoadingService ,
     private route: Router,
     public modalCtrl: ModalController,
-    private aroute: ActivatedRoute) {
+    private aroute: ActivatedRoute,
+    private util: UtilService) {
   }
 
   gotoMyAgency(id: string) {
@@ -44,7 +46,8 @@ export class AgencyModalPage implements OnInit {
     this.db.setStorage('accName' , this.glb.AgencyLogData.name);
     this.db.setStorage('accloggedin' , true);
     this.closeModal();
-    this.route.navigate(['dashboard']);
+    this.util.debug('go to my agency');
+    this.route.navigate(['dashboard', 'home']);
   }
 
   async fetchAcc() {
@@ -66,7 +69,8 @@ export class AgencyModalPage implements OnInit {
           this.glb.AgencyLogData.data = res.data[0];
           if (this.type === null) {
             this.closeModal();
-            this.route.navigate(['dashboard']);
+
+            this.route.navigate(['dashboard', 'home']);
           }
       }
     }
@@ -93,7 +97,7 @@ export class AgencyModalPage implements OnInit {
     this.loading.dismissLoading();
     if (res) {
       this.closeModal();
-      this.route.navigate(['dashboard']);
+      //this.route.navigate(['dashboard']);
     }
   }
 
