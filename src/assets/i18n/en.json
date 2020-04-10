@@ -96,7 +96,9 @@
         "BILLING_Num" : "Billing n°. ",
         "DATE" : "Date",
         "AMOUNT" : "Amount",
-        "FUTUR_PAIMENT" : "Future paiement"
+        "FUTUR_PAIMENT" : "Future paiement",
+        "OUTSIDE_BRIDGY" : "Outside Bridgy",
+        "INSIDE_BRIDGY" : "Inside Bridgy"
       },
       "RENTRING" :{
         "PAID" : "Paid",
@@ -130,5 +132,24 @@
         "START_DATE" : "Start date",
         "END_DATE" : "End date",
         "ACTION" : "Action"
+      },
+      "MONTH": {
+        "JANUARY" : "January",
+        "FEBRUARY": "February",
+        "MARCH": "March",
+        "APRIL": "April",
+        "MAI": "Mai",
+        "JUNE": "June",
+        "JULY": "July",
+        "AUGUST": "August",
+        "SEPTMBER": "Septmber",
+        "OCOTOBER": "October",
+        "NOVOMBER": "Novomber",
+        "DECEMBER": "December",
+        "YEAR_BEFOR": "Previous years"
+      },
+      "INDICATOR": {
+        "PRICE_MEAN" : "average rental price",
+        "NBR_RENTING": "Number of rentals"
       }
   }

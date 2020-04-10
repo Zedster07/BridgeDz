@@ -96,7 +96,9 @@
     "BILLING_Num" : "Modify car information",
     "DATE" : "Date",
     "AMOUNT" : "Amount",
-    "FUTUR_PAIMENT" : "Future paiement"
+    "FUTUR_PAIMENT" : "Future paiement",
+    "OUTSIDE_BRIDGY" : "دخل خارج تطبيق",
+    "INSIDE_BRIDGY" : "الدخل من تطبيق"
   },
   "RENTRING" :{
     "PAID" : "Paid",
@@ -132,6 +134,25 @@
     "START_DATE" : "Start date",
     "END_DATE" : "End date",
     "ACTION" : "Action"
+  },
+  "MONTH": {
+    "JANUARY" : "يناير",
+    "FEBRUARY": "فبراير",
+    "MARCH": "مارس",
+    "APRIL": "أبريل",
+    "MAI": "مايو",
+    "JUNE": "يونيو",
+    "JULY": "تموز",
+    "AUGUST": "أغسطس",
+    "SEPTMBER": "سبتمبر",
+    "OCOTOBER": "اكتوبر",
+    "NOVOMBER": "نوفمبر",
+    "DECEMBER": "ديسمبر",
+    "YEAR_BEFOR": "السنوات السابقة"
+  },
+  "INDICATOR": {
+    "PRICE_MEAN" : "متوسط ​​سعر الإيجار",
+    "NBR_RENTING": "عدد الايجارات"
   }
    
 }

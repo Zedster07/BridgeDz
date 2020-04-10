@@ -94,7 +94,8 @@
     "BILLING_Num" : "Facture n°. ",
     "DATE" : "Date",
     "AMOUNT" : "Montant",
-    "FUTUR_PAIMENT" : "paiement future"
+    "OUTSIDE_BRIDGY" : "Revenus hors bridfy",
+    "INSIDE_BRIDGY" : "Revenus Bridgy"
   },
 
   "RENTRING" :{
@@ -130,9 +131,28 @@
     "START_DATE" : "Début",
     "END_DATE" : "Fin",
     "ACTION" : "Action"
-  }
+  },
 
-    
+  "MONTH": {
+    "JANUARY" : "Janvier",
+    "FEBRUARY": "Fevrier",
+    "MARCH": "Mars",
+    "APRIL": "Avril",
+    "MAI": "Mai",
+    "JUNE": "Juin",
+    "JULY": "Juillet",
+    "AUGUST": "Aout",
+    "SEPTMBER": "Séptembre",
+    "OCOTOBER": "Octobre",
+    "NOVOMBER": "Novembre",
+    "DECEMBER": "Décembre",
+    "YEAR_BEFOR": "Années précédentes"
+  },
+
+  "INDICATOR": {
+    "PRICE_MEAN" : "Prix moyan de location",
+    "NBR_RENTING": "Nombre de locations"
+  }
 
  
    
