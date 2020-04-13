@@ -8,7 +8,7 @@ import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
   styleUrls: ['./car-availability.page.scss'],
 })
 export class CarAvailabilityPage implements OnInit {
-  date: string;
+ /* date: string;
   type: 'string';
   carIndex = 0;
   timeSelected = new Date();
@@ -20,14 +20,14 @@ export class CarAvailabilityPage implements OnInit {
 
   carData = {};
   title = '';
-  @ViewChild(CalendarComponent , {static: false}) myCal;
+  @ViewChild(CalendarComponent , {static: false}) myCal;*/
 
   constructor(public navParams: NavParams , private db: DbinteractionsService , private modalCtrl: ModalController) {
 
   }
  
 
-  onChange($event) {
+  /*onChange($event) {
     console.log($event);
   }
 
@@ -130,9 +130,9 @@ export class CarAvailabilityPage implements OnInit {
     this.modalCtrl.dismiss({
       dismissed: true
     });
-  }
+  }*/
   async ngOnInit() {
-    this.carData = this.navParams.get('data');
+   /* this.carData = this.navParams.get('data');
     this.carIndex = this.navParams.get('idx');
     const res = await this.db.reloadEvents(this.carIndex);
     const data = res['data'];
@@ -151,7 +151,7 @@ export class CarAvailabilityPage implements OnInit {
       console.log(this.eventSource);
     });
     this.myCal.loadEvents();
-    //this.title = this.carData['brand'] + ' ' + this.carData['model'];
+    //this.title = this.carData['brand'] + ' ' + this.carData['model'];*/
   }
 
 }

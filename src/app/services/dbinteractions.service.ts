@@ -56,6 +56,37 @@ export class DbinteractionsService {
       });
     }
 
+
+    async updateAvail_v1(dateBusy, dateBookedInside, dateBookedOutside, datePreBooked, idcar,) {
+      const httpparams = new HttpParams().append('request' , 'updateAvail_v1') .
+      append('busy' , dateBusy).
+      append('bookedInside' , dateBookedInside).
+      append('bookedOutside' , dateBookedOutside).
+      append('preBooked' , datePreBooked).
+      append('idcar' , idcar).
+      append('id_requestor', this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async fetchAvail_v1(idcar) {
+      const httpparams = new HttpParams().append('request' , 'fetchAvail_v1').
+      append('idcar' , idcar).
+      append('id_requestor', this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      }); 
+    }
+      
+
     async answerDemand(answer , dmID) {
       console.log(answer + ' ----- ' + dmID);
       const httpparams = new HttpParams().append('request' , 'answerDemande')

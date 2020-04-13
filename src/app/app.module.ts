@@ -33,6 +33,7 @@ import { AddCarModalPage } from './modals/add-car-modal/add-car-modal.page';
 import { ReductionsPage } from './modals/reductions/reductions.page';
 import { AccessHoursPage } from './modals/access-hours/access-hours.page';
 import { CarAvailabilityPage } from './modals/car-availability/car-availability.page';
+import { CarAvailabilityV1Page } from 'src/app/modals/car-availability-v1/car-availability-v1.page'
 import { NgCalendarModule  } from 'ionic2-calendar';
 import { ReservePage } from './modals/reserve/reserve.page';
 import { MenuListComponent } from './menu-list/menu-list.component';
@@ -44,6 +45,10 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import {TranslateModule, TranslateLoader, TranslatePipe} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { ChartsModule } from 'ng2-charts';
+import { BrowserAnimationsModule } from  '@angular/platform-browser/animations';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { trigger, state, style, transition, animate } from '@angular/animations'
 
 
 
@@ -72,7 +77,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, AgencyModalPage , AddCarModalPage , ReductionsPage , AccessHoursPage , CarAvailabilityPage , ReservePage , 
+  declarations: [AppComponent, AgencyModalPage , AddCarModalPage , ReductionsPage , AccessHoursPage , CarAvailabilityPage , CarAvailabilityV1Page,  ReservePage , 
     MenuListComponent , ClientMenuListComponent],
   entryComponents: [
     AgencyModalPage,
@@ -80,6 +85,7 @@ export function createTranslateLoader(http: HttpClient) {
     ReductionsPage,
     AccessHoursPage ,
     CarAvailabilityPage ,
+    CarAvailabilityV1Page,
     ReservePage ,
     MenuListComponent, ClientMenuListComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
@@ -90,6 +96,11 @@ export function createTranslateLoader(http: HttpClient) {
     Ionic4DatepickerModule,
     IonicTimepickerModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
     ChartsModule,
     IonicStorageModule.forRoot(),
     TranslateModule.forRoot({

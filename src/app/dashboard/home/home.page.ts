@@ -6,7 +6,7 @@ import { GlobalsService } from 'src/app/services/globals.service';
 import { UtilService } from 'src/app/services/util.service';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label, Color, SingleDataSet, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
-import { NgxGaugeModule } from 'ngx-gauge';
+
 
 @Component({
   selector: 'app-home',

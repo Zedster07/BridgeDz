@@ -36,7 +36,13 @@ export class UtilService {
 
   }
 
-
+  checkValid(param :any){
+    if(param !== null || param !==undefined){
+      return true;
+    } else {
+      return false;
+    }
+  }
   dsiplayRole(role: string){
     if (this.glb.ifClient(role)){
       return 'CLIENT';

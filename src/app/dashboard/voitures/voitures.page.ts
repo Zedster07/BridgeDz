@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { AddCarModalPage } from 'src/app/modals/add-car-modal/add-car-modal.page';
 import { AccessHoursPage } from 'src/app/modals/access-hours/access-hours.page';
 import { CarAvailabilityPage } from 'src/app/modals/car-availability/car-availability.page';
+import { CarAvailabilityV1Page } from 'src/app/modals/car-availability-v1/car-availability-v1.page'
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { GlobalsService } from 'src/app/services/globals.service';
 @Component({
@@ -47,13 +48,17 @@ export class VoituresPage implements OnInit {
   async showCarAvailModal(index) {
     let CarData =  this.glb.myCars[index];
     const modal = await this.modalController.create({
-      component: CarAvailabilityPage,
+      component: CarAvailabilityV1Page,
       // backdropDismiss: false,
       componentProps: {
         type: '',
         data: CarData,
         idx: this.glb.myCars[index]['id']
       }
+    });
+
+    modal.onDidDismiss().then((result) => {
+      this.glb.selectedDays = [];
     });
     return await modal.present();
   }

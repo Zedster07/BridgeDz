@@ -61,6 +61,7 @@ export class GlobalsService {
   isViewAgency = false;
   permis=[];
   notifications = [];
+  selectedDays=[];
   unreadNotif = 0;
   barChartLabels: Label[] = ['MONTH.YEAR_BEFOR','MONTH.JANUARY', 'MONTH.FEBRUARY', 'MONTH.MARCH', 'MONTH.APRIL', 'MONTH.MAI', 'MONTH.JUNE', 'MONTH.JULY', 'MONTH.AUGUST','MONTH.SEPTMBER','MONTH.OCOTOBER','MONTH.NOVOMBER','MONTH.DECEMBER'];
   barChartData: ChartDataSets[] = [
