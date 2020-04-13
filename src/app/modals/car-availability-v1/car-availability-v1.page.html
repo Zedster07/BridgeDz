@@ -1,0 +1,61 @@
+
+<ion-header>
+ssss
+</ion-header>
+  
+<ion-content>
+
+  
+  <div class="col-md-4">
+    <div class="btn-group">
+      <div
+        class="btn btn-primary"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+      >
+        Previous
+      </div>
+      <div
+        class="btn btn-outline-secondary"
+        mwlCalendarToday
+        [(viewDate)]="viewDate"
+      >
+        Today
+      </div>
+      <div
+        class="btn btn-primary"
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+      >
+        Next
+      </div>
+    </div>
+  </div>
+  
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="'month'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      (beforeViewRender)="beforeMonthViewRender($event)"
+      (dayClicked)="dayClicked($event.day)"
+    >
+    </mwl-calendar-month-view>
+  </div>
+</ion-content>
+
+<ion-footer >
+  <ion-toolbar>
+      <ion-button  color="primary"  (click)="saveChanges()"> 
+        mettre à jour
+      </ion-button>
+  <div>
+    {{ msg_display }}
+  </div>
+  </ion-toolbar>
+</ion-footer>

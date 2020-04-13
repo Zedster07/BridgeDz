@@ -1,0 +1,62 @@
+.cal-day-booked_inside_future,
+  .cal-day-selected:hover {
+    background-color: #4e73df !important;
+}
+
+.cal-day-booked_outside_future,
+  .cal-day-selected:hover {
+    background-color: #858796 !important;
+}
+
+.cal-day-free_futur,
+  .cal-day-selected:hover {
+    background-color:#ffffff!important;
+}
+
+.cal-day-busy_future,
+  .cal-day-selected:hover {
+    background-color: #cc00008e !important;
+}
+
+
+
+
+.cal-day-booked_inside_past,
+  .cal-day-selected:hover {
+    background-color: #5d85ff !important;
+}
+
+.cal-day-booked_outside_past,
+  .cal-day-selected:hover {
+    background-color: #cbcfe9 !important;
+}
+
+.cal-day-free_past,
+  .cal-day-selected:hover {
+    background-color:#ffffff!important;
+}
+
+.cal-day-busy_past,
+  .cal-day-selected:hover {
+    background-color: #ff80805b !important;
+}
+
+.cal-day-pre_booked_past,
+  .cal-day-selected:hover {
+    background-color: #81dbff !important;
+}
+
+.cal-day-pre_booked_future,
+  .cal-day-selected:hover {
+    background-color: #00b5fd !important;
+}
+
+
+      h3 {
+        margin: 0 0 10px;
+      }
+      
+      pre {
+        background-color: #f5f5f5;
+        padding: 15px;
+      }
