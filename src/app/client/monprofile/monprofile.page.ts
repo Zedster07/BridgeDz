@@ -3,6 +3,7 @@ import { GlobalsService } from 'src/app/services/globals.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { AlertService } from '../../services/alert.service';
+import { UtilService } from '../../services/util.service';
 import { LoginService } from '../../services/login.service';
 import { UserData } from '../../interfaces/user-data';
 
@@ -39,6 +40,10 @@ export class MonprofilePage implements OnInit {
     versoimg: this.emptyFormdata
   };
 
+  password : '';
+  new_password: '';
+  password_confirm: '';
+
   public usertmp: UserData  = {
     type: '',
     id: '',
@@ -59,6 +64,11 @@ export class MonprofilePage implements OnInit {
     userStatus: '',
     role:'',
     session_guid: '',
+    licenseId: '',
+    dlicencePaye: '',
+    dlicenceDate: '',
+    licenseRecot: '',
+    licenseVerso: ''
   };
 
   
@@ -68,10 +78,15 @@ export class MonprofilePage implements OnInit {
     private log: LoginService,
     private db: DbinteractionsService,
     private alertt: AlertService,
-    private loading: LoadingService ) {
-      this.usertmp = JSON.parse(JSON.stringify(this.glb.user));
-      console.log(this.accparams);
-      console.log(this.verified);
+    private loading: LoadingService,
+    public util: UtilService ) {
+    this.usertmp = JSON.parse(JSON.stringify(this.glb.user));
+    this.verifyAccData.lid = this.glb.user.licenseId;
+    this.verifyAccData.dateo = this.glb.user.dlicenceDate;
+    this.verifyAccData.payso = this.glb.user.dlicencePaye;
+
+
+    console.log(this.glb.user);
   }
   
   fromStrToBool(data: any) {
@@ -113,9 +128,9 @@ export class MonprofilePage implements OnInit {
   }
 
   async accParamsUpdate() {
-    console.log('first step');
+    this.glb.toReload  = 0;
     this.loading.presentLoading();
-    const res = await this.db.setAccParams(this.fromBoolToString(this.accparams));
+    const res = await this.db.setAccParams(this.fromBoolToString(this.glb.accparams));
     this.loading.dismissLoading();
     if (res) {
       this.alertt.presentAlert('Success!' , 'Updated successfully!');
@@ -173,7 +188,8 @@ export class MonprofilePage implements OnInit {
             rectoimg: recto['path'] ,
             versoimg: verso['path']
           };
-          const result = await this.db.finishVerifyAcc(this.verifyAccData , LiImgPaths, this.glb.user_modify);
+          console.log(this.verifyAccData);
+          const result = await this.db.finishVerifyAcc(this.verifyAccData , LiImgPaths, this.glb.user);
           if (result) {
             this.glb.user.userStatus = '1';
             this.verified = '1';
@@ -185,22 +201,36 @@ export class MonprofilePage implements OnInit {
     }
   }
 
+  async updatePassword(){
+    let pass = await this.alertt.checkPass(this.password);
+    console.log(pass);
+    console.log(this.new_password);
+    console.log(this.password_confirm);
+    if((pass) && this.new_password === this.password_confirm){
+        console.log('lets change');
+        let change = await this.db.updatePassword(this.new_password, this.usertmp.id);
+        this.password ='';
+        this.password_confirm ='';
+        this.new_password ='';
+        this.alertt.presentAlert('Mot de passe','votre mot de passe vient de changer');
+    }
+  }
   async UpdateProfile() {
     let something: any;
     let pass = true;
-    if (this.glb.user.password !== this.usertmp.password) {
+    /*if (this.glb.user.password !== this.usertmp.password) {
       something = await this.alertt.confirmPassword();
       this.loading.presentLoading();
       pass = await this.alertt.checkPass(something);
       this.loading.dismissLoading();
-    }
+    }*/
     if (pass) {
       this.loading.presentLoading();
       if (this.proilePicFormData !== null ) {
         const response = await this.db.uploadProfilePic(this.proilePicFormData);
         if (response && response['success']) {
           this.proilePicFormData = null;
-          this.glb.user.pic = this.glb.hostServer + response['path'];
+          this.glb.user.pic = response['path'];
           this.log.setLocalstorage('userpic' , this.glb.user.pic);
           console.log(this.glb.user.pic);
           await this.db.updateprofileinfos(this.usertmp);
@@ -281,12 +311,15 @@ export class MonprofilePage implements OnInit {
   changepicUrl() {
 
   }
+
+
   async getAccParam() {
     this.loading.presentLoading();
     const data = await this.db.getAccParams();
+    console.log(data);
     this.loading.dismissLoading();
-    if (data) {
-      return this.fromStrToBool(data);
+    if (data.status = 'success') {
+      return this.fromStrToBool(data.data);
     } else {
       return {
         demandlocation: [false , false , false],
@@ -299,8 +332,11 @@ export class MonprofilePage implements OnInit {
     }
   }
   async ngOnInit() {
-    const res = await this.getAccParam();
-    console.log(this.accparams);
+    if (this.glb.toReload === 0){
+      this.util.debug('ngOnInit , monprofil', this.glb.accparams);
+      const data = await this.db.getAccParams();
+      await this.util.getAccParam_1(this.glb.accparams, data);
+    }
   }
 
 }
