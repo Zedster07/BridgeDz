@@ -62,7 +62,8 @@ export class LoginService {
       .append('fname', this.glb.user.fname)
       .append('lname' , this.glb.user.lname)
       .append('email' , this.glb.user.email)
-      .append('pic' , this.glb.user.pic);
+      .append('pic' , this.glb.user.pic)
+      .append('guid_client', this.util.newGuid());
 
       const result = await this.http.post<Httpresponse>(this.glb.hostServer + 'register.php' , httpparams )
       .toPromise().then(resp => {
@@ -101,7 +102,8 @@ export class LoginService {
       .append('type' , tp)
       .append('username' , data.username)
       .append('email' , data.email)
-      .append('password' , data.password);
+      .append('password' , data.password)
+      .append('guid_client', this.util.newGuid());
       const result = await this.http.post<Httpresponse>(this.glb.hostServer + 'register.php' , httpparams )
       .toPromise().then(resp => {
         console.log(resp);
@@ -151,7 +153,7 @@ export class LoginService {
           console.log(resp.data['picture'].indexOf('http'));
           this.glb.user.pic = resp.data['picture'];
         } else {
-          this.glb.user.pic = this.glb.hostServer + resp.data['picture'];
+          this.glb.user.pic = resp.data['picture'];
           console.log(this.glb.user.pic);
         }
         resp.data = this.clearNulls(resp.data);
@@ -175,7 +177,13 @@ export class LoginService {
         localStorage.setItem('userpropos' , resp.data['propos']);
         localStorage.setItem('userStatus' , resp.data['activeAccount']);
         localStorage.setItem('userrole', resp.data['role']);
+        localStorage.setItem('dlicenceID', resp.data['dlicenceID']);
+        localStorage.setItem('dlicenceRecto', resp.data['dlicenceRecto']);
+        localStorage.setItem('dlicenceVerso', resp.data['dlicenceVerso']);
+        localStorage.setItem('dlicenceDate', resp.data['dlicenceDate']);
+        localStorage.setItem('dlicencePaye', resp.data['dlicencePaye']);
         localStorage.setItem('session_guid', this.util.newGuid());
+
 
         this.reloadUserData();
         return resp;
@@ -213,6 +221,11 @@ export class LoginService {
     this.glb.user.userStatus = localStorage.getItem('userStatus');
     this.glb.user.role = localStorage.getItem('userrole');
     this.glb.user.session_guid = localStorage.getItem('session_guid');
+    this.glb.user.licenseId = localStorage.getItem('dlicenceID');
+    this.glb.user.licenseRecot = localStorage.getItem('dlicenceRecto');
+    this.glb.user.licenseVerso = localStorage.getItem('dlicenceVerso');
+    this.glb.user.dlicenceDate = localStorage.getItem('dlicenceDate');
+    this.glb.user.dlicencePaye = localStorage.getItem('dlicencePaye');
     
    // this.glb.usertmp = this.glb.user;
   }

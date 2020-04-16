@@ -5,6 +5,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { HttpEventType , HttpRequest , HttpClient, HttpEvent} from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { GlobalsService } from 'src/app/services/globals.service';
+import { UtilService } from 'src/app/services/util.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 @Component({
   selector: 'app-add-car-modal',
@@ -409,7 +410,8 @@ export class AddCarModalPage implements OnInit {
     private glb: GlobalsService,
     private loading: LoadingService,
     private db: DbinteractionsService,
-    private http: HttpClient) {}
+    private http: HttpClient,
+    private util :UtilService) {}
 
   Number(x) {
     return Number(x);
@@ -438,27 +440,27 @@ export class AddCarModalPage implements OnInit {
 
         const some = this.http.request(req).subscribe((event: HttpEvent<any>) => {
           let status;
-          console.log(event);
+          //console.log(event);
           switch (event.type) {
             case HttpEventType.Sent:
-              console.log(`Uploading Files`);
+              //console.log(`Uploading Files`);
               this.formData[5].picsMeta[val][0] = true;
               break;
             case HttpEventType.UploadProgress:
               status = Math.round(event.loaded / event.total);
               this.formData[5].picsMeta[val][2] = status;
-              console.log(`Files are ${status}% uploaded`);
+              //console.log(`Files are ${status}% uploaded`);
               break;
             case HttpEventType.DownloadProgress:
               status = Math.round(100 * event.loaded / event.total);
               this.downloadProgress.next(status); 
-              console.log(`Files are ${status}% downloaded`);
+              //console.log(`Files are ${status}% downloaded`);
               break;
             case HttpEventType.Response:
               this.formData[5].picsMeta[val][1] = true;
               this.formData[5].picsMeta[val][3] = event.body['path'];
               this.formData[5].picsMeta[val][2] = 1;
-              console.log( `Done` );
+              //console.log( `Done` );
               break;
             default:
               //console.log( `Something went wrong` );
@@ -498,7 +500,7 @@ export class AddCarModalPage implements OnInit {
     this.formData[0].model[0] = '0';
   }
   checkStep(step) {
-    console.log(this.formData);
+    //.log(this.formData);
     switch (step) {
       case 1:
         const marqueerror = document.getElementById(this.formData[0].marque[1]);
@@ -550,9 +552,9 @@ export class AddCarModalPage implements OnInit {
         for (const key in this.formData[5]) {
           if (this.formData[5].hasOwnProperty(key)) {
             const picError = document.getElementById(pics[i] + 'item');
-            console.log(key);
-            console.log(this.formData[5]['picsMeta']);
-            console.log(this.formData[5]);
+            //console.log(key);
+            //console.log(this.formData[5]['picsMeta']);
+            //console.log(this.formData[5]);
             if (key !== 'picsMeta') {
               if (this.formData[5][key] === null || !this.formData[5]['picsMeta'][key][1]) {
                 picError.style.color = 'red';
@@ -621,31 +623,18 @@ export class AddCarModalPage implements OnInit {
     const formdata = new FormData();
     const picsList = this.generateCarPicsList();
     const optionsList = this.generateOptionsList();
-    formdata.append('marque' , this.formData[0].marque[0]); formdata.append('piclist' , picsList);
-    formdata.append('id' , this.glb.AgencyLogData.id);
-    formdata.append('model' , this.formData[0].model[0]);
-    formdata.append('engine' , this.formData[1].carburant[0]);
-    formdata.append('vitesse' , this.formData[1].boitevitesse);
-    formdata.append('options' , optionsList);
-    formdata.append('address' , this.formData[3].address[0]);
-    formdata.append('prix' , this.formData[4].prix[0]);
-    formdata.append('needConfirmation' , this.formData[2].needConf + '');
-    formdata.append('request' , 'addCar');
-    const req = new HttpRequest('POST', this.glb.hostServer + 'core.php' , formdata , {
-      reportProgress: true
-    });
-    const some = this.http.request(req).subscribe((event: HttpEvent<any>) => {
-      switch (event.type) {
-        case HttpEventType.Response:
-          this.loading.dismissLoading();
-          this.finalize();
-          break;
-        default:
-      }
-    }, err => {
+    let car_guid = this.util.newGuid();
+    console.log(car_guid);
+    const resp =  await this.db.dbconfirmAddCar(this.formData, picsList, optionsList, car_guid);
+    console.log(resp)
+    if (resp) {
+      console.log('success');
+      this.finalize();
       this.loading.dismissLoading();
-      console.log(err);
-    });
+    } else {
+      this.loading.dismissLoading();
+    }   
+
   }
   async finalize() {
     const id = this.db.getStorage('accID');
@@ -667,7 +656,8 @@ export class AddCarModalPage implements OnInit {
       slideView.slideNext(500);
       this.AddCarForm.lockSwipes(true);
       this.currentStep += 1;
-      if (this.currentStep > 6) { // just for debug purpose (have to be === 7)
+      console.log( this.currentStep);
+      if (this.currentStep === 7) { // just for debug purpose (have to be === 7)
         this.confirmAddCar();
       }
     }

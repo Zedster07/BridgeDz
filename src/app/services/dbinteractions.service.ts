@@ -85,6 +85,34 @@ export class DbinteractionsService {
         return false;
       }); 
     }
+
+    async fetchKbis(id_agency) {
+      const httpparams = new HttpParams().append('request' , 'fetchKbis').
+      append('id_requestor' , this.glb.user.id).
+      append('id_agency', id_agency);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      }); 
+    }
+
+
+    async fetchRib(id_agency) {
+      const httpparams = new HttpParams().append('request' , 'fetchRib').
+      append('id_requestor' , this.glb.user.id).
+      append('id_agency', id_agency);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      }); 
+    }
+      
       
 
     async answerDemand(answer , dmID) {
@@ -353,7 +381,7 @@ export class DbinteractionsService {
     async updateRibInfo(): Promise<any> {
       let request = "";
       let id = "";
-      let owner_id = "";
+      let id_agency ;
       
       if (this.glb.rib_modify.length === 0) {
         request = "addRib";
@@ -362,6 +390,12 @@ export class DbinteractionsService {
         request = "updateRib"
         id = this.glb.rib_modify['id'];
       }
+      if (this.glb.ifAdmin(this.glb.user.role)){
+        id_agency = this.glb.agency_modify['id'];
+     } else {
+        id_agency =this.glb.AgencyLogData.id;
+     }
+
       const httpparams = new HttpParams().
       append('request' , request).
       append('id' , id).
@@ -370,7 +404,7 @@ export class DbinteractionsService {
       append('reference' ,this.glb.rib_modify['reference']).
       append('account_n' ,this.glb.rib_modify['account_n']).
       append('iban' ,this.glb.rib_modify['iban']).
-      append('id_agency' ,this.glb.agency_modify['id']).
+      append('id_agency' ,id_agency).
       append('id_requestor',this.glb.user.id);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         console.log(resp);
@@ -385,16 +419,22 @@ export class DbinteractionsService {
       let request = "";
       let id = "";
       let owner_id = "";
+      let id_agency ;
       
-      if (this.glb.kbis_modify.length === 0) {
+      if (this.glb.kbis_modify.length === 0 && this.glb.ifAdmin(this.glb.user.role)) {
         request = "addKbis";
         id ="";
       } else {
-        console.log("we are here");
         request = "updateKbis"
         id = this.glb.kbis_modify['id'];
       }
-      console.log("we are here _1 ");
+
+      if (this.glb.ifAdmin(this.glb.user.role)){
+         id_agency = this.glb.agency_modify['id'];
+      } else {
+         id_agency =this.glb.AgencyLogData.id;
+      }
+
       const httpparams = new HttpParams().
       append('request' , request).
       append('id' , id).
@@ -402,9 +442,9 @@ export class DbinteractionsService {
       append('tva' ,this.glb.kbis_modify['tva']).
       append('creationDate' ,this.glb.kbis_modify['creationDate']).
       append('adresse' ,this.glb.kbis_modify['adresse']).
-      append('picture_recto' ,this.glb.hostServer + LiImgPaths['rectoimg']).
-      append('picture_verso' ,this.glb.hostServer + LiImgPaths['versoimg']).
-      append('id_agency' ,this.glb.agency_modify['id']).
+      append('picture_recto' , LiImgPaths['rectoimg']).
+      append('picture_verso' , LiImgPaths['versoimg']).
+      append('id_agency' ,id_agency).
       append('id_requestor',this.glb.user.id);
       console.log(this.glb.kbis_modify);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
@@ -539,6 +579,17 @@ export class DbinteractionsService {
         return false;
       });
     }
+    async uploadProfilePic(formdata: any): Promise<any> {
+      return await this.http.post(this.glb.hostServer + 'uploadProfilePicture.php',  formdata).toPromise().then( resp => {
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      }).finally( () => {
+
+      });
+    }
+
     countNotifs(notifs: any) {
       let unread = 0;
       let notifications = [];
@@ -586,21 +637,30 @@ export class DbinteractionsService {
 
     }
 
-    async dbconfirmAddCar(data: any): Promise<boolean> {
+    async dbconfirmAddCar(data: any, picsList:any, optionsList:any, guid_car: any): Promise<boolean> {
       const httpparams = new HttpParams()
-      .append('request' , 'addCar').append('id' , this.glb.user.id)
+
+      .append('marque' , data[0].marque[0]).append('piclist' , picsList)
+      .append('id' , this.glb.AgencyLogData.id)
+      .append('model' , data[0].model[0])
+      .append('engine' , data[1].carburant[0])
+      .append('vitesse' , data[1].boitevitesse)
+      .append('options' , optionsList)
+      .append('address' , data[3].address[0])
+      .append('prix' , data[4].prix[0])
+      .append('needConfirmation' , data[2].needConf)
+      .append('request' , 'addCar')
+      .append('guid_car', guid_car);
+
+      /*.append('request' , 'addCar').append('id' , this.glb.user.id)
       .append('brand' , data[0].marque[0]).append('model' , data[0].modele[0])
       .append('engine' , data.bemail).append('cpays' , data.cpays)
-      .append('bmobile' , data.bmobile).append('address' , data.address);
+      .append('bmobile' , data.bmobile).append('address' , data.address);*/
+      
+      
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         console.log(resp);
         if (resp.status === 'success') {
-          this.glb.hasAgency = true;
-          this.glb.AgencyLogData.loggedin = true;
-          this.glb.AgencyLogData.id = resp.data;
-          this.glb.AgencyLogData.bemail = data.bemail;
-          this.glb.AgencyLogData.name = data.nom;
-          this.glb.AgencyLogData.data = resp.data;
           return true;
         } else {
           return false;
@@ -610,9 +670,9 @@ export class DbinteractionsService {
         return false;
       });
     }
-    async dbcreateAgency(data: any): Promise<boolean> {
+    async dbcreateAgency(data: any, guid_agency: any): Promise<boolean> {
       const httpparams = new HttpParams()
-      .append('request' , 'createAgency').append('id' , this.glb.user.id)
+      .append('request' , 'createAgency').append('id' , this.glb.user.id).append('guid_agency', guid_agency)
       .append('nom' , data.nom).append('cdate' , data.cdate)
       .append('bemail' , data.bemail).append('cpays' , data.cpays)
       .append('bmobile' , data.bmobile).append('address' , data.address);
@@ -682,6 +742,19 @@ export class DbinteractionsService {
       const httpparams = new HttpParams().append('request' , 'getParams').append('id' , this.glb.user.id);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         console.log(resp);
+        console.log('getAccParams');
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        this.loading.dismissLoading();
+        return false;
+      });
+    }
+
+    async createAccParams(): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'createAccParams').append('id' , this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
         return resp.data;
       }).catch(err => {
         console.error(err);
@@ -707,8 +780,8 @@ export class DbinteractionsService {
       .append('Lid' , data.lid)
       .append('dateo' , data.dateo)
       .append('payso' , data.payso)
-      .append('imgrecto' , this.glb.hostServer + pics.rectoimg)
-      .append('imgverso' , this.glb.hostServer + pics.versoimg);
+      .append('imgrecto' , pics.rectoimg)
+      .append('imgverso' , pics.versoimg);
       return await this.http.post(this.glb.hostServer + 'core.php',  httpparams).toPromise().then( resp => {
         return resp;
       }).catch(err => {
@@ -717,14 +790,39 @@ export class DbinteractionsService {
       });
     }
 
-    async uploadProfilePic(formdata: any): Promise<any> {
-      return await this.http.post(this.glb.hostServer + 'uploadProfilePicture.php',  formdata).toPromise().then( resp => {
-        return resp;
-      }).catch(err => {
-        console.error(err);
-        return false;
-      }).finally( () => {
+ 
 
+    async updateAgencyinfos(agencytmp: any) {
+      const httpparams = new HttpParams()
+      .append('request' , 'updateAgencyinfos')
+      .append('id' , this.glb.AgencyLogData.id )
+      .append('businessEmail', this.glb.AgencyLogData.bemail)
+      .append('bmobile' , this.glb.AgencyLogData.data['bmobile'])
+      .append('name' , this.glb.AgencyLogData.name)
+      .append('picture', this.glb.AgencyLogData.data['picture'])
+      .append('address', this.glb.AgencyLogData.data['address'])
+      .append('id_requestor', this.glb.user.id)
+      await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php',  httpparams)
+      .toPromise().then( (resp) => {
+        return true;
+      }).catch( err => {
+        console.log(err);
+      }).finally( () => {
+      });
+    }
+
+    async updatePassword(password: any, id: any) {
+      const httpparams = new HttpParams()
+      .append('request' , 'updatePassword')
+      .append('id' , id )
+      .append('password',password )
+      .append('id_requestor', this.glb.user.id)
+      await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php',  httpparams)
+      .toPromise().then( (resp) => {
+        return resp;
+      }).catch( err => {
+        console.log(err);
+      }).finally( () => {
       });
     }
 
@@ -736,7 +834,6 @@ export class DbinteractionsService {
       .append('lname' , usertmp.lname)
       .append('username' , usertmp.username )
       .append('phone', usertmp.phoneNumber)
-      .append('password' , usertmp.password)
       .append('pic' , this.glb.user.pic)
       .append('dob' , usertmp.dob)
       .append('pob' , usertmp.pob)

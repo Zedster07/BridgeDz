@@ -119,6 +119,7 @@ export class LoginPage implements OnInit {
         error.style.display = 'block';
       } else if (result.status === 'success') {
         console.log(this.deviceService.ua);
+        const res_paramacc = await this.db.getAccParams();
         const res = await this.db.addHistoricalLogIn( this.deviceService.getDeviceInfo().device,
                                                       this.util.getLocation(),
                                                       this.translate.getBrowserLang(),
@@ -130,8 +131,9 @@ export class LoginPage implements OnInit {
                                                       this.deviceService.getDeviceInfo().userAgent,
                                                       this.util.getSupportType(),
                                                       );
-        
-  
+         this.util.getAccParam_1(this.glb.accparams, res_paramacc);
+         this.util.debug('login , acc', this.glb.accparams);
+       
         if (this.glb.ifAdmin(this.glb.user.role) === true){
           this.route.navigate(['dashboard']);
         } else if (this.glb.prevAction === '' && this.glb.ifAdmin(this.glb.user.role)  === false){
@@ -173,7 +175,7 @@ export class LoginPage implements OnInit {
       console.log('not a new user');
       const result = await this.authService.logIn(signInSuccessData , this.angularFireAuth.auth , '1' , null );
       if ( result.status !== 'Failure' ) {
-
+        const res_paramacc = await this.db.getAccParams();
         const res = await this.db.addHistoricalLogIn(this.deviceService.getDeviceInfo().device,
                                                       this.util.getLocation(),
                                                       this.translate.getBrowserLang(),
@@ -184,7 +186,9 @@ export class LoginPage implements OnInit {
                                                       this.deviceService.getDeviceInfo().browser_version,
                                                       this.deviceService.getDeviceInfo().userAgent,
                                                       this.util.getSupportType());
-
+        
+         this.util.getAccParam_1(this.glb.accparams, res_paramacc);
+         this.util.debug('login , acc', this.glb.accparams);
         if (this.glb.ifAdmin(this.glb.user.role) === true){
           console.log("ADMIN");
           this.route.navigate(['dashboard']);

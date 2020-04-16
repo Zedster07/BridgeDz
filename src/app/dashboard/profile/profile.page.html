@@ -1,30 +1,35 @@
 <ion-content class="ion-padding">
     <h1 style="padding:30px; background-color:#f1f1f1;">Mon Profile</h1>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" (click)="setTabVal('edit')">
-          <span class="nav-link" [ngClass]="{'active': showTab('edit')}" id="edit-tab" data-toggle="tab" href="#edit" role="tab" aria-controls="edit" aria-selected="true">Modifier mon profile</span>
+        <li *ngIf= "this.isAdmin" class="nav-item" (click)="setTabVal('edit')">
+          <span class="nav-link" [ngClass]="{'active': showTab('edit')}" id="edit-tab" data-toggle="tab" href="#edit" role="tab" aria-controls="edit" aria-selected="true">Modifier mon profile##</span>
+        </li>
+        <li *ngIf= "!this.isAdmin" class="nav-item" (click)="setTabVal('edit_agency')">
+          <span class="nav-link" [ngClass]="{'active': showTab('edit_agency')}" id="edit_agency-tab" data-toggle="tab" href="#edit_agency" role="tab" aria-controls="edit_agency" aria-selected="true">Modifier mon agence##</span>
         </li>
         <li *ngIf= "!this.isAdmin" class="nav-item" (click)="setTabVal('verify')">
-          <span class="nav-link " [ngClass]="{'active': showTab('verify')}" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Verifier mon profile</span>
+          <span class="nav-link " [ngClass]="{'active': showTab('verify')}" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Valider mon agence##</span>
         </li>
         <li *ngIf= "this.isAdmin" class="nav-item" (click)="setTabVal('verify_license')">
-          <span class="nav-link" [ngClass]="{'active': showTab('verify_license')}" id="verify_license-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Verifier mon profile</span>
+          <span class="nav-link" [ngClass]="{'active': showTab('verify_license')}" id="verify_license-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Verifier mon profile##</span>
         </li>
       
-        <li class="nav-item" (click)="setTabVal('param')">
-          <span class="nav-link" [ngClass]="{'active': showTab('param')}" id="param-tab" data-toggle="tab" href="#param" role="tab" aria-controls="param" aria-selected="false">Paramètres du compte</span>
+        <li *ngIf= "this.isAdmin" class="nav-item" (click)="setTabVal('param')">
+          <span class="nav-link" [ngClass]="{'active': showTab('param')}" id="param-tab" data-toggle="tab" href="#param" role="tab" aria-controls="param" aria-selected="false">Paramètres du compte##</span>
         </li>
         <li *ngIf= "!this.isAdmin" class="nav-item" (click)="setTabVal('pay')">
-            <span class="nav-link" [ngClass]="{'active': showTab('pay')}" id="pay-tab" data-toggle="tab" href="#pay" role="tab" aria-controls="pay" aria-selected="false">Paramètres de paiement</span>
+            <span class="nav-link" [ngClass]="{'active': showTab('pay')}" id="pay-tab" data-toggle="tab" href="#pay" role="tab" aria-controls="pay" aria-selected="false">Paramètres de paiement##</span>
         </li>
       </ul>
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade"  [ngClass]="{'active show': showTab('edit')}" id="edit" role="tabpanel" aria-labelledby="edit-tab">
+
+      <!--                                Modifier Mon profil                                                                                      -->
+      <div  class="tab-content" id="myTabContent">
+        <div *ngIf= "this.isAdmin"  class="tab-pane fade"  [ngClass]="{'active show': showTab('edit')}" id="edit" role="tabpanel" aria-labelledby="edit-tab">
             <div class="mt-5 p-1">
                 <div style="width: fit-content; margin: 0 auto;" >
-                    <img src="assets/images/profd.jfif" width="250"/>
+                    <img src="{{ this.glb.hostServer + this.glb.user_modify['picture'] }}" id="profil_pic" width="250"/>
                     
-                    <ion-button expand="full" class=" ion-no-margin" style="position: relative; bottom: 35px;" (click)="changepic()">Modifier la photo</ion-button>
+                    <ion-button expand="full" class=" ion-no-margin" style="position: relative; bottom: 35px;" (click)="changepic('changepichandler', 'profil_pic', 0)">Modifier la photo</ion-button>
                    <input type="file" id="changepichandler" style="display: none;">
                 </div>
                 <fieldset class="scheduler-border">
@@ -139,6 +144,72 @@
             </div>
         </div>
 
+
+        <!---                                             Profil agency                                                                       -->
+          <div *ngIf= "!this.isAdmin"  class="tab-pane fade"  [ngClass]="{'active show': showTab('edit_agency')}" id="edit_agency" role="tabpanel" aria-labelledby="edit_agency-tab">
+              <div class="mt-5 p-1">
+                  <div style="width: fit-content; margin: 0 auto;" >
+                      <img src="{{ this.glb.hostServer + this.glb.AgencyLogData.data['picture'] }}" id="profil_agency" width="250"/>
+                      <ion-button expand="full" class=" ion-no-margin" style="position: relative; bottom: 35px;" (click)="changepic('changepichandler_ag','profil_agency', 1)">Modifier la photo</ion-button>
+                     <input type="file" id="changepichandler_ag" style="display: none;">
+                  </div>
+                  <fieldset class="scheduler-border">
+                      <legend class="scheduler-border">Information de mon agence</legend>
+                      <div class="form-row mt-3">
+                          <div class="form-group col-md-6">
+                              <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                      <ion-icon name="mail"></ion-icon>
+                                    </div>
+                                  </div>
+                                  <input type="email" class="form-control" id="inlineFormInputGroup_eg"  placeholder="Email" value="{{ this.glb.AgencyLogData.bemail }}" [(ngModel)]="this.glb.AgencyLogData.bemail">
+                              </div>
+                          </div>
+                          <div class="form-group col-md-6">
+                              <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <ion-icon name="phone-portrait"></ion-icon>
+                                    </div>
+                                  </div>
+                                  <input type="text" class="form-control" id="mobileid_ag" placeholder="Mobile_ag" value="{{ this.glb.AgencyLogData.data['bmobile'] }}" [(ngModel)]="this.glb.AgencyLogData.data['bmobile']">
+                              </div>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">
+                                        <ion-icon name="person"></ion-icon>
+                                      </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="inlineFormInputGroup_ag" placeholder="Username_ag" value="{{glb.user_modify.username}}" [(ngModel)]="this.glb.AgencyLogData.name"> 
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">
+                                          <ion-icon name="key"></ion-icon>
+                                      </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="inlineFormInputGroup_ag" placeholder="Adresse" value="{{this.glb.user_modify.password}}"  [(ngModel)]="this.glb.AgencyLogData.data['address']">
+                                </div>
+                            </div>
+                          </div>
+                  </fieldset>
+                  
+              <div class="form-row col-md-12">
+              <ion-button color="primary" expand="block" (click)="UpdateAgncyInfo()">Mettre à jour</ion-button>
+              <ion-button color="primary" expand="block" (click)="modifyCancel()">Annuler</ion-button>
+              </div>
+              </div>
+          </div>
+
+
+        <!--                                              Verify license                                                                                        -->
         <div class="tab-pane fade" id="verify_license" [ngClass]="{'active show': showTab('verify_license')}" role="tabpanel" aria-labelledby="verify_license-tab">
           <div class="mt-5 p-1">
             <div class="login-input alert alert-warning" *ngIf="verified === '1'" role="alert" id="loginerror">
@@ -178,72 +249,85 @@
                 <label for="permisFile">Piece jointe </label>
               </div>       
               <div class="form-group col-md-6">
-                <ion-button color="light" expand="full" (click)="changepic2( 'rectoImg' , 'rectoid')">
+                <ion-button color="light" expand="full" (click)="changepic2( 'rectoImg' , 'rectoid', 'license')">
                   <ion-icon name="add" slot="start"></ion-icon>
                   Recto
                 </ion-button>
-                <img *ngIf= "!this.recto_temp" [src]="verifyAccData.rectoimg"  id="rectoImg" />
-                <img *ngIf= "this.recto_temp" [src]=""  id="rectoImg_1" />
+                <img src="{{ this.glb.hostServer + this.glb.user_modify['picture'] }}"  id="rectoImg" />
                 <input type="file"  id="rectoid" class="form-control" style="display: none;" />
               </div>
               <div class="form-group col-md-6">
-                <ion-button color="light" expand="full" (click)="changepic2( 'versoImg' , 'versoid')">
+                <ion-button color="light" expand="full" (click)="changepic2( 'versoImg' , 'versoid', 'license')">
                   <ion-icon name="add" slot="start"></ion-icon>
                   Verso
                 </ion-button>
-                  <img *ngIf= "!this.verso_temp" [src]="verifyAccData.versoimg"  id="versoImg" /> 
-                <img *ngIf= "this.verso_temp" [src]=""  id="versoImg_1" />
+                  <img src="{{ this.glb.hostServer + this.glb.user_modify['dlicenceVerso'] }}"  id="versoImg" /> 
                 <input type="file"  id="versoid" class="form-control" style="display: none;" />
               </div>
             </div>
 
-            <ion-button color="primary" expand="block" [attr.disabled]="verified !== '0'" (click)="VerifyAccount()">Mettre à jour</ion-button>
+            <ion-button color="primary" expand="block" (click)="VerifyAccount()">Mettre à jour</ion-button>
           </div>
       </div>
       
 
-
-        <div  class="tab-pane fade" id="verify" [ngClass]="{'active show': showTab('verify')}" role="tabpanel" aria-labelledby="verify-tab">
-          <div class="mt-5 p-1">
-            <div class="form-row">
-              <div class="form-group col-md-12">
-                <label for="permisID">KBIS</label>
-                <input class="form-control" type="text" placeholder="KBIS"/>
-              </div>
+       <!--                                              KBIS                                                                                         -->
+        
+       <div  class="tab-pane fade" id="verify" [ngClass]="{'active show': showTab('verify')}" role="tabpanel" aria-labelledby="verify-tab">
+        <div class="mt-5 p-1">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="permisID">KBIS</label>
+              <input class="form-control" type="text" placeholder="KBIS" [(ngModel)]="this.glb.kbis_modify['kbis_ref']"/>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <input class="form-control" type="text" placeholder="Numéro de TVA Inter"/>
-                  </div>
-                  
-                <div class="form-group col-md-4">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text">
-                              <ion-icon name="calendar"></ion-icon>
-                          </div>
-                        </div>
-                        <ion-datetime class="form-control" placeholder="Date de création"></ion-datetime>
-                    </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group col-md-4">
+                  <input class="form-control" type="text" placeholder="Numéro de TVA Inter" [(ngModel)]="this.glb.kbis_modify['tva']"/>
                 </div>
                 
-                <div class="form-group col-md-4">
-                    <input class="form-control" type="text" placeholder="Ville"/>
-                </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-12">
-                <label for="permisFile">Piece jointe du KBIS</label>
+              <div class="form-group col-md-4">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <ion-icon name="calendar"></ion-icon>
+                        </div>
+                      </div>
+                      <ion-datetime class="form-control" id="dobkbisId" placeholder="Date de naissance" displayFormat="YYYY-MM-DD" [(ngModel)]="this.glb.kbis_modify['creationDate']"></ion-datetime>
+                  </div>
               </div>
-              <div class="form-group col-md-2">
-                <ion-button color="success"> Parcourir </ion-button>
-                <input type="file"  id="permisFile" class="form-control" style="display: none;" />
+              
+              <div class="form-group col-md-4">
+                  <input class="form-control" type="text" placeholder="Adresse" [(ngModel)]="this.glb.kbis_modify['adresse']"/>
               </div>
-            </div>
-            <ion-button color="primary" expand="block">Mettre à jour</ion-button>
-
           </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="permisFile">KBIS Piéce jointe </label>
+            </div>       
+            <div class="form-group col-md-6">
+              <ion-button color="light" expand="full" (click)="changepic2('rectoImg_K' , 'rectoid_K', 'kbis')">
+                <ion-icon name="add" slot="start"></ion-icon>
+                Recto
+              </ion-button>
+              <img src="{{ this.glb.hostServer + this.glb.kbis_modify['picture_recto'] }}"  id="rectoImg_K" />
+              <input type="file"  id="rectoid_K" class="form-control" style="display: none;" />
+            </div>
+            <div class="form-group col-md-6">
+              <ion-button color="light" expand="full" (click)="changepic2( 'versoImg_K' , 'versoid_K', 'kbis')">
+                <ion-icon name="add" slot="start"></ion-icon>
+                Verso
+              </ion-button>
+                <img src="{{ this.glb.hostServer + this.glb.kbis_modify['picture_verso']}}"  id="versoImg_K" /> 
+              <input type="file"  id="versoid_K" class="form-control" style="display: none;" />
+            </div>
+          </div>
+          <ion-button color="primary" expand="block" (click)="updateKbisInfo()">Mettre à jour</ion-button>
+
         </div>
+      </div>
+
+        <!--                                              param notif                                                                                         -->
         <div class="tab-pane fade" id="param"  [ngClass]="{'active show': showTab('param')}" role="tabpanel" aria-labelledby="param-tab">
             <div class="mt-5 p-1">
                 <div class="form-row">
@@ -300,45 +384,49 @@
                 <ion-button color="primary" expand="block">Mettre à jour</ion-button>
               </div>
         </div>
+
+
         <div class="tab-pane fade" id="pay"  [ngClass]="{'active show': showTab('pay')}"  role="tabpanel" aria-labelledby="pay-tab">
-            <div class="mt-5 p-1">
-                <div class="form-row">
-                  <div class="form-group col-md-12">
-                    <input class="form-control" type="text" placeholder="N° IBAN"/>
-                  </div>
+          <div class="mt-5 p-1">
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <input class="form-control" type="text" placeholder="N° IBAN" [(ngModel)]="this.glb.rib_modify['iban']"/>
                 </div>
-                <div class="form-row">
-                  <div class="form-group col-md-12">
-                    <input class="form-control" type="text" placeholder="Nom du compte"/>
-                  </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <input class="form-control" type="text" placeholder="Numéro du compte" [(ngModel)]="this.glb.rib_modify['account_n']"/>
                 </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                      <input class="form-control" type="text" placeholder="Nom"/>
-                  </div>
-                  <div class="form-group col-md-6">
-                      <input class="form-control" type="text" placeholder="Prénom"/>
-                  </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input class="form-control" type="text" placeholder="Réference" [(ngModel)]="this.glb.rib_modify['reference']"/>
                 </div>
-                <div class="form-row">
-                    <ion-radio-group>
-                        <ion-list-header>
-                            <ion-label>Vos préférence de paiement</ion-label>
-                          </ion-list-header>
+                <div class="form-group col-md-6">
+                    <input class="form-control" type="text" placeholder="Banque" [(ngModel)]="this.glb.rib_modify['bank']"/>
+                </div>
+              </div>
+              <div class="form-row">
+                  <ion-radio-group>
+                      <ion-list-header>
+                          <ion-label>Vos préférence de paiement</ion-label>
+                        </ion-list-header>
+                      <ion-item>
+                          <ion-label>Via un virement bancaire à chaque location</ion-label>
+                          <ion-radio name="pay" slot="start" value="0" ></ion-radio>
+                        </ion-item>
                         <ion-item>
-                            <ion-label>Via un virement bancaire à chaque location</ion-label>
-                            <ion-radio slot="start" value="v1" ></ion-radio>
+                            <ion-label>Cash via un cumul de crédit</ion-label>
+                            <ion-radio name="pay" slot="start" value="1" checked></ion-radio>
                           </ion-item>
-                          <ion-item>
-                              <ion-label>Cash via un cumul de crédit</ion-label>
-                              <ion-radio slot="start" value="v2" checked></ion-radio>
-                            </ion-item>
-                    </ion-radio-group>
-                </div>
-                <ion-item-divider></ion-item-divider>
-                <br>
-                <ion-button color="primary" expand="block">Mettre à jour</ion-button>
-            </div>
-        </div>
+                  </ion-radio-group>
+              </div>
+              <ion-item-divider></ion-item-divider>
+              <br>
+              <ion-button color="primary" expand="block" (click)="updateRibInfo()">Mettre à jour</ion-button>
+          </div>
+      </div>
+
+        
       </div>
 </ion-content>

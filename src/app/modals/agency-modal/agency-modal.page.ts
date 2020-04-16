@@ -35,7 +35,7 @@ export class AgencyModalPage implements OnInit {
     private util: UtilService) {
   }
 
-  gotoMyAgency(id: string) {
+  async gotoMyAgency(id: string) {
     this.glb.AgencyLogData.loggedin = true;
     this.glb.AgencyLogData.data = this.accountsList[parseInt(id)];
     this.glb.AgencyLogData.id =  this.accountsList[parseInt(id)]['id'];
@@ -45,8 +45,18 @@ export class AgencyModalPage implements OnInit {
     this.db.setStorage('accEmail' , this.glb.AgencyLogData.bemail);
     this.db.setStorage('accName' , this.glb.AgencyLogData.name);
     this.db.setStorage('accloggedin' , true);
+    const resp = await this.db.fetchKbis(this.glb.AgencyLogData.id);
+    const resp_rib = await this.db.fetchRib(this.glb.AgencyLogData.id);
+    if (resp['status'] === 'success'){
+      this.glb.kbis_modify = resp['data'];
+    } 
+    if (resp_rib['status'] === 'success'){
+      this.glb.rib_modify = resp_rib['data'];
+    } 
+    this.util.debug('Kbis - gotomy agency', this.glb.kbis_modify);
+    this.util.debug('Rib - gotomy agency', this.glb.rib_modify);
+
     this.closeModal();
-    this.util.debug('go to my agency');
     this.route.navigate(['dashboard', 'home']);
   }
 
@@ -93,7 +103,8 @@ export class AgencyModalPage implements OnInit {
     }
 
     this.loading.presentLoading();
-    const res = await this.db.dbcreateAgency(this.newAgency);
+    let guid_agency = this.util.newGuid();
+    const res = await this.db.dbcreateAgency(this.newAgency, guid_agency);
     this.loading.dismissLoading();
     if (res) {
       this.closeModal();

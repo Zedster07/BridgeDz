@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { GlobalsService } from 'src/app/services/globals.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { AlertService } from '../../services/alert.service';
 import { LoginService } from '../../services/login.service';
+import { UtilService } from '../../services/util.service';
 import { UserData } from '../../interfaces/user-data';
 import { Router } from '@angular/router';
 
@@ -22,14 +23,14 @@ export class ProfilePage implements OnInit {
   profilePicFormat: string;
   verified = this.glb.user.userStatus;
   emptyFormdata = new FormData();
-  accparams: any = {
+  /*accparams: any = {
     demandlocation: [false , false , false],
     redemandlocation: [false , false , false],
     locAccept: [false , false , false],
     loccancel: [false , false , false],
     locrappel: [false , false , false],
     emailpromo: [false , false , false]
-  };
+  };*/
 
   verifyAccData = {
     lid: '',
@@ -62,6 +63,25 @@ export class ProfilePage implements OnInit {
     userStatus: '',
     role:'',
     session_guid: '',
+    licenseId: '',
+    dlicencePaye: '',
+    dlicenceDate: '',
+    licenseRecot: '',
+    licenseVerso: ''
+  };
+
+  public agencytmp = {
+    id:'',
+    email: '',
+    phoneNumber:'',
+    username: '',
+    pic: '',
+    address: ''
+  };
+
+  updateKbis = {
+    rectoimg: this.emptyFormdata,
+    versoimg: this.emptyFormdata
   };
 
 
@@ -72,17 +92,29 @@ export class ProfilePage implements OnInit {
     private db: DbinteractionsService,
     private alertt: AlertService,
     private loading: LoadingService,
-    private route: Router ) { 
+    private route: Router,
+    private util: UtilService,
+    private cdRef:ChangeDetectorRef) { 
     this.usertmp = JSON.parse(JSON.stringify(this.glb.user_modify));
     this.verifyAccData.dateo = this.glb.user_modify['dlicenceDate'];
     this.verifyAccData.lid = this.glb.user_modify['dlicenceID'];
     this.verifyAccData.payso = this.glb.user_modify['dlicencePaye'];
-    this.verifyAccData.rectoimg = this.glb.user_modify['dlicenceRecto'];
-    this.verifyAccData.versoimg = this.glb.user_modify['dlicenceVerso'];
+    this.util.debug('constructor', this.glb.user_modify);
+    //this.verifyAccData.rectoimg = this.glb.user_modify['dlicenceRecto'];
+    //this.verifyAccData.versoimg = this.glb.user_modify['dlicenceVerso'];
     console.log(glb.user.phoneNumber);
     this.isAdmin = this.glb.ifAdmin(this.glb.user.role);
+    if(this.isAdmin){ 
+      this.tabVal = 'edit';
+    } else { 
+      this.tabVal = 'edit_agency';
+    }
   }
 
+  ngAfterViewChecked()
+  {
+    this.cdRef.detectChanges();
+  }
   fromStrToBool(data: any) {
     let something = {};
     for (const key in data) {
@@ -125,7 +157,7 @@ export class ProfilePage implements OnInit {
   async accParamsUpdate() {
     console.log('first step');
     this.loading.presentLoading();
-    const res = await this.db.setAccParams(this.fromBoolToString(this.accparams));
+    const res = await this.db.setAccParams(this.fromBoolToString(this.glb.accparams));
     this.loading.dismissLoading();
     if (res) {
       this.alertt.presentAlert('Success!' , 'Updated successfully!');
@@ -182,6 +214,7 @@ export class ProfilePage implements OnInit {
             rectoimg: recto['path'] ,
             versoimg: verso['path']
           };
+          this.util.debug('LiImgPaths', LiImgPaths);
           const result = await this.db.finishVerifyAcc(this.verifyAccData , LiImgPaths, this.glb.user_modify);
           if (result) {
             this.glb.user.userStatus = '1';
@@ -229,23 +262,76 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  async UpdateAgncyInfo() {
+    this.loading.presentLoading();
+    if (this.proilePicFormData !== null) {
+        const response = await this.db.uploadProfilePic(this.proilePicFormData);
+        if (response && response['success']) {
+          this.proilePicFormData = null;
+          this.glb.AgencyLogData.data['picture'] = response['path'];
+          console.log(this.glb.AgencyLogData.data['picture']);
+          await this.db.updateAgencyinfos(this.glb.AgencyLogData);
+        } else {
+          this.alertt.presentAlert('Error!' , 'Something Went wrong, Please try again later.');
+        }
+      } else {
+        await this.db.updateAgencyinfos(this.glb.AgencyLogData);
+      }
+      this.loading.dismissLoading();
+  }
 
-  changepic2(imghandler: string , filehandler: string) {
+  async updateKbisInfo() {
+
+    this.loading.presentLoading();
+    const recto = await this.db.uploadLicence(this.updateKbis.rectoimg);
+    if ( !recto ) {
+      this.loading.dismissLoading();
+      this.alertt.presentAlert('Error!' , 'Something Went wrong, Please try again later. -recto ');
+    } else {
+      const verso = await this.db.uploadLicence(this.updateKbis.versoimg);
+      if ( !verso ) {
+        this.loading.dismissLoading();
+        this.alertt.presentAlert('Error!' , 'Something Went wrong, Please try again later. - verso');
+      } else {
+        const LiImgPaths = {
+          rectoimg: recto['path'] ,
+          versoimg: verso['path']
+        };
+        this.util.debug('LiImgPaths',LiImgPaths);
+        const result = await this.db.updateKbisInfo(LiImgPaths);
+        if (result.status === 'success')  {
+          this.glb.kbis_modify = result.data;
+        }
+        this.loading.dismissLoading();
+      }
+    }
+
+}
+
+async updateRibInfo() {
+  this.loading.presentLoading();
+  this.glb.rib_modify['pay_choice'] = this.util.getRaidoButtonChoice("pay");
+  this.util.debug('updateRibInfo', this.glb.rib_modify )
+  const res = await this.db.updateRibInfo();
+  this.loading.dismissLoading();
+  if (res.message === 'Success'){  
+    this.glb.rib_modify =  res.data;
+  }
+}
+
+
+  changepic2(imghandler: string , filehandler: string, idx: string) {
     const elem = document.getElementById(filehandler);
     elem.click();
-    this.recto_temp = true;
-    if(filehandler !== 'rectoid')
+    this.util.debug('dlicenceVerso', this.glb.user_modify['dlicenceVerso']);
+    //this.recto_temp = true;
+    /*if(filehandler !== 'rectoid')
     {
        this.verso_temp = true;
-    } 
+    } */
     elem.onchange = () => {
       const file = (<HTMLInputElement>document.getElementById(filehandler)).files[0];
       let preview = document.getElementById(imghandler) as HTMLImageElement;
-      if (this.recto_temp || this.verso_temp  ){
-         preview = document.getElementById(imghandler +'_1') as HTMLImageElement;
-      }   
-      console.log('preview  '  + preview);
-      console.log('imgHndler  '  + imghandler);
 
       const reader  = new FileReader();
       reader.onloadstart = () => {
@@ -257,11 +343,16 @@ export class ProfilePage implements OnInit {
         preview.src = reader.result as string;
         if (filehandler === 'rectoid') {
           this.verifyAccData.rectoimg = formdata;
-          this.recto_temp = true;
-
+          this.util.debug('formdata-rectoimg', formdata);
         } else {
           this.verifyAccData.versoimg = formdata;
-          this.verso_temp = true;
+          this.util.debug('formdata-versoimg', formdata);
+        }
+        
+        if (filehandler === 'rectoid_K') {
+          this.updateKbis.rectoimg = formdata;
+        } else {
+          this.updateKbis.versoimg = formdata;
         }
       };
       reader.onloadend = () => {
@@ -273,12 +364,13 @@ export class ProfilePage implements OnInit {
 
 
 
-  changepic() {
-    const elem = document.getElementById('changepichandler');
+  changepic(idx, idx_img, agency) {
+    const elem = document.getElementById(idx);
+    console.log(elem);
     elem.click();
     elem.onchange = () => {
-      const file = (<HTMLInputElement>document.getElementById('changepichandler')).files[0];
-      const preview = document.getElementById('changeprofilepic') as HTMLImageElement;
+      const file = (<HTMLInputElement>document.getElementById(idx)).files[0];
+      const preview = document.getElementById(idx_img) as HTMLImageElement;
       const reader  = new FileReader();
 
       reader.onloadstart = () => {
@@ -288,16 +380,25 @@ export class ProfilePage implements OnInit {
       reader.onload = () => {
         const formdata = new FormData();
         formdata.append('file' , file);
-        preview.src = reader.result as string;
-        this.usertmp.pic = reader.result as string;
+        this.util.debug('file', file);
+        preview.src = reader.result as string;  
+        if (agency === 0){
+          this.usertmp.pic = reader.result as string;
+        } else {
+          //this.glb.AgencyLogData.data['picture'] = reader.result as string;
+        } 
         this.proilePicFormData = formdata;
+        this.util.debug('formdata', formdata);
+        this.util.debug('proilePicFormData', this.proilePicFormData);
       };
 
       reader.onloadend = () => {
         this.loading.dismissLoading();
       };
 
-      this.profilePicFormat = file.name.split('.').pop().toLowerCase();
+     // this.profilePicFormat = file.name.split('.').pop().toLowerCase();
+      console.log(this.proilePicFormData);
+    
       reader.readAsDataURL(file);
     };
   }
@@ -330,8 +431,22 @@ export class ProfilePage implements OnInit {
     }
   }
   async ngOnInit() {
-    const res = await this.getAccParam();
-    console.log(this.accparams);
+    //const res = await this.getAccParam();
+  
+    /*if (this.glb.kbis_modify.length === 0){
+      const resp = await this.db.fetchKbis(this.glb.AgencyLogData.id);
+      const resp_rib = await this.db.fetchRib(this.glb.AgencyLogData.id);
+      if (resp['status'] === 'success'){
+        this.glb.kbis_modify = resp['data'];
+        this.util.debug('ngOnInt kbis', this.glb.kbis_modify);
+      } 
+      if (resp_rib['status'] === 'success'){
+        this.glb.rib_modify = resp_rib['data'];
+        this.util.debug('ngOnInt rib', this.glb.kbis_modify);
+      } 
+
+    } */
+    //console.log(this.glb.accparams);
   }
 
   async modifyCancel(index) {    

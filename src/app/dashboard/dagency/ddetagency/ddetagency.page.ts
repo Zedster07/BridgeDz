@@ -58,6 +58,11 @@ export class DdetagencyPage implements OnInit {
     userStatus: '',
     role:'',
     session_guid: '',
+    licenseId: '',
+    dlicencePaye: '',
+    dlicenceDate: '',
+    licenseRecot: '',
+    licenseVerso: ''
    };
 
   updateKbis = {

@@ -3,6 +3,7 @@ import { GlobalsService } from 'src/app/services/globals.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { UtilService } from 'src/app/services/util.service';
 import { Router , ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-agency',
@@ -27,7 +28,8 @@ export class AgencyPage implements OnInit {
     private alertt: AlertService,
     private loading: LoadingService , 
     private route: Router,
-    private aroute: ActivatedRoute) {
+    private aroute: ActivatedRoute,
+    private util: UtilService) {
 
   }
 
@@ -75,7 +77,8 @@ export class AgencyPage implements OnInit {
       error.style.display = 'block';
     }
     this.loading.presentLoading();
-    const res = await this.db.dbcreateAgency(this.newAgency);
+    let guid_agency = this.util.newGuid();
+    const res = await this.db.dbcreateAgency(this.newAgency, guid_agency);
     this.loading.dismissLoading();
     if (res) {
       this.route.navigate(['dashboard']);

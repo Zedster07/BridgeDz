@@ -63,7 +63,9 @@ export class VoituresPage implements OnInit {
     return await modal.present();
   }
 
+  validateCar(index){
 
+  }
   getFrontPic(car: any) {
     const piclist = car['picturesList'];
     return this.glb.hostServer + piclist.substring( 0 , piclist.indexOf(','));

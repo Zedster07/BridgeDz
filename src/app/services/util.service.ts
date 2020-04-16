@@ -176,8 +176,9 @@ export class UtilService {
     return toReturn; 
   }
 
-  debug(msg: any){
+  debug(msg_1: string, msg: any){
     if(isDevMode()){
+        console.log(msg_1);
         console.log(msg);
     } 
   } 
@@ -218,7 +219,59 @@ export class UtilService {
   } 
   gettodayEpoch(){
     return new Date();
+  }
+  
+  gettodayISOString(){
+    let startD = new Date();
+    startD = new Date(startD.getFullYear() + '/' + (startD.getMonth() + 1) + '/' + (startD.getDate()));
+    return startD.toISOString();
   } 
+
+  getfuturString(){
+    return (new Date()).getFullYear() + 7;
+  } 
+
+  ifTrue(str: string){
+    if (str === '1'){
+      return true;
+    } else {
+      return false;
+    } 
+  }
+
+  getAccParam_1(accparams:any, data: any) {
+    this.loading.presentLoading();
+    
+    console.log(data);
+    this.loading.dismissLoading();
+    this.glb.toReload = 1;
+    if (data.status = 'success') {
+      
+      accparams.demandlocation[0] = this.ifTrue(data.data['demandlocation'][0]);
+      accparams.demandlocation[1] = this.ifTrue(data.data['demandlocation'][1]);
+      accparams.demandlocation[2] = this.ifTrue(data.data['demandlocation'][2]);
+
+      accparams.emailpromo[0] = this.ifTrue(data.data['emailpromo'][0]);
+      accparams.emailpromo[1] = this.ifTrue(data.data['emailpromo'][1]);
+      accparams.emailpromo[2] = this.ifTrue(data.data['emailpromo'][2]);
+
+      accparams.locAccept[0] = this.ifTrue(data.data['locAccept'][0]);
+      accparams.locAccept[1] = this.ifTrue(data.data['locAccept'][1]);
+      accparams.locAccept[2] = this.ifTrue(data.data['locAccept'][2]);
+
+      accparams.loccancel[0] = this.ifTrue(data.data['loccancel'][0]);
+      accparams.loccancel[1] = this.ifTrue(data.data['loccancel'][1]);
+      accparams.loccancel[2] = this.ifTrue(data.data['loccancel'][2]);
+
+      accparams.locrappel[0] = this.ifTrue(data.data['locrappel'][0]);
+      accparams.locrappel[1] = this.ifTrue(data.data['locrappel'][1]);
+      accparams.locrappel[2] = this.ifTrue(data.data['locrappel'][2]);
+
+      accparams.redemandlocation[0] = this.ifTrue(data.data['redemandlocation'][0]);
+      accparams.redemandlocation[1] = this.ifTrue(data.data['redemandlocation'][1]);
+      accparams.redemandlocation[2] = this.ifTrue(data.data['redemandlocation'][2]);
+    }
+  }
 
    number_format(number, decimals, dec_point, thousands_sep) {
     // *     example: number_format(1234.56, 2, ',', ' ');

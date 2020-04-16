@@ -209,6 +209,7 @@ export class DashboardPage implements OnInit {
        this.isAdmin = true;
       }
     const islogged = this.db.getStorage('accloggedin');
+
     if (islogged === 'true') {
       this.loading.presentLoading();
       const id = this.db.getStorage('accID');
@@ -220,6 +221,18 @@ export class DashboardPage implements OnInit {
       this.glb.AgencyLogData.data = data;
       this.glb.AgencyLogData.name =  data['name'];
       this.glb.AgencyLogData.bemail =  data['businessEmail'];
+      if (this.glb.kbis_modify.length === 0){
+        const resp = await this.db.fetchKbis(this.glb.AgencyLogData.id);
+        const resp_rib = await this.db.fetchRib(this.glb.AgencyLogData.id);
+        if (resp['status'] === 'success'){
+          this.glb.kbis_modify = resp['data'];
+          this.util.debug('ngOnInt kbis', this.glb.kbis_modify);
+        } 
+        if (resp_rib['status'] === 'success'){
+          this.glb.rib_modify = resp_rib['data'];
+          this.util.debug('ngOnInt rib', this.glb.kbis_modify);
+        } 
+      } 
     } 
       this.loading.dismissLoading();
     } else if (!this.glb.ifAdmin(this.glb.user.role)){

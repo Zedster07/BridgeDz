@@ -38,6 +38,7 @@ export class GlobalsService {
     id: '',
     name: '',
     bemail: '',
+    pic: '',
     data: []
   };
 
@@ -72,6 +73,17 @@ export class GlobalsService {
   gaugeLabel_price = 'INDICATOR.PRICE_MEAN';
   pieChartLabels: Label[] = [['WALLET.INSIDE_BRIDGY'], ['WALLET.OUTSIDE_BRIDGY']];
 
+  accparams: any = {
+  
+    demandlocation: [false , false , false],
+    redemandlocation: [false , false , false],
+    locAccept: [false , false , false],
+    loccancel: [false , false , false],
+    locrappel: [false , false , false],
+    emailpromo: [false , false , false]
+  };
+  toReload = 0;
+
   public user: UserData = {
     type: '',
     id: '',
@@ -92,6 +104,12 @@ export class GlobalsService {
     userStatus: '',
     role: '',
     session_guid: '',
+    licenseId: '',
+    dlicencePaye: '',
+    dlicenceDate: '',
+    licenseRecot: '',
+    licenseVerso: ''
+
   };
   currentLang ='';
   isLoading = false;
@@ -133,6 +151,7 @@ export class GlobalsService {
       demandeLoc: [],
       id: '',
       name: '',
+      pic: '',
       bemail: '',
       data: []
     };

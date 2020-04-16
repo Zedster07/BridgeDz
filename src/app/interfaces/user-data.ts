@@ -21,5 +21,9 @@ export interface UserData {
     userStatus: string;
     role: string;
     session_guid: string;
-    
+    licenseId: string;
+    dlicencePaye: string,
+    dlicenceDate: string,
+    licenseRecot: string,
+    licenseVerso: string,
 }
