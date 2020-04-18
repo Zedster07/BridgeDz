@@ -227,7 +227,7 @@
                   <ion-item (click)="uploadPic('avant')" id="avantitem">
                     <!-- <ion-icon size="large" name="camera" slot="start"></ion-icon> -->
                     <ion-thumbnail slot="start">
-                      <img src="http://localhost:8081/bridgedz/images/front.jpg" id="avantpreview"/>
+                      <img src="{{ this.formData[5].picsMeta['avant'][3] }}" id="avantpreview"/>
                       <input type="file" id="avantfile" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
@@ -237,7 +237,7 @@
                   </ion-item>
                   <ion-item (click)="uploadPic('arriere')" id="arriereitem">
                     <ion-thumbnail slot="start">
-                      <img src="http://localhost:8081/bridgedz/images/back.jpg" id="arrierepreview" />
+                      <img src="{{ this.formData[5].picsMeta['arriere'][3] }}" id="arrierepreview" />
                       <input type="file" id="arrierefile" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
@@ -250,7 +250,7 @@
                   </ion-item>
                   <ion-item (click)="uploadPic('cote1')" id="cote1item">
                     <ion-thumbnail slot="start">
-                      <img src="http://localhost:8081/bridgedz/images/right.jpg" id="cote1preview" />
+                      <img src="{{ this.formData[5].picsMeta['cote1'][3] }}" id="cote1preview" />
                       <input type="file" id="cote1file" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
@@ -260,7 +260,7 @@
                   </ion-item>
                   <ion-item (click)="uploadPic('cote2')" id="cote2item">
                     <ion-thumbnail slot="start">
-                      <img src="http://localhost:8081/bridgedz/images/left.jpg" id="cote2preview"/>
+                      <img src="{{ this.formData[5].picsMeta['cote2'][3] }}" id="cote2preview"/>
                       <input type="file" id="cote2file" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
@@ -270,7 +270,7 @@
                   </ion-item>
                   <ion-item (click)="uploadPic('inside')" id="insideitem">
                     <ion-thumbnail slot="start">
-                      <img src="http://localhost:8081/bridgedz/images/interior.jpg" id="insidepreview"/>
+                      <img src="{{ this.formData[5].picsMeta['inside'][3] }}" id="insidepreview"/>
                       <input type="file" id="insidefile" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
@@ -310,7 +310,8 @@
       </ion-button>
       <ion-button color="primary" fill="solid" (click)="slideNext(AddCarForm)">
         <span *ngIf="this.steps < 1">Suivant</span>
-        <span *ngIf="this.steps === 1">Confirmer</span>
+        <span *ngIf="this.steps === 1 && this.type === 0">Confirmer</span>
+        <span *ngIf="this.steps === 1 && this.type === 1">Mettre à jour</span>
       </ion-button>
     </ion-buttons>
 

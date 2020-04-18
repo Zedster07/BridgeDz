@@ -650,6 +650,34 @@ export class DbinteractionsService {
 
     }
 
+    async dbUpdateCar(data: any, picsList:any, optionsList:any, id:string): Promise<boolean> {
+      const httpparams = new HttpParams()
+
+      .append('marque' , data[0].marque[0]).append('piclist' , picsList)
+      .append('id' , id)
+      .append('model' , data[0].model[0])
+      .append('engine' , data[1].carburant[0])
+      .append('vitesse' , data[1].boitevitesse)
+      .append('options' , optionsList)
+      .append('address' , data[3].address[0])
+      .append('prix' , data[4].prix[0])
+      .append('needConfirmation' , data[2].needConf)
+      .append('request' , 'updateCar');
+
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        if (resp.status === 'success') {
+          return true;
+        } else {
+          return false;
+        }
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+
     async dbconfirmAddCar(data: any, picsList:any, optionsList:any, guid_car: any): Promise<boolean> {
       const httpparams = new HttpParams()
 

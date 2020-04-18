@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { GlobalsService } from 'src/app/services/globals.service';
 import { UtilService } from 'src/app/services/util.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
+
 @Component({
   selector: 'app-add-car-modal',
   templateUrl: './add-car-modal.page.html',
@@ -399,6 +400,9 @@ export class AddCarModalPage implements OnInit {
     }
   ];
 
+  carData :any;
+  type = 0;
+
   slideOptsOne = {
     initialSlide: 0,
     slidesPerView: 1,
@@ -411,7 +415,8 @@ export class AddCarModalPage implements OnInit {
     private loading: LoadingService,
     private db: DbinteractionsService,
     private http: HttpClient,
-    private util :UtilService) {}
+    private util :UtilService,
+    public  navParams:NavParams) {}
 
   Number(x) {
     return Number(x);
@@ -458,7 +463,7 @@ export class AddCarModalPage implements OnInit {
               break;
             case HttpEventType.Response:
               this.formData[5].picsMeta[val][1] = true;
-              this.formData[5].picsMeta[val][3] = event.body['path'];
+              this.formData[5].picsMeta[val][3] = this.glb.hostServer + event.body['path'];
               this.formData[5].picsMeta[val][2] = 1;
               //console.log( `Done` );
               break;
@@ -592,12 +597,20 @@ export class AddCarModalPage implements OnInit {
           if (i > 0) {
             picsList += ',';
           }
-          picsList += this.formData[5].picsMeta[key][3];
+          picsList += this.formData[5].picsMeta[key][3].replace(this.glb.hostServer, '');
         }
         i += 1;
       }
     }
     return picsList;
+  }
+
+  getPicList(picList:string, index) {
+    if(index < 5){
+      return picList.split(',')[index];
+    } else {
+      return null;
+    }
   }
   
   generateOptionsList() {
@@ -618,6 +631,35 @@ export class AddCarModalPage implements OnInit {
     return list;
   }
 
+  getOptionlist(option: string, index){
+    if(index < 7){
+      //this.util.debug('index', index);
+      //this.util.debug('value', option.split(',')[index]);
+      if(option.split(',')[index] === '1') {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  async updateCar(id){
+    this.loading.presentLoading();
+    const formdata = new FormData();
+    const picsList = this.generateCarPicsList();
+    const optionsList = this.generateOptionsList();
+    const resp =  await this.db.dbUpdateCar(this.formData, picsList, optionsList, id); //Add security backend
+    console.log(resp)
+    if (resp) {
+      console.log('success');
+      this.finalize();
+      this.loading.dismissLoading();
+    } else {
+      this.loading.dismissLoading();
+    } 
+  } 
   async confirmAddCar() {
     this.loading.presentLoading();
     const formdata = new FormData();
@@ -657,9 +699,15 @@ export class AddCarModalPage implements OnInit {
       this.AddCarForm.lockSwipes(true);
       this.currentStep += 1;
       console.log( this.currentStep);
-      if (this.currentStep === 7) { // just for debug purpose (have to be === 7)
+      if (this.currentStep === 7 && this.type === 0) { // just for debug purpose (have to be === 7)
         this.confirmAddCar();
       }
+      if(this.currentStep === 7 && this.type === 1){ // just for debug purpose (have to be === 7)
+        this.updateCar(this.carData['id']);
+        this.util.debug('updateCar', this.carData['id']);
+        this.util.debug('formData', this.formData);
+      }
+
     }
   }
 
@@ -674,6 +722,78 @@ export class AddCarModalPage implements OnInit {
 
   ngOnInit() {
     this.AddCarForm.lockSwipes(true);
+    this.type = this.navParams.get('actionType');
+    this.carData = this.navParams.get('data');
+    if (this.navParams.get('actionType') === '1') {
+
+        this.type = 1;
+
+        this.formData[0].marque[0] = this.carData['brand'];
+        this.formData[0].model[0] = this.carData['model'];
+        this.formData[1].carburant[0] = this.carData['engine'];
+        this.formData[1].boitevitesse = this.carData['vitesse'];
+        this.formData[3].address[0]= this.carData['city'];
+        this.formData[4].prix[0] = this.carData['pricePerDay'];
+        this.formData[2].needConf = this.carData['needConfirm'];
+
+        if (this.getOptionlist(this.carData['options'], 0) !== null){
+          this.formData[2].clim = this.getOptionlist(this.carData['options'], 0);
+        } 
+        if (this.getOptionlist(this.carData['options'], 1) !== null){
+          this.formData[2].regvit = this.getOptionlist(this.carData['options'], 1);
+        }
+        if (this.getOptionlist(this.carData['options'], 2) !== null){
+          this.formData[2].gps = this.getOptionlist(this.carData['options'], 2);
+        }
+        if (this.getOptionlist(this.carData['options'], 3) !== null){
+          this.formData[2].siegebb = this.getOptionlist(this.carData['options'], 3);
+        }
+        if (this.getOptionlist(this.carData['options'], 4) !== null){
+          this.formData[2].leCD = this.getOptionlist(this.carData['options'], 4);
+        }
+        
+        this.formData[5].picsMeta['avant'][0] = true;
+        this.formData[5].picsMeta['avant'][2] = 1;
+        if (this.getPicList(this.carData['picturesList'], 0) !== null){
+          this.formData[5].picsMeta['avant'][3] = this.glb.hostServer + this.getPicList(this.carData['picturesList'], 0);
+           } 
+
+        this.formData[5].picsMeta['arriere'][0] = true;
+        this.formData[5].picsMeta['arriere'][2] = 1;
+
+        if (this.getPicList(this.carData['picturesList'], 1) !== null){
+          this.formData[5].picsMeta['arriere'][3]  = this.glb.hostServer + this.getPicList(this.carData['picturesList'], 1);
+           } 
+
+        this.formData[5].picsMeta['cote1'][0] = true;
+        this.formData[5].picsMeta['cote1'][2] = 1;
+        if (this.getPicList(this.carData['picturesList'], 2) !== null){
+          this.formData[5].picsMeta['cote1'][3]  = this.glb.hostServer + this.getPicList(this.carData['picturesList'], 2);
+           } 
+
+
+        this.formData[5].picsMeta['cote2'][0] = true;
+        this.formData[5].picsMeta['cote2'][2] = 1;
+        if (this.getPicList(this.carData['picturesList'], 3) !== null){
+          this.formData[5].picsMeta['cote2'][3]  = this.glb.hostServer + this.getPicList(this.carData['picturesList'], 3);
+           } 
+
+        this.formData[5].picsMeta['inside'][0] = true;
+        this.formData[5].picsMeta['inside'][2] = 1;
+        if (this.getPicList(this.carData['picturesList'], 3) !== null){
+          this.formData[5].picsMeta['inside'][3]  = this.glb.hostServer + this.getPicList(this.carData['picturesList'], 4);
+           } 
+
+           //this.util.debug('this.carData[picturesList', this.carData['options']);
+      }  else {
+        this.type = 0;
+        this.formData[5].picsMeta['avant'][3] = '../../../assets/images/front.jpg';
+        this.formData[5].picsMeta['arriere'][3] = '../../../assets/images/back.jpg';
+        this.formData[5].picsMeta['cote1'][3]= '../../../assets/images/right.jpg';
+        this.formData[5].picsMeta['cote2'][3] = '../../../assets/images/left.jpg';
+        this.formData[5].picsMeta['inside'][3]= '../../../assets/images/interior.jpg';
+      }
+
   }
 
   

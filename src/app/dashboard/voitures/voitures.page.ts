@@ -21,12 +21,43 @@ export class VoituresPage implements OnInit {
     public modalController: ModalController,
     public glb: GlobalsService,
     private db: DbinteractionsService) { }
+
   async showAddCarModal() {
     const modal = await this.modalController.create({
       component: AddCarModalPage,
       backdropDismiss: false,
       componentProps: {
-        type: ''
+        type: '',
+        actionType: '0',
+        data: ''
+      }
+    });
+    return await modal.present();
+  }
+
+  async modifyCar(index) {
+    let CarData =  this.glb.myCars[index];
+    const modal = await this.modalController.create({
+      component: AddCarModalPage,
+      backdropDismiss: false,
+      componentProps: {
+        type: '',
+        actionType: '1',
+        data: CarData
+      }
+    });
+    return await modal.present();
+  }
+
+  async validateCar(index) {
+    let CarData =  this.glb.myCars[index];
+    const modal = await this.modalController.create({
+      component: AddCarModalPage,
+      backdropDismiss: false,
+      componentProps: {
+        type: '',
+        actionType: '1',
+        data: CarData
       }
     });
     return await modal.present();
@@ -63,9 +94,7 @@ export class VoituresPage implements OnInit {
     return await modal.present();
   }
 
-  validateCar(index){
 
-  }
   getFrontPic(car: any) {
     const piclist = car['picturesList'];
     return this.glb.hostServer + piclist.substring( 0 , piclist.indexOf(','));
