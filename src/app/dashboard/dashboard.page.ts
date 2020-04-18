@@ -4,12 +4,13 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { PopoverController } from '@ionic/angular';
 import { GlobalsService } from '../services/globals.service';
 import { UtilService } from '../services/util.service';
+import { Util2Service } from '../services/util2.service';
 import { DashboardMenuListComponent } from './dashboard-menu-list/dashboard-menu-list.component';
 import { LanguagePage } from '../language/language.page';
 import { LoginService } from '../services/login.service';
 import { DbinteractionsService } from '../services/dbinteractions.service';
 import { LoadingService } from '../services/loading.service';
-
+import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay, CalendarView} from 'angular-calendar';
 import {TranslateService, TranslatePipe, TranslateModule} from '@ngx-translate/core';
 
 @Component({
@@ -132,7 +133,8 @@ export class DashboardPage implements OnInit {
     private loading: LoadingService,
     private authser: LoginService,
     public translate: TranslateModule,
-    private translator: TranslateService) {
+    private translator: TranslateService,
+    private util2: Util2Service) {
     this.selectedPath = this.router.url;
     setInterval(() => {
       this.fetchDemandes();
@@ -224,6 +226,7 @@ export class DashboardPage implements OnInit {
       if (this.glb.kbis_modify.length === 0){
         const resp = await this.db.fetchKbis(this.glb.AgencyLogData.id);
         const resp_rib = await this.db.fetchRib(this.glb.AgencyLogData.id);
+        const resp_event = await this.db.fetchEventAgency(this.glb.AgencyLogData.id);
         if (resp['status'] === 'success'){
           this.glb.kbis_modify = resp['data'];
           this.util.debug('ngOnInt kbis', this.glb.kbis_modify);
@@ -232,7 +235,12 @@ export class DashboardPage implements OnInit {
           this.glb.rib_modify = resp_rib['data'];
           this.util.debug('ngOnInt rib', this.glb.kbis_modify);
         } 
+        if (resp_event['status'] === 'success'){
+          this.glb.event_agency = resp_event['data'];
+          this.util2.eventPreparation(this.glb.event_agency, this.glb.events);
+        }
       } 
+      
     } 
       this.loading.dismissLoading();
     } else if (!this.glb.ifAdmin(this.glb.user.role)){
