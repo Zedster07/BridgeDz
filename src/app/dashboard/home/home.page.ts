@@ -1,19 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
+import {ChangeDetectionStrategy,ViewEncapsulation, } from '@angular/core';
 import {TranslateService, TranslatePipe, TranslateModule} from '@ngx-translate/core';
+import { WeekViewHour } from 'calendar-utils';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { GlobalsService } from 'src/app/services/globals.service';
 import { UtilService } from 'src/app/services/util.service';
+import { Util2Service } from 'src/app/services/util2.service';
+import {startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth,addHours} from 'date-fns';
+
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label, Color, SingleDataSet, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import { Subject } from 'rxjs';
+import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay, CalendarView} from 'angular-calendar';
 
+import { booking_status } from '../../interfaces/booking_status';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class HomePage implements OnInit {
+
+  view: CalendarView = CalendarView.Month;
+  carData :any;
+  carIndex : any;
+  viewDate: Date = new Date();
+  selectedMonthViewDay: CalendarMonthViewDay;
+  selectedDayViewDate: Date;
+  dayView: WeekViewHour[];
+  refresh: Subject<any> = new Subject();
+  msg_display : string;
+
 
   barChartOptions: ChartOptions = {
     responsive: true,
@@ -77,6 +98,46 @@ export class HomePage implements OnInit {
     theo_balance : 0,
   }
 
+   colors: any = {
+    red: {
+      primary: '#ad2121',
+      secondary: '#FAE3E3',
+    },
+    blue: {
+      primary: '#1e90ff',
+      secondary: '#D1E8FF',
+    },
+    yellow: {
+      primary: '#e3bc08',
+      secondary: '#FDF1BA',
+    },
+  };
+
+  modalData: {
+    action: string;
+    event: CalendarEvent;
+  };
+  activeDayIsOpen: boolean = true;
+  actions: CalendarEventAction[] = [
+    {
+      label: '<i class="fa fa-fw fa-pencil"></i>',
+      a11yLabel: 'Edit',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        this.handleEvent('Edited', event);
+      },
+    },
+    {
+      label: '<i class="fa fa-fw fa-times"></i>',
+      a11yLabel: 'Delete',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        this.glb.events = this.glb.events.filter((iEvent) => iEvent !== event);
+        this.handleEvent('Deleted', event);
+      },
+    },
+  ];
+
+
+
 
   constructor(
     public translate: TranslateModule,
@@ -85,6 +146,7 @@ export class HomePage implements OnInit {
     private db: DbinteractionsService,
     public glb: GlobalsService,
     public util: UtilService,
+    public util2: Util2Service,
 
 
 
@@ -99,6 +161,7 @@ export class HomePage implements OnInit {
 
   async ionViewWillEnter() {  
     this.initialize();
+    this.refresh.next(); 
     this.translator.get(['MONTH.YEAR_BEFOR',
                          'MONTH.JANUARY',
                          'MONTH.FEBRUARY',
@@ -115,7 +178,17 @@ export class HomePage implements OnInit {
                          'WALLET.OUTSIDE_BRIDGY',
                          'WALLET.INSIDE_BRIDGY',
                          'INDICATOR.NBR_RENTING',
-                         'INDICATOR.PRICE_MEAN'
+                         'INDICATOR.PRICE_MEAN',
+                         'EVENT.PICKUP_TITLE',
+                         'EVENT.PICKUP_MSG',
+                         'EVENT.GIVEN_TITLE',
+                         'EVENT.GIVEN_MSG',
+                         'EVENT.INSU_EXP_TITLE',
+                         'EVENT.INSU_EXP_MSG',
+                         'EVENT.CONT_EXP_TITLE',
+                         'EVENT.CONT_EXP_MSG',
+                         'EVENT.AGEN_TITLE',
+                         'EVENT.AGEN_MSG',
                          ]).subscribe(val => {
                           this.glb.barChartLabels[0] = val['MONTH.YEAR_BEFOR'];
                           this.glb.barChartLabels[1] = val['MONTH.JANUARY'];
@@ -136,6 +209,51 @@ export class HomePage implements OnInit {
                           this.glb.pieChartLabels[1] = val['WALLET.OUTSIDE_BRIDGY'];
                           this.glb.gaugeLabel_rent = val['INDICATOR.NBR_RENTING'];
                           this.glb.gaugeLabel_price = val['INDICATOR.PRICE_MEAN'];
+                          for (let i=0; i<this.glb.events.length; i++){
+                            switch (this.glb.event_agency[i]['type']){
+
+                              case '0':
+                                this.glb.events[i]['title'] =
+                                   val['EVENT.GIVEN_TITLE'] +
+                                  this.glb.event_agency[i]['car_name'] + ' ' +
+                                  this.glb.event_agency[i]['car_vin'] + ' '+ 
+                                  this.glb.event_agency[i]['hour'] + ' '+
+                                  val['EVENT.GIVEN_MSG'];
+                                break;
+                              case '1':
+                                this.glb.events[i]['title'] =
+                                  val['EVENT.PICKUP_TITLE'] +
+                                  this.glb.event_agency[i]['car_name'] + ' ' +
+                                  this.glb.event_agency[i]['car_vin'] + ' '+ 
+                                  this.glb.event_agency[i]['hour'] + ' '+
+                                  val['EVENT.PICKUP_MSG'];
+                                break;
+                              case '2':
+                                this.glb.events[i]['title'] =
+                                  val['EVENT.INSU_EXP_TITLE'] +
+                                  this.glb.event_agency[i]['car_name'] + ' ' +
+                                  this.glb.event_agency[i]['car_vin'] + ' '+ 
+                                  this.glb.event_agency[i]['hour'] + ' '+
+                                  val['EVENT.INSU_EXP_MSG'];
+                                break;
+                              case '3':
+                                this.glb.events[i]['title'] =
+                                  val['EVENT.CONT_EXP_TITLE'] +
+                                  this.glb.event_agency[i]['car_name'] + ' ' +
+                                  this.glb.event_agency[i]['car_vin'] + ' '+ 
+                                  this.glb.event_agency[i]['hour'] + ' '+
+                                  val['EVENT.CONT_EXP_MSG'];
+                                break;
+                              case '4':
+                                this.glb.events[i]['title'] =
+                                  val['EVENT.AGEN_TITLE'] +
+                                  this.glb.event_agency[i]['car_name'] + ' ' +
+                                  this.glb.event_agency[i]['car_vin'] + ' '+ 
+                                  this.glb.event_agency[i]['hour'] + ' '+
+                                  val['EVENT.AGEN_MSG'];
+                                break;
+                            }
+                          }
                         } );
 
                       
@@ -167,15 +285,17 @@ export class HomePage implements OnInit {
       
       }
     }
-    this.util.debug(this.wallet);
-    this.util.debug(this.historical_wallet);
     this.buildPerfCars();
     this.fillSummarizeInfo();
     
-    this.util.debug(this.glb.barChartData);
+
     this.loading.dismissLoading();
   }
-  
+
+  refreshView(): void {
+    this.refresh.next();  
+  }
+
   fillSummarizeInfo(){
     const today = new Date();
     const str = today.getFullYear().toString() +'/' + (today.getMonth()+1).toString() +'/' + (today.getDate()).toString();
@@ -251,7 +371,6 @@ export class HomePage implements OnInit {
   prepareHistoricalRevenu(){
     
     let xx = this.util.getYearString();
-    this.util.debug(xx);
     for (let i =0; i < this.historical_wallet.length; i++){
       if (this.historical_wallet[i]['year'] === this.util.getYearString()){
           this.glb.barChartData[this.historical_wallet[i]['type']]['data'][this.historical_wallet[i]['month']] = parseInt(this.historical_wallet[i]['value']);   
@@ -314,6 +433,8 @@ export class HomePage implements OnInit {
     } 
   } 
   ngOnInit() {
+    this.refresh.next();
+    this.util.debug('ngOnInit', 'home');
   }
 
   initialize(){
@@ -328,6 +449,46 @@ export class HomePage implements OnInit {
     this.summariez_info.rented_car = 0;
     this.summariez_info.theo_balance = 0;
   }
+
+  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+    this.util.debug('day clicked', subDays(endOfMonth(new Date()), 3));
+    if (isSameMonth(date, this.viewDate)) {
+      if (
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0
+      ) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
+      }
+      this.viewDate = date;
+    }
+  }
+
+
+  eventTimesChanged({
+    event,
+    newStart,
+    newEnd,
+  }: CalendarEventTimesChangedEvent): void {
+    this.glb.events = this.glb.events.map((iEvent) => {
+      if (iEvent === event) {
+        return {
+          ...event,
+          start: newStart,
+          end: newEnd,
+        };
+      }
+      return iEvent;
+    });
+    this.handleEvent('Dropped or resized', event);
+  }
+
+  handleEvent(action: string, event: CalendarEvent): void {
+    this.modalData = { event, action };
+    //this.modal.open(this.modalContent, { size: 'lg' });
+  }
+
 
   ionViewWillLeave(){
     this.initialize();

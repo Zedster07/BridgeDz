@@ -239,6 +239,14 @@ export class UtilService {
     } 
   }
 
+  dateClandarFormat(date: string){
+    let Year = date.split('-')[0];
+    let Month = date.split('-')[1];
+    let Day = date.split('-')[2].split(' ')[0];
+
+    return new Date(parseInt(Year), parseInt(Month)-1, parseInt(Day), 10, 0, 0, 0);
+  }
+
   getAccParam_1(accparams:any, data: any) {
     this.loading.presentLoading();
     
@@ -272,6 +280,7 @@ export class UtilService {
       accparams.redemandlocation[2] = this.ifTrue(data.data['redemandlocation'][2]);
     }
   }
+
 
    number_format(number, decimals, dec_point, thousands_sep) {
     // *     example: number_format(1234.56, 2, ',', ' ');

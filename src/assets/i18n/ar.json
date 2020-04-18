@@ -153,6 +153,25 @@
   "INDICATOR": {
     "PRICE_MEAN" : "متوسط ​​سعر الإيجار",
     "NBR_RENTING": "عدد الايجارات"
+  },
+  "EVENT" :{
+    "GIVEN_TITLE" :"موعد لاستئجار سيارتك",
+    "GIVEN_MSG": "التقاط صور للسيارة",
+    "PICKUP_TITLE" :"موعد لاستلام مركبتك:",
+    "PICKUP_MSG": "التقاط صور للسيارة",
+    "INSU_EXP_TITLE" :"تأمين مركبتك:",
+    "INSU_EXP_MSG": "تنتهي الصلاحية. جددها.",
+    "CONT_EXP_TITLE" :"التحكم الفني بسيارتك:",
+    "CONT_EXP_MSG": "تنتهي الصلاحية. جددها.",
+    "AGEN_TITLE" :"لديك موعد لوكالتك",
+    "AGEN_MSG": "لا تنسى"
+  },
+
+
+  "CALANDAR" :{
+    "TODAY" : "اليوم",
+    "NEXT_MONTH" : "الشهر القادم",
+    "LAST_MONTH" : "الشهر الماضي"
   }
    
 }

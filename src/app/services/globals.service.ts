@@ -8,6 +8,7 @@ import { account_status}  from '../interfaces/account_status';
 import { Label } from 'ng2-charts';
 import {TranslateService, TranslatePipe, TranslateModule} from '@ngx-translate/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay, CalendarView} from 'angular-calendar';
 
 
 @Injectable({
@@ -41,7 +42,7 @@ export class GlobalsService {
     pic: '',
     data: []
   };
-
+  event_agency=[];
   prevAction = '';
   prevBook = {};
   myCars = [];
@@ -72,9 +73,9 @@ export class GlobalsService {
   gaugeLabel_rent = 'INDICATOR.NBR_RENTING';
   gaugeLabel_price = 'INDICATOR.PRICE_MEAN';
   pieChartLabels: Label[] = [['WALLET.INSIDE_BRIDGY'], ['WALLET.OUTSIDE_BRIDGY']];
+  events=[];
 
-  accparams: any = {
-  
+  accparams: any = { 
     demandlocation: [false , false , false],
     redemandlocation: [false , false , false],
     locAccept: [false , false , false],
@@ -175,6 +176,11 @@ export class GlobalsService {
       userStatus: '',
       role: '',
       session_guid: '',
+      licenseId: '',
+      dlicencePaye: '',
+      dlicenceDate: '',
+      licenseRecot: '',
+      licenseVerso: ''
     };
   }
   correctPassword( pass: string ) {

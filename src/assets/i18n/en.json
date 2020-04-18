@@ -151,5 +151,23 @@
       "INDICATOR": {
         "PRICE_MEAN" : "average rental price",
         "NBR_RENTING": "Number of rentals"
+      },
+      "EVENT" :{
+        "GIVEN_TITLE" :"Appointment to rent your vehicle:",
+        "GIVEN_MSG": "Take photos of the car",
+        "PICKUP_TITLE" :"Appointment to collect your vehicle:",
+        "PICKUP_MSG": "Take photos of the car",
+        "INSU_EXP_TITLE" :"Your vehicle insurance",
+        "INSU_EXP_MSG": "expires. Renew it.",
+        "CONT_EXP_TITLE" :"Your vehicle technical control:",
+        "CONT_EXP_MSG": "expires. Renew it.",
+        "AGEN_TITLE" :"You have an appointment for your agency",
+        "AGEN_MSG": "don t forget."
+      },
+
+      "CALANDAR" :{
+        "TODAY" : "Today",
+        "NEXT_MONTH" : "Next Month",
+        "LAST_MONTH" : "Last Month"
       }
   }

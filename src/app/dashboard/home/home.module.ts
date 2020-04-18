@@ -8,6 +8,10 @@ import { IonicModule } from '@ionic/angular';
 import { HomePage } from './home.page';
 import {TranslateModule} from '@ngx-translate/core';
 import { ChartsModule } from 'ng2-charts';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
 
 const routes: Routes = [
   {
@@ -24,6 +28,12 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule.forChild(),
     ChartsModule,
+    NgbModalModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
     //NgxGaugeModule
   ],
   declarations: [HomePage]

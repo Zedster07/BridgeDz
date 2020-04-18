@@ -41,6 +41,7 @@ import { ClientMenuListComponent } from './client/client-menu-list/client-menu-l
 import { Ionic4DatepickerModule } from '@logisticinfotech/ionic4-datepicker';
 import { IonicTimepickerModule } from '@logisticinfotech/ionic-timepicker';
 import { UtilService } from './services/util.service';
+import { Util2Service } from './services/util2.service';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import {TranslateModule, TranslateLoader, TranslatePipe} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -121,6 +122,7 @@ export function createTranslateLoader(http: HttpClient) {
     SplashScreen,
     GlobalsService,
     UtilService,
+    Util2Service,
     LoadingService,
     AlertService,
     LoginService,

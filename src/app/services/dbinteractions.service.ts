@@ -86,6 +86,19 @@ export class DbinteractionsService {
       }); 
     }
 
+    async fetchEventAgency(idagency) {
+      const httpparams = new HttpParams().append('request' , 'fetchEventAgency').
+      append('id_agency' , idagency).
+      append('id_requestor', this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      }); 
+    }
+
     async fetchKbis(id_agency) {
       const httpparams = new HttpParams().append('request' , 'fetchKbis').
       append('id_requestor' , this.glb.user.id).

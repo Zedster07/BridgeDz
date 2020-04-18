@@ -238,20 +238,58 @@
     </div>
 
     <div class="col-lg-6 mb-4">
-
       <!-- Illustrations -->
-      <div class="card shadow mb-4">
-        <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">{{ 'COMMON.GENERALE'  | translate }}</h6>
-        </div>
-        <div class="card-body">
-          <div class="text-center">
-            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="../../../assets/images/dashbaord.jpg" alt="">
+        <div class="card shadow mb-4" >
+          <div class="card-header py-3">
+            <h6 class="font-weight-bold text-primary">{{ 'COMMON.GENERALE'  | translate }}</h6>
+            <div class="btn-group" style="display : inline;">
+                <div
+                    class="btn btn-primary"
+                    mwlCalendarPreviousView
+                    [view]="view"
+                    [(viewDate)]="viewDate"
+                    (viewDateChange)="closeOpenMonthViewDay()"
+                  >
+                    Previous
+                </div>
+                <div
+                    class="btn btn-outline-secondary"
+                    mwlCalendarToday
+                    [(viewDate)]="viewDate"
+                  >
+                    Today
+                </div>
+                <div
+                    class="btn btn-primary"
+                    mwlCalendarNextView
+                    [view]="view"
+                    [(viewDate)]="viewDate"
+                    (viewDateChange)="closeOpenMonthViewDay()"
+                  >
+                    Next
+                </div>
+            </div> 
           </div>
-          <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
-          <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw &rarr;</a>
+            
+         
+      
+        
+          <div class="card-body">
+            <div [ngSwitch]="view">
+            <mwl-calendar-month-view
+              *ngSwitchCase="'month'"
+              [viewDate]="viewDate"
+              [events]="this.glb.events"
+              [activeDayIsOpen]="activeDayIsOpen"
+              [refresh]="refresh"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (dayClicked)="dayClicked($event.day)"
+              (eventTimesChanged)="eventTimesChanged($event)"
+            >
+            </mwl-calendar-month-view>
+            </div>
+           </div>
         </div>
-      </div>
 
       <!-- Approach -->
       <div class="card shadow mb-4">
@@ -281,7 +319,6 @@
         </div>
         </div>
       </div>
-
     </div>
   </div>
   

@@ -32,7 +32,7 @@
   --info: #36b9cc;
   --warning: #f6c23e;
   --danger: #e74a3b;
-  --light: #f8f9fc;
+  --light: #d9dadd;
   --dark: #5a5c69;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
@@ -4378,6 +4378,7 @@ input[type="button"].btn-block {
   margin-bottom: 0;
   background-color: #f8f9fc;
   border-bottom: 1px solid #e3e6f0;
+ 
 }
 
 .card-header:first-child {
@@ -7657,6 +7658,7 @@ button.bg-dark:focus {
 .pt-3,
 .py-3 {
   padding-top: 1rem !important;
+  border-color: red;
 }
 
 .pr-3,
@@ -7667,6 +7669,7 @@ button.bg-dark:focus {
 .pb-3,
 .py-3 {
   padding-bottom: 1rem !important;
+  border-color: black;
 }
 
 .pl-3,
@@ -10471,6 +10474,8 @@ a:focus {
   align-items: center;
   justify-content: center;
 }
+
+
 
 .btn-circle.btn-sm, .btn-group-sm > .btn-circle.btn {
   height: 1.8rem;

@@ -152,9 +152,27 @@
   "INDICATOR": {
     "PRICE_MEAN" : "Prix moyan de location",
     "NBR_RENTING": "Nombre de locations"
+  },
+
+  "EVENT" :{
+    "GIVEN_TITLE" :"Rendez vous pour donner votre vehicule :",
+    "GIVEN_MSG": "Prendez des photos de la voiture.",
+    "PICKUP_TITLE" :"Rendez vous pour récupérer votre véhicule: ",
+    "PICKUP_MSG": "Prendez des photos de la voiture.",
+    "INSU_EXP_TITLE" :"Votre assurence du véhicule :",
+    "INSU_EXP_MSG": "arrive à expiration. Renouvlez la.",
+    "CONT_EXP_TITLE" :"Votre control technique du véhicule :",
+    "CONT_EXP_MSG": "arrive à expiration. Renniuvlez le.",
+    "AGEN_TITLE" :"Vous avez un rentre vous pour votre agence",
+    "AGEN_MSG": "N oubiez pas."
+  },
+
+  "CALANDAR" :{
+    "TODAY" : "Aujourd'hui",
+    "NEXT_MONTH" : "Prochain mois",
+    "LAST_MONTH" : "Mois précédent"
   }
 
- 
    
 
 

@@ -51,7 +51,17 @@ export class LanguagePage implements OnInit {
                          'WALLET.OUTSIDE_BRIDGY',
                          'WALLET.INSIDE_BRIDGY',
                          'INDICATOR.NBR_RENTING',
-                         'INDICATOR.PRICE_MEAN'
+                         'INDICATOR.PRICE_MEAN',
+                         'EVENT.PICKUP_TITLE',
+                         'EVENT.PICKUP_MSG',
+                         'EVENT.GIVEN_TITLE',
+                         'EVENT.GIVEN_MSG',
+                         'EVENT.INSU_EXP_TITLE',
+                         'EVENT.INSU_EXP_MSG',
+                         'EVENT.CONT_EXP_TITLE',
+                         'EVENT.CONT_EXP_MSG',
+                         'EVENT.AGEN_TITLE',
+                         'EVENT.AGEN_MSG',
                          ]).subscribe(val => {
                           this.glb.barChartLabels[0] = val['MONTH.YEAR_BEFOR'];
                           this.glb.barChartLabels[1] = val['MONTH.JANUARY'];
@@ -72,6 +82,51 @@ export class LanguagePage implements OnInit {
                           this.glb.pieChartLabels[1] = val['WALLET.OUTSIDE_BRIDGY'];
                           this.glb.gaugeLabel_rent = val['INDICATOR.NBR_RENTING'];
                           this.glb.gaugeLabel_price = val['INDICATOR.PRICE_MEAN'];
+                          for (let i=0; i<this.glb.events.length; i++){
+                            switch (this.glb.event_agency[i]['type']){
+
+                              case '0':
+                                this.glb.events[i]['title'] =
+                                   val['EVENT.GIVEN_TITLE'] +
+                                  this.glb.event_agency[i]['car_name'] + ' ' +
+                                  this.glb.event_agency[i]['car_vin'] + ' '+ 
+                                  this.glb.event_agency[i]['hour'] + ' '+
+                                  val['EVENT.GIVEN_MSG'];
+                                break;
+                              case '1':
+                                this.glb.events[i]['title'] =
+                                  val['EVENT.PICKUP_TITLE'] +
+                                  this.glb.event_agency[i]['car_name'] + ' ' +
+                                  this.glb.event_agency[i]['car_vin'] + ' '+ 
+                                  this.glb.event_agency[i]['hour'] + ' '+
+                                  val['EVENT.PICKUP_MSG'];
+                                break;
+                              case '2':
+                                this.glb.events[i]['title'] =
+                                  val['EVENT.INSU_EXP_TITLE'] +
+                                  this.glb.event_agency[i]['car_name'] + ' ' +
+                                  this.glb.event_agency[i]['car_vin'] + ' '+ 
+                                  this.glb.event_agency[i]['hour'] + ' '+
+                                  val['EVENT.INSU_EXP_MSG'];
+                                break;
+                              case '3':
+                                this.glb.events[i]['title'] =
+                                  val['EVENT.CONT_EXP_TITLE'] +
+                                  this.glb.event_agency[i]['car_name'] + ' ' +
+                                  this.glb.event_agency[i]['car_vin'] + ' '+ 
+                                  this.glb.event_agency[i]['hour'] + ' '+
+                                  val['EVENT.CONT_EXP_MSG'];
+                                break;
+                              case '4':
+                                this.glb.events[i]['title'] =
+                                  val['EVENT.AGEN_TITLE'] +
+                                  this.glb.event_agency[i]['car_name'] + ' ' +
+                                  this.glb.event_agency[i]['car_vin'] + ' '+ 
+                                  this.glb.event_agency[i]['hour'] + ' '+
+                                  val['EVENT.AGEN_MSG'];
+                                break;
+                            }
+                          }
                         } );
     }  
       this.glb.popover.dismiss(this.glb.currentLang);
