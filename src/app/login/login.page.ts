@@ -132,7 +132,7 @@ export class LoginPage implements OnInit {
                                                       this.util.getSupportType(),
                                                       );
          this.util.getAccParam_1(this.glb.accparams, res_paramacc);
-         this.util.debug('login , acc', this.glb.accparams);
+         this.glb.resetAdmin();
        
         if (this.glb.ifAdmin(this.glb.user.role) === true){
           this.route.navigate(['dashboard']);
@@ -188,7 +188,8 @@ export class LoginPage implements OnInit {
                                                       this.util.getSupportType());
         
          this.util.getAccParam_1(this.glb.accparams, res_paramacc);
-         this.util.debug('login , acc', this.glb.accparams);
+         this.glb.resetAdmin();
+         
         if (this.glb.ifAdmin(this.glb.user.role) === true){
           console.log("ADMIN");
           this.route.navigate(['dashboard']);
