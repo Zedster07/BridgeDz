@@ -127,21 +127,11 @@ export class DdetagencyPage implements OnInit {
   changepic2(imghandler: string , filehandler: string) {
     const elem = document.getElementById(filehandler);
     elem.click();
-    this.recto_temp = true;
-    if(filehandler !== 'rectoid')
-    {
-       this.verso_temp = true;
-    } 
+   
     elem.onchange = () => {
       const file = (<HTMLInputElement>document.getElementById(filehandler)).files[0];
       let preview = document.getElementById(imghandler) as HTMLImageElement;
-      if (this.recto_temp || this.verso_temp  ){
-        console.log(imghandler +'_1');
-        imghandler = imghandler +'_1';
-         preview = document.getElementById(imghandler +'_1') as HTMLImageElement;
-      }   
-      console.log('preview  '  + preview);
-      console.log('imgHndler  '  + imghandler);
+      
 
       const reader  = new FileReader();
       reader.onloadstart = () => {
@@ -153,11 +143,8 @@ export class DdetagencyPage implements OnInit {
         preview.src = reader.result as string;
         if (filehandler === 'rectoid') {
           this.updateKbis.rectoimg = formdata;
-          this.recto_temp = true;
-
         } else {
           this.updateKbis.versoimg = formdata;
-          this.verso_temp = true;
         }
       };
       reader.onloadend = () => {

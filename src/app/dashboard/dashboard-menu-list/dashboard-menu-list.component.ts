@@ -3,6 +3,7 @@ import { GlobalsService } from 'src/app/services/globals.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
+//import { UtilService } from 'src/app/services/Util.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 
 
@@ -28,7 +29,10 @@ export class DashboardMenuListComponent implements OnInit {
     if (this.glb.ifAdmin(this.glb.user.role)){
         this.authser.logOut();
         const res = this.db.updateHistoricalLogIn();
+        this.glb.resetAdmin();
+
     } else {
+    this.glb.resetAgencyData();
     this.router.navigate(['client']);
   }
   }

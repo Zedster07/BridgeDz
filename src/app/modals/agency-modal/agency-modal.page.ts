@@ -79,7 +79,6 @@ export class AgencyModalPage implements OnInit {
           this.glb.AgencyLogData.data = res.data[0];
           if (this.type === null) {
             this.closeModal();
-
             this.route.navigate(['dashboard', 'home']);
           }
       }
@@ -122,8 +121,8 @@ export class AgencyModalPage implements OnInit {
     });
   }
   async ionViewWillEnter() {
-    this.type = this.navParams.get('type');
-    await this.fetchAcc();
+   // this.type = this.navParams.get('type');
+   // await this.fetchAcc();
   }
 
 }

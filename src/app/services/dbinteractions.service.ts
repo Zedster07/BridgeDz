@@ -4,6 +4,7 @@ import { LoginService } from './login.service';
 import { LoadingService } from './loading.service';
 import { HttpClient , HttpErrorResponse , HttpParams, HttpEventType } from '@angular/common/http';
 import { AlertService } from './alert.service';
+import { UtilService } from './util.service';
 import { Httpresponse } from '../interfaces/httpresponse';
 import { UserData } from '../interfaces/user-data';
 import { BehaviorSubject } from 'rxjs';
@@ -18,7 +19,8 @@ export class DbinteractionsService {
     private http: HttpClient,
     private logserv: LoginService,
     private loading: LoadingService,
-    private alertt: AlertService) {}
+    private alertt: AlertService,
+    private util:UtilService) {}
 
     setStorage(key , value) {
       this.logserv.setLocalstorage(key , value);
@@ -677,6 +679,35 @@ export class DbinteractionsService {
       });
     }
 
+    async dbUpdateCarLic(data: any, id:string): Promise<boolean> {
+      this.util.debug('dbUpdateCarLic',data);
+      const httpparams = new HttpParams()
+
+      .append('insu_Id' , data[1].insu_id)
+      .append('vehicle_id' , id)
+      .append('requestor_id', this.glb.user.id)
+      .append('insu_exp' , data[1].insu_exp)
+      .append('insu_pic' , data[1].picsMeta['insurance'][3].replace(this.glb.hostServer, ''))
+      .append('control_id' , data[2].control_id)
+      .append('control_pic' , data[2].picsMeta['control'][3].replace(this.glb.hostServer, ''))
+      .append('control_exp' , data[2].control_exp)
+      .append('car_doc_id' , data[0].car_doc_id)
+      .append('car_pic' , data[0].picsMeta['license'][3].replace(this.glb.hostServer, ''))
+      .append('request' , 'dbUpdateCarLic');
+
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        if (resp.status === 'success') {
+          return true;
+        } else {
+          return false;
+        }
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
 
     async dbconfirmAddCar(data: any, picsList:any, optionsList:any, guid_car: any): Promise<boolean> {
       const httpparams = new HttpParams()
@@ -739,6 +770,18 @@ export class DbinteractionsService {
     async FetchAcc(): Promise<any> {
       const httpparams = new HttpParams()
       .append('request' , 'fetchAgency').append('id' , this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async FetchCarLicense(vehicle_id): Promise<any> {
+      const httpparams = new HttpParams()
+      .append('request' , 'FetchCarLicense').append('id' , this.glb.user.id).append('vehicle_id', vehicle_id);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         console.log(resp);
         return resp;

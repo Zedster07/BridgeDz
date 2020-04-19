@@ -111,7 +111,7 @@ export class DagencyPage implements OnInit {
     if (res.message === 'sucess'){   
       this.glb.user_modify= res.user;
       this.glb.agency_modify = res.agency;
-      this.glb.myCars = res.cars;
+      this.glb.cars = res.cars;
       this.glb.kbis_modify = res.kbis;
       this.glb.rib_modify = res.rib;
       this.glb.wallet = res.wallet;

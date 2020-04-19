@@ -1,0 +1,167 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="end" >
+        <ion-button (click)="closeModal()">
+          <ion-icon name="close" ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-progress-bar color="primary" [value]="steps"></ion-progress-bar>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-slides  #AddLicenseCarForm [options]="slideOptsOne">
+    
+    <ion-slide>
+      <div class="container">
+        <div class="row ustify-content-center align-items-center">
+          <div class="col-12 pb-3 text-left">
+            <div class="header">
+              <h6 id="subtitle" class="ion-no-padding">AJOUTER LA CARTE GRISE</h6>
+              <h2 id="title" class="ion-no-padding">Confirmez le modèle de votre voiture</h2>
+            </div>
+            <ion-item-divider></ion-item-divider>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="marque">License</label>
+                <input type="text" class="form-control" id="car_doc_id" placeholder="réf de carte grise"  [(ngModel)]="formData[0].car_doc_id">
+              </div>
+            </div>
+            <ion-item (click)="uploadPic('license')" id="licenseitem">
+              <!-- <ion-icon size="large" name="camera" slot="start"></ion-icon> -->
+              <ion-thumbnail slot="start">
+                <img src="{{ this.formData[0].picsMeta['license'][3] }}" id="licensepreview"/>
+                <input type="file" id="licensefile" style="display: none;">
+              </ion-thumbnail>
+              <ion-label>
+                Carte grise
+                <p><ion-progress-bar *ngIf="this.formData[0].picsMeta['license'][0]" [attr.color]="this.formData[0].picsMeta['license'][2] === 1 ? 'success' : 'primary'" value="this.formData[0].picsMeta['license'][2]"></ion-progress-bar></p>
+              </ion-label>
+            </ion-item>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <div class="alert alert-info shadow-sm">
+                  Dans quelque minutes, votre annonce sera mise en ligne.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="container">
+        <div class="row ustify-content-center align-items-center">
+          <div class="col-12 pb-3 text-left">
+            <div class="header">
+              <h6 id="subtitle" class="ion-no-padding">AJOUTER L'ASSURENCE</h6>
+              <h2 id="title" class="ion-no-padding">Confirmez le modèle de votre voiture</h2>
+            </div>
+            <ion-item-divider></ion-item-divider>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="marque">Assurence</label>
+                <input type="text" class="form-control" id="insu_id" placeholder="réf du control technique"  [(ngModel)]="formData[1].insu_id">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <ion-icon name="calendar"></ion-icon>
+                        </div>
+                      </div>
+                      <ion-datetime class="form-control text-left" id="insu_exp" placeholder="Date expiration" displayFormat="YYYY-MM-DD" [(ngModel)]="formData[1].insu_exp"></ion-datetime>
+                  </div>
+              </div>
+            </div>
+            <ion-item (click)="uploadPic('insurance')" id="insuranceitem">
+              <ion-thumbnail slot="start">
+                <img src="{{ this.formData[1].picsMeta['insurance'][3] }}" id="insurancepreview" />
+                <input type="file" id="insurancefile" style="display: none;">
+              </ion-thumbnail>
+              <ion-label>
+                Photo Arrière
+                <p><ion-progress-bar *ngIf="this.formData[1].picsMeta['insurance'][0]" [attr.color]="this.formData[1].picsMeta['insurance'][2] === 1 ? 'success' : 'primary'" value="this.formData[1].picsMeta['insurance'][2]"></ion-progress-bar></p>
+              </ion-label>
+            </ion-item>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <div class="alert alert-info shadow-sm">
+                  Dans quelque minutes, votre annonce sera mise en ligne.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="container">
+        <div class="row ustify-content-center align-items-center">
+          <div class="col-12 pb-3 text-left">
+            <div class="header">
+              <h6 id="subtitle" class="ion-no-padding">AJOUTER LE CONTROLE TECHNIQUE</h6>
+              <h2 id="title" class="ion-no-padding">Confirmez le modèle de votre voiture</h2>
+            </div>
+            <ion-item-divider></ion-item-divider>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="marque">Controle</label>
+                <input type="text" class="form-control" id="control_id" placeholder="réf de carte grise" [(ngModel)]="formData[2].control_id">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <ion-icon name="calendar"></ion-icon>
+                        </div>
+                      </div>
+                      <ion-datetime class="form-control text-left" id="control_exp" placeholder="Date expiration" displayFormat="YYYY-MM-DD" [(ngModel)]="formData[2].control_exp"></ion-datetime>
+                  </div>
+              </div>
+            </div>
+            <ion-item (click)="uploadPic('control')" id="controlitem">
+                    <ion-thumbnail slot="start">
+                      <img src="{{ this.formData[2].picsMeta['control'][3] }}" id="controlpreview" />
+                      <input type="file" id="controlfile" style="display: none;">
+                    </ion-thumbnail>
+                    <ion-label>
+                      Photo Coté
+                      <p><ion-progress-bar *ngIf="this.formData[2].picsMeta['control'][0]" [attr.color]="this.formData[2].picsMeta['control'][2] === 1 ? 'success' : 'primary'" value="this.formData[2].picsMeta['control'][2]"></ion-progress-bar></p>
+                    </ion-label>
+                  </ion-item>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <div class="alert alert-info shadow-sm">
+                  Dans quelque minutes, votre annonce sera mise en ligne.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end" class="ion-padding">
+      <ion-button color="dark" (click)="slidePrev(AddLicenseCarForm)" *ngIf="this.steps !== 0">
+        <ion-icon name="arrow-round-back" slot="start"></ion-icon>
+        Précedent
+      </ion-button>
+      <ion-button color="primary" fill="solid" (click)="slideNext(AddLicenseCarForm)">
+        <span *ngIf="this.steps < 1">Suivant</span>
+        <span *ngIf="this.steps === 1 && this.type === 1"> Mettre à jour</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

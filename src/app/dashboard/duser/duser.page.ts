@@ -141,7 +141,7 @@ export class DuserPage implements OnInit {
       const res = await this.db.fetchCarsUsers(index, this.glb.user.id);
       this.loading.dismissLoading();
       if (res.status === 'success'){   
-        this.glb.myCars = res.data;
+        this.glb.cars = res.data;
         this.glb.isViewCars = true;
         this.route.navigate(['dashboard', 'voitures']);
       } 

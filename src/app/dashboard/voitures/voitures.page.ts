@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { AddCarModalPage } from 'src/app/modals/add-car-modal/add-car-modal.page';
 import { AccessHoursPage } from 'src/app/modals/access-hours/access-hours.page';
 import { CarAvailabilityPage } from 'src/app/modals/car-availability/car-availability.page';
+import { CarValidateModalPage } from 'src/app/modals/car-validate-modal/car-validate-modal.page';
 import { CarAvailabilityV1Page } from 'src/app/modals/car-availability-v1/car-availability-v1.page'
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { GlobalsService } from 'src/app/services/globals.service';
@@ -36,7 +37,7 @@ export class VoituresPage implements OnInit {
   }
 
   async modifyCar(index) {
-    let CarData =  this.glb.myCars[index];
+    let CarData =  this.glb.cars[index];
     const modal = await this.modalController.create({
       component: AddCarModalPage,
       backdropDismiss: false,
@@ -50,10 +51,10 @@ export class VoituresPage implements OnInit {
   }
 
   async validateCar(index) {
-    let CarData =  this.glb.myCars[index];
+    let CarData =  this.glb.cars[index];
     const modal = await this.modalController.create({
-      component: AddCarModalPage,
-      backdropDismiss: false,
+      component: CarValidateModalPage,
+      backdropDismiss: true,
       componentProps: {
         type: '',
         actionType: '1',
@@ -77,14 +78,14 @@ export class VoituresPage implements OnInit {
 
 
   async showCarAvailModal(index) {
-    let CarData =  this.glb.myCars[index];
+    let CarData =  this.glb.cars[index];
     const modal = await this.modalController.create({
       component: CarAvailabilityV1Page,
       // backdropDismiss: false,
       componentProps: {
         type: '',
         data: CarData,
-        idx: this.glb.myCars[index]['id']
+        idx: this.glb.cars[index]['id']
       }
     });
 
@@ -107,12 +108,13 @@ export class VoituresPage implements OnInit {
     }
     if (this.glb.isViewCars === false){
       const id = this.db.getStorage('accID');
-      const res = await this.db.fetchCars(id, this.glb.user.id);
-      if (res && res.status !== 'failure') {
-        this.glb.myCars = res.data;
+      if (this.glb.cars.length === 0 || this.glb.ifAdmin(this.glb.user.role)){
+        const res = await this.db.fetchCars(id, this.glb.user.id);
+        if (res && res.status !== 'failure') {
+          this.glb.cars = res.data;
+        }
       }
     }
-    console.log(this.glb.myCars);
   }
 
   async ionViewDidLeave() {

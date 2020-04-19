@@ -292,8 +292,7 @@
                 <ion-icon name="add" slot="start"></ion-icon>
                 Recto
               </ion-button>
-              <img *ngIf= "!this.recto_temp" [src]="this.glb.kbis_modify['picture_recto']"  id="rectoImg" />
-              <img *ngIf= "this.recto_temp" [src]=""  id="rectoImg_1" />
+              <img  src= "{{ this.glb.hostServer + this.glb.kbis_modify['picture_recto'] }}"  id="rectoImg" />
               <input type="file"  id="rectoid" class="form-control" style="display: none;" />
             </div>
             <div class="form-group col-md-6">
@@ -301,8 +300,7 @@
                 <ion-icon name="add" slot="start"></ion-icon>
                 Verso
               </ion-button>
-                <img *ngIf= "!this.verso_temp" [src]="this.glb.kbis_modify['picture_verso']"  id="versoImg" /> 
-              <img *ngIf= "this.verso_temp" [src]=""  id="versoImg_1" />
+                <img src= "{{ this.glb.hostServer + this.glb.kbis_modify['picture_verso'] }}"  id="versoImg" /> 
               <input type="file"  id="versoid" class="form-control" style="display: none;" />
             </div>
           </div>
@@ -416,7 +414,7 @@
 
       <!-- Vehicule ------------------------------------------------------------------------------------------------------------------------ -->
       <div class="tab-pane fade" id="vehicle"  [ngClass]="{'active show': showTab('vehicle')}"  role="tabpanel" aria-labelledby="vehicle-tab">
-        <div class="row" *ngFor="let item of this.glb.myCars; let i = index;">
+        <div class="row" *ngFor="let item of this.glb.cars; let i = index;">
         <div class="row">
           <div class="col-lg-3 col-md-12">
             <ion-img src="{{getFrontPic(item)}}"></ion-img>

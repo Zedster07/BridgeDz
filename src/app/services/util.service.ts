@@ -232,7 +232,7 @@ export class UtilService {
   } 
 
   ifTrue(str: string){
-    if (str === '1'){
+    if ((str !== null || str !== undefined) && (str === '1')){
       return true;
     } else {
       return false;
@@ -253,7 +253,7 @@ export class UtilService {
     console.log(data);
     this.loading.dismissLoading();
     this.glb.toReload = 1;
-    if (data.status = 'success') {
+    if (data.status === 'success') {
       
       accparams.demandlocation[0] = this.ifTrue(data.data['demandlocation'][0]);
       accparams.demandlocation[1] = this.ifTrue(data.data['demandlocation'][1]);

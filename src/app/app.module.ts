@@ -30,6 +30,7 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { AgencyModalPage } from './modals/agency-modal/agency-modal.page';
 import { FormsModule } from '@angular/forms';
 import { AddCarModalPage } from './modals/add-car-modal/add-car-modal.page';
+import { CarValidateModalPage } from './modals/car-validate-modal/car-validate-modal.page';
 import { ReductionsPage } from './modals/reductions/reductions.page';
 import { AccessHoursPage } from './modals/access-hours/access-hours.page';
 import { CarAvailabilityPage } from './modals/car-availability/car-availability.page';
@@ -78,10 +79,11 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, AgencyModalPage , AddCarModalPage , ReductionsPage , AccessHoursPage , CarAvailabilityPage , CarAvailabilityV1Page,  ReservePage , 
+  declarations: [AppComponent, AgencyModalPage , AddCarModalPage , CarValidateModalPage , ReductionsPage , AccessHoursPage , CarAvailabilityPage , CarAvailabilityV1Page,  ReservePage , 
     MenuListComponent , ClientMenuListComponent],
   entryComponents: [
     AgencyModalPage,
+    CarValidateModalPage,
     AddCarModalPage,
     ReductionsPage,
     AccessHoursPage ,

@@ -45,10 +45,11 @@ export class GlobalsService {
   event_agency=[];
   prevAction = '';
   prevBook = {};
-  myCars = [];
   isViewCars = false;
   users =[];
   user_modify =[];
+  bookings =[];
+  booking_modify=[];
   agencies  =[];
   agency_modify =[];
   cars  =[];
@@ -65,6 +66,29 @@ export class GlobalsService {
   notifications = [];
   selectedDays=[];
   unreadNotif = 0;
+  car_perf_display = [];
+  car_perf = [];
+  booking_state = {
+    done: 0,
+    cancled: 0,
+    waiting_for_validation: 0,
+    verified :0,
+    on_going :0
+  };
+  booking_state_c= {
+    done: '',
+    cancled: '',
+    waiting_for_validation: '',
+    verified :'',
+    on_going :'',
+  }
+
+  summariez_info = {
+    rented_car : 0,
+    free_car : 0,
+    real_balance : 0,
+    theo_balance : 0,
+  }
   barChartLabels: Label[] = ['MONTH.YEAR_BEFOR','MONTH.JANUARY', 'MONTH.FEBRUARY', 'MONTH.MARCH', 'MONTH.APRIL', 'MONTH.MAI', 'MONTH.JUNE', 'MONTH.JULY', 'MONTH.AUGUST','MONTH.SEPTMBER','MONTH.OCOTOBER','MONTH.NOVOMBER','MONTH.DECEMBER'];
   barChartData: ChartDataSets[] = [
     { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], backgroundColor: '#4e73df', hoverBackgroundColor: '#6610f2', label: 'WALLET.INSIDE_BRIDGY' },
@@ -227,7 +251,56 @@ export class GlobalsService {
     }  
   }
 
+  resetAgencyData(){
+    this.rib_modify = [];
+    this.ribs = [];
+    this.kbis_modify = [];
+    this.kbis = [];
+    this.event_agency = [];
+    this.events = [];
+    this.cars = [];
+    this.car_modify = [];
+    this.wallet = [];
+    this.bookings = [];
+    this.booking_modify = [];
+    this.discounts = [];
+    this.discount_modify = [];
+    this.cars = [];
+    this.car_modify = [];
 
+      
+  
+
+  }
+
+  resetDashBoard(){
+    this.summariez_info.free_car = 0;
+    this.summariez_info.rented_car = 0;
+    this.summariez_info.theo_balance = 0;
+    this.summariez_info.real_balance = 0;
+    this.booking_state.cancled = 0;
+    this.booking_state.done = 0;
+    this.booking_state.on_going = 0;
+    this.booking_state.verified = 0;
+    this.booking_state.waiting_for_validation = 0;
+    this.booking_state_c.cancled = '';
+    this.booking_state_c.done = '';
+    this.booking_state_c.on_going ='';
+    this.booking_state_c.verified = '';
+    this.booking_state_c.waiting_for_validation ='';
+
+    for (let i=0; i<this.barChartData[0]['data'].length ; i++){
+      this.barChartData[0]['data'][i] = 0;
+    }
+  }
+
+  resetAdmin(){
+    this.resetAgencyData();
+    this.users = [];
+    this.user_modify = [];
+    this.agencies = [];
+    this.agency_modify = [];
+  } 
 
 
   generateURLPicture(urlImage: string){

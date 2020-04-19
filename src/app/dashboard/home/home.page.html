@@ -9,7 +9,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ 'COMMON.RENTED_CAR'  | translate }}</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{summariez_info.rented_car}}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.glb.summariez_info.rented_car}}</div>
             </div>
             <ion-icon name="car" style="font-size: 75px;color:#595959;"></ion-icon>
           </div>
@@ -24,7 +24,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">{{ 'COMMON.CARS'  | translate }}</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{summariez_info.free_car}}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.glb.summariez_info.free_car}}</div>
             </div>
             <ion-icon name="car" style="font-size: 75px; color:#AEAEAE;"></ion-icon>
           </div>
@@ -41,7 +41,7 @@
               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ 'COMMON.INCOME'  | translate }}</div>
               <div class="row no-gutters align-items-center">
                 <div class="col-auto">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{summariez_info.real_balance}}</div>
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{this.glb.summariez_info.real_balance}}</div>
                 </div>
                 <div class="col">
                   <div class="progress progress-sm mr-2">
@@ -63,7 +63,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">{{ 'COMMON.CREDIT'  | translate }}</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{summariez_info.theo_balance}}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.glb.summariez_info.theo_balance}}</div>
             </div>
             <ion-icon name="wallet" style="font-size: 75px;color:#AEAEAE;"></ion-icon>
           </div>
@@ -152,7 +152,7 @@
                   </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of car_perf_display; let i = index;"> 
+                <tr *ngFor="let item of this.car_perf_display; let i = index;"> 
                   <th scope="row">{{item.model}}</th>
                   <td>{{item.matricule}}</td>
                   <td>{{item.sum}}</td>
@@ -182,25 +182,25 @@
           <h6 class="m-0 font-weight-bold text-primary">{{ 'COMMON.RENTING_IN_HISTORICAL'  | translate }}</h6>
         </div>
         <div class="card-body">
-          <h4 class="small font-weight-bold"> {{ 'RENTRING.ONGOING_DISPLAY'  | translate }} <span class="float-right">{{ this.booking_state.on_going }}</span></h4>
+          <h4 class="small font-weight-bold"> {{ 'RENTRING.ONGOING_DISPLAY'  | translate }} <span class="float-right">{{ this.glb.booking_state.on_going }}</span></h4>
           <div class="progress mb-4">
-            <div class="progress-bar bg-danger" role="progressbar" [style.width]="this.booking_state_c.on_going" aria-valuenow="booking_state[0]['done']" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-danger" role="progressbar" [style.width]="this.glb.booking_state_c.on_going" aria-valuenow="glb.booking_state[0]['done']" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-          <h4 class="small font-weight-bold">{{ 'RENTRING.CANCLED_DISPLAY'  | translate }} <span class="float-right">{{ this.booking_state.cancled}}</span></h4>
+          <h4 class="small font-weight-bold">{{ 'RENTRING.CANCLED_DISPLAY'  | translate }} <span class="float-right">{{ this.glb.booking_state.cancled}}</span></h4>
           <div class="progress mb-4">
-            <div class="progress-bar bg-warning" role="progressbar" [style.width]="this.booking_state_c.cancled"aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-warning" role="progressbar" [style.width]="this.glb.booking_state_c.cancled"aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-          <h4 class="small font-weight-bold">{{ 'RENTRING.WAITING_FOR_CONFIRM_DISPLAY'  | translate }} <span class="float-right">{{ this.booking_state.waiting_for_validation}}</span></h4>
+          <h4 class="small font-weight-bold">{{ 'RENTRING.WAITING_FOR_CONFIRM_DISPLAY'  | translate }} <span class="float-right">{{ this.glb.booking_state.waiting_for_validation}}</span></h4>
           <div class="progress mb-4">
-            <div class="progress-bar" role="progressbar" [style.width]="this.booking_state_c.waiting_for_validation" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar" role="progressbar" [style.width]="this.glb.booking_state_c.waiting_for_validation" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-          <h4 class="small font-weight-bold">{{ 'RENTRING.VALIDATED_DISPLAY'  | translate }} <span class="float-right">{{ this.booking_state.verified }}</span></h4>
+          <h4 class="small font-weight-bold">{{ 'RENTRING.VALIDATED_DISPLAY'  | translate }} <span class="float-right">{{ this.glb.booking_state.verified }}</span></h4>
           <div class="progress mb-4">
-            <div class="progress-bar bg-info" role="progressbar" [style.width]="this.booking_state_c.verified" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-info" role="progressbar" [style.width]="this.glb.booking_state_c.verified" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-          <h4 class="small font-weight-bold"> {{ 'RENTRING.DONE_DISPLAY'  | translate }} <span class="float-right">{{  this.booking_state.done }}</span></h4>
+          <h4 class="small font-weight-bold"> {{ 'RENTRING.DONE_DISPLAY'  | translate }} <span class="float-right">{{  this.glb.booking_state.done }}</span></h4>
           <div class="progress">
-            <div class="progress-bar bg-success" role="progressbar" [style.width]="this.booking_state_c.done" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-success" role="progressbar" [style.width]="this.glb.booking_state_c.done" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
       </div>

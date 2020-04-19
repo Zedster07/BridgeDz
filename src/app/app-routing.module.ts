@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'faq', loadChildren: './faq/faq.module#FaqPageModule' },
   { path: 'ddetagency', loadChildren: './dashboard/dagency/ddetagency/ddetagency.module#DdetagencyPageModule' },
   { path: 'renting', loadChildren: './dashboard/renting/renting.module#RentingPageModule' },
+  { path: 'car-validate-modal', loadChildren: './modals/car-validate-modal/car-validate-modal.module#CarValidateModalPageModule' },
 ];
 
 @NgModule({

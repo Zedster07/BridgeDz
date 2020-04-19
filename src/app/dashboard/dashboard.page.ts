@@ -216,32 +216,72 @@ export class DashboardPage implements OnInit {
       this.loading.presentLoading();
       const id = this.db.getStorage('accID');
       const res = await this.db.FetchAcc();
-      if (res.status === 'success'){
+      if (res.status === 'success') {
       console.log(this.getData(res.data , id));
       const data = this.getData(res.data , id);
       this.glb.AgencyLogData.id =  data['id'];
       this.glb.AgencyLogData.data = data;
       this.glb.AgencyLogData.name =  data['name'];
       this.glb.AgencyLogData.bemail =  data['businessEmail'];
+      // fetch KBIS info if not loaded before.
       if (this.glb.kbis_modify.length === 0){
         const resp = await this.db.fetchKbis(this.glb.AgencyLogData.id);
-        const resp_rib = await this.db.fetchRib(this.glb.AgencyLogData.id);
-        const resp_event = await this.db.fetchEventAgency(this.glb.AgencyLogData.id);
         if (resp['status'] === 'success'){
           this.glb.kbis_modify = resp['data'];
           this.util.debug('ngOnInt kbis', this.glb.kbis_modify);
         } 
+      }
+      // fetch RIB info if not loaded before.
+      if (this.glb.rib_modify.length === 0){
+        const resp_rib = await this.db.fetchRib(this.glb.AgencyLogData.id);
         if (resp_rib['status'] === 'success'){
           this.glb.rib_modify = resp_rib['data'];
           this.util.debug('ngOnInt rib', this.glb.kbis_modify);
         } 
+      }
+    }
+  
+    if (islogged === 'true' || this.glb.ifAdmin(this.glb.user.role)) {
+      // fetch agency event info if not loaded before.
+      if (this.glb.event_agency.length === 0) {
+        const resp_event = await this.db.fetchEventAgency(this.glb.AgencyLogData.id);
         if (resp_event['status'] === 'success'){
+          
           this.glb.event_agency = resp_event['data'];
           this.util2.eventPreparation(this.glb.event_agency, this.glb.events);
+          this.util.debug('fetchEventAgency', this.glb.events);
         }
       } 
-      
-    } 
+    }
+
+    // fetch cars if not fetched.
+   
+    if (islogged === 'true' || this.glb.ifAdmin(this.glb.user.role)) {
+      if (this.glb.cars.length === 0 || this.glb.ifAdmin(this.glb.user.id)) {
+        const res = await this.db.fetchCars(this.glb.AgencyLogData.id, this.glb.user.id);
+        this.util.debug('mycar', res);
+        if(res.status === 'success'){
+        this.glb.cars = res.data;
+        }
+      }
+    }
+
+    if (islogged === 'true' || this.glb.ifAdmin(this.glb.user.role)) {
+      if(this.glb.bookings.length === 0 || this.glb.ifAdmin(this.glb.user.role)){
+        const res_booking = await this.db.fetchBooking('-1', this.glb.AgencyLogData.id);
+        if(res_booking.status === 'success'){
+          this.glb.bookings = res_booking.data;
+        }
+      }
+    }
+
+    this.util.debug('this.glb.cars', this.glb.cars);
+    this.util.debug('this.glb.bookings', this.glb.bookings);
+
+    this.util2.buildPerfCars(this.glb.cars, this.glb.bookings, this.glb.car_perf, this.glb.booking_state, this.glb.booking_state_c);
+    this.util2.fillSummarizeInfo(this.glb.cars, this.glb.wallet, this.glb.summariez_info);
+
+       
       this.loading.dismissLoading();
     } else if (!this.glb.ifAdmin(this.glb.user.role)){
       this.router.navigate(['client']);

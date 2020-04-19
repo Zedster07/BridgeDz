@@ -75,22 +75,10 @@ export class HomePage implements OnInit {
   booking = [];
   wallet = [];
   historical_wallet = [];
-  booking_state = {
-    done: 0,
-    cancled: 0,
-    waiting_for_validation: 0,
-    verified :0,
-    on_going :0
-  };
+   
   index_perf  = 0;
   display_all = 0;
-  booking_state_c= {
-    done: '',
-    cancled: '',
-    waiting_for_validation: '',
-    verified :'',
-    on_going :'',
-  } 
+  
   summariez_info = {
     rented_car : 0,
     free_car : 0,
@@ -98,7 +86,7 @@ export class HomePage implements OnInit {
     theo_balance : 0,
   }
 
-   colors: any = {
+   /*colors: any = {
     red: {
       primary: '#ad2121',
       secondary: '#FAE3E3',
@@ -111,7 +99,7 @@ export class HomePage implements OnInit {
       primary: '#e3bc08',
       secondary: '#FDF1BA',
     },
-  };
+  };*/
 
   modalData: {
     action: string;
@@ -160,7 +148,71 @@ export class HomePage implements OnInit {
 
 
   async ionViewWillEnter() {  
-    this.initialize();
+    //this.initialize();
+                      
+    // retreive dashboard home data
+    this.loading.presentLoading();
+    let agncy_id = this.glb.AgencyLogData.id;
+    if(this.glb.ifAdmin(this.glb.user.role)){
+      agncy_id ='-1';
+    }   
+
+  if (this.glb.cars.length === 0 || this.glb.bookings.length === 0 || this.glb.ifAdmin(this.glb.user.role))
+  {
+    this.glb.resetDashBoard();
+    this.car_perf_display = [];
+    this.glb.cars = [];
+    this.glb.bookings = [];
+    this.glb.car_perf= [];
+    //load car if not loaded.
+    if(this.glb.cars.length === 0 || this.glb.ifAdmin(this.glb.user.role)){
+      const res = await this.db.fetchCars(this.glb.AgencyLogData.id, this.glb.user.id);
+      if(res.status === 'success'){
+        this.glb.cars = res.data;
+      }
+    }
+    // load booking if not laoded.
+    if(this.glb.bookings.length === 0 || this.glb.ifAdmin(this.glb.user.role)){
+      const res_booking = await this.db.fetchBooking('-1', agncy_id);
+      if(res_booking.status === 'success'){
+        this.glb.bookings = res_booking.data;
+      }
+    }
+
+    this.util2.buildPerfCars(this.glb.cars, this.glb.bookings, this.glb.car_perf, this.glb.booking_state, this.glb.booking_state_c);
+  }
+
+    
+
+    // load wallet if not laoded.
+    if(this.glb.wallet.length === 0 || this.glb.ifAdmin(this.glb.user.role)){
+      const res_wallet = await this.db.fetchWallet(agncy_id, this.glb.user.id);
+      if (res_wallet.status === 'success') {
+        this.glb.wallet = res_wallet.data;
+        const res_historical_wallet = await this.db.fetchHistoricalWallet(agncy_id, this.glb.user.id, this.glb.wallet['id']);
+        if (res_historical_wallet.status = 'success') {
+          this.historical_wallet = res_historical_wallet.data;
+          this.util2.prepareHistoricalRevenu(this.historical_wallet, this.glb.barChartData);
+        }
+      }
+    }
+
+    // load event if not laoded.
+    if (this.glb.event_agency.length === 0 || this.glb.ifAdmin(this.glb.user.role)) {
+        this.glb.events = [];
+        const resp_event = await this.db.fetchEventAgency(agncy_id);
+        if (resp_event['status'] === 'success'){
+          this.glb.event_agency = resp_event['data'];
+          this.util2.eventPreparation(this.glb.event_agency, this.glb.events);
+      } 
+    }
+
+
+    
+    this.sortNbrRenting();
+    this.util2.fillSummarizeInfo(this.glb.cars, this.glb.wallet, this.glb.summariez_info);
+    
+   
     this.refresh.next(); 
     this.translator.get(['MONTH.YEAR_BEFOR',
                          'MONTH.JANUARY',
@@ -211,7 +263,6 @@ export class HomePage implements OnInit {
                           this.glb.gaugeLabel_price = val['INDICATOR.PRICE_MEAN'];
                           for (let i=0; i<this.glb.events.length; i++){
                             switch (this.glb.event_agency[i]['type']){
-
                               case '0':
                                 this.glb.events[i]['title'] =
                                    val['EVENT.GIVEN_TITLE'] +
@@ -256,39 +307,6 @@ export class HomePage implements OnInit {
                           }
                         } );
 
-                      
-    // retreive dashboard home data
-    this.loading.presentLoading();
-    let agncy_id = this.glb.AgencyLogData.id;
-    if(this.glb.ifAdmin(this.glb.user.role)){
-      agncy_id ='-1';
-    }   
-
-    const res = await this.db.fetchCars(this.glb.AgencyLogData.id, this.glb.user.id);
-    const res_booking = await this.db.fetchBooking('-1', agncy_id);
-    const res_wallet = await this.db.fetchWallet(agncy_id, this.glb.user.id);
-    
-    
-    if(res.status = 'success'){
-      this.car = res.data;
-    }
-    if(res_booking.status = 'success'){
-      this.booking = res_booking.data;
-    }
-
-    if (res_wallet.status = 'success') {
-      this.wallet = res_wallet.data;
-      const res_historical_wallet = await this.db.fetchHistoricalWallet(agncy_id, this.glb.user.id, this.wallet['id']);
-      if (res_historical_wallet.status = 'success') {
-        this.historical_wallet = res_historical_wallet.data;
-        this.prepareHistoricalRevenu();
-      
-      }
-    }
-    this.buildPerfCars();
-    this.fillSummarizeInfo();
-    
-
     this.loading.dismissLoading();
   }
 
@@ -296,49 +314,49 @@ export class HomePage implements OnInit {
     this.refresh.next();  
   }
 
-  fillSummarizeInfo(){
+  /*fillSummarizeInfo(){
     const today = new Date();
     const str = today.getFullYear().toString() +'/' + (today.getMonth()+1).toString() +'/' + (today.getDate()).toString();
-    for(let i =0 ; i < this.car.length ; i++){ 
-      if ((this.car[i]['busy']).includes(str) || (this.car[i]['prebooked']).includes(str))  
+    for(let i =0 ; i < this.glb.cars.length ; i++){ 
+      if ((this.glb.cars[i]['busy']).includes(str) || (this.glb.cars[i]['prebooked']).includes(str))  
       { 
-          this.summariez_info.rented_car++;
+          this.glb.summariez_info.rented_car++;
       } else {
-          this.summariez_info.free_car++;
+          this.glb.summariez_info.free_car++;
       }
     }
-    if (this.wallet.length !== 0){
-      this.summariez_info.real_balance = this.wallet['realBalance'];
-      this.summariez_info.theo_balance = this.wallet['theoBalance'];
+    if (this.glb.wallet.length !== 0){
+      this.glb.summariez_info.real_balance = this.glb.wallet['realBalance'];
+      this.glb.summariez_info.theo_balance = this.glb.wallet['theoBalance'];
     } 
-  }
+  }*/
 
-  buildPerfCars(){
-    for(let i =0 ; i < this.car.length ; i++){ 
+  /*buildPerfCars(){
+    for(let i =0 ; i < this.glb.cars.length ; i++){ 
        let nbr_renting  = 0;
        let sum = 0;
-       for (let j=0; j< this.booking.length ; j++){
-        if (this.car[i]['id'] === this.booking[j]['vehicleID']){
+       for (let j=0; j< this.glb.bookings.length ; j++){
+        if (this.glb.cars[i]['id'] === this.glb.bookings[j]['vehicleID']){
           nbr_renting = nbr_renting + 1;
-          sum = sum + parseFloat(this.booking[j]['totalPrice']);
+          sum = sum + parseFloat(this.glb.bookings[j]['totalPrice']);
          }  
        }
        const tmp = {
         index :i,
-        model : this.car[i]['model'],
-        matricule :this.car[i]['brand'],
+        model : this.glb.cars[i]['model'],
+        matricule :this.glb.cars[i]['brand'],
         nbr_renting :nbr_renting,
         sum: sum,
        } 
     this.car_perf.push(tmp);
     } 
     this.sortNbrRenting();
-    this.buildBookingInState();
-  }
+    this.util2.buildBookingInState(this.glb.bookings, this.booking_state, this.booking_state_c);
+  }*/
 
-  buildBookingInState(){
-    for (let i= 0; i< this.booking.length ; i++){
-      switch (this.booking[i]['status']){
+  /*buildBookingInState(){
+    for (let i= 0; i< this.glb.bookings.length ; i++){
+      switch (this.glb.bookings[i]['status']){
         case '0':
           this.booking_state.done++;
         break;
@@ -357,18 +375,18 @@ export class HomePage implements OnInit {
       }   
     } 
     
-    let max = this.maxStatus();  
+    let max = this.util2.maxStatus(this.booking_state);  
     this.booking_state_c.done = ((this.booking_state.done / max) * 100).toString() +'%';
     this.booking_state_c.cancled = ((this.booking_state.cancled / max) * 100).toString() +'%';
     this.booking_state_c.waiting_for_validation = ((this.booking_state.waiting_for_validation / max) * 100).toString() +'%';
     this.booking_state_c.verified = ((this.booking_state.verified / max) * 100).toString() +'%';
     this.booking_state_c.on_going = ((this.booking_state.on_going / max) * 100).toString() +'%';
-  }  
+  }  */
   buildBookingOutState(){
   } 
 
 
-  prepareHistoricalRevenu(){
+  /*prepareHistoricalRevenu(){
     
     let xx = this.util.getYearString();
     for (let i =0; i < this.historical_wallet.length; i++){
@@ -378,9 +396,9 @@ export class HomePage implements OnInit {
         this.glb.barChartData[this.historical_wallet[i]['type']]['data'][0] = parseInt(this.historical_wallet[i]['value']);
       } 
     }  
-  }  
+  } */ 
   
-  maxStatus (){
+  /*maxStatus (){
     let max = this.booking_state.done;
     if (max < this.booking_state.cancled){
       max = this.booking_state.cancled;
@@ -395,38 +413,42 @@ export class HomePage implements OnInit {
       max = this.booking_state.on_going;
     }  
     return max;
-  }  
+  }*/
 
-  sortNbrRenting(){
-    this.car_perf_display=[];
-    this.car_perf.sort((a, b)=> b.nbr_renting - a.nbr_renting);
-    let index =this.car_perf.length > 6 ? 6 : this.car_perf.length;
-    if(this.display_all === 0){
-      for (let i =0; i<index; i++){
-        this.car_perf_display.push(this.car_perf[i]);
-      }
-    } else {
-      this.car_perf_display = this.car_perf;
-    } 
-  } 
+  /**/
 
   sortSum(){
     this.car_perf_display=[];
     this.car_perf.sort((a, b)=> b.sum - a.sum);
-    let index =this.car_perf.length > 6 ? 6 : this.car_perf.length;
+    let index =this.glb.car_perf.length > 6 ? 6 : this.glb.car_perf.length;
     if(this.display_all === 0){
        for (let i =0; i<index; i++){
-      this.car_perf_display.push(this.car_perf[i]);
+      this.car_perf_display.push(this.glb.car_perf[i]);
     } 
   } else {
-    this.car_perf_display = this.car_perf;
+    this.car_perf_display = this.glb.car_perf;
   } 
 }
+
+sortNbrRenting(){
+  this.car_perf_display=[];
+  this.util.debug('util2 1 sortNbrRenting', this.car_perf_display );
+  this.glb.car_perf.sort((a, b)=> b.nbr_renting - a.nbr_renting);
+  let index =this.glb.car_perf.length > 6 ? 6 : this.glb.car_perf.length;
+  if(this.display_all === 0){
+    for (let i =0; i<index; i++){
+      this.car_perf_display.push(this.glb.car_perf[i]);
+    }
+  } else {
+    this.car_perf_display = this.glb.car_perf;
+  } 
+} 
 
   displayAll(){
     if(this.display_all === 0){
         this.display_all = 1;
         this.sortNbrRenting();
+        this.util.debug('displayALL', this.glb.car_perf_display);
     } else {
       this.display_all = 0;
       this.sortNbrRenting();
@@ -444,10 +466,10 @@ export class HomePage implements OnInit {
     for (let i=0; i<this.bpiChartData[0]['data'].length; i++) {
       //this.bpiChartData[0]['data'][i] = 0;
     } 
-    this.summariez_info.free_car =0;
-    this.summariez_info.real_balance = 0;
-    this.summariez_info.rented_car = 0;
-    this.summariez_info.theo_balance = 0;
+    this.glb.summariez_info.free_car =0;
+    this.glb.summariez_info.real_balance = 0;
+    this.glb.summariez_info.rented_car = 0;
+    this.glb.summariez_info.theo_balance = 0;
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {

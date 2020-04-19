@@ -682,7 +682,7 @@ export class AddCarModalPage implements OnInit {
     const id = this.db.getStorage('accID');
     const res = await this.db.fetchCars(id, this.glb.user.id);
     if (res && res.status !== 'failure') {
-      this.glb.myCars = res.data;
+      this.glb.cars = res.data;
       this.closeModal();
     }
   }
