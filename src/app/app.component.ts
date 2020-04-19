@@ -163,8 +163,7 @@ export class AppComponent   {
       daysdif = daysdif / 60;
       daysdif = daysdif / 60;
       daysdif = daysdif / 24;
-      this.daysdif = daysdif;
-      console.log(this.daysdif);
+      this.glb.daysdif = daysdif;
     }
   }
   initializeApp() {

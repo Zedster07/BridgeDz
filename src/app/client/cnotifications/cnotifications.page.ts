@@ -52,7 +52,12 @@ export class CnotificationsPage implements OnInit {
     nicon.setAttribute('name' , 'checkmark-circle');
     this.unreadD -= 1;
   }
-
+  async locRespond(value , target) {
+    const res = await this.db.clientLocResponse(value , target);
+    if (res['status'] === 'success') {
+      this.db.fetchNotifications('1');
+    }
+  }
   rejectDemand(val: number) {
     this.unreadD -= 1;
     this.demandeLoc[val - 1].accepted = -1;

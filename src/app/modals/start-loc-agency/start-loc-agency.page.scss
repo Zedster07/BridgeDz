@@ -1,0 +1,15 @@
+.row div {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.nav-item {
+    color: silver;
+}
+.activem {
+    color: var(--ion-color-primary);
+}
+ion-slide:hover{
+    cursor: pointer;
+}

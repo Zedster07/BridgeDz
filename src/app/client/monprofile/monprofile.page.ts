@@ -240,6 +240,7 @@ export class MonprofilePage implements OnInit {
           this.verifyAccData.versoimg = formdata;
         }
       };
+     
       reader.onloadend = () => {
         this.loading.dismissLoading();
       };

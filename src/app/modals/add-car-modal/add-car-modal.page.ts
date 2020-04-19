@@ -143,7 +143,7 @@ export class AddCarModalPage implements OnInit {
               console.log( `Done` );
               break;
             default:
-              //console.log( `Something went wrong` );
+              // console.log( `Something went wrong` );
           }
         }, err => {
           console.error(err);

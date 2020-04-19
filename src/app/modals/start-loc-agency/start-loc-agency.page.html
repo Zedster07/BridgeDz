@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar>
+    <ul class="nav nav-pills nav-fill p-2 pt-3">
+      <li class="nav-item" [ngClass]="{activem: step == 1}" (click)="alertt('dada')">
+        
+          <ion-icon name="map" size="large"></ion-icon>
+      
+      </li>
+      <li class="nav-item" [ngClass]="{activem: step == 2}">
+        <ion-icon name="notifications" size="large"></ion-icon>
+      </li>
+      <li class="nav-item" [ngClass]="{activem: step == 3}">
+        <ion-icon name="moon" size="large"> </ion-icon>
+      </li>
+      <li class="nav-item" [ngClass]="{activem: step == 4}">
+        <ion-icon name="person" size="large"></ion-icon>
+      </li>
+      <li class="nav-item" [ngClass]="{activem: step == 5}">
+        <ion-icon name="mail" size="large"></ion-icon>
+      </li>
+    </ul>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides #Inventaire [options]="slideOptsOne" style="height: 100%;">
+    <ion-slide style="height: 100%;" (click)="uploadPic('bll')">
+        <div class="container" id="bll" style="height: 100%; width: 100%; background-image: url('http://localhost/bridgedz/images/bll.jpg'); background-position: center center; background-size: cover;">
+
+        </div>
+        <input type="file" id="bllfile" style="display: none;">
+    </ion-slide>
+    <ion-slide style="height: 100%;" (click)="uploadPic('blr')">
+      <div class="container" id="blr" style="height: 100%; width: 100%; background-image: url('http://localhost/bridgedz/images/blr.jpg'); background-position: center center; background-size: cover;">
+
+      </div>
+      <input type="file" id="blrfile" style="display: none;">
+  </ion-slide>
+  <ion-slide style="height: 100%;" (click)="uploadPic('flr')">
+    <div class="container" id="flr" style="height: 100%; width: 100%; background-image: url('http://localhost/bridgedz/images/flr.jpg'); background-position: center center; background-size: cover;">
+
+    </div>
+    <input type="file" id="flrfile" style="display: none;">
+</ion-slide>
+<ion-slide style="height: 100%;" (click)="uploadPic('fll')">
+  <div class="container" id="fll" style="height: 100%; width: 100%; background-image: url('http://localhost/bridgedz/images/fll.jpg'); background-position: center center; background-size: cover;">
+
+  </div>
+  <input type="file" id="fllfile" style="display: none;">
+</ion-slide>
+<ion-slide style="height: 100%;" (click)="uploadPic('inside')">
+  <div class="container" id="inside" style="height: 100%; width: 100%; background-image: url('http://localhost/bridgedz/images/inside.jpg'); background-position: center center; background-size: cover;">
+
+  </div>
+  <input type="file" id="insidefile" style="display: none;">
+</ion-slide>
+
+<ion-slide style="height: 100%;">
+  <div class="container" id="inside" style="height: 100%; width: 100%; ">
+    <p class="p-5">{{msg}}</p>
+  </div>
+  
+</ion-slide>
+  </ion-slides>
+
+
+
+
+
+  <!-- <div class="row" style="height: 30%;">
+    <div class="col-6" style="height: 100%; border: 1px solid white; position: relative;"  >
+      <img src="http://localhost/bridgedz/images/bll.jpg" id="bll" style="height: 100%; width: 100%;" (click)="uploadPic('bll')" />
+      <input type="file" id="bll-file" style="display: none;">
+    </div>
+    <div class="col-6" style="height: 100%; border: 1px solid white;"  > 
+      <input type="file" id="blr-file" style="display: none;">
+      <img src="http://localhost/bridgedz/images/blr.jpg" id="blr" style="height: 100%; width: 100%;" (click)="uploadPic('blr')" />
+    </div>
+
+  </div>
+  <div class="row" style="height: 40%;">
+    <div class="col-12" style="height: 100%; border: 1px solid white; background-image: url('http://localhost/bridgedz/images/inside.jpg');" ></div>
+  </div>
+  <div class="row" style="height: 30%;">
+    <div class="col-6" style="height: 100%; border: 1px solid white;" (click)="uploadPic('fll')" >
+      
+      <img src="http://localhost/bridgedz/images/fll.jpg" id="fll" style="height: 100%; width: 100%;" />
+      <input type="file" id="fll-file" style="display: none;">
+    </div>
+    <div class="col-6" style="height: 100%; border: 1px solid white;" (click)="uploadPic('flr')" >
+      
+      <img src="http://localhost/bridgedz/images/flr.jpg" id="flr" style="height: 100%; width: 100%;" />
+      <input type="file" id="flr-file" style="display: none;">
+    </div>
+  </div> -->
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="dark" (click)="slidePrev(Inventaire)" *ngIf="this.step !== 1">
+        <ion-icon name="arrow-round-back" slot="start"></ion-icon>
+        Précedent
+      </ion-button>
+      <ion-button color="primary" (click)="slideNext(Inventaire)">
+        <span *ngIf="this.step < 5">Suivant</span>
+        <span *ngIf="this.step === 5">Confirmer</span>
+        <span *ngIf="this.step === 6">Terminer</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

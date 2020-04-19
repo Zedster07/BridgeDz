@@ -23,6 +23,52 @@ export class DbinteractionsService {
     setStorage(key , value) {
       this.logserv.setLocalstorage(key , value);
     }
+    async startLocnew(id , pictures , clientID): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'startLoc').append('clientID' , clientID)
+      .append('idbooking' , id).append('fll' , pictures['fll']).append('flr' , pictures['flr'])
+      .append('bll' , pictures['bll']).append('blr' , pictures['blr']).append('inside', pictures['inside']);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+    async clientLocResponse(response , id): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'clientLocResponse')
+      .append('bookid' , id).append('value' , response);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async startLoc(id , vid): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'startLoc')
+      .append('idbooking' , id).append('vid' , vid);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+    async getMLocs(): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'getMlocs')
+      .append('iduser' , this.glb.AgencyLogData.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
 
     async reloadEvents(idcar) {
       const httpparams = new HttpParams().append('request' , 'loadEvents')
@@ -224,23 +270,35 @@ export class DbinteractionsService {
         return false;
       });
     }
-    countNotifs(notifs: any) {
+    countNotifs(notifs: any , type?) {
+      console.log(notifs);
       let unread = 0;
       let notifications = [];
       notifs.forEach(element => {
-        let notification = {};
-        if (element['read_stat'] === '0') {
-          unread += 1;
+        if (element['read_stat'] !== '2') {
+          let notification = {};
+          if (element['read_stat'] === '0') {
+            unread += 1;
+          }
+          notification['id'] = element['id'];
+          notification['ntype'] = element['ntype'];
+          notification['target'] = element['target'];
+          notification['title'] = element['title'];
+          notification['desc'] = element['message'];
+          notification['read'] = this.isRead(element['read_stat']);
+          notification['icon'] = notification['read'] ? 'checkmark-circle' : 'radio-button-off';
+          notifications.push(notification);
         }
-        notification['id'] = element['id'];
-        notification['title'] = element['title'];
-        notification['desc'] = element['message'];
-        notification['read'] = this.isRead(element['read_stat']);
-        notification['icon'] = notification['read'] ? 'checkmark-circle' : 'radio-button-off';
-        notifications.push(notification);
       });
-      this.glb.notifications = notifications;
-      this.glb.unreadNotif = unread;
+
+      if (type === 1) {
+        this.glb.notifications = notifications;
+        this.glb.unreadNotif = unread;
+      } else {
+        this.glb.AgencyLogData.notificationDat = notifications;
+        this.glb.AgencyLogData.notificationsCount = unread;
+      }
+
     }
     async setRead(id: number) {
       const httpparams = new HttpParams()
@@ -255,11 +313,22 @@ export class DbinteractionsService {
     isRead(val: string) {
       return val === '1' ? true : false;
     }
+    async fetchDashNotifications(id) {
+      const httpparams = new HttpParams()
+      .append('request' , 'fetchNotifications').append('id' , id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php',  httpparams ).toPromise().then( resp => {
+        this.countNotifs(resp.data , 2);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
     async fetchNotifications(type: string) {
       const httpparams = new HttpParams()
       .append('request' , 'fetchNotifications').append('id' , this.glb.user.id).append('type' , type);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php',  httpparams ).toPromise().then( resp => {
-        this.countNotifs(resp.data);
+        this.countNotifs(resp.data , 1);
         return resp;
       }).catch(err => {
         console.error(err);

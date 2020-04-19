@@ -21,7 +21,7 @@
                     <ion-icon name="search"></ion-icon> Adresse
                    </ion-label>
                    <div class="input-container">
-                     <ion-input placeholder="Adresse" class="" [(ngModel)]="glb.searchQuery.address"></ion-input>
+                     <ion-input placeholder="Adresse" (click)="showSearchModal()" class="" [(ngModel)]="glb.searchQuery.address"></ion-input>
                     </div>
                   </ion-item>
                </ion-col>

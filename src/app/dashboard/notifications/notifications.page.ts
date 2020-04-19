@@ -1,5 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { GlobalsService } from 'src/app/services/globals.service';
+import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
+import { ModalController } from '@ionic/angular';
+import { StartLocAgencyPage } from 'src/app/modals/start-loc-agency/start-loc-agency.page';
 
 @Component({
   selector: 'app-notifications',
@@ -11,35 +14,6 @@ export class NotificationsPage implements OnInit {
   tabVal = 'general';
   moseov = false;
   iconName = 'radio-button-off';
-  demandeLoc = [
-    {
-      id: 1,
-      title: 'Demand 1',
-      start: '12/03/2019 à 10h',
-      end: '15/03/2019 à 10h',
-      duree: '3 jours',
-      prix: '120 euros',
-      rdv: '10h à Aéroport de XXXX',
-      apermis: 'XX années',
-      accepted: 0,
-      read: false,
-      icon: 'radio-button-off'
-    },
-    {
-      id: 2,
-      title: 'Demand 2',
-      start: '12/03/2019 à 10h',
-      end: '15/03/2019 à 10h',
-      duree: '3 jours',
-      prix: '120 euros',
-      rdv: '10h à Aéroport de XXXX',
-      apermis: 'XX années',
-      accepted: 1,
-      read: true,
-      icon: 'checkmark-circle'
-    }
-  ];
-
   notifications = [
     {
       id: 1,
@@ -70,11 +44,12 @@ export class NotificationsPage implements OnInit {
       icon: 'radio-button-off'
     }
   ];
-  unreadD = 1;
-  unreadN = 2;
-  constructor(private elem: ElementRef , public glb: GlobalsService) {}
+   
+  constructor(
+    private db: DbinteractionsService, 
+    public glb: GlobalsService, 
+    private modalController: ModalController) {}
   setRead(val: number) {
-    this.unreadN -= 1;
     this.glb.AgencyLogData.notificationsCount -= 1;
     this.notifications[val - 1].icon = 'checkmark-circle';
     this.notifications[val - 1].read = false;
@@ -84,17 +59,30 @@ export class NotificationsPage implements OnInit {
    // elem.className += ' item-read';
     
   }
+
   setTabVal( val: string) {
     this.tabVal = val;
   }
+
   showTab(val: string): boolean {
     if (val === this.tabVal) {
       return true;
     }
     return false;
   }
-
-  ngOnInit() {
+  async startProcess(target) {
+    const modal = await this.modalController.create({
+      component: StartLocAgencyPage,
+      backdropDismiss: false,
+      componentProps: {
+        data: target
+      }
+    });
+    return await modal.present();
   }
+  async ionViewWillEnter() {
+    const res = await this.db.fetchDashNotifications(this.glb.AgencyLogData.id);
+  }
+  async ngOnInit() {}
 
 }

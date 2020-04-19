@@ -39,6 +39,10 @@ import { MenuListComponent } from './menu-list/menu-list.component';
 import { ClientMenuListComponent } from './client/client-menu-list/client-menu-list.component';
 import { Ionic4DatepickerModule } from '@logisticinfotech/ionic4-datepicker';
 import { IonicTimepickerModule } from '@logisticinfotech/ionic-timepicker';
+import { VoituresPipe } from './admin/voitures.pipe';
+import { StartLocClientPage } from './modals/start-loc-client/start-loc-client.page';
+import { StartLocAgencyPage } from './modals/start-loc-agency/start-loc-agency.page';
+import { SearchGoogleAddressPage } from './modals/search-google-address/search-google-address.page';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -62,13 +66,16 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
 
 @NgModule({
   declarations: [AppComponent, AgencyModalPage , AddCarModalPage , ReductionsPage , AccessHoursPage , CarAvailabilityPage , ReservePage , 
-    MenuListComponent , ClientMenuListComponent],
+    MenuListComponent , ClientMenuListComponent, VoituresPipe , StartLocClientPage , StartLocAgencyPage , SearchGoogleAddressPage],
   entryComponents: [
+    SearchGoogleAddressPage,
     AgencyModalPage,
     AddCarModalPage,
     ReductionsPage,
     AccessHoursPage ,
     CarAvailabilityPage ,
+    StartLocClientPage,
+    StartLocAgencyPage,
     ReservePage ,
     MenuListComponent, ClientMenuListComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,

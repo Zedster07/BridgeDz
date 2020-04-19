@@ -10,6 +10,7 @@ export class GlobalsService {
   isMainPage = true;
   isSearchPage = false;
   isDashbPage = false;
+  daysdif = 1;
   searchQuery = {
     address: '',
     startdate: '',
@@ -24,6 +25,7 @@ export class GlobalsService {
     notificationsCount: 2,
     DemandesCount: 0,
     demandeLoc: [],
+    notificationDat: [],
     id: '',
     name: '',
     bemail: '',
@@ -58,14 +60,12 @@ export class GlobalsService {
   isLoading = false;
   todaysDate = new Date();
   public hostServer = 'http://localhost/bridgedz/';
-  //public hostServer = 'https://bridgedz.000webhostapp.com/';
   //public hostServer = '';
 
   constructor(
     public popover: PopoverController,
     private http: HttpClient,
     private loading: LoadingService) {
-
       this.searchQuery.starttime = '12:00 AM';
       this.searchQuery.endtime = '12:00 PM';
     // tslint:disable-next-line: max-line-length
@@ -92,6 +92,7 @@ export class GlobalsService {
       notificationsCount: 0,
       DemandesCount: 0,
       demandeLoc: [],
+      notificationDat: [],
       id: '',
       name: '',
       bemail: '',

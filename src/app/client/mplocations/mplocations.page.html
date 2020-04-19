@@ -4,10 +4,14 @@
   <div class="col-12">
     <div class="row">
       <div class="col-12 ion-margin" style="border-bottom: 1px solid silver; padding:0px; padding-bottom: 10px;">
-        <h3>Mes Prochaines Locations</h3>
+        <h3>Mes Locations</h3>
       </div>
     </div>
     <!-- Cars -->
+    <div class="alert alert-info" role="alert" *ngIf="mylocations.length === 0">
+      Aucun résultat trouvé !
+    </div>
+    <div *ngFor="let item of mylocations; let i = index;"> 
     <div class="row">
       <div class="col-lg-4 col-md-12">
         <ion-img src="assets/images/clio.jpg"></ion-img>
@@ -23,91 +27,33 @@
         </span>
         <h6> Paris Orly (ORY), Orly, France</h6>
         <p> 10/12/2019 - 15/12/2019</p>
-        <ion-button fill="outline" color="success" disabled>
+        <ion-button fill="outline" color="success" *ngIf="mylocations[i]['status'] === '1'" disabled>
           <ion-icon name="checkbox-outline" slot="start"></ion-icon>
           Confirmé
         </ion-button>
+
+        <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['status'] === '0'" disabled>
+          <ion-icon name="clock" slot="start"></ion-icon>
+          En attent
+        </ion-button>
+
+
       </div>
       <div class="col-lg-3 col-md-12 float-right">
         <div>
-          
             <ion-button class="ion-margin" expand="full"  color="light">
                 Changer l'Heure
               </ion-button>
-              <ion-button class="ion-margin" color="primary" expand="full">Annuler</ion-button>
-          
+              <!-- <ion-button class="ion-margin" expand="full"  color="primary" *ngIf="mylocations[i]['status'] === '1'" (click)="startL(i)">
+                Démarrer
+              </ion-button>               -->
+              <ion-button class="ion-margin" color="danger" expand="full">Annuler</ion-button>
           </div>
       </div>
     </div>
 
     <ion-item-divider style="margin-bottom: 40px;" ></ion-item-divider>
-
-    <div class="row">
-        <div class="col-lg-4 col-md-12">
-          <ion-img src="assets/images/clio.jpg"></ion-img>
-        </div>
-        <div class="col-lg-5 col-md-12">
-          <h3>Renault Clio</h3>
-          <span>
-              <ion-icon name="star" color="warning"></ion-icon>
-              <ion-icon name="star" color="warning"></ion-icon>
-              <ion-icon name="star" color="warning"></ion-icon>
-              <ion-icon name="star" color="warning"></ion-icon>
-              <ion-icon name="star" color="warning"></ion-icon>
-          </span>
-          <h6> Paris Orly (ORY), Orly, France</h6>
-          <p> 10/12/2019 - 15/12/2019</p>
-          <ion-button fill="outline" color="warning" disabled>
-            <ion-icon name="clipboard" slot="start"></ion-icon>
-            Pré-Confirmé
-          </ion-button>
-
-        </div>
-        <div class="col-lg-3 col-md-12">
-            <div>
-              
-                <ion-button class="ion-margin" expand="full"  color="light">
-                    Changer l'Heure
-                  </ion-button>
-                  <ion-button class="ion-margin" color="primary" expand="full">Annuler</ion-button>
-              
-              </div>
-          </div>
-      </div>
-
-      <ion-item-divider style="margin-bottom: 40px;" ></ion-item-divider>
-      <div class="row">
-        <div class="col-lg-4 col-md-12">
-          <ion-img src="assets/images/clio.jpg"></ion-img>
-        </div>
-        <div class="col-lg-5 col-md-12">
-          <h3>Renault Clio</h3>
-          <span>
-              <ion-icon name="star" color="warning"></ion-icon>
-              <ion-icon name="star" color="warning"></ion-icon>
-              <ion-icon name="star" color="warning"></ion-icon>
-              <ion-icon name="star" color="warning"></ion-icon>
-              <ion-icon name="star" color="warning"></ion-icon>
-          </span>
-          <h6> Paris Orly (ORY), Orly, France</h6>
-        <p> 10/12/2019 - 15/12/2019</p>
-          <ion-button fill="outline" color="danger" disabled>
-            <ion-icon name="close" slot="start"></ion-icon>
-            Refusé
-          </ion-button>
-
-        </div>
-        <div class="col-lg-3 col-md-12">
-            <div>
-              
-                <ion-button class="ion-margin" expand="full"  color="light">
-                  Changer l'Heure
-                </ion-button>
-                <ion-button class="ion-margin" color="primary" expand="full">Annuler</ion-button>
-              
-              </div>
-          </div>
-      </div>
+  </div>
 
     <!-- Cars End -->
   </div>

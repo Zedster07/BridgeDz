@@ -69,8 +69,13 @@ export class DashboardPage implements OnInit {
     this.selectedPath = this.router.url;
     setInterval(() => {
       this.fetchDemandes();
-     }, 3000);
+      this.fetchNotification();
+     }, 30000);
   }
+  async fetchNotification() {
+    const res = await this.db.fetchDashNotifications(this.glb.AgencyLogData.id);
+  }
+
   async fetchDemandes() {
     const res = await this.db.fetchDemands(this.glb.AgencyLogData.id);
     console.log(res);

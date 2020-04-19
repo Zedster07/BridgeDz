@@ -1,11 +1,12 @@
 import { Component, ViewChild , OnInit} from '@angular/core';
-import { PopoverController, PickerController } from '@ionic/angular';
+import { PopoverController, PickerController, ModalController } from '@ionic/angular';
 import { MenuListComponent } from '../menu-list/menu-list.component';
 import { AnimationBuilder, PickerOptions } from '@ionic/core';
 import { GlobalsService } from '../services/globals.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
+import { SearchGoogleAddressPage } from '../modals/search-google-address/search-google-address.page';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -107,6 +108,7 @@ export class HomePage implements OnInit {
     private pickerCtrl: PickerController,
     public glb: GlobalsService,
     private route: Router,
+    private modalCtrl: ModalController,
     private loading: LoadingService ) {
       if (window.screen.width <= 360 ) {
         this.isPhone = true;
@@ -127,7 +129,11 @@ export class HomePage implements OnInit {
   myFunction() {
     console.log('something');
   }
-
+  async showSearchModal() {
+    let modal = await this.modalCtrl.create({component: SearchGoogleAddressPage});
+    let me = this;
+    modal.present();
+  }
   LoginAct() {
     if (this.loginserv.isLoggedIn()) {
       this.route.navigate(['client']);

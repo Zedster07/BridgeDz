@@ -14,8 +14,8 @@ import { ClientMenuListComponent } from '../client/client-menu-list/client-menu-
 })
 export class SearchPage implements OnInit {
   rangeSettings = {
-    lower: 500,
-    upper: 1500
+    lower: 250,
+    upper: 750
   };
   @ViewChild('finDate' , {static: true} ) finDate;
   @ViewChild('debutDate' , {static: true} ) debutDate;
@@ -168,7 +168,7 @@ export class SearchPage implements OnInit {
       // backdropDismiss: false,
       componentProps: {
         type: '',
-        days: this.daysdif,
+        days: this.glb.daysdif,
         data: CarData
       }
     });

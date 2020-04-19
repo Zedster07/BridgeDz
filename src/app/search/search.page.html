@@ -8,7 +8,7 @@
             <ion-item-group class="ion-padding">
               <h2>Prix</h2>
               <ion-item>
-                <ion-range dualKnobs="true" pin="true" [(ngModel)]="searchFilter.price" snaps="true" min="0" max="2000" step="2" (ionChange)="myFunction()">
+                <ion-range dualKnobs="true" pin="true" [(ngModel)]="searchFilter.price" snaps="true" min="0" max="1000" step="2" (ionChange)="myFunction()">
                   <ion-icon size="small" slot="start" name="remove-circle-outline"></ion-icon>
                   <ion-icon size="small" slot="end" name="add-circle-outline"></ion-icon>
                 </ion-range>
@@ -95,10 +95,11 @@
                     <ion-icon [attr.name]="item.Revs < 4 ? 'star-outline' : 'star' " color="warning"></ion-icon>
                     <ion-icon [attr.name]="item.Revs < 5 ? 'star-outline' : 'star' " color="warning"></ion-icon>
                   </div>
+                  
                   <div class="col-6">
                     <div style="float: right; text-align: center;">
-                      <h1 style="font-size: 40px; color: black;">{{this.daysdif*item.pricePerDay}}€</h1>
-                      <h3>POUR {{this.daysdif}} JOUR<span *ngIf="this.daysdif > 1">S</span></h3>
+                      <h1 style="font-size: 40px; color: black;">{{this.glb.daysdif*item.pricePerDay}}€</h1>
+                      <h3>POUR {{this.glb.daysdif}} JOUR<span *ngIf="this.glb.daysdif > 1">S</span></h3>
                     </div>
                     
                   </div>

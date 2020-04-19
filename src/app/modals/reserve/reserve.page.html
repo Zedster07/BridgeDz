@@ -1,29 +1,72 @@
 <ion-content>
-  <ion-slides pager="true" [options]="slideOpts" style="height: 300px;">
-    <ion-slide class="border" *ngFor="let item of picsList" style="margin-right: 10px;">
-      <div [ngStyle]="{'background-image':'url('+item+')'}" style="background-position: center; background-size: cover;height: 100%; width: 100%;"></div>
+  <ion-slides [options]="slideOpts2" #reserve style="height: 100%; width: 100%; padding: 0px;">
+    <ion-slide style="height: 100%; width: 100%; flex-direction: column; align-items: center; justify-content: start;">
+      
+        <ion-slides pager="true" [options]="slideOpts" style="height: 300px; width: 100%;">
+          <ion-slide class="border" *ngFor="let item of picsList" style="margin-right: 10px;">
+            <div [ngStyle]="{'background-image':'url('+item+')'}" style="background-position: center; background-size: cover;height: 100%; width: 100%;"></div>
+          </ion-slide>
+        </ion-slides>
+     
+      
+      <div class="row ion-padding">
+        <div class="col-12" style="text-align: center;">
+          <h3> 2014  5 places</h3>
+          <h1 style="margin-top: 5px; margin-bottom: 5px;">{{data['brand'].toUpperCase()}} {{data['model'].toUpperCase()}}</h1>
+          <ion-icon [attr.name]="data['Revs'] < 1 ? 'star-outline' : 'star' " color="warning"></ion-icon>
+          <ion-icon [attr.name]="data['Revs'] < 2 ? 'star-outline' : 'star' " color="warning"></ion-icon>
+          <ion-icon [attr.name]="data['Revs'] < 3 ? 'star-outline' : 'star' " color="warning"></ion-icon>
+          <ion-icon [attr.name]="data['Revs'] < 4 ? 'star-outline' : 'star' " color="warning"></ion-icon>
+          <ion-icon [attr.name]="data['Revs'] < 5 ? 'star-outline' : 'star' " color="warning"></ion-icon>
+        </div>
+        <div class="col-12" style="text-align: center;">
+          <ion-button color="warning" size="small" (click)="slidenext(reserve)"> Laissez un commentaire</ion-button>
+        </div>
+        
+      </div>
+      
+      <div style="width: 100%; margin: 0 auto; text-align: center; position: absolute; bottom: 0; " class="border">
+        <h1 style="font-size: 40px;">{{days*data['pricePerDay']}}€</h1>
+        <h5>POUR {{this.days}} JOUR<span *ngIf="this.days > 1">S</span></h5>
+        <ion-button size="large" expand="block" (click)="reserverCar()">
+          <ion-icon name="calendar" slot="start"></ion-icon>
+          Réserver
+        </ion-button>
+      </div>
+    
+    </ion-slide>
+    <ion-slide style="height: 100%; width: 100%; flex-direction: column; align-items: center; justify-content: start;"> 
+      <ion-header>
+        <ion-toolbar>
+          
+        <ion-title>Laissez un commentaire</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <div style=" width: 100%; height: 100%; padding: 10px;" >
+        <div class="row">
+          <div class="col-12">
+          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Nom"></div></div>
+          <div class="row p-2">
+            <div class="col-12">
+              <ion-icon name="star-outline" color="warning"></ion-icon>
+              <ion-icon name="star-outline" color="warning"></ion-icon>
+              <ion-icon name="star-outline" color="warning"></ion-icon>
+              <ion-icon name="star-outline" color="warning"></ion-icon>
+              <ion-icon name="star-outline" color="warning"></ion-icon>
+            </div>
+            
+          </div>
+          
+          
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="Commentaire"></textarea>
+        </div>
+        <ion-footer>
+          <ion-toolbar>
+          <ion-button (click)="slideprev(reserve)" color="light">Annuler </ion-button>
+          <ion-button>Enovyer </ion-button>
+        </ion-toolbar>  
+        </ion-footer>
     </ion-slide>
   </ion-slides>
-  <div class="row ion-padding">
-    <div class="col-12" style="text-align: center;">
-      <h3> 2014  5 places</h3>
-      <h1 style="margin-top: 5px; margin-bottom: 5px;">{{data['brand'].toUpperCase()}} {{data['model'].toUpperCase()}}</h1>
-      <ion-icon [attr.name]="data['Revs'] < 1 ? 'star-outline' : 'star' " color="warning"></ion-icon>
-      <ion-icon [attr.name]="data['Revs'] < 2 ? 'star-outline' : 'star' " color="warning"></ion-icon>
-      <ion-icon [attr.name]="data['Revs'] < 3 ? 'star-outline' : 'star' " color="warning"></ion-icon>
-      <ion-icon [attr.name]="data['Revs'] < 4 ? 'star-outline' : 'star' " color="warning"></ion-icon>
-      <ion-icon [attr.name]="data['Revs'] < 5 ? 'star-outline' : 'star' " color="warning"></ion-icon>
-    </div>
-    
-  </div>
   
-  <div style="width: 100%; margin: 0 auto; text-align: center; position: absolute; bottom: 0; " class="border">
-    <h1 style="font-size: 40px;">{{days*data['pricePerDay']}}€</h1>
-    <h5>POUR {{this.days}} JOUR<span *ngIf="this.days > 1">S</span></h5>
-    <ion-button size="large" expand="block" (click)="reserverCar()">
-      <ion-icon name="calendar" slot="start"></ion-icon>
-      Réserver
-    </ion-button>
-  </div>
-
 </ion-content>
