@@ -51,6 +51,10 @@ import { BrowserAnimationsModule } from  '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { trigger, state, style, transition, animate } from '@angular/animations'
+import { VoituresPipe } from './admin/voitures.pipe';
+import { StartLocClientPage } from './modals/start-loc-client/start-loc-client.page';
+import { StartLocAgencyPage } from './modals/start-loc-agency/start-loc-agency.page';
+import { SearchGoogleAddressPage } from './modals/search-google-address/search-google-address.page';
 
 
 
@@ -80,7 +84,7 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
   declarations: [AppComponent, AgencyModalPage , AddCarModalPage , CarValidateModalPage , ReductionsPage , AccessHoursPage , CarAvailabilityPage , CarAvailabilityV1Page,  ReservePage , 
-    MenuListComponent , ClientMenuListComponent],
+    MenuListComponent , ClientMenuListComponent , StartLocClientPage, StartLocAgencyPage, SearchGoogleAddressPage ],
   entryComponents: [
     AgencyModalPage,
     CarValidateModalPage,
@@ -90,7 +94,12 @@ export function createTranslateLoader(http: HttpClient) {
     CarAvailabilityPage ,
     CarAvailabilityV1Page,
     ReservePage ,
-    MenuListComponent, ClientMenuListComponent],
+    MenuListComponent,
+    ClientMenuListComponent ,
+    StartLocClientPage ,
+    StartLocAgencyPage ,
+    SearchGoogleAddressPage,
+],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     FormsModule,

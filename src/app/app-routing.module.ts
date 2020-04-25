@@ -15,6 +15,11 @@ const routes: Routes = [
   { path: 'ddetagency', loadChildren: './dashboard/dagency/ddetagency/ddetagency.module#DdetagencyPageModule' },
   { path: 'renting', loadChildren: './dashboard/renting/renting.module#RentingPageModule' },
   { path: 'car-validate-modal', loadChildren: './modals/car-validate-modal/car-validate-modal.module#CarValidateModalPageModule' },
+  { path: 'start-loc-client', loadChildren: './modals/start-loc-client/start-loc-client.module#StartLocClientPageModule' },
+  { path: 'start-loc-agency', loadChildren: './modals/start-loc-agency/start-loc-agency.module#StartLocAgencyPageModule' },
+  { path: 'search-google-address', loadChildren: './modals/search-google-address/search-google-address.module#SearchGoogleAddressPageModule' },
+
+
 ];
 
 @NgModule({

@@ -19,6 +19,14 @@
               <ion-label>
                 <h3>{{item.title}}</h3>
                 <p>{{item.desc}}</p>
+                <ion-buttons *ngIf="item.ntype === '3'">
+                  <ion-button color="success" (click)="locRespond('1' , item.target)">
+                    Confirm
+                  </ion-button>
+                  <ion-button color="danger" (click)="locRespond('0' , item.target)">
+                    Reject
+                  </ion-button>
+                </ion-buttons>
               </ion-label>
             </ion-item>
             <ion-item *ngIf="this.glb.notifications.length === 0">

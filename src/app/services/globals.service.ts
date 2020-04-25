@@ -36,12 +36,14 @@ export class GlobalsService {
     notificationsCount: 2,
     DemandesCount: 0,
     demandeLoc: [],
+    notificationDat: [],
     id: '',
     name: '',
     bemail: '',
     pic: '',
     data: []
   };
+  daysdif = 1;
   event_agency=[];
   prevAction = '';
   prevBook = {};
@@ -64,6 +66,7 @@ export class GlobalsService {
   isViewAgency = false;
   permis=[];
   notifications = [];
+  notificationDat: [];
   selectedDays=[];
   unreadNotif = 0;
   car_perf_display = [];
@@ -174,6 +177,7 @@ export class GlobalsService {
       notificationsCount: 0,
       DemandesCount: 0,
       demandeLoc: [],
+      notificationDat: [],
       id: '',
       name: '',
       pic: '',

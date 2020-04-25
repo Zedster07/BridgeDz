@@ -23,12 +23,19 @@ export class DemandeslocsPage implements OnInit {
 
   async acceptDemand(val: number) {
     const res = await this.db.answerDemand('1' , this.glb.AgencyLogData.demandeLoc[val]['bookid']);
+    if (res['status'] === 'success'){
+      this.glb.AgencyLogData.demandeLoc.splice(val, 1);
+    } 
+
   }
 
   async rejectDemand(val: number) {
     const res = await this.db.answerDemand('-1' , this.glb.AgencyLogData.demandeLoc[val]['bookid'] );
-    const elem = document.getElementById('item-dem-' + this.glb.AgencyLogData.demandeLoc[val]['bookid']);
-    elem.remove();
+    if (res['status'] === 'success'){
+      this.glb.AgencyLogData.demandeLoc.splice(val, 1);
+    } 
+    //const elem = document.getElementById('item-dem-' + this.glb.AgencyLogData.demandeLoc[val]['bookid']);
+    //elem.remove();
   }
 
   

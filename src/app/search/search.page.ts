@@ -5,6 +5,7 @@ import { DbinteractionsService } from '../services/dbinteractions.service';
 import { ReservePage } from 'src/app/modals/reserve/reserve.page';
 import { GlobalsService } from '../services/globals.service';
 import { LoginService } from '../services/login.service';
+import { UtilService } from '../services/util.service';
 import { AgencyModalPage } from '../modals/agency-modal/agency-modal.page';
 import { ClientMenuListComponent } from '../client/client-menu-list/client-menu-list.component';
 @Component({
@@ -14,8 +15,8 @@ import { ClientMenuListComponent } from '../client/client-menu-list/client-menu-
 })
 export class SearchPage implements OnInit {
   rangeSettings = {
-    lower: 500,
-    upper: 1500
+    lower: 250,
+    upper: 750
   };
   @ViewChild('finDate' , {static: true} ) finDate;
   @ViewChild('debutDate' , {static: true} ) debutDate;
@@ -113,8 +114,8 @@ export class SearchPage implements OnInit {
     public glb: GlobalsService ,
     public modalController: ModalController,
     public popoverController: PopoverController,
-    public loginSer: LoginService) { 
-    console.log(this.myDate);
+    public loginSer: LoginService,
+    public util: UtilService) { 
   }
   async showAgencyModal() {
     const modal = await this.modalController.create({
@@ -143,11 +144,16 @@ export class SearchPage implements OnInit {
       starttime: this.glb.searchQuery.starttime ,
       endtime: this.glb.searchQuery.endtime,
       filter: this.searchFilter,
-      daysdif: this.daysdif,
+      daysdif: this.glb.daysdif,
       offset: this.offset
     };
+    let id = this.glb.user.id;
+    if (!this.loginSer.isLoggedIn()){
+      id = '0';
+    }
+    this.util.debug('id: ', id);
+    const result = await this.db.fetchSearchreq(id, searchRequest);
 
-    const result = await this.db.fetchSearchreq(searchRequest);
     if (result['status'] === 'success') {
       this.cars = result['data'];
       this.isLoading = false;
@@ -161,14 +167,28 @@ export class SearchPage implements OnInit {
 
 
   async reserveCar(index) {
-    console.log(index);
+  let id = this.glb.user.id;
+  if (!this.loginSer.isLoggedIn()){
+    id = '0';
+  }
+  const resp = await this.db.addHistoCar(this.cars[index]['id'], 
+                                          index,
+                                          this.glb.searchQuery.startdate.replace('-' , '/').replace('-' , '/'),
+                                          this.glb.searchQuery.enddate.replace('-' , '/').replace('-' , '/') , 
+                                          this.glb.searchQuery.starttime,
+                                          this.glb.searchQuery.endtime,
+                                          this.searchFilter,
+                                          this.glb.daysdif,
+                                          this.glb.searchQuery.address);
+   
+    this.util.debug('this.glb.daysdif RESERVE CAR SEARCH', this.glb.daysdif);
     let CarData = this.cars[index];
     const modal = await this.modalController.create({
       component: ReservePage,
       // backdropDismiss: false,
       componentProps: {
         type: '',
-        days: this.daysdif,
+        days: this.glb.daysdif,
         data: CarData
       }
     });
@@ -179,9 +199,12 @@ export class SearchPage implements OnInit {
     const debutTimestamp = new Date(this.glb.searchQuery.startdate.replace('-' , '/')).getTime();
     const finTimestamp = new Date(this.glb.searchQuery.enddate.replace('-' , '/')).getTime();
     console.log(this.glb.searchQuery.startdate + ' , ' + this.glb.searchQuery.enddate);
+    this.util.debug('this.glb.daysdif SEARCH', this.glb.daysdif);
+    console.log(this.glb.daysdif);
     if (debutTimestamp > finTimestamp) {
       console.log("error");
     } else {
+     
       const ms = finTimestamp - debutTimestamp;
       let daysdif = ms / 1000;
       daysdif = daysdif / 60;
@@ -191,6 +214,8 @@ export class SearchPage implements OnInit {
       console.log(this.daysdif);
       this.updateSearch();
     }
+
+    console.log(this.glb.daysdif);
   }
   getFrontPic(piclist) {
     return this.glb.hostServer + piclist;

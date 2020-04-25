@@ -1,9 +1,10 @@
 <div class="container pt-3 pl-3 pr-3 pb-3 text-center"  >
   
   <ion-avatar style="margin: 0 auto;" size="large">
-    <img src="{{ this.glb.hostServer + this.glb.AgencyLogData.data['picture'] }}">
+    <img [src]="glb.user.pic">
+
   </ion-avatar>
-  <h4 style="color: rgb(50,50,50);">{{this.glb.AgencyLogData.name.toUpperCase()}}</h4>
+  <h5 style="color: rgb(50,50,50);">{{this.glb.user.fname.toUpperCase()}} {{this.glb.user.lname.toUpperCase()}} </h5>
 <ion-button (click)="logout()" expand="full">
   Déconnection
 </ion-button>

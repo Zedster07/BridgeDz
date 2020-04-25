@@ -10,6 +10,7 @@ import { AgencyModalPage } from './modals/agency-modal/agency-modal.page';
 import { ClientMenuListComponent } from './client/client-menu-list/client-menu-list.component';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
+import { UtilService } from './services/util.service';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,10 @@ export class AppComponent   {
   @ViewChild('finDate' , {static: true} ) finDate;
   @ViewChild('debutDate' , {static: true} ) debutDate;
   todaysDate = new Date();
+
+  strart_date = new Date();
+  end_date = new Date();
+
   cars = [];
   daysdif = 1;
   offset = '0';
@@ -42,11 +47,12 @@ export class AppComponent   {
   address = '';
 
   myDate = this.todaysDate.getDate() + '/' + (this.todaysDate.getMonth() + 1) + '/' +this.todaysDate.getFullYear();
-  disabledDates: Date[] = [
-
+  disabledDates_start: Date[] = [
+  ];
+  disabledDates_end : Date[] = [
   ];
   debutDateStr = this.todaysDate.getFullYear() + '/' + (this.todaysDate.getMonth() + 1) + '/' + (this.todaysDate.getDate())  ;
-  finDateStr =  this.todaysDate.getFullYear() + '/' + (this.todaysDate.getMonth() + 1) + '/' + (this.todaysDate.getDate() + 1)  ;
+  finDateStr =  this.todaysDate.getFullYear() + '/' + (this.todaysDate.getMonth() + 1) + '/' + (this.todaysDate.getDate() + 3)  ;
   timePickerObj: any = {
     inputTime: '11:01 PM', // for 12 hour time in timePicker
     timeFormat: '', // default 'hh:mm A'
@@ -70,14 +76,14 @@ export class AppComponent   {
       }
     };
   datePickerObj: any = {
-    fromDate: this.myDate, // default null
+    fromDate: new Date(), // default null
     toDate: new Date('2021-12-28'), // default null
     showTodayButton: true, // default true
     closeOnSelect: true, // default false
     setLabel: 'Select',  // default 'Set'
     todayLabel: 'Aujourd\'hui', // default 'Today'
     closeLabel: 'Fermer', // default 'Close'
-    disabledDates: this.disabledDates, // default []
+    disabledDates: this.disabledDates_start, // default []
     titleLabel: 'Selectionner une Date', // default null
     monthsList: ["Jan", "Fev", "Mar", "Avr", "May", "Juin", "Juillet", "Aug", "Sept", "Oct", "Nov", "Dec"],
     weeksList: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
@@ -94,6 +100,51 @@ export class AppComponent   {
       strong: '', // Default false
       color: '' // Default ''
     },
+
+
+    
+    arrowNextPrev: {
+      nextArrowSrc: 'assets/images/arrow_right.svg',
+      prevArrowSrc: 'assets/images/arrow_left.svg'
+    }, // This object supports only SVG files.
+    highlightedDates: [
+    //{ date: new Date('2019-09-10'), color: '#ee88bf', fontColor: '#fff' },
+    //{ date: new Date('2019-09-12'), color: '#50f2b1', fontColor: '#fff' }
+    ], // Default [],
+    isSundayHighlighted : {
+    fontColor: '#ee88bf' // Default null
+    } // Default {}
+  };
+
+  datePickerObj_end: any = {
+    inputDate: new Date('2018-08-10'), 
+    fromDate: new Date(), // default null
+    toDate: new Date('2021-12-28'), // default null
+    showTodayButton: true, // default true
+    closeOnSelect: true, // default false
+    setLabel: 'Select',  // default 'Set'
+    todayLabel: 'Aujourd\'hui', // default 'Today'
+    closeLabel: 'Fermer', // default 'Close'
+    disabledDates: this.disabledDates_end, // default []
+    titleLabel: 'Selectionner une Date', // default null
+    monthsList: ["Jan", "Fev", "Mar", "Avr", "May", "Juin", "Juillet", "Aug", "Sept", "Oct", "Nov", "Dec"],
+    weeksList: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+    dateFormat: 'YYYY-MM-DD', // default DD MMM YYYY
+    clearButton : false , // default true
+    momentLocale: 'en-US', // Default 'en-US'
+    yearInAscending: true, // Default false
+    btnCloseSetInReverse: true, // Default false
+    btnProperties: {
+      expand: 'block', // Default 'block'
+      fill: '', // Default 'solid'
+      size: '', // Default 'default'
+      disabled: '', // Default false
+      strong: '', // Default false
+      color: '' // Default ''
+    },
+
+
+    
     arrowNextPrev: {
       nextArrowSrc: 'assets/images/arrow_right.svg',
       prevArrowSrc: 'assets/images/arrow_left.svg'
@@ -121,6 +172,7 @@ export class AppComponent   {
     public loginServ: LoginService,
     private route: Router,
     translate: TranslateService,
+    private util : UtilService,
 
   ) {
     this.initializeApp();
@@ -163,9 +215,26 @@ export class AppComponent   {
     });
     return await pop.present();
   }
+
   myFunction() {
-    const debutTimestamp = new Date(this.glb.searchQuery.startdate.replace('-' , '/')).getTime();
-    const finTimestamp = new Date(this.glb.searchQuery.enddate.replace('-' , '/')).getTime();
+    this.datePickerObj_end.disabledDates = [];
+    this.datePickerObj_end.highlightedDates = [];
+    this.disableDate( new Date(this.glb.searchQuery.startdate));
+    this.glb.daysdif = 1;
+    this.strart_date = new Date(this.glb.searchQuery.startdate);
+    this.util.debug('myFunction this.glb.searchQuery.startdate)', this.glb.searchQuery.startdate);
+    this.util.debug('myFunction strart_date', this.strart_date);
+  }
+
+  myFunction_end() {
+    const debutTimestamp = this.strart_date.getTime();
+
+    const finTimestamp_ = new Date(this.glb.searchQuery.enddate);
+    this.util.debug('finTimestamp_ app.component', finTimestamp_);
+    this.util.debug('debutTimestamp app.component', debutTimestamp);
+    const finTimestamp = finTimestamp_.getTime();
+    this.util.debug('finTimestamp app.component', finTimestamp);
+
     if (debutTimestamp > finTimestamp) {
       console.log("error");
     } else {
@@ -174,10 +243,64 @@ export class AppComponent   {
       daysdif = daysdif / 60;
       daysdif = daysdif / 60;
       daysdif = daysdif / 24;
-      this.daysdif = daysdif;
-      console.log(this.daysdif);
+      this.glb.daysdif = daysdif;
     }
-  }
+    this.util.debug('this.glb.daysdif APPCOMP MYFUNCTION-END', this.glb.daysdif);
+  } 
+
+  disableDate(start_date){
+    let current_year = this.util.getCurrentYearNumber();
+    let current_month = this.util.getCurrentMonthNumber();
+    let current_day = this.util.getCurrentDayNumber();
+
+    let year = this.util.getYearNumber(start_date);
+    let month = this.util.getMonthNumber(start_date);
+    let day = this.util.getDayNumber(start_date);
+    
+    this.glb.searchQuery.enddate = year + '/' + (month ) + '/' + day;
+
+    let max_day = 31;
+    let max_month = 12;
+
+    if (current_year === year){
+      if (current_month === month){
+        while (current_day < day){
+          this.datePickerObj_end.disabledDates.push(new Date(current_year, current_month -1 , current_day));
+          current_day++;
+        }
+      } else {
+        for (let i = current_month; i <= month; i++){
+          for (let j = current_day; j <= max_day; j++){
+            this.datePickerObj_end.disabledDates.push(new Date(current_year, i -1 , j));
+          } 
+          current_day = 1;
+          if (i+1 === month){
+            max_day = day;
+          } 
+        }
+      }
+    } else {
+       for (let i = current_year; i<= year; i++){
+         for (let j=current_month; j<= max_month; j++){
+           for (let k=current_day; k<=max_day; k++){
+            this.datePickerObj_end.disabledDates.push(new Date(i, j -1 , k));
+          } 
+          current_day = 1;
+          if (i === year && j+1===month){
+            max_day = day;
+          } 
+        }  
+        current_month = 1;
+        if (i+1 === year){
+          max_month = month;
+        }
+      } 
+  
+    }  
+
+
+
+  } 
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();

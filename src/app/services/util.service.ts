@@ -187,9 +187,13 @@ export class UtilService {
     let today = new Date();
     return today.getFullYear().toString();
   } 
-  getYearNumber(){
+  getCurrentYearNumber(){
     let today = new Date();
     return today.getFullYear();
+  } 
+
+  getYearNumber(date){
+    return date.getFullYear();
   } 
   getYearEpoch(){
   }  
@@ -198,9 +202,13 @@ export class UtilService {
     let today = new Date();
     return (today.getMonth()+1).toString();
   } 
-  getMonthNumber(){
+  getCurrentMonthNumber(){
     let today = new Date();
     return (today.getMonth()+1);
+  } 
+
+  getMonthNumber(date){
+    return (date.getMonth()+1);
   } 
  
 
@@ -208,9 +216,13 @@ export class UtilService {
     let today = new Date();
     return (today.getDay()+1).toString();
   } 
-  getDayNumber(){
+  getCurrentDayNumber(){
     let today = new Date();
-    return (today.getDay()+1);
+    return (today.getDate());
+  } 
+
+  getDayNumber(date){
+    return (date.getDate());
   } 
 
   gettodayString(){
@@ -233,6 +245,14 @@ export class UtilService {
 
   ifTrue(str: string){
     if ((str !== null || str !== undefined) && (str === '1')){
+      return true;
+    } else {
+      return false;
+    } 
+  }
+
+  ifNotNull(str: string){
+    if ((str !== null || str !== undefined || str !== ' ') ){
       return true;
     } else {
       return false;

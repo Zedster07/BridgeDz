@@ -150,6 +150,7 @@ export class DbinteractionsService {
       .append('agency' , agId);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         if (resp['status'] === 'success') {
+          this.util.debug('fetchDemands', resp);
           let counter = 0;
           resp['data'].forEach(element => {
             if (element['isread'] === '0') {
@@ -173,7 +174,14 @@ export class DbinteractionsService {
       const httpparams = new HttpParams().append('request' , 'bookCar')
       .append('iduser' , req.idClient).append('startdate' , req.startdate)
       .append('enddate' , req.enddate).append('idCar' , req.idCar)
-      .append('totalPrice' , req.totalprice).append('needConfirm' , req.car['needConfirm']);
+      .append('unitPrice', req.unitPrice).append('starttime', req.starttime).append('endtime', req.endtime)
+      .append('adress', req.adress).append('validPaiement', req.validPaiement)
+      .append('com_platform', req.com_platform).append('com_agency', req.com_agency)
+      .append('com_client', req.com_client).append('booking_status', req.booking_status)
+      .append('booking_state', req.booking_state).append('rent_state', req.rent_state)
+      .append('totalPrice' , req.totalprice).append('needConfirm' , req.car['needConfirm'])
+      .append('idAgency', req.idAgency).append('guid_book', this.util.newGuid())
+      .append('car_model', req.car_model).append('car_brand', req.car_brand);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         return resp;
         console.log(resp);
@@ -193,17 +201,44 @@ export class DbinteractionsService {
       return res;
     }
 
-    async fetchSearchreq(req) {
-
+    async fetchSearchreq(id, req) {
+      console.log(req.startdate);
+      console.log(req.enddate);
+      console.log(req.starttime);
       const httpparams = new HttpParams().append('request' , 'fetchsearchreq')
       .append('offset' , req.offset).append('startdate' , req.startdate)
       .append('enddate' , req.enddate).append('starttime' , req.starttime)
       .append('endtime' , req.endtime).append('moteur' , req.filter.moteur)
       .append('pricemin' , req.filter.price.lower).append('pricemax' , req.filter.price.upper)
-      .append('options' , this.generateOptionsList(req.filter))
+      .append('options' , this.generateOptionsList(req.filter)).append('user_id', id)
       .append('daysdif' , req.daysdif);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
         return resp;
+        console.log("resp- fethcsearchreq");
+        
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+
+    async addHistoCar(id, car_id, start_date, end_date, start_hour, end_hour, options, daydiff, adress) {
+      const httpparams = new HttpParams().append('request' , 'addCarHisto')
+      .append('user_id', car_id)
+      .append('car_id' , id)
+      .append('start_date' , start_date)
+      .append('end_date' , end_date)
+      .append('start_hour' , start_hour)
+      .append('end_hour' , end_hour)
+      .append('options' , options)
+      .append('daydiff' , daydiff)
+      .append('adress', adress);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+        
         console.log(resp);
       }).catch(err => {
         console.error(err);
@@ -605,24 +640,111 @@ export class DbinteractionsService {
       });
     }
 
-    countNotifs(notifs: any) {
+    async startLocnew(id , pictures , clientID): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'startLoc').append('clientID' , clientID)
+      .append('idbooking' , id).append('fll' , pictures['fll']).append('flr' , pictures['flr'])
+      .append('bll' , pictures['bll']).append('blr' , pictures['blr']).append('inside', pictures['inside']);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+    async clientLocResponse(response , id): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'clientLocResponse')
+      .append('bookid' , id).append('value' , response);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async startLoc(id , vid): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'startLoc')
+      .append('idbooking' , id).append('vid' , vid);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+    async getMLocs(): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'getMlocs')
+      .append('iduser' , this.glb.AgencyLogData.id)
+      .append('id_requestor', this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async getALocs(): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'getAlocs')
+      .append('iduser' , this.glb.user.id)
+      .append('id_requestor', this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    countNotifs(notifs: any , type?) {
       let unread = 0;
       let notifications = [];
       notifs.forEach(element => {
         let notification = {};
-        if (element['read_stat'] === '0') {
-          unread += 1;
+        if (element['read_stat'] !== '2') {
+          let notification = {};
+          if (element['read_stat'] === '0') {
+            unread += 1;
+          }
+          notification['id'] = element['id'];
+          notification['ntype'] = element['ntype'];
+          notification['target'] = element['target'];
+          notification['title'] = element['title'];
+          notification['desc'] = element['message'];
+          notification['read'] = this.isRead(element['read_stat']);
+          notification['icon'] = notification['read'] ? 'checkmark-circle' : 'radio-button-off';
+          notifications.push(notification);
         }
-        notification['id'] = element['id'];
-        notification['title'] = element['title'];
-        notification['desc'] = element['message'];
-        notification['read'] = this.isRead(element['read_stat']);
-        notification['icon'] = notification['read'] ? 'checkmark-circle' : 'radio-button-off';
-        notifications.push(notification);
       });
       this.glb.notifications = notifications;
       this.glb.unreadNotif = unread;
+      if (type === 1) {
+        this.glb.notifications = notifications;
+        this.glb.unreadNotif = unread;
+      } else {
+        this.glb.AgencyLogData.notificationDat = notifications;
+        this.glb.AgencyLogData.notificationsCount = unread;
+      }
     }
+
+    async fetchDashNotifications(id) {
+      const httpparams = new HttpParams()
+      .append('request' , 'fetchNotifications').append('id' , id).append('type', '1');
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php',  httpparams ).toPromise().then( resp => {
+        this.countNotifs(resp.data , 2);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+
     async setRead(id: number) {
       const httpparams = new HttpParams()
       .append('request' , 'setNotiRead').append('id' , this.glb.notifications[id]['id']);
@@ -640,7 +762,7 @@ export class DbinteractionsService {
       const httpparams = new HttpParams()
       .append('request' , 'fetchNotifications').append('id' , this.glb.user.id).append('type' , type);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php',  httpparams ).toPromise().then( resp => {
-        this.countNotifs(resp.data);
+        this.countNotifs(resp.data, 1);
         return resp;
       }).catch(err => {
         console.error(err);

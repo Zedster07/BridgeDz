@@ -15,6 +15,10 @@ export class AccueilPage implements OnInit {
   todaysDate = new Date();
   myDate = this.todaysDate.getFullYear() + '-' + (this.todaysDate.getMonth() + 1)  + '-' + this.todaysDate.getDay();
   disabledDates: Date[] = [
+    new Date(2020, 4, 22),
+    new Date(2020, 3, 22),
+    new Date(2020, 3, 21),
+    new Date(2020, 3, 23),
 
   ];
   debutDateStr = this.myDate;
