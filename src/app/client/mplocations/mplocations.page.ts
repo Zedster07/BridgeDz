@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { GlobalsService } from 'src/app/services/globals.service';
- import { ModalController } from '@ionic/angular';
- import { StartLocClientPage } from 'src/app/modals/start-loc-client/start-loc-client.page';
+import { BillingService } from 'src/app/services/billing.service';
+import { ModalController } from '@ionic/angular';
+import { StartLocClientPage } from 'src/app/modals/start-loc-client/start-loc-client.page';
+
+
 
 @Component({
   selector: 'app-mplocations',
@@ -15,12 +18,20 @@ export class MplocationsPage implements OnInit {
      constructor(
      private db: DbinteractionsService,
      private modalController: ModalController,
-     public glb: GlobalsService) {
+     public glb: GlobalsService,
+     private bill: BillingService) {
   
   }
 
   ngOnInit() {
   }
+
+  generateBilling(index){
+    this.bill.generateClientBilling(this.mylocations[index]);
+  }
+
+  
+   
 
   async startL(index) {
     const modal = await this.modalController.create({
