@@ -54,6 +54,7 @@ export class AgencyModalPage implements OnInit {
       this.glb.rib_modify = resp_rib['data'];
     } 
     this.util.debug('Kbis - gotomy agency', this.glb.kbis_modify);
+    this.util.debug('Kbis - agencyId', this.glb.AgencyLogData.id);
     this.util.debug('Rib - gotomy agency', this.glb.rib_modify);
 
     this.closeModal();

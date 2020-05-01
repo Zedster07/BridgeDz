@@ -61,23 +61,49 @@ export class ReservePage implements OnInit {
     let bookingStatus ;
     let bookingState ;
     let rentState ;
+    let validPaiement ;
+    let com_platform ;
+    let com_agency ;
+    let com_client;
+
+    var handler = (<any>window).StripeCheckout.configure({
+      key: 'pk_test_UPMx010YZH8WXjU3c80hBcnf002I0ErB80',
+      locale: 'auto',
+      token: function (token: any) {
+        // You can access the token ID with `token.id`.
+        // Get the token ID to your server-side code for use.
+      }
+    });
+    handler.open({
+      name: 'Bridgy',
+      description: 'Paiement',
+      amount: this.days * this.data['pricePerDay'] * 100
+    });
 
     if (!this.data['needConfirm']){
-      // paiment
-      // if paiement nok 
-      // return 
-      // else 
+      
+      
+  
       
       bookingStatus = booking_status.booked_inside;
       bookingState = booking_state.booked_paid;
       rentState = rent_state.waiting_for_start;
+      validPaiement = 0;
+      com_agency = 0;
+      com_platform = 0;
+      com_client = 0;
 
     } else {
       console.log('this car is need confirm');
       bookingStatus = booking_status.booked_inside;
       bookingState = booking_state.pre_booked_1;
       rentState = rent_state.not_yet_validated;
+      validPaiement = 0;
+      com_agency = 0;
+      com_platform = 0;
+      com_client = 0;
     }
+
     const book = {
       totalprice: this.days * this.data['pricePerDay'],
       unitPrice : this.data['pricePerDay'],
@@ -86,10 +112,10 @@ export class ReservePage implements OnInit {
       enddate: this.glb.searchQuery.enddate,
       endtime : this.glb.searchQuery.endtime,
       adress : this.glb.searchQuery.address,
-      validPaiement : 0,
-      com_platform : 0,
-      com_agency : 0,
-      com_client : 0,
+      validPaiement : validPaiement,
+      com_platform : com_platform,
+      com_agency : com_agency,
+      com_client : com_client,
       idClient: this.glb.user.id,
       car: this.data,
       days: this.days,
@@ -103,11 +129,11 @@ export class ReservePage implements OnInit {
     };
 
     if (this.authService.isLoggedIn()) {
-      const res = await this.db.reserveCar(book);
-      if (res['status'] === 'success') {
-        this.closeModal();
+      //const res = await this.db.reserveCar(book);
+      //if (res['status'] === 'success') {
+      //  this.closeModal();
         // notify
-      }
+      //}
     } else {
       this.glb.prevAction = 'book';
       this.glb.prevBook = book;
