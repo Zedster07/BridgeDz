@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseUISignInSuccessWithAuthResult, FirebaseUISignInFailure, FirebaseuiAngularLibraryService } from 'firebaseui-angular';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 import { LoginService } from '../services/login.service';
+import { AlertService } from '../services/alert.service';
 import { LoadingService } from '../services/loading.service';
 import { GlobalsService } from '../services/globals.service';
 import { DbinteractionsService } from '../services/dbinteractions.service';
@@ -12,6 +14,7 @@ import { support_type } from '../interfaces/support_type';
 import { UtilService } from '../services/util.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import {TranslateService} from '@ngx-translate/core';
+import { HttpClient  } from '@angular/common/http';  
 
 @Component({
   selector: 'app-login',
@@ -19,6 +22,7 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  id_token :any;
   pageSelected = 'login';
   normalLogin = {
     email: '',
@@ -37,11 +41,14 @@ export class LoginPage implements OnInit {
      private db : DbinteractionsService,
      private angularFireAuth: AngularFireAuth ,
      private authService: LoginService,
+     private alert : AlertService,
      private loading: LoadingService,
      private route: Router,
+     private router: ActivatedRoute,
      private util: UtilService,
      private deviceService: DeviceDetectorService,
      private translate: TranslateService,
+     private http: HttpClient,
      ) {
       this.glb.globalLoading(true);
   }
@@ -214,7 +221,18 @@ export class LoginPage implements OnInit {
   ionViewWillEnter() {
     this.glb.isMainPage = false;
   }
-  ngOnInit() {
+  async ngOnInit() {
+    console.log("ip :");
+  
+
+    let id_token = '';
+    id_token = this.router.snapshot.paramMap.get('id');
+    if (this.id_token !== ''){
+      let res = await this.db.validateAccount(id_token);
+      if (res['status'] === 'success'){
+        this.alert.presentAlert('compte validé', 'votre compte est validé');
+      }
+    }
     this.glb.globalLoading(false);
     if (this.authService.isLoggedIn() && this.glb.ifAdmin(this.glb.user.role) === false) {
       console.log("this.route.navigate(['client']);");

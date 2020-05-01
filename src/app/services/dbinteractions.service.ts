@@ -688,6 +688,18 @@ export class DbinteractionsService {
       });
     }
 
+    async validateAccount(token): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'validateAccount')
+      .append('token' , token);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
     async getALocs(): Promise<any> {
       const httpparams = new HttpParams().append('request' , 'getAlocs')
       .append('iduser' , this.glb.user.id)

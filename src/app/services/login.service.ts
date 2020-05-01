@@ -103,6 +103,7 @@ export class LoginService {
       .append('username' , data.username)
       .append('email' , data.email)
       .append('password' , data.password)
+      .append('link_activation', this.util.makeid(20))
       .append('guid_client', this.util.newGuid());
       const result = await this.http.post<Httpresponse>(this.glb.hostServer + 'register.php' , httpparams )
       .toPromise().then(resp => {

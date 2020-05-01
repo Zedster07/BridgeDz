@@ -17,6 +17,10 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFireFunctionsModule} from '@angular/fire/functions';
+
+
+
 import { environment } from 'src/environments/environment.prod';
 import { GlobalsService } from './services/globals.service';
 import { LoginService } from './services/login.service';
@@ -106,6 +110,7 @@ export function createTranslateLoader(http: HttpClient) {
     FormsModule,
     DeviceDetectorModule.forRoot(),
     AngularFireAuthModule,
+    AngularFireFunctionsModule,
     Ionic4DatepickerModule,
     IonicTimepickerModule,
     HttpClientModule,

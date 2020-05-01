@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './services/auth-guard.service';
 
+
 const routes: Routes = [
+  { path: 'registerValid/:id',loadChildren: './login/login.module#LoginPageModule'  },
   { path: '',  loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   { path: 'login' , loadChildren: './login/login.module#LoginPageModule' },
   { path: 'dashboard',  canActivate: [AuthGuardService] , loadChildren: './dashboard/dashboard.module#DashboardPageModule' },
