@@ -28,14 +28,14 @@
       <div style="width: 100%; margin: 0 auto; text-align: center; position: absolute; bottom: 0; " class="border">
         <h1 style="font-size: 40px;">{{days*data['pricePerDay']}}€</h1>
         <h5>POUR {{this.days}} JOUR<span *ngIf="this.days > 1">S</span></h5>
-        <ion-button size="large" expand="block" (click)="reserverCar()">
+        <ion-button size="large" expand="block" (click)="slideNext(reserve)">
           <ion-icon name="calendar" slot="start"></ion-icon>
           Réserver
         </ion-button>
       </div>
 
     </ion-slide>
-    <ion-slide style="height: 100%; width: 100%; flex-direction: column; align-items: center; justify-content: start;"> 
+    <!--<ion-slide style="height: 100%; width: 100%; flex-direction: column; align-items: center; justify-content: start;"> 
       <ion-header>
         <ion-toolbar>
 
@@ -66,6 +66,21 @@
           <ion-button>Enovyer </ion-button>
         </ion-toolbar>  
         </ion-footer>
+    </ion-slide>-->
+
+    <ion-slide>
+
+      <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout">
+        <!-- show the pre checkout page-->
+        <div #cardElement style ="color:red">
+        </div>
+        <p>{{ cardErrors }}</p>
+        <div class="row">
+        <button type="submit">Payer</button>
+        <ion-button size="large" expand="block" (click)="slidePrev(reserve)"> Précédent</ion-button>
+        <ion-button size="large" expand="block" (click)="closeModal()"> Annuler</ion-button>
+        </div>
+      </form>
     </ion-slide>
   </ion-slides>
   

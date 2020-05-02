@@ -114,6 +114,48 @@ export class DbinteractionsService {
       }); 
     }
 
+    async checkout(token, amount, email) {
+      const httpparams = new HttpParams().
+      append('id_user' , this.glb.user.id).
+      append('amount' , amount).
+      append('email' , email).
+      append('fname' , 'tocreate').
+      append('lname' , 'to create').
+      append('billing_adress' , 'adress_tocreate').
+      append('card_brand' , token['card']['brand']).
+      append('card_country' , token['card']['country']).
+      append('card_cvc_check' , token['card']['cvc_check']).
+      append('card_dynamic_last4' , token['card']['dynamic_last4']).
+      append('card_exp_month' , token['card']['exp_month']).
+      append('card_exp_year' , token['card']['exp_year']).
+      append('card_funding' , token['card']['funding']).
+      append('card_last4' , token['card']['last4']).
+      append('card_name' , token['card']['name']).
+      append('card_three_d_secure' , token['card']['three_d_secure']).
+      append('card_tokenization_method' , token['card']['tokenization_method']).
+      append('token_created' , token['created']).
+      append('token_currency' , token['currency']).
+      append('token_amount' , token['amount']).
+      append('token_flow' , token['flow']).
+      append('token_id' , token['id']).
+      append('token_livemode' , token['livemode']).
+      append('token_statement_descriptor' , token['statement_descriptor']).
+      append('token_status' , token['status']).
+      append('token_type' , token['type']).
+      append('token_usage' , token['usage']).
+      append('token_client_secret', token['client_secret']);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'checkout.php', httpparams).toPromise().then( resp => {
+        console.log("db respo");
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      }); 
+    }
+
+    
+
 
     async fetchRib(id_agency) {
       const httpparams = new HttpParams().append('request' , 'fetchRib').

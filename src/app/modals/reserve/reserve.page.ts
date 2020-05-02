@@ -1,13 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
- import { NavParams, ModalController, PopoverController, IonSlides } from '@ionic/angular';
- import { GlobalsService } from 'src/app/services/globals.service';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { NavParams, ModalController, PopoverController, IonSlides } from '@ionic/angular';
+import { GlobalsService } from 'src/app/services/globals.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
 import { booking_status } from 'src/app/interfaces/booking_status';
 import { booking_state } from 'src/app/interfaces/booking_state';
 import { rent_state } from 'src/app/interfaces/rent_state';
-import { ClientMenuListComponent } from 'src/app/client/client-menu-list/client-menu-list.component';
+import { NgForm } from '@angular/forms';
+import { LoadingService } from 'src/app/services/loading.service';
+
+
+declare var Stripe: stripe.StripeStatic;
 
 @Component({
   selector: 'app-reserve',
@@ -16,7 +20,15 @@ import { ClientMenuListComponent } from 'src/app/client/client-menu-list/client-
 })
 export class ReservePage implements OnInit {
   @ViewChild('reserve' , {static: true}) reserve: IonSlides;
+  @ViewChild('cardElement' , {static: true}) cardElement: ElementRef;
   data = {};
+  steps = 0;
+  stripe;
+  card;
+  cardErrors;
+  loading = false;
+  confirmation;
+  currentStep = 0;
   picsList = [];
   days = 0;
   slideOpts = {
@@ -29,23 +41,26 @@ export class ReservePage implements OnInit {
     initialSlide: 0,
     speed: 400
   };
+
+
   constructor(
     private navParams: NavParams ,
     private glb: GlobalsService,
     private db: DbinteractionsService,
     private authService: LoginService,
     private route: Router,
-    private modalCtrl: ModalController
+    public modalController: ModalController,
+    private load: LoadingService,
      ) { }
 
 
   public closeModal() {
-    this.modalCtrl.dismiss({
+    this.modalController.dismiss({
       dismissed: true
     });
   }
 
-  slidenext(slideView) {
+  /*slidenext(slideView) {
     this.reserve.lockSwipes(false);
     slideView.slideNext(500);
     this.reserve.lockSwipes(true);
@@ -54,36 +69,21 @@ export class ReservePage implements OnInit {
     this.reserve.lockSwipes(false);
     slideView.slidePrev(500);
     this.reserve.lockSwipes(true);
-  }
+  }*/
 
-  async reserverCar() {
+
+
+  async reserverCar(validPaiement) {
 
     let bookingStatus ;
     let bookingState ;
     let rentState ;
-    let validPaiement ;
-    let com_platform ;
-    let com_agency ;
+    let com_agency;
+    let com_platform;
     let com_client;
+    this.load.presentLoading();
 
-    var handler = (<any>window).StripeCheckout.configure({
-      key: 'pk_test_UPMx010YZH8WXjU3c80hBcnf002I0ErB80',
-      locale: 'auto',
-      token: function (token: any) {
-        // You can access the token ID with `token.id`.
-        // Get the token ID to your server-side code for use.
-      }
-    });
-    handler.open({
-      name: 'Bridgy',
-      description: 'Paiement',
-      amount: this.days * this.data['pricePerDay'] * 100
-    });
-
-    if (!this.data['needConfirm']){
-      
-      
-  
+    if (this.data['needConfirm'] === '0'){
       
       bookingStatus = booking_status.booked_inside;
       bookingState = booking_state.booked_paid;
@@ -92,6 +92,7 @@ export class ReservePage implements OnInit {
       com_agency = 0;
       com_platform = 0;
       com_client = 0;
+
 
     } else {
       console.log('this car is need confirm');
@@ -129,22 +130,27 @@ export class ReservePage implements OnInit {
     };
 
     if (this.authService.isLoggedIn()) {
-      //const res = await this.db.reserveCar(book);
-      //if (res['status'] === 'success') {
-      //  this.closeModal();
-        // notify
-      //}
+      const res = await this.db.reserveCar(book);
+      if (res['status'] === 'success') {
+        this.load.dismissLoading();
+        this.closeModal();
+      }
     } else {
+      //TODO Inform the client that the booking isn't done.
+      this.load.dismissLoading();
       this.glb.prevAction = 'book';
       this.glb.prevBook = book;
       this.closeModal();
       this.route.navigate(['login']);
     }
   }
+
  
   ngOnInit() {
+      this.stripe = Stripe('pk_test_UPMx010YZH8WXjU3c80hBcnf002I0ErB80');
       this.reserve.lockSwipes(true);
       this.data = this.navParams.get('data');
+      console.log(this.data);
       this.days = this.navParams.get('days');
       let pics = this.data['picturesList'];
       let index = 0;
@@ -164,6 +170,52 @@ export class ReservePage implements OnInit {
       console.log(this.picsList);
       
   }
+
+  slideNext(slideView) {
+    this.reserve.lockSwipes(false);
+    this.steps = (this.steps + 0.5) > 1 ? 1 : this.steps + 0.5;
+    this.currentStep += 1;
+    if (this.currentStep === 1 && (this.data['needConfirm'] === '0')){
+      slideView.slideNext(500);
+      this.reserve.lockSwipes(true);
+      const elements = this.stripe.elements();
+      this.card = elements.create('card');
+      this.card.mount(this.cardElement.nativeElement);
+      this.card.addEventListener('change', ({error}) => { 
+      this.cardErrors = error && error.message;
+      });
+    }
+    if (this.currentStep === 1 && (this.data['needConfirm'] === '1')){
+      this.reserverCar(0);
+    } 
+  }
+
+  slidePrev(slideView) {
+    this.currentStep -= 1;
+    this.reserve.lockSwipes(false);
+    this.steps = (this.steps - 0.33) < 0  ? 0 : this.steps - 0.33;
+    slideView.slidePrev(500);
+    this.reserve.lockSwipes(true);
+  }
+
+  async onSubmit(form: NgForm) {
+    const { source , error} = await this.stripe.createSource(this.card);
+    if (error){
+      const cardError = error.message;
+    } else {
+      this.load.presentLoading();
+      const resp = await this.db.checkout(source, this.days * this.data['pricePerDay'], this.glb.user.email);
+      if (resp['status'] === 'success'){
+        this.load.dismissLoading();
+        this.reserverCar(1);
+      } else {
+        //TODO checkout fail // inform user
+        this.load.dismissLoading();
+      } 
+    }
+
+  }
+
   onClick() {
     console.log(this.data);
   }
