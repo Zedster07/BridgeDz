@@ -35,6 +35,7 @@ import { AgencyModalPage } from './modals/agency-modal/agency-modal.page';
 import { FormsModule } from '@angular/forms';
 import { AddCarModalPage } from './modals/add-car-modal/add-car-modal.page';
 import { CarValidateModalPage } from './modals/car-validate-modal/car-validate-modal.page';
+import { CheckoutPage } from './modals/checkout/checkout.page';
 import { ReductionsPage } from './modals/reductions/reductions.page';
 import { AccessHoursPage } from './modals/access-hours/access-hours.page';
 import { CarAvailabilityPage } from './modals/car-availability/car-availability.page';
@@ -88,11 +89,12 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, AgencyModalPage , AddCarModalPage , CarValidateModalPage , ReductionsPage , AccessHoursPage , CarAvailabilityPage , CarAvailabilityV1Page,  ReservePage , 
+  declarations: [AppComponent, AgencyModalPage , AddCarModalPage , CarValidateModalPage , CheckoutPage , ReductionsPage , AccessHoursPage , CarAvailabilityPage , CarAvailabilityV1Page,  ReservePage , 
     MenuListComponent , ClientMenuListComponent , StartLocClientPage, StartLocAgencyPage, SearchGoogleAddressPage ],
   entryComponents: [
     AgencyModalPage,
     CarValidateModalPage,
+    CheckoutPage,
     AddCarModalPage,
     ReductionsPage,
     AccessHoursPage ,
