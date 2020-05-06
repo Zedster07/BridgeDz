@@ -254,6 +254,15 @@ export class UtilService {
     return (new Date()).getFullYear() + 7;
   } 
 
+  ifSameDay(date0, date2){
+    let date1 = new Date(date0.replace(' ', 'T'));
+    if ((date1.getFullYear() === date2.getFullYear()) && (date1.getMonth() === date2.getMonth()) && (date1.getDate()=== date2.getDate())){
+      return true;
+    } else {
+      return false;
+    } 
+  } 
+
   ifTrue(str: string){
     if ((str !== null || str !== undefined) && (str === '1')){
       return true;

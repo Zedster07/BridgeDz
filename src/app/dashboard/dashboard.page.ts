@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { PopoverController } from '@ionic/angular';
 import { GlobalsService } from '../services/globals.service';
 import { UtilService } from '../services/util.service';
+import { HomePage } from './home/home.page';
 import { Util2Service } from '../services/util2.service';
 import { DashboardMenuListComponent } from './dashboard-menu-list/dashboard-menu-list.component';
 import { LanguagePage } from '../language/language.page';
@@ -13,12 +14,16 @@ import { LoadingService } from '../services/loading.service';
 import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay, CalendarView} from 'angular-calendar';
 import {TranslateService, TranslatePipe, TranslateModule} from '@ngx-translate/core';
 
+
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+
 
   first_pages = [
   ];
@@ -139,6 +144,7 @@ export class DashboardPage implements OnInit {
     setInterval(() => {
       this.fetchDemandes();
      }, 30000);
+ 
 
   }
 
@@ -280,13 +286,26 @@ export class DashboardPage implements OnInit {
       }
     }
 
+    if (islogged === 'true' || this.glb.ifAdmin(this.glb.user.role)) {
+      if(this.glb.wallet.length === 0 || this.glb.ifAdmin(this.glb.user.role)){
+        const res_wallet = await this.db.fetchWallet(this.glb.AgencyLogData.id, this.glb.user.id);
+        if(res_wallet.status === 'success'){
+          this.glb.wallet = res_wallet.data;
+        }
+      }
+    }
+
     this.util.debug('this.glb.cars', this.glb.cars);
     this.util.debug('this.glb.bookings', this.glb.bookings);
 
+    this.glb.resetDashBoard();
+    this.glb.car_perf = [];
     this.util2.buildPerfCars(this.glb.cars, this.glb.bookings, this.glb.car_perf, this.glb.booking_state, this.glb.booking_state_c);
     this.util2.fillSummarizeInfo(this.glb.cars, this.glb.wallet, this.glb.summariez_info);
 
-       
+    HomePage.returned.next();
+
+    this.util.debug('util 2 wallet', 'dashboard should dismiss');
       this.loading.dismissLoading();
     } else if (!this.glb.ifAdmin(this.glb.user.role)){
       this.router.navigate(['client']);

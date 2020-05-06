@@ -223,6 +223,7 @@ export class DbinteractionsService {
       .append('booking_state', req.booking_state).append('rent_state', req.rent_state)
       .append('totalPrice' , req.totalprice).append('needConfirm' , req.car['needConfirm'])
       .append('idAgency', req.idAgency).append('guid_book', this.util.newGuid())
+      .append('id_transaction', req.id_transaction).append('id_source', req.id_source)
       .append('car_model', req.car_model).append('car_brand', req.car_brand);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         return resp;
@@ -281,6 +282,22 @@ export class DbinteractionsService {
         console.log(resp);
         return resp;
         
+        console.log(resp);
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async cancelBooking(id_booking, guid_booking, booking_state) {
+      const httpparams = new HttpParams().append('request' , 'cancelBooking')
+      .append('user_id', this.glb.user.id)
+      .append('id_booking' , id_booking)
+      .append('guid_booking',guid_booking)
+      .append('booking_state', booking_state);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
         console.log(resp);
       }).catch(err => {
         console.error(err);

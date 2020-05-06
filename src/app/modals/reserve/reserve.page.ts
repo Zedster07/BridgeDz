@@ -73,7 +73,7 @@ export class ReservePage implements OnInit {
 
 
 
-  async reserverCar(validPaiement) {
+  async reserverCar(validPaiement, id_transaction, id_source) {
 
     let bookingStatus ;
     let bookingState ;
@@ -126,7 +126,9 @@ export class ReservePage implements OnInit {
       rent_state : rentState,
       idAgency: this.data['ownerID'],
       car_brand: this.data['brand'],
-      car_model: this.data['model']
+      car_model: this.data['model'],
+      id_transaction: id_transaction,
+      id_source: id_source
     };
 
     if (this.authService.isLoggedIn()) {
@@ -186,7 +188,7 @@ export class ReservePage implements OnInit {
       });
     }
     if (this.currentStep === 1 && (this.data['needConfirm'] === '1')){
-      this.reserverCar(0);
+      this.reserverCar(0, 0, 0);
     } 
   }
 
@@ -207,7 +209,7 @@ export class ReservePage implements OnInit {
       const resp = await this.db.checkout(source, this.days * this.data['pricePerDay'], this.glb.user.email);
       if (resp['status'] === 'success'){
         this.load.dismissLoading();
-        this.reserverCar(1);
+        this.reserverCar(1, resp['data']['id'], resp['data']['source']['id']);
       } else {
         //TODO checkout fail // inform user
         this.load.dismissLoading();

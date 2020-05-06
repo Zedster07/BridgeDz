@@ -25,6 +25,8 @@ import { booking_status } from '../../interfaces/booking_status';
 })
 export class HomePage implements OnInit {
 
+  public static returned: Subject<String> = new Subject<string>();
+
   view: CalendarView = CalendarView.Month;
   carData :any;
   carIndex : any;
@@ -142,13 +144,22 @@ export class HomePage implements OnInit {
     monkeyPatchChartJsLegend();
     monkeyPatchChartJsTooltip();
 
+    HomePage.returned.subscribe(res => {
+      this.glb.resetDashBoard();
+      this.car_perf_display = [];
+      this.sortNbrRenting();
+      this.util2.fillSummarizeInfo(this.glb.cars, this.glb.wallet, this.glb.summariez_info);
+      //TODO update chart stats
+      this.refreshView();
+    });
+
   }
 
   
 
 
   async ionViewWillEnter() {  
-    //this.initialize();
+    this.car_perf_display = [];
                       
     // retreive dashboard home data
     this.loading.presentLoading();
