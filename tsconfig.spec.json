@@ -5,7 +5,8 @@
     "types": [
       "jasmine",
       "node",
-      "stripe-v3"
+      "stripe-v3",
+      "googlemaps"
     ]
   },
   "files": [

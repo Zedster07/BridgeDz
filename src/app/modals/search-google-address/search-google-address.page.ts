@@ -1,8 +1,9 @@
 import { Component, OnInit, NgZone } from '@angular/core';
  import { ModalController } from '@ionic/angular';
- //import {googlemaps} from 'googlemaps';
+
  import { GlobalsService } from 'src/app/services/globals.service';
  
+ declare const google: any;
 
  @Component({
    selector: 'app-search-google-address',
@@ -21,7 +22,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
    geo: any
  
 
-   //service = new google.maps.places.AutocompleteService();
+   service = new google.maps.places.AutocompleteService();
 
    constructor (
      public viewCtrl: ModalController, 
@@ -37,7 +38,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
      this.viewCtrl.dismiss();
    }
 
-   /*chooseItem(item: any) {
+   chooseItem(item: any) {
      this.viewCtrl.dismiss(item);
      this.glb.searchQuery.address = item;
      this.geo = item;
@@ -78,6 +79,6 @@ import { Component, OnInit, NgZone } from '@angular/core';
      this.longitude = results[0].geometry.location.lng();
      alert("lat: " + this.latitude + ", long: " + this.longitude);
     });
-  }*/
+  }
    ngOnInit() {}
  }

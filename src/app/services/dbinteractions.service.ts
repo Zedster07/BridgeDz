@@ -857,6 +857,7 @@ export class DbinteractionsService {
       .append('address' , data[3].address[0])
       .append('prix' , data[4].prix[0])
       .append('needConfirmation' , data[2].needConf)
+      .append('vin', data[0].matricule)
       .append('request' , 'updateCar');
 
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
@@ -915,6 +916,7 @@ export class DbinteractionsService {
       .append('prix' , data[4].prix[0])
       .append('needConfirmation' , data[2].needConf)
       .append('request' , 'addCar')
+      .append('vin', data[0].matricule)
       .append('guid_car', guid_car);
 
       /*.append('request' , 'addCar').append('id' , this.glb.user.id)

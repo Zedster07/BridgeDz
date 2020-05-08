@@ -8,7 +8,8 @@
       "jasmine",
       "jasminewd2",
       "node",
-      "stripe-v3"
+      "stripe-v3",
+      "googlemaps"
     ]
   }
 }
