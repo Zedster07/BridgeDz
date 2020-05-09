@@ -1,0 +1,170 @@
+<ion-content class="ion-padding">
+  <h1 style="padding:30px; background-color:#f1f1f1;">APPROUVER LES COMPTES </h1>
+  <ul class="nav nav-pills" color="primary" id="myTab" role="tablist">
+    <li class="nav-item" (click)="setTabVal('agencies')">
+      <span class="nav-link" [ngClass]="{'active': showTab('agencies')}" id="agencies-tab" data-toggle="tab" href="#agencies" role="tab" aria-controls="agencies" aria-selected="true">Agences</span>
+    </li>
+    <li class="nav-item" (click)="setTabVal('vehicles')">
+      <span class="nav-link " [ngClass]="{'active': showTab('vehicles')}" id="vehicles-tab" data-toggle="tab" href="#vehicles" role="tab" aria-controls="vehicles" aria-selected="false">Vehicles</span>
+    </li>
+    <li *ngIf= "!this.isAdmin" class="nav-item" (click)="setTabVal('user')">
+      <span class="nav-link" [ngClass]="{'active': showTab('user')}" id="user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="user" aria-selected="false">Users</span>
+    </li> 
+  </ul>
+
+  <!-- agencies section --------------------------------------------------------------------------------------------------------------- -->
+  <div  class="tab-pane fade" id="agencies" [ngClass]="{'active show': showTab('agencies')}" role="tabpanel2" aria-labelledby="agencies-tab">
+    <div *ngIf ="this.tabVal==='agencies'">  
+      <ion-item *ngFor="let item of this.validationAgency; let i = index;" [attr.class]="item.isread === '1' ? 'item-read' : ''"  id="item-dem-{{item.id}}">
+      <ion-icon [attr.name]="item.isread === '1' ? 'radio-button-on-outline' : 'radio-button-off-outline'" slot="start" class="noti-notread" (click)="setRead(item.id)" class="itemicon"></ion-icon>
+      <ion-label>
+        <h1>{{ item.name }}</h1>  
+        <p> Adresse : {{item.address}}</p>
+        <p> E-mail : {{item.businessEmail}}</p>
+        <p> Tél : {{item.bmobile}}</p>
+        <p> Créeation Date : {{item.creationDate}}</p>
+        <p> TVA : {{item.ktva}}</p>
+        <p> RIB : {{item.iban_1}}</p>
+        <div class="form-row">
+          <ion-item (click)="uploadPic('cote1')" id="cote1item">
+            <ion-thumbnail slot="start">
+              <img src="{{ this.glb.hostServer + this.item['krecto'] }}" id="cote1preview" />
+              <input type="file" id="cote1file" style="display: none;">
+            </ion-thumbnail>
+            <div class="form-col">
+              <a target="_blank" rel="noopener noreferrer" href="{{ this.glb.hostServer + this.item['krecto']}}" class="btn clss" download>KBIS Recto</a>
+            </div>
+          </ion-item>
+          <ion-item (click)="uploadPic('cote1')" id="cote1item">
+            <ion-thumbnail slot="start">
+              <img src="{{ this.glb.hostServer + this.item['kverso'] }}" id="cote1preview" />
+              <input type="file" id="cote1file" style="display: none;">
+            </ion-thumbnail>
+            <div class="form-col">
+              <a target="_blank" rel="noopener noreferrer" href="{{ this.glb.hostServer + this.item['kverso']}}" class="btn clss" download>KBIS Verso</a>
+            </div>
+          </ion-item>
+        </div>
+        <hr>
+        <ion-buttons *ngIf="item.status !== '1'">
+          <ion-button color="success" (click)="acceptDemand(i, 0)">Accepter</ion-button>
+          <ion-button color="primary" (click)="rejectDemand(i, 0)">Decliner</ion-button>
+        </ion-buttons>
+       </ion-label>
+      </ion-item>
+    
+      <ion-item *ngIf="this.validationVehicle.length === 0">
+        <ion-label >
+          Vous n'avez aucune demande
+        </ion-label>
+      </ion-item>
+    </div>
+  </div>
+  <!-- agencies end --------------------------------------------------------------------------------------------------------------- -->
+  <!-- vehicles parameter --------------------------------------------------------------------------------------------------------------- -->
+  <div  class="tab-pane fade" id="vehicles" [ngClass]="{'active show': showTab('vehicles')}" role="tabpanel3" aria-labelledby="vehicles-tab">
+    <div *ngIf ="this.tabVal==='vehicles'"> 
+      <ion-item *ngFor="let item of this.validationVehicle; let i = index;" [attr.class]="item.isread === '1' ? 'item-read' : ''"  id="item-dem-{{item.id}}">
+        <ion-icon [attr.name]="item.isread === '1' ? 'radio-button-on-outline' : 'radio-button-off-outline'" slot="start" class="noti-notread" (click)="setRead(item.id)" class="itemicon"></ion-icon>
+        <ion-label>
+          <h1>{{item.brand+' '+item.model}}</h1>  
+          <p> Matricule : {{item.vin}}</p>
+          
+          <div class="form-row">
+            <ion-item (click)="uploadPic('cote1')" id="cote1item">
+              <ion-thumbnail slot="start">
+                <img src="{{ this.glb.hostServer + this.item['insu_pic'] }}" id="cote1preview" />
+                <input type="file" id="cote1file" style="display: none;">
+              </ion-thumbnail>
+              <div class="form-col">
+                <a target="_blank" rel="noopener noreferrer" href="{{ this.glb.hostServer + this.item['insu_pic']}}" class="btn clss" download>Assurance</a>
+                <p> Date expiration: {{item.insu_exp}}</p>
+              </div>
+            </ion-item>
+            <ion-item (click)="uploadPic('cote1')" id="cote1item">
+              <ion-thumbnail slot="start">
+                <img src="{{ this.glb.hostServer + this.item['control_pic'] }}" id="cote1preview" />
+                <input type="file" id="cote1file" style="display: none;">
+              </ion-thumbnail>
+              <div class="form-col">
+                <a target="_blank" rel="noopener noreferrer" href="{{ this.glb.hostServer + this.item['control_pic']}}" class="btn clss" download>Controle technique</a>
+                <p> Date expiration: {{item.control_exp}}</p>
+              </div>
+            </ion-item>
+            <ion-item (click)="uploadPic('cote1')" id="cote1item">
+              <ion-thumbnail slot="start">
+                <img src="{{ this.glb.hostServer + this.item['car_pic'] }}" id="cote1preview" />
+                <input type="file" id="cote1file" style="display: none;">
+              </ion-thumbnail>
+              <div class="form-col">
+                <a target="_blank" rel="noopener noreferrer" href="{{ this.glb.hostServer + this.item['car_pic']}}" class="btn clss" download>Carte grise</a>
+                <p>Matricule : {{item.vin}}</p>
+              </div>
+            </ion-item>
+          </div>
+          <hr>
+          <ion-buttons *ngIf="item.status !== '1'">
+            <ion-button color="success" (click)="acceptDemand(i, 1)">Accepter</ion-button>
+            <ion-button color="primary" (click)="rejectDemand(i, 1)">Decliner</ion-button>
+          </ion-buttons>
+        </ion-label>
+      </ion-item>
+   
+      <ion-item *ngIf="this.validationVehicle.length === 0">
+        <ion-label >
+          Vous n'avez aucune demande
+        </ion-label>
+      </ion-item>
+    </div>
+  </div>
+  <!-- vehicles end --------------------------------------------------------------------------------------------------------------- -->
+  <!-- user parameter --------------------------------------------------------------------------------------------------------------- -->
+  <div  class="tab-pane fade" id="user" [ngClass]="{'active show': showTab('user')}" role="tabpanel" aria-labelledby="user-tab">
+    <div *ngIf ="this.tabVal==='user'"> 
+      <ion-item *ngFor="let item of this.validationUser; let i = index;">
+        <ion-label>
+          <h1>{{item.fname+ ' ' +item.lname}}</h1>  
+          <p> Email : {{item.email}}</p>
+          <p> Tél : {{item.phone}}</p>
+          <p> Adresse : {{item.address}}</p>
+          <p> Permis : {{item.dlicenceID}}</p>
+          <p> Permis date : {{item.dlicenceDate}}</p>
+          
+          <div class="form-row">
+            <ion-item id="cote1item">
+              <ion-thumbnail slot="start">
+                <img src="{{ this.glb.hostServer + this.item['dlicenceVerso'] }}" id="cote1preview"/>
+                <input type="file" id="cote1file" style="display: none;">
+              </ion-thumbnail>
+              <div class="form-col">
+                <a target="_blank" rel="noopener noreferrer" href="{{ this.glb.hostServer + this.item['dlicenceVerso']}}" class="btn clss" download>Permis de conduire recto</a>
+              </div>
+            </ion-item>
+            <ion-item (click)="uploadPic('cote1')" id="cote1item">
+              <ion-thumbnail slot="start">
+                <img src="{{ this.glb.hostServer + this.item['dlicenceRecto'] }}" id="cote1preview" />
+                <input type="file" id="cote1file" style="display: none;">
+              </ion-thumbnail>
+              <div class="form-col">
+                <a target="_blank" rel="noopener noreferrer" href="{{ this.glb.hostServer + this.item['dlicenceRecto']}}" class="btn clss" download>Permis de conduire verso</a>
+              </div>
+            </ion-item>
+          </div>
+          <hr>
+          <ion-buttons *ngIf="item.status !== '1'">
+            <ion-button color="success" (click)="acceptDemand(i, 2)">Accepter</ion-button>
+            <ion-button color="primary" (click)="rejectDemand(i, 2)">Decliner</ion-button>
+          </ion-buttons>
+        </ion-label>
+      </ion-item>
+    
+      <ion-item *ngIf="this.validationUser.length === 0">
+        <ion-label >
+          Vous n'avez aucune demande
+        </ion-label>
+      </ion-item>
+    </div> 
+  </div>
+  <!-- user end --------------------------------------------------------------------------------------------------------------- -->
+
+</ion-content>
