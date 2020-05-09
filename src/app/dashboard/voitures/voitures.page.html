@@ -28,7 +28,7 @@
               <ion-icon name="star" color="warning"></ion-icon>
               <ion-icon name="star" color="warning"></ion-icon>
           </span>
-          <p> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+          <p> ..... </p>
           <ion-button fill="outline" color="warning" (click)="showCarAvailModal(i)">
             <ion-icon name="calendar" slot="start"></ion-icon>
             Gérer les disponibilité
@@ -42,8 +42,36 @@
             Valider mon véhicule
           </ion-button>
         </div>
-        <div class="col-lg-4 col-md-12">
+        <div *ngIf="item['status'] === '0'" class="col-lg-4 col-md-12">
           <ion-card class="" style="border-left: 3px solid red;">
+            <ion-card-header>
+              <ion-title>
+                <ion-icon name="hourglass" slot="start"> </ion-icon>
+                Véhicule désactivé
+              </ion-title>
+              
+            </ion-card-header>
+            <ion-card-content>
+               Pour valider votre véhicule, il faut compléter l'inscription en cliquant sur valider mon véhicule.
+            </ion-card-content>
+          </ion-card>
+        </div>
+        <div *ngIf="item['status'] === '1'" class="col-lg-4 col-md-12">
+          <ion-card class="" style="border-left: 3px solid green;">
+            <ion-card-header>
+              <ion-title>
+                <ion-icon name="hourglass" slot="start"> </ion-icon>
+                Validé
+              </ion-title>
+              
+            </ion-card-header>
+            <ion-card-content>
+                Votre véhicule est visible au résultat de recherches.
+            </ion-card-content>
+          </ion-card>
+        </div>
+        <div *ngIf="item['status'] === '4'" class="col-lg-4 col-md-12">
+          <ion-card class="" style="border-left: 3px solid rgb(16, 2, 94);">
             <ion-card-header>
               <ion-title>
                 <ion-icon name="hourglass" slot="start"> </ion-icon>
@@ -52,7 +80,21 @@
               
             </ion-card-header>
             <ion-card-content>
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
+               Votre véhicule est en cours de revue par l'administrateur. Il sera validé sous 24H maximum.
+            </ion-card-content>
+          </ion-card>
+        </div>
+        <div *ngIf="item['status'] === '5'" class="col-lg-4 col-md-12">
+          <ion-card class="" style="border-left: 3px solid rgb(0, 114, 104);">
+            <ion-card-header>
+              <ion-title>
+                <ion-icon name="hourglass" slot="start"> </ion-icon>
+                Rejeté
+              </ion-title>
+              
+            </ion-card-header>
+            <ion-card-content>
+                Votre véhicule ne peut etre activé. Merci de revoir les informations que vous avez fourni en cliquan sur Valider mon véhicule.
             </ion-card-content>
           </ion-card>
         </div>

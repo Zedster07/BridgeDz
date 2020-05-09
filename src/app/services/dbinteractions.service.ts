@@ -209,6 +209,50 @@ export class DbinteractionsService {
 
     }
 
+    async fetchPendingValidation() {
+      const httpparams = new HttpParams().append('request' , 'fetchPendingValidation')
+      .append('user_id' , this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async validationAgency(answer , dmID) {
+      const httpparams = new HttpParams().append('request' , 'validationAgency')
+      .append('value' , answer).append('demandID' , dmID).append('user_id', this.glb.user.id)
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async validationVehicle(answer , dmID) {
+      const httpparams = new HttpParams().append('request' , 'validationVehicle')
+      .append('value' , answer).append('demandID' , dmID).append('user_id', this.glb.user.id)
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async validationUser(answer , dmID) {
+      const httpparams = new HttpParams().append('request' , 'validationUser')
+      .append('value' , answer).append('demandID' , dmID).append('user_id', this.glb.user.id)
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
   
     
 
@@ -736,6 +780,19 @@ export class DbinteractionsService {
     }
     async getMLocs(): Promise<any> {
       const httpparams = new HttpParams().append('request' , 'getMlocs')
+      .append('iduser' , this.glb.AgencyLogData.id)
+      .append('id_requestor', this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async getMELocs(): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'getMElocs')
       .append('iduser' , this.glb.AgencyLogData.id)
       .append('id_requestor', this.glb.user.id);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {

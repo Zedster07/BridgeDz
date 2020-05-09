@@ -40,7 +40,8 @@
         "RENTINGS_EX": "Rentings outside bridgy",
         "DISCOUNTS": "Discounts",
         "RENTINGS_WAITING_FOR_VALID": "Rentings requests",
-        "PROFILE": "Profile"
+        "PROFILE": "Profile",
+        "VALIDATION_REQUEST" : "Approve accounts"
       },
 
       "PROFILE" : {

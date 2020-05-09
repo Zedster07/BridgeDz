@@ -1,59 +1,74 @@
-<ion-content class="ion-padding">
-    <h1 style="padding:30px; background-color:#f1f1f1;">Mes Locations</h1>
+<ion-content>
+  <div class="container">
+<div class="row ion-padding">
+  <div class="col-12">
     <div class="row">
-      <div class="col-12">
-       
-  
-     <!-- Cars -->
-  <div class="alert alert-info" role="alert" *ngIf="mylocations.length === 0">
-    Aucun résultat trouvé !
-  </div>
-  <div *ngFor="let item of mylocations; let i = index;"> 
-  <div class="row" *ngIf="item['started'] !== '2'">
-    <div class="col-lg-4 col-md-12">
-      <ion-img src="assets/images/clio.jpg"></ion-img>
-    </div>
-    <div class="col-lg-5 col-md-12">
-      <h3>{{item['brand']}} {{item['model']}}</h3>
-      <span>
-          <ion-icon name="star" color="warning"></ion-icon>
-          <ion-icon name="star" color="warning"></ion-icon>
-          <ion-icon name="star" color="warning"></ion-icon>
-          <ion-icon name="star" color="warning"></ion-icon>
-          <ion-icon name="star" color="warning"></ion-icon>
-      </span>
-      <h6> {{item['city']}}, {{ item['cpays'].charAt(0).toUpperCase()}}{{item['cpays'].slice(1)}}</h6>
-      <p> {{item['startDate'].substring(0, item['startDate'].indexOf(' ')) }} - {{ item['endDate'].substring(0, item['endDate'].indexOf(' ')) }} </p>
-      <ion-button fill="outline" color="success" *ngIf="mylocations[i]['bstatus'] === '1'" disabled>
-        <ion-icon name="checkbox-outline" slot="start"></ion-icon>
-        Payé
-      </ion-button>
- 
-      <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['bstatus'] === '0'" disabled>
-        <ion-icon name="clock" slot="start"></ion-icon>
-        Non Payé
-      </ion-button>
- 
- 
-    </div>
-    <div class="col-lg-3 col-md-12 float-right">
-      <div>
-          <ion-button class="ion-margin" expand="full"  color="light">
-              Changer l'Heure
-            </ion-button>
-            <ion-button class="ion-margin" expand="full"  color="primary" *ngIf="mylocations[i]['bstatus'] === '1'" (click)="startL(i)">
-              Démarrer
-            </ion-button>              
-            <ion-button class="ion-margin" color="danger" expand="full">Annuler</ion-button>
-        </div>
-    </div>
-  </div>
- 
-  <ion-item-divider style="margin-bottom: 40px;" ></ion-item-divider>
-  </div>
- 
-  <!-- Cars End -->
-  
+      <div class="col-12 ion-margin" style="border-bottom: 1px solid silver; padding:0px; padding-bottom: 10px;">
+        <h3>Mes Locations</h3>
       </div>
     </div>
-  </ion-content>
+    <!-- Cars -->
+    <div class="alert alert-info" role="alert" *ngIf="mylocations.length === 0">
+      Aucun résultat trouvé !
+    </div>
+    <div *ngFor="let item of mylocations; let i = index;"> 
+    <div class="row">
+      <div class="col-lg-4 col-md-12">
+        <ion-img src="{{this.glb.hostServer + item['FrontPic'] }}"></ion-img>
+      </div>
+      <div class="col-lg-5 col-md-12">
+        <h3>{{item['model']}} {{item['brand']}}</h3>
+        <span>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+        </span>
+        <h6>{{item['city']}}</h6>
+        <p> {{item['startDate']}} à {{item['start_time']}} - {{item['endDate']}} à {{item['end_time']}} </p>
+        <ion-button fill="outline" color="success" *ngIf="mylocations[i]['bstatus'] === '8'" disabled>
+          <ion-icon name="checkbox-outline" slot="start"></ion-icon>
+          Confirmé
+        </ion-button>
+        <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['bstatus'] === '0' || mylocations[i]['bstatus'] === '1' " disabled>
+          <ion-icon name="clock" slot="start"></ion-icon>
+          En attent de validation
+        </ion-button>
+        <ion-button fill="outline" color="danger" *ngIf="mylocations[i]['bstatus'] === '2' || mylocations[i]['bstatus'] === '3' || mylocations[i]['bstatus'] === '4'" disabled>
+          <ion-icon name="clock" slot="start"></ion-icon>
+          Décliné
+        </ion-button>
+        <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['bstatus'] === '5' || mylocations[i]['bstatus'] === '6' || mylocations[i]['bstatus'] === '7'" disabled>
+          <ion-icon name="clock" slot="start"></ion-icon>
+          En attent de paiement
+        </ion-button>
+        <ion-button fill="outline" color="danger" *ngIf="mylocations[i]['bstatus'] === '9' || mylocations[i]['bstatus'] === '10' || mylocations[i]['bstatus'] === '11'" disabled>
+          <ion-icon name="clock" slot="start"></ion-icon>
+          Annulé
+        </ion-button>
+
+      </div>
+      <div class="col-lg-3 col-md-12 float-right">
+        <div>
+          
+            <ion-button class="ion-margin" expand="full"  color="light">
+                Changer l'Heure
+              </ion-button>
+                <ion-button *ngIf="mylocations[i]['startRenting'] === '1'" class="ion-margin" expand="full"  color="primary"  (click)="startL(i)">
+                 Démarrer
+               </ion-button>               
+               <ion-button *ngIf="mylocations[i]['valid_paiement'] === '1'" class="ion-margin" color="success" expand="full" (click)="generateBilling(i)">Facture</ion-button>
+               <ion-button class="ion-margin" color="danger" expand="full" (click)="cancelBooking(i)">Annuler</ion-button>
+          
+          </div>
+      </div>
+    </div>
+
+    <ion-item-divider style="margin-bottom: 40px;" ></ion-item-divider>
+
+  </div>
+  </div>
+</div>
+</div>
+</ion-content>

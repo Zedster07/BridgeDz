@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
  import { ModalController } from '@ionic/angular';
  import { StartLocAgencyPage } from 'src/app/modals/start-loc-agency/start-loc-agency.page';
  import { GlobalsService } from 'src/app/services/globals.service';
+ import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-locations',
@@ -16,21 +17,20 @@ export class LocationsPage implements OnInit {
   constructor(
      private glb: GlobalsService,
      private db: DbinteractionsService,
-     private modalController: ModalController) {
+     private modalController: ModalController,
+     public util: UtilService) {
 
    }
 
    async ngOnInit() {
-     const res = await this.db.getMLocs();
-     if (res['status'] === 'success') {
-       this.mylocations = res['data'];
-     }
   }
 
   getFrontPic(car: any) {
     const piclist = car['picturesList'];
     return this.glb.hostServer + piclist.substring( 0 , piclist.indexOf(','));
   }
+
+
   async startL(index) {
     const modal = await this.modalController.create({
       component: StartLocAgencyPage,
@@ -41,11 +41,20 @@ export class LocationsPage implements OnInit {
     });
     return await modal.present();
   }
+
+
   async ionViewWillEnter() {
     const res = await this.db.getMLocs();
     if (res['status'] === 'success') {
       this.mylocations = res['data'];
       console.log(res['data']);
+      for (let i= 0; i<this.mylocations.length; i++){
+        if(this.util.ifSameDay(this.mylocations[i]['startDate'], new Date())){
+          this.mylocations[i]['startRenting'] = '1';
+        } else {
+          this.mylocations[i]['startRenting'] = '0';
+        }
+      }
     }
 
   }

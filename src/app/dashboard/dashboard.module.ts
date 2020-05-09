@@ -48,6 +48,10 @@ const routes: Routes = [
         loadChildren: './demandeslocs/demandeslocs.module#DemandeslocsPageModule'
       },
       {
+        path: 'validation-request',
+        loadChildren: './validation-request/validation-request.module#ValidationRequestPageModule'
+      },
+      {
         path: 'brpage',
         loadChildren: './brpage/brpage.module#BrpagePageModule'
       },

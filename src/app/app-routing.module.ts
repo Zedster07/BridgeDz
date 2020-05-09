@@ -21,6 +21,8 @@ const routes: Routes = [
   { path: 'start-loc-agency', loadChildren: './modals/start-loc-agency/start-loc-agency.module#StartLocAgencyPageModule' },
   { path: 'search-google-address', loadChildren: './modals/search-google-address/search-google-address.module#SearchGoogleAddressPageModule' },
   { path: 'checkout', loadChildren: './modals/checkout/checkout.module#CheckoutPageModule' },
+  { path: 'validation-request', loadChildren: './dashboard/validation-request/validation-request.module#ValidationRequestPageModule' },
+  { path: 'booking-out', loadChildren: './modals/booking-out/booking-out.module#BookingOutPageModule' },
 
 
 ];

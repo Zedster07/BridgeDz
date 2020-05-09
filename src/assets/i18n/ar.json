@@ -39,7 +39,8 @@
       "NOTIFICATIONS": "إشعارات",
       "DISCOUNTS": "قسيمة خصم ",
       "RENTINGS_WAITING_FOR_VALID": "طلبات التأجير",
-      "PROFILE": "الملف الشخصي"
+      "PROFILE": "الملف الشخصي",
+      "VALIDATION_REQUEST" : "الموافقة على الحسابات"
       
     },
 

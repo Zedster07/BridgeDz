@@ -40,6 +40,7 @@ import { ReductionsPage } from './modals/reductions/reductions.page';
 import { AccessHoursPage } from './modals/access-hours/access-hours.page';
 import { CarAvailabilityPage } from './modals/car-availability/car-availability.page';
 import { CarAvailabilityV1Page } from 'src/app/modals/car-availability-v1/car-availability-v1.page'
+import { BookingOutPage } from 'src/app/modals/booking-out/booking-out.page'
 import { NgCalendarModule  } from 'ionic2-calendar';
 import { ReservePage } from './modals/reserve/reserve.page';
 import { MenuListComponent } from './menu-list/menu-list.component';
@@ -90,10 +91,11 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
   declarations: [AppComponent, AgencyModalPage , AddCarModalPage , CarValidateModalPage , CheckoutPage , ReductionsPage , AccessHoursPage , CarAvailabilityPage , CarAvailabilityV1Page,  ReservePage , 
-    MenuListComponent , ClientMenuListComponent , StartLocClientPage, StartLocAgencyPage, SearchGoogleAddressPage ],
+    MenuListComponent , ClientMenuListComponent , StartLocClientPage, StartLocAgencyPage, SearchGoogleAddressPage , BookingOutPage],
   entryComponents: [
     AgencyModalPage,
     CarValidateModalPage,
+    BookingOutPage,
     CheckoutPage,
     AddCarModalPage,
     ReductionsPage,

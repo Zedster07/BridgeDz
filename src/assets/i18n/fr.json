@@ -38,7 +38,8 @@
       "DISCOUNTS": "Bons de réduction",
       "RENTINGS_EX": "Locations hors Birdgy",
       "RENTINGS_WAITING_FOR_VALID": "Demande de locations",
-      "PROFILE": "Profile"
+      "PROFILE": "Profile", 
+      "VALIDATION_REQUEST" : "Approuver les comptes"
     },
 
     "PROFILE" : {

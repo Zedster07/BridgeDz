@@ -112,6 +112,11 @@ export class DashboardPage implements OnInit {
       icon: 'list-box'
     },
     {
+      title: 'DASHBOARD.VALIDATION_REQUEST',
+      url: '/dashboard/validation-request',
+      icon: 'trending-down'
+    },
+    {
       title: 'DASHBOARD.NOTIFICATIONS',
       url: '/dashboard/notifications',
       icon: 'notifications'
