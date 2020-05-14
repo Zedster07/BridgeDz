@@ -33,6 +33,10 @@ export class VoituresPage implements OnInit {
         data: ''
       }
     });
+
+    modal.onDidDismiss().then((result) => {
+      
+    });
     return await modal.present();
   }
 

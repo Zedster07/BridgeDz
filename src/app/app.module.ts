@@ -19,6 +19,8 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireFunctionsModule} from '@angular/fire/functions';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 import { environment } from 'src/environments/environment.prod';
@@ -118,6 +120,7 @@ export function createTranslateLoader(http: HttpClient) {
     Ionic4DatepickerModule,
     IonicTimepickerModule,
     HttpClientModule,
+    NgbModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,

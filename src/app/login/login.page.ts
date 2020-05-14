@@ -121,7 +121,7 @@ export class LoginPage implements OnInit {
       error.style.display = 'none';
       this.loading.signupLoading();
       const result = await this.authService.logIn(null , this.angularFireAuth.auth , '2' , this.normalLogin);
-      if (result.status === 'Failure') {
+      if (result.status === 'Failure' && result.message !== 'account_not_activated') {
         error.textContent = result.message;
         error.style.display = 'block';
       } else if (result.status === 'success') {
@@ -148,6 +148,9 @@ export class LoginPage implements OnInit {
         } else if (this.glb.prevAction === 'book' && this.glb.ifAdmin(this.glb.user.role) === false) {
           this.route.navigate(['search']);
         }
+      } else if (result.message === 'account_not_activated') {
+        error.textContent = 'account not activated';
+        error.style.display = 'block';
       }
     }
   }
@@ -208,6 +211,9 @@ export class LoginPage implements OnInit {
           this.route.navigate(['search']);
         }
         error.style.display = 'none';
+      } else if (result.message === 'account_not_activated') {
+        error.textContent = 'account not activated';
+        error.style.display = 'block';
       } else {
         error.textContent = '505 - hSomething went wrong';
         error.style.display = 'block';
@@ -227,6 +233,7 @@ export class LoginPage implements OnInit {
 
     let id_token = '';
     id_token = this.router.snapshot.paramMap.get('id');
+    console.log(id_token);
     if (this.id_token !== ''){
       let res = await this.db.validateAccount(id_token);
       if (res['status'] === 'success'){

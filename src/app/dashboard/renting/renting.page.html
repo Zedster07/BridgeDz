@@ -34,26 +34,40 @@
             </span>
             <h6>{{item['city']}}</h6>
             <p> {{item['startDate']}} à {{item['start_time']}} - {{item['endDate']}} à {{item['end_time']}} </p>
-            <ion-button fill="outline" color="success" *ngIf="mylocations[i]['bstatus'] === '8'" disabled>
+            <ion-button fill="outline" color="success" *ngIf="mylocations[i]['booking_state'] === '8'" disabled>
               <ion-icon name="checkbox-outline" slot="start"></ion-icon>
               Confirmé
             </ion-button>
-            <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['bstatus'] === '0' || mylocations[i]['bstatus'] === '1' " disabled>
+            <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['booking_state'] === '0' || mylocations[i]['booking_state'] === '1' " disabled>
               <ion-icon name="clock" slot="start"></ion-icon>
               En attent de validation
             </ion-button>
-            <ion-button fill="outline" color="danger" *ngIf="mylocations[i]['bstatus'] === '2' || mylocations[i]['bstatus'] === '3' || mylocations[i]['bstatus'] === '4'" disabled>
+            <ion-button fill="outline" color="danger" *ngIf="mylocations[i]['booking_state'] === '2' || mylocations[i]['booking_state'] === '3' || mylocations[i]['booking_state'] === '4'" disabled>
               <ion-icon name="clock" slot="start"></ion-icon>
               Décliné
             </ion-button>
-            <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['bstatus'] === '5' || mylocations[i]['bstatus'] === '6' || mylocations[i]['bstatus'] === '7'" disabled>
+            <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['booking_state'] === '5' || mylocations[i]['booking_state'] === '6' || mylocations[i]['booking_state'] === '7'" disabled>
               <ion-icon name="clock" slot="start"></ion-icon>
               En attent de paiement
             </ion-button>
-            <ion-button fill="outline" color="danger" *ngIf="mylocations[i]['bstatus'] === '9' || mylocations[i]['bstatus'] === '10' || mylocations[i]['bstatus'] === '11'" disabled>
+            <ion-button fill="outline" color="danger" *ngIf="mylocations[i]['booking_state'] === '9' || mylocations[i]['booking_state'] === '10' || mylocations[i]['booking_state'] === '11'" disabled>
               <ion-icon name="clock" slot="start"></ion-icon>
               Annulé
             </ion-button>
+
+            <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['rent_status'] === '1' || mylocations[i]['rent_status'] === '2'" disabled>
+              <ion-icon name="checkbox-outline" slot="start"></ion-icon>
+              Location prévue le {{item['startDate']}} 
+            </ion-button>
+            <ion-button fill="outline" color="success" *ngIf="mylocations[i]['rent_status'] === '3'" disabled>
+              <ion-icon name="clock" slot="start"></ion-icon>
+              Location en cours.
+            </ion-button>
+            <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['rent_status'] === '4' || mylocations[i]['rent_status'] === '5' " disabled>
+              <ion-icon name="clock" slot="start"></ion-icon>
+              Location terminée le {{item['endDate']}} 
+            </ion-button>
+           
     
           </div>
           <div class="col-lg-3 col-md-12 float-right">

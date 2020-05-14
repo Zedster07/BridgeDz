@@ -278,6 +278,32 @@ export class DbinteractionsService {
       });
     }
 
+    async reserveCarOut(req) {
+      const httpparams = new HttpParams().append('request' , 'bookCarOut')
+      .append('iduser' , req.idClient).append('startdate' , req.startdate)
+      .append('enddate' , req.enddate).append('idCar' , req.idCar)
+      .append('unitPrice', req.unitPrice).append('starttime', req.starttime).append('endtime', req.endtime)
+      .append('adress', req.adress).append('validPaiement', req.validPaiement)
+      .append('com_platform', req.com_platform).append('com_agency', req.com_agency)
+      .append('com_client', req.com_client).append('booking_status', req.booking_status)
+      .append('booking_state', req.booking_state).append('rent_state', req.rent_state)
+      .append('totalPrice' , req.totalprice).append('needConfirm' , req.car['needConfirm'])
+      .append('idAgency', req.idAgency).append('guid_book', this.util.newGuid())
+      .append('id_transaction', req.id_transaction).append('id_source', req.id_source)
+      .append('car_model', req.car_model).append('car_brand', req.car_brand)
+      .append('licenseRecto', req.licenseRecto).append('licenseVerso', req.licenseVerso)
+      .append('lname', req.lname).append('fname', req.fname).append('adresse', req.adresse)
+      .append('adressClient', req.adressClient).append('email', req.email)
+      .append('licenseExp', req.licenseExp).append('tel', req.tel).append('agencyOwner', this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        return resp;
+        console.log(resp);
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
     generateOptionsList(data) {
       let res = '';
       res += data.clim ? '1' : '_'; res += ',';
@@ -335,6 +361,22 @@ export class DbinteractionsService {
 
     async cancelBooking(id_booking, guid_booking, booking_state) {
       const httpparams = new HttpParams().append('request' , 'cancelBooking')
+      .append('user_id', this.glb.user.id)
+      .append('id_booking' , id_booking)
+      .append('guid_booking',guid_booking)
+      .append('booking_state', booking_state);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+        console.log(resp);
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async cancelBookingOut(id_booking, guid_booking, booking_state) {
+      const httpparams = new HttpParams().append('request' , 'cancelBookingOut')
       .append('user_id', this.glb.user.id)
       .append('id_booking' , id_booking)
       .append('guid_booking',guid_booking)
@@ -1022,6 +1064,18 @@ export class DbinteractionsService {
     async FetchAcc(): Promise<any> {
       const httpparams = new HttpParams()
       .append('request' , 'fetchAgency').append('id' , this.glb.user.id);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async FetchCarToBookOut(id): Promise<any> {
+      const httpparams = new HttpParams()
+      .append('request' , 'FetchCarToBookOut').append('id_agency' , id);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         console.log(resp);
         return resp;

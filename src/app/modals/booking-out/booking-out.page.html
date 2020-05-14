@@ -22,18 +22,41 @@
               <!--<h2 id="title" class="ion-no-padding">Confirmez le modèle de votre voiture</h2>-->
             </div>
             <ion-item-divider></ion-item-divider>
+            
             <div class="form-row">
               <div class="form-group col-md-12">
-                <label for="marque">License</label>
-                <ion-input  [(ngModel)]="glb.searchQuery.startdate" [liIonic4Datepicker]="datePickerObj" (ionChange)="myFunction()"></ion-input>
+                <label for="marque">Véhicule</label>
+                  <select [(ngModel)]="car"  (change)="updateSelect()">
+                    <option [ngValue]="item" *ngFor="let item of cars" data-secondary-text="item.brand" data-icon="this.glb.hostServer + item.FrontPic" class="rounded-circle">{{item.model}}</option>
+                  </select>
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-12">
-                <label for="marque">License</label>
-                <ion-input  [(ngModel)]="glb.searchQuery.startdate" [liIonic4Datepicker]="datePickerObj" (ionChange)="myFunction()"></ion-input>
-              </div>
+              <form class="form-inline">
+                <div class="form-group">
+                  <div class="input-group">
+                    <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [minDate]="isToday" [maxDate] ="{year: 2099, month: 12, day: 31}" [markDisabled]="markDisabled" [dayTemplate]="t" outsideDays="hidden">
+                    </ngb-datepicker>
+                    <ng-template #t let-date let-focused="focused">
+                      <span class="custom-day"
+                            [class.focused]="focused"
+                            [class.range]="isRange(date)"
+                            [class.disabled]="isDisable(date)"
+                            [class.faded]="isHovered(date) || isInside(date)"
+                            (mouseenter)="hoveredDate = date"
+                            (mouseleave)="hoveredDate = null">
+                        {{ date.day }}
+                      </span>
+                    </ng-template>
+                  </div>
+                </div>
+              </form>
             </div>
+            <div class="form-row"> 
+            <ngb-timepicker #dt1 [(ngModel)]="ST" [minuteStep]="15"></ngb-timepicker>
+            <span> </span>
+            <ngb-timepicker #dt2 [(ngModel)]="ET" [minuteStep]="15"></ngb-timepicker>
+             </div>
             <div class="form-row">
               <div class="form-group col-md-12">
                 <div class="alert alert-info shadow-sm">
@@ -46,98 +69,188 @@
       </div>
     </ion-slide>
 
-    <ion-slide>
-      <div class="container">
-        <div class="row ustify-content-center align-items-center">
-          <div class="col-12 pb-3 text-left">
-            <div class="header">
-              <h6 id="subtitle" class="ion-no-padding">AJOUTER L'ASSURENCE</h6>
-              <h2 id="title" class="ion-no-padding">Confirmez le modèle de votre voiture</h2>
-            </div>
-            <ion-item-divider></ion-item-divider>
-            <div class="form-row">
-              <div class="form-group col-md-12">
-                <label for="marque">Assurence</label>
-                <input type="text" class="form-control" id="insu_id" placeholder="réf du control technique"  [(ngModel)]="formData[1].insu_id">
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-12">
-                  <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <ion-icon name="calendar"></ion-icon>
-                        </div>
-                      </div>
-                      <ion-datetime class="form-control text-left" id="insu_exp" placeholder="Date expiration" displayFormat="YYYY-MM-DD" [(ngModel)]="formData[1].insu_exp"></ion-datetime>
-                  </div>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-12">
-                <div class="alert alert-info shadow-sm">
-                  Dans quelque minutes, votre annonce sera mise en ligne.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ion-slide>
+    
 
     <ion-slide>
-      <div class="container">
-        <div class="row ustify-content-center align-items-center">
-          <div class="col-12 pb-3 text-left">
-            <div class="header">
-              <h6 id="subtitle" class="ion-no-padding">AJOUTER LE CONTROLE TECHNIQUE</h6>
-              <h2 id="title" class="ion-no-padding">Confirmez le modèle de votre voiture</h2>
-            </div>
-            <ion-item-divider></ion-item-divider>
-            <div class="form-row">
-              <div class="form-group col-md-12">
-                <label for="marque">Controle</label>
-                <input type="text" class="form-control" id="control_id" placeholder="réf de carte grise" [(ngModel)]="formData[2].control_id">
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-12">
-                  <div class="input-group">
+          <div class="container">
+            <div class="row ustify-content-center align-items-center">
+              <div class="col-12 pb-3 text-left">
+                <div class="header">
+                  <h6 id="subtitle" class="ion-no-padding">Rensigner les information du client</h6>
+                </div>
+                <ion-item-divider></ion-item-divider>
+                
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <div class="input-group">
                       <div class="input-group-prepend">
                         <div class="input-group-text">
-                            <ion-icon name="calendar"></ion-icon>
+                            <ion-icon name="person"></ion-icon>
                         </div>
                       </div>
-                      <ion-datetime class="form-control text-left" id="control_exp" placeholder="Date expiration" displayFormat="YYYY-MM-DD" [(ngModel)]="formData[2].control_exp"></ion-datetime>
+                      <input type="text" class="form-control" id="control_id" placeholder="Nom" [(ngModel)]="fname">
+                    </div>
                   </div>
-              </div>
-            </div>
-            <ion-item (click)="uploadPic('control')" id="controlitem">
-                    <ion-thumbnail slot="start">
-                      <img src="{{ this.formData[2].picsMeta['control'][3] }}" id="controlpreview" />
-                      <input type="file" id="controlfile" style="display: none;">
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <ion-icon name="person"></ion-icon>
+                        </div>
+                      </div>
+                      <input type="text" class="form-control" id="control_id" placeholder="Prénom" [(ngModel)]="lname">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <ion-icon name="navigate"></ion-icon>
+                        </div>
+                      </div>
+                      <input type="text" class="form-control" id="Adresse" placeholder="Adresse" [(ngModel)]="adresse">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <ion-icon name="call"></ion-icon>
+                        </div>
+                      </div>
+                      <input type="text" class="form-control" id="tel" placeholder="téléphone" [(ngModel)]="telephone">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <ion-icon name="mail"></ion-icon>
+                        </div>
+                      </div>
+                      <input type="text" class="form-control" id="email" placeholder="Email" [(ngModel)]="email">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                      <div class="input-group">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <ion-icon name="calendar"></ion-icon>
+                            </div>
+                          </div>
+                          <ion-datetime class="form-control text-left" id="dob_exp" placeholder="Date de validité du permis" displayFormat="YYYY-MM-DD" [(ngModel)]="licenseDate"></ion-datetime>
+                      </div>
+                  </div>
+                </div>
+
+                <ion-item (click)="uploadPic('recto')" id="rectoitem">
+                   <ion-thumbnail slot="start">
+                      <img src="{{this.glb.hostServer + this.licenseRecro}}" id="rectopreview" />
+                        <input type="file" id="rectofile" style="display: none;">
+                      </ion-thumbnail>
+                    <ion-label>
+                     Permis Recto
+                    <p><ion-progress-bar *ngIf="this.formData" [attr.color]="this.formData === 1 ? 'success' : 'primary'" value="this.formData"></ion-progress-bar></p>
+                  </ion-label>
+                </ion-item>
+                <ion-item (click)="uploadPic('verso')" id="versoitem">
+                  <ion-thumbnail slot="start">
+                    <img src="{{ this.glb.hostServer + this.licenseVerso}}" id="versopreview" />
+                       <input type="file" id="versofile" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
-                      Photo Coté
-                      <p><ion-progress-bar *ngIf="this.formData[2].picsMeta['control'][0]" [attr.color]="this.formData[2].picsMeta['control'][2] === 1 ? 'success' : 'primary'" value="this.formData[2].picsMeta['control'][2]"></ion-progress-bar></p>
+                      Permis Verso
+                      <p><ion-progress-bar *ngIf="this.formData" [attr.color]="this.formData === 1 ? 'success' : 'primary'" value="this.formData"></ion-progress-bar></p>
                     </ion-label>
-                  </ion-item>
-            <div class="form-row">
-              <div class="form-group col-md-12">
-                <div class="alert alert-info shadow-sm">
-                  Dans quelque minutes, votre annonce sera mise en ligne.
+                </ion-item>
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <div class="alert alert-info shadow-sm">
+                      Dans quelque minutes, votre annonce sera mise en ligne.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+ 
+
+
+      <ion-slide>
+        <div class="container">
+          <div class="row ustify-content-center align-items-center">
+            <div class="col-12 pb-3 text-left">
+              <div class="header">
+                <h6 id="subtitle" class="ion-no-padding">Rensigner le prix</h6>
+              </div>
+              <ion-item-divider></ion-item-divider>
+              <div class="form-row">
+                <div class="form-group col-12 text-center" style="flex-direction: column;">
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="price" (input)="onSearchChange($event.target.value)" [(ngModel)]="this.price">
+                    <div class="input-group-append">
+                      <span class="input-group-text">€ / J</span>
+                    </div>
+                </div>
+                </div>
+              </div>
+              <!-- caution -->
+              <div class="form-row">
+                <div class="form-group col-12 text-center" style="flex-direction: column;">
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="Caution"  [(ngModel)]="this.dayDiff">
+                    <div class="input-group-append">
+                      <span class="input-group-text">€ / J</span>
+                    </div>
+                </div>
+                </div>
+              </div>
+              <!-- récap price -->
+              <div class="form-row">
+                <div class="form-group col-12 text-center" style="flex-direction: column;">
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="Total"  [(ngModel)]="this.totalPrice">
+                    <div class="input-group-append">
+                      <span class="input-group-text">€ / J</span>
+                    </div>
+                </div>
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <div class="alert alert-info shadow-sm">
+                    Dans quelque minutes, votre annonce sera mise en ligne.
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </ion-slide>
+      </ion-slide>
+
+      <!--<ion-slide>
+        
+      </ion-slide>-->
+
   </ion-slides>
 </ion-content>
-
-
-
 
 <ion-footer>
   <ion-toolbar>
@@ -147,8 +260,8 @@
         Précedent
       </ion-button>
       <ion-button color="primary" fill="solid" (click)="slideNext(bookingOut)">
-        <span *ngIf="this.steps < 1">Suivant</span>
-        <span *ngIf="this.steps === 1 && this.type === 1"> Mettre à jour</span>
+        <span *ngIf="this.step < 2">Suivant</span>
+        <span *ngIf="this.step === 2 "> Valider</span>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

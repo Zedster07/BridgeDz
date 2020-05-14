@@ -5,6 +5,7 @@ import { StartLocAgencyPage } from 'src/app/modals/start-loc-agency/start-loc-ag
 import { GlobalsService } from 'src/app/services/globals.service';
 import { UtilService } from 'src/app/services/util.service';
 import { BookingOutPage } from 'src/app/modals/booking-out/booking-out.page'
+import { booking_state } from 'src/app/interfaces/booking_state';
 
 @Component({
   selector: 'app-renting',
@@ -53,8 +54,27 @@ export class RentingPage implements OnInit {
         id: this.glb.AgencyLogData.id
       }
     });
-    return await modal.present();
+
+    modal.onDidDismiss().then((result) => {
+      if(this.util.ifSameDay(result['data']['res']['startDate'], new Date())){
+        result['data']['res']['startRenting'] = '1';
+      } else {
+        result['data']['res']['startRenting'] = '0';
+      }
+      this.mylocations.push(result['data']['res']);
+    });
+
+    const vari = await modal.present();
+  
   }
+
+  async cancelBooking(i){
+    const res = await this.db.cancelBookingOut(this.mylocations[i]['bid'], this.mylocations[i]['guid_book'], booking_state.cancel_by_Agency);
+    if (res['status'] === 'success') {
+      this.mylocations[i]['booking_state'] = booking_state.cancel_by_Agency;
+      console.log(this.mylocations[i]);
+    }  
+  }  
 
   async ionViewWillEnter() {
     const res = await this.db.getMELocs();
