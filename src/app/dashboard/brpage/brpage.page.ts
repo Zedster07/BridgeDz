@@ -14,16 +14,16 @@ import { account_status } from 'src/app/interfaces/account_status';
 export class BrpagePage implements OnInit {
   ifAdmin = false;
   ismobile = false;
-  bonredList = [ {
+  bonredList = [{
     index: 0,
-    id: 1,
-    code: '#582',
-    name: 'Mark',
-    status: 'In Review',
-    type: '2',
-    value: '20',
-    debut: '10-10-2019',
-    fin: '10-11-2019',
+    id: 0,
+    code: '',
+    name: '',
+    status: '',
+    type: '',
+    value: '',
+    debut: '',
+    fin: '',
   },
   ];
   constructor(
@@ -45,15 +45,15 @@ export class BrpagePage implements OnInit {
     modal.onDidDismiss().then(() => {
       this.fetchBR();
     });
-    
+
   }
 
   async delReduction(i) {
     let id = this.db.getStorage('accID');
     this.loading.presentLoading();
-    if(this.glb.ifAdmin(this.glb.user.role)){
+    if (this.glb.ifAdmin(this.glb.user.role)) {
       id = this.glb.agency_modify['id'];
-    } 
+    }
     const res = await this.db.delBR(this.bonredList[i].id, id);
     if (res) {
       this.fetchBR();
@@ -97,8 +97,8 @@ export class BrpagePage implements OnInit {
       case 'HIDDEN':
         return 'text-danger';
         break;
-      }
-        
+    }
+
   }
   ngOnInit() {
   }
@@ -106,10 +106,11 @@ export class BrpagePage implements OnInit {
     let id = this.db.getStorage('accID');
     const bnredListtmp = [];
     this.loading.presentLoading();
-    if(this.glb.ifAdmin(this.glb.user.role)){
+    if (this.glb.ifAdmin(this.glb.user.role)) {
       id = '';
-    } 
+    }
     const res = await this.db.fetchBR(id, this.glb.user.id);
+    if (res.status === 'success'){
     const data = res.data;
     console.log(data);
     let i = 0;
@@ -128,17 +129,22 @@ export class BrpagePage implements OnInit {
       };
       bnredListtmp.push(tmp);
       i++;
-    }
+     }
+     this.bonredList = bnredListtmp;
+     this.loading.dismissLoading();
+    } else {
     this.loading.dismissLoading();
-    this.bonredList = bnredListtmp;
+    }
+    
   }
-            
+
   async ionViewWillEnter() {
-    if (window.screen.width <= 360 ) {
+    this.bonredList = [];
+    if (window.screen.width <= 360) {
       this.ismobile = true;
     } else {
       this.ismobile = false;
-      
+
     }
     const res = await this.fetchBR();
   }

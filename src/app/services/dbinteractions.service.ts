@@ -904,7 +904,7 @@ export class DbinteractionsService {
 
     async fetchDashNotifications(id) {
       const httpparams = new HttpParams()
-      .append('request' , 'fetchNotifications').append('id' , id).append('type', '1');
+      .append('request' , 'fetchNotifications').append('id' , id).append('type', '3');
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php',  httpparams ).toPromise().then( resp => {
         this.countNotifs(resp.data , 2);
         return resp;
@@ -915,9 +915,9 @@ export class DbinteractionsService {
     }
 
 
-    async setRead(id: number) {
+    async setRead(id: string) {
       const httpparams = new HttpParams()
-      .append('request' , 'setNotiRead').append('id' , this.glb.notifications[id]['id']);
+      .append('request' , 'setNotiRead').append('id' , id);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php',  httpparams ).toPromise().then( resp => {
         return resp;
       }).catch(err => {
@@ -1051,6 +1051,7 @@ export class DbinteractionsService {
           this.glb.AgencyLogData.bemail = data.bemail;
           this.glb.AgencyLogData.name = data.nom;
           this.glb.AgencyLogData.data = resp.data;
+          this.glb.AgencyLogData.status = 0; 
           return true;
         } else {
           return false;

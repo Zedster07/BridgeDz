@@ -148,7 +148,8 @@ export class DashboardPage implements OnInit {
     this.selectedPath = this.router.url;
     setInterval(() => {
       this.fetchDemandes();
-     }, 30000);
+      this.fetchNotification();
+     }, 3000);
  
 
   }
@@ -239,6 +240,7 @@ export class DashboardPage implements OnInit {
       this.glb.AgencyLogData.data = data;
       this.glb.AgencyLogData.name =  data['name'];
       this.glb.AgencyLogData.bemail =  data['businessEmail'];
+      this.glb.AgencyLogData.status =  data['status'];
       // fetch KBIS info if not loaded before.
       if (this.glb.kbis_modify.length === 0){
         const resp = await this.db.fetchKbis(this.glb.AgencyLogData.id);
@@ -287,6 +289,7 @@ export class DashboardPage implements OnInit {
         const res_booking = await this.db.fetchBooking('-1', this.glb.AgencyLogData.id);
         if(res_booking.status === 'success'){
           this.glb.bookings = res_booking.data;
+          this.util.debug(' fetchBooking', 'fetchBooking');
         }
       }
     }
@@ -296,12 +299,12 @@ export class DashboardPage implements OnInit {
         const res_wallet = await this.db.fetchWallet(this.glb.AgencyLogData.id, this.glb.user.id);
         if(res_wallet.status === 'success'){
           this.glb.wallet = res_wallet.data;
+          this.util.debug(' res_wallet', 'res_wallet');
         }
       }
     }
 
-    this.util.debug('this.glb.cars', this.glb.cars);
-    this.util.debug('this.glb.bookings', this.glb.bookings);
+
 
     this.glb.resetDashBoard();
     this.glb.car_perf = [];
@@ -311,7 +314,8 @@ export class DashboardPage implements OnInit {
     HomePage.returned.next();
 
     this.util.debug('util 2 wallet', 'dashboard should dismiss');
-      this.loading.dismissLoading();
+    this.loading.dismissLoading();
+    this.util.debug('util 2 wallet', 'dashboard should dismissed');
     } else if (!this.glb.ifAdmin(this.glb.user.role)){
       this.router.navigate(['client']);
     }

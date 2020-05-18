@@ -148,6 +148,17 @@
         <!---                                             Profil agency                                                                       -->
           <div *ngIf= "!this.isAdmin"  class="tab-pane fade"  [ngClass]="{'active show': showTab('edit_agency')}" id="edit_agency" role="tabpanel" aria-labelledby="edit_agency-tab">
               <div class="mt-5 p-1">
+                  <div class="login-input alert alert-warning" *ngIf="this.glb.AgencyLogData.status === '0'" role="alert" id="loginerror">
+                     think to validate your agency by adding KBIS.
+                  </div>
+
+                  <div class="login-input alert alert-warning" *ngIf="this.glb.AgencyLogData.status === '4'" role="alert" id="loginerror">
+                    Account is being reviewed.
+                 </div>
+
+                  <div class="login-input alert alert-success" *ngIf="this.glb.AgencyLogData.status === '1'" role="alert">
+                    Account verified.
+                  </div>
                   <div style="width: fit-content; margin: 0 auto;" >
                       <img src="{{ this.glb.hostServer + this.glb.AgencyLogData.data['picture'] }}" id="profil_agency" width="250"/>
                       <ion-button expand="full" class=" ion-no-margin" style="position: relative; bottom: 35px;" (click)="changepic('changepichandler_ag','profil_agency', 1)">Modifier la photo</ion-button>
@@ -275,6 +286,19 @@
         
        <div  class="tab-pane fade" id="verify" [ngClass]="{'active show': showTab('verify')}" role="tabpanel" aria-labelledby="verify-tab">
         <div class="mt-5 p-1">
+
+          <div class="login-input alert alert-warning" *ngIf="this.glb.AgencyLogData.status === '0'" role="alert" id="loginerror">
+            think to validate your agency by adding KBIS.
+         </div>
+
+         <div class="login-input alert alert-warning" *ngIf="this.glb.AgencyLogData.status === '4'" role="alert" id="loginerror">
+           Account is being reviewed.
+         </div>
+
+         <div class="login-input alert alert-success" *ngIf="this.glb.AgencyLogData.status === '1'" role="alert">
+           Account verified.
+         </div>
+
           <div class="form-row">
             <div class="form-group col-md-12">
               <label for="permisID">KBIS</label>

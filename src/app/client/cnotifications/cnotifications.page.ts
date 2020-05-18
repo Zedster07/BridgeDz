@@ -69,7 +69,7 @@ export class CnotificationsPage implements OnInit {
     elem.remove();
   }
   setRead(val: number) {
-    this.db.setRead(val);
+    this.db.setRead(this.glb.notifications[val]['id']);
     this.glb.unreadNotif -= 1;
     this.glb.notifications[val].icon = 'checkmark-circle';
     // this.notifications[val - 1].icon = 'checkmark-circle';

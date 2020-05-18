@@ -10,7 +10,7 @@
         <ion-buttons slot="end" class="header-buttons">
           <ion-chip *ngIf="this.loginServ.isLoggedIn()" [attr.color]="glb.isMainPage ? 'light' : 'dark'">
             <ion-avatar>
-              <img src="{{glb.user.pic}}">
+              <img src="{{this.glb.hostServer + glb.user.pic}}">
             </ion-avatar>
             <ion-label class="ion-hide-md-down">{{glb.user.lname}}</ion-label>
             <ion-label (click)="presentPopover($event)">

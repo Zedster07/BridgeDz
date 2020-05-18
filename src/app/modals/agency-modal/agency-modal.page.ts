@@ -41,6 +41,7 @@ export class AgencyModalPage implements OnInit {
     this.glb.AgencyLogData.id =  this.accountsList[parseInt(id)]['id'];
     this.glb.AgencyLogData.bemail =  this.accountsList[parseInt(id)]['businessEmail'];
     this.glb.AgencyLogData.name =  this.accountsList[parseInt(id)]['name'];
+    this.glb.AgencyLogData.status =  this.accountsList[parseInt(id)]['status'];
     this.db.setStorage('accID' , this.glb.AgencyLogData.id);
     this.db.setStorage('accEmail' , this.glb.AgencyLogData.bemail);
     this.db.setStorage('accName' , this.glb.AgencyLogData.name);
@@ -78,6 +79,7 @@ export class AgencyModalPage implements OnInit {
           this.glb.AgencyLogData.bemail = res.data[0]['businessEmail'];
           this.glb.AgencyLogData.name = res.data[0]['name'];
           this.glb.AgencyLogData.data = res.data[0];
+          this.glb.AgencyLogData.status = res.data[0]['status'];
           if (this.type === null) {
             this.closeModal();
             this.route.navigate(['dashboard', 'home']);

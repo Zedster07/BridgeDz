@@ -7,6 +7,7 @@ import { LoginService } from '../../services/login.service';
 import { UtilService } from '../../services/util.service';
 import { UserData } from '../../interfaces/user-data';
 import { Router } from '@angular/router';
+import { account_status } from 'src/app/interfaces/account_status';
 
 @Component({
   selector: 'app-profile',
@@ -67,7 +68,8 @@ export class ProfilePage implements OnInit {
     dlicencePaye: '',
     dlicenceDate: '',
     licenseRecot: '',
-    licenseVerso: ''
+    licenseVerso: '',
+    status_verified : ''
   };
 
   public agencytmp = {
@@ -301,6 +303,7 @@ export class ProfilePage implements OnInit {
         const result = await this.db.updateKbisInfo(LiImgPaths);
         if (result.status === 'success')  {
           this.glb.kbis_modify = result.data;
+          this.glb.AgencyLogData.status = account_status.review;
         }
         this.loading.dismissLoading();
       }

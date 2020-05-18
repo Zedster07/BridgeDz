@@ -94,32 +94,88 @@ export class CarAvailabilityV1Page implements OnInit {
         let day = this.glb.selectedDays[i].date.getDate();
         switch (this.glb.selectedDays[i].cssClass){
           case 'cal-day-busy_past':
-            dateBusy = dateBusy + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+            if (!isNaN(year.toString())){
+              if (dateBusy.length === 0 ) {
+                dateBusy =  year.toString() + '/' + month.toString() + '/' + day.toString();
+              } else {
+                dateBusy = dateBusy + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+              }
+            }
             break;
           case 'cal-day-busy_future':
-            dateBusy = dateBusy + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+            if (!isNaN(year.toString())){
+              if (dateBusy.length === 0 ) {
+                dateBusy =  year.toString() + '/' + month.toString() + '/' + day.toString();
+              } else {
+                dateBusy = dateBusy + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+              }
+            }
             break;
           case 'cal-day-pre_booked_past':
-            datePreBooked = datePreBooked + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+            if (!isNaN(year.toString())){
+              if (datePreBooked.length === 0 ) {
+                datePreBooked =  year.toString() + '/' + month.toString() + '/' + day.toString();
+              } else {
+                datePreBooked = datePreBooked + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+              }
+            }
             break;
           case 'cal-day-pre_booked_future':
-            datePreBooked = datePreBooked + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+            if (!isNaN(year.toString())){
+              if (datePreBooked.length === 0 ) {
+                datePreBooked =  year.toString() + '/' + month.toString() + '/' + day.toString();
+              } else {
+                datePreBooked = datePreBooked + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+              }
+            }
             break;
           case 'cal-day-booked_inside_past':
-            dateBookedInside = dateBookedInside + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+            if (!isNaN(year.toString())){
+              if (dateBookedInside.length === 0 ) {
+                dateBookedInside = year.toString() + '/' + month.toString() + '/' + day.toString();
+              } else {
+                dateBookedInside = dateBookedInside + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+              }
+            }
             break;
           case 'cal-day-booked_inside_future':
-            dateBookedInside = dateBookedInside + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+            if (!isNaN(year.toString())){
+              if (dateBookedInside.length === 0 ) {
+                dateBookedInside =  year.toString() + '/' + month.toString() + '/' + day.toString();
+              } else {
+                dateBookedInside = dateBookedInside + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+              }
+            }
             break;
           case 'cal-day-booked_outside_past':
-            dateBookedOutside = dateBookedOutside + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+            if (!isNaN(year.toString())){
+              if (dateBookedOutside.length === 0 ) {
+                dateBookedOutside =  year.toString() + '/' + month.toString() + '/' + day.toString();
+              } else {
+                dateBookedOutside = dateBookedOutside + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+              }
+            }
             break;
           case 'cal-day-booked_outside_future':
-            dateBookedOutside = dateBookedOutside + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+            if (!isNaN(year.toString())){
+              if (dateBookedOutside.length === 0 ) {
+                dateBookedOutside =  year.toString() + '/' + month.toString() + '/' + day.toString();
+              } else {
+                dateBookedOutside = dateBookedOutside + ',' + year.toString() + '/' + month.toString() + '/' + day.toString();
+              }
+            }
             break;
         }
         
      }  
+     console.log('dateBusy');
+     console.log(dateBusy);
+     console.log('dateBookedInside');
+     console.log(dateBookedInside);
+     console.log('dateBookedOutside');
+     console.log(dateBookedOutside);
+     console.log('datePreBooked');
+     console.log(datePreBooked);
     const res = await this.db.updateAvail_v1(dateBusy, dateBookedInside, dateBookedOutside, datePreBooked, this.carIndex);
     if (res['status'] === 'response') {
     }

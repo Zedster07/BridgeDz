@@ -33,13 +33,14 @@ export class GlobalsService {
   hasAgency = false;
   AgencyLogData = {
     loggedin: false,
-    notificationsCount: 2,
+    notificationsCount: 0,
     DemandesCount: 0,
     demandeLoc: [],
     notificationDat: [],
     id: '',
     name: '',
     bemail: '',
+    status: 0,
     pic: '',
     data: []
   };
@@ -131,6 +132,7 @@ export class GlobalsService {
     propos: '',
     userStatus: '',
     role: '',
+    status_verified: '',
     session_guid: '',
     licenseId: '',
     dlicencePaye: '',
@@ -181,6 +183,7 @@ export class GlobalsService {
       id: '',
       name: '',
       pic: '',
+      status: 0,
       bemail: '',
       data: []
     };
@@ -202,6 +205,7 @@ export class GlobalsService {
       codeP: '',
       propos: '',
       userStatus: '',
+      status_verified: '',
       role: '',
       session_guid: '',
       licenseId: '',

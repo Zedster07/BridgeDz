@@ -62,7 +62,8 @@ export class DdetagencyPage implements OnInit {
     dlicencePaye: '',
     dlicenceDate: '',
     licenseRecot: '',
-    licenseVerso: ''
+    licenseVerso: '',
+    status_verified: ''
    };
 
   updateKbis = {

@@ -57,19 +57,19 @@ export class ValidationRequestPage implements OnInit {
   async rejectDemand(val: number, type:number) {
     switch (type){
       case 0 :
-        const res_ag = await this.db.validationAgency(account_status.rejected , this.validationAgency[val]['id']);
+        const res_ag = await this.db.validationAgency(account_status.deactivated , this.validationAgency[val]['id']);
         if (res_ag['status'] === 'success'){
           this.validationAgency.splice(val, 1);
         } 
         break;
       case 1 :
-        const res_ve = await this.db.validationVehicle(account_status.rejected , this.validationVehicle[val]['id']);
+        const res_ve = await this.db.validationVehicle(account_status.deactivated , this.validationVehicle[val]['id']);
         if (res_ve['status'] === 'success'){
           this.validationVehicle.splice(val, 1);
         } 
         break;
       case 2 :
-        const res_us = await this.db.validationUser(account_status.rejected , this.validationUser[val]['id']);
+        const res_us = await this.db.validationUser(account_status.deactivated , this.validationUser[val]['id']);
         if (res_us['status'] === 'success'){
           this.validationUser.splice(val, 1);
         } 

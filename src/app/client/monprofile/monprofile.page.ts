@@ -6,6 +6,7 @@ import { AlertService } from '../../services/alert.service';
 import { UtilService } from '../../services/util.service';
 import { LoginService } from '../../services/login.service';
 import { UserData } from '../../interfaces/user-data';
+import { account_status } from 'src/app/interfaces/account_status';
 
 @Component({
   selector: 'app-monprofile',
@@ -68,7 +69,8 @@ export class MonprofilePage implements OnInit {
     dlicencePaye: '',
     dlicenceDate: '',
     licenseRecot: '',
-    licenseVerso: ''
+    licenseVerso: '',
+    status_verified: ''
   };
 
   
@@ -191,8 +193,13 @@ export class MonprofilePage implements OnInit {
           console.log(this.verifyAccData);
           const result = await this.db.finishVerifyAcc(this.verifyAccData , LiImgPaths, this.glb.user);
           if (result) {
-            this.glb.user.userStatus = '1';
-            this.verified = '1';
+            this.glb.user.licenseId = this.verifyAccData.lid;
+            this.glb.user.dlicenceDate = this.verifyAccData.dateo;
+            this.glb.user.dlicencePaye = this.verifyAccData.payso;
+            this.glb.user.licenseRecot = LiImgPaths.rectoimg;
+            this.glb.user.licenseVerso = LiImgPaths.rectoimg;
+            this.glb.user.status_verified = (account_status.review).toString();
+            //this.verified = '1';
           }
           this.loading.dismissLoading();
         }

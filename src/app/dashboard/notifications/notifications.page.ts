@@ -51,9 +51,13 @@ export class NotificationsPage implements OnInit {
     public glb: GlobalsService, 
     private modalController: ModalController) {}
   setRead(val: number) {
+    if (this.glb.AgencyLogData.notificationsCount === 0){
+      return;
+    }
+    this.db.setRead(this.glb.AgencyLogData.notificationDat[val]['id']);
     this.glb.AgencyLogData.notificationsCount -= 1;
-    this.notifications[val - 1].icon = 'checkmark-circle';
-    this.notifications[val - 1].read = false;
+    this.glb.AgencyLogData.notificationDat[val].icon = 'checkmark-circle';
+    this.notifications[val].read = false;
     const elem = document.getElementById('item-' + val);
     const nicon = elem.firstElementChild;
     nicon.setAttribute('name' , 'checkmark-circle');
