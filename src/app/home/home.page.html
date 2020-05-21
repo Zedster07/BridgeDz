@@ -21,7 +21,15 @@
                     <ion-icon name="search"></ion-icon> Adresse
                    </ion-label>
                    <div class="input-container">
-                    <ion-input placeholder="Adresse" (click)="showSearchModal()" class="" [(ngModel)]="glb.searchQuery.address"></ion-input>
+                    <ion-input placeholder="Adresse" (ionChange)="updateSearch()" class=""  [(ngModel)]="this.glb.searchQuery.address"></ion-input>
+                    <ion-list *ngIf="this.searchResults.length > 0">
+                      <ion-item *ngFor="let item of this.searchResults" tappable   (click)="chooseItem(item)">
+                        {{ item['display_name'] }}
+                      </ion-item>
+                    </ion-list>
+                    <!--
+                      <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true"   (ionInput)="updateSearch()" (ionCancel)="dismiss()"></ion-searchbar>
+                    -->
                     </div>
                   </ion-item>
                </ion-col>
@@ -33,7 +41,7 @@
                     <ion-icon name="calendar"></ion-icon> Debut 
                   </ion-label>
                   <div class="input-container">
-                  <ion-input readonly [(ngModel)]="glb.searchQuery.startdate" [liIonic4Datepicker]="datePickerObj" (ionchange)="myFunction()"></ion-input>
+                    <ion-input  [(ngModel)]="glb.searchQuery.startdate" [liIonic4Datepicker]="datePickerObj" (ionChange)="myFunction()"></ion-input>
                   </div>
                 </ion-item>
                 <ion-item class="datetimepickers">
@@ -54,7 +62,7 @@
                       <ion-icon name="calendar"></ion-icon> Fin 
                     </ion-label>
                     <div class="input-container">
-                      <ion-input readonly [(ngModel)]="glb.searchQuery.enddate" [liIonic4Datepicker]="datePickerObj" (ionchange)="myFunction()"></ion-input>
+                      <ion-input  [disabled]="isDOBDisable" [(ngModel)]="glb.searchQuery.enddate" [liIonic4Datepicker]="datePickerObj_end" (ionChange)="myFunction_end()"></ion-input>
                     </div>
                   </ion-item>
                   <ion-item class="datetimepickers">
@@ -204,6 +212,9 @@
           </ion-row>
       </ion-col>
       <ion-item-divider style="width: 80%; margin: 0 auto;"></ion-item-divider>
+ 
+      <div id="map"></div> 
+
       <ion-col id="footer" size="12" style=" padding-top: 10vh;" >
         <div id="footer-container">
           <ion-row>

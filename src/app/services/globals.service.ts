@@ -24,12 +24,14 @@ export class GlobalsService {
   isDashbPage = false;
   searchQuery = {
     address: '',
+    lat:'',
+    lon:'',
     startdate: '',
     enddate: '',
     starttime: '',
     endtime: ''
   };
-
+  sync = 0;
   hasAgency = false;
   AgencyLogData = {
     loggedin: false,

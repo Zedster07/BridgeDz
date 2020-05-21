@@ -101,7 +101,15 @@
                <ion-icon name="search"></ion-icon> Adresse
               </ion-label>
               <div class="input-container">
-                <ion-input placeholder="Adresse" class="searchItem" [(ngModel)]="glb.searchQuery.address" (ionChange)="myFunction()"></ion-input>
+                <ion-input placeholder="Adresse" (ionChange)="updateSearch()" class=""  (click)="$event.stopPropagation()" [(ngModel)]="this.glb.searchQuery.address"></ion-input>
+                    <ion-list *ngIf="this.searchResults.length > 0">
+                      <ion-item *ngFor="let item of this.searchResults" tappable   (click)="chooseItem(item)">
+                        {{ item['display_name'] }}
+                      </ion-item>
+                    </ion-list>
+                    <!--
+                      <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true"   (ionInput)="updateSearch()" (ionCancel)="dismiss()"></ion-searchbar>
+                    -->
                </div>
              </ion-item>
             <!-- <input type="text" class="form-control searchinput" placeholder="First name"> -->

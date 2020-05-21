@@ -73,10 +73,17 @@
                                     <ion-icon name="map"></ion-icon>
                                 </div>
                               </div>
-                              <input type="text" class="form-control" id="adresse" placeholder="Adresse" value="{{this.glb.user.address}}"  [(ngModel)]="usertmp.address">
-                          </div>
+                              <input type="text" class="form-control" id="adresse" placeholder="Adresse" (ngModelChange)="updateSearch()" value="{{this.glb.user.address}}" (click)="$event.stopPropagation()" [(ngModel)]="usertmp.address" >
+                            </div>
+                              <ion-list *ngIf="this.searchResults.length > 0">
+                                <ion-item *ngFor="let item of this.searchResults" tappable   (click)="chooseItem(item)">
+                                  {{ item['display_name'] }}
+                                </ion-item>
+                              </ion-list>
+                          
                       </div>
                     </div>
+                    
             </fieldset>
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">Personal Info</legend>

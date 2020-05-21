@@ -169,8 +169,13 @@
                         <ion-icon name="pin"></ion-icon>
                       </div>
                     </div>
-                    <input type="text" class="form-control" id="adresserdv" placeholder="Adresse" [(ngModel)]="formData[3].address[0]">
+                    <input type="text" class="form-control" id="adresserdv" (ngModelChange)="updateSearch()" placeholder="Adresse" [(ngModel)]="formData[3].address[0]">
                 </div>
+                <ion-list *ngIf="this.searchResults.length > 0">
+                  <ion-item *ngFor="let item of this.searchResults" tappable   (click)="chooseItem(item)">
+                    {{ item.city }}
+                  </ion-item>
+                </ion-list>
             </div>
             </div>
             

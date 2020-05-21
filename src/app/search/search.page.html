@@ -71,12 +71,12 @@
       </div>
     
       <div class="col-9" *ngIf="!isLoading">
-        <h4 color="light" class="ion-padding">Résultats 1 - {{cars.length}}</h4>
-        <div class="alert alert-info" role="alert" *ngIf="cars.length === 0">
+        <h4 color="light" class="ion-padding">Résultats 1 - {{glb.cars.length}}</h4>
+        <div class="alert alert-info" role="alert" *ngIf="glb.cars.length === 0">
           Aucun résultat trouvé !
         </div>
         <div class="row">
-          <div class="col-6" *ngFor="let item of cars; let i = index;">
+          <div class="col-6" *ngFor="let item of glb.cars; let i = index;">
             <ion-card style="background-color: white;" button="true" (click)="reserveCar(i)">
               <ion-card-header [ngStyle]="{'background-image':'url('+getFrontPic(item.FrontPic)+')'}" style="background-position: center; background-size: cover; height: 300px; width: 100%;">
                 <!-- <ion-img src="assets/images/clio.jpg"></ion-img> -->

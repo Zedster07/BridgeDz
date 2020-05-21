@@ -4,6 +4,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { AlertService } from '../../services/alert.service';
 import { UtilService } from '../../services/util.service';
+import { GeolocService } from '../../services/geoloc.service';
 import { LoginService } from '../../services/login.service';
 import { UserData } from '../../interfaces/user-data';
 import { account_status } from 'src/app/interfaces/account_status';
@@ -44,7 +45,7 @@ export class MonprofilePage implements OnInit {
   password : '';
   new_password: '';
   password_confirm: '';
-
+  searchResults = [];
   public usertmp: UserData  = {
     type: '',
     id: '',
@@ -81,6 +82,7 @@ export class MonprofilePage implements OnInit {
     private db: DbinteractionsService,
     private alertt: AlertService,
     private loading: LoadingService,
+    public geoloc: GeolocService,
     public util: UtilService ) {
     this.usertmp = JSON.parse(JSON.stringify(this.glb.user));
     this.verifyAccData.lid = this.glb.user.licenseId;
@@ -127,6 +129,38 @@ export class MonprofilePage implements OnInit {
       }
     }
     return something;
+  }
+
+  addressLookup(address: string) {
+    console.log('addressLookup');
+    if (address.length > 3) {
+      this.geoloc.addressLookup(address, 'dz', 4).subscribe(results => {
+        this.searchResults = results;
+      });
+    } else {
+      this.searchResults = [];
+    }
+    console.log(this.searchResults);
+  }
+
+  updateSearch() {
+    console.log(this.usertmp.address);
+    if (this.usertmp.address  == '') {
+      this.searchResults  = [];
+     return;
+    }
+    this.addressLookup(this.usertmp.address);
+    if (this.searchResults != undefined && this.searchResults.length != 0){
+       console.log(this.searchResults[0]['display_name']);
+    }
+    
+  }
+
+
+  chooseItem(item: any) {
+    this.usertmp.address = item['display_name'];
+    console.log(item);
+    this.searchResults = [];
   }
 
   async accParamsUpdate() {

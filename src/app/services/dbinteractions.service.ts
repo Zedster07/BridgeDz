@@ -320,6 +320,7 @@ export class DbinteractionsService {
       console.log(req.starttime);
       const httpparams = new HttpParams().append('request' , 'fetchsearchreq')
       .append('offset' , req.offset).append('startdate' , req.startdate)
+      .append('lat' , req.lat).append('lon' , req.lon)
       .append('enddate' , req.enddate).append('starttime' , req.starttime)
       .append('endtime' , req.endtime).append('moteur' , req.filter.moteur)
       .append('pricemin' , req.filter.price.lower).append('pricemax' , req.filter.price.upper)
@@ -954,6 +955,8 @@ export class DbinteractionsService {
       .append('vitesse' , data[1].boitevitesse)
       .append('options' , optionsList)
       .append('address' , data[3].address[0])
+      .append('lat' , data[3].lat)
+      .append('lon' , data[3].lon)
       .append('prix' , data[4].prix[0])
       .append('needConfirmation' , data[2].needConf)
       .append('vin', data[0].matricule)
@@ -1016,6 +1019,8 @@ export class DbinteractionsService {
       .append('needConfirmation' , data[2].needConf)
       .append('request' , 'addCar')
       .append('vin', data[0].matricule)
+      .append('lat', data[3].lat)
+      .append('lon', data[3].lon)
       .append('guid_car', guid_car);
 
       /*.append('request' , 'addCar').append('id' , this.glb.user.id)

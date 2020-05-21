@@ -137,8 +137,12 @@ export class SearchPage implements OnInit {
   async updateSearch() {
     this.isLoading = true;
 
+    //console.log('we are here');
+
     const searchRequest = {
       address : this.glb.searchQuery.address,
+      lat: this.glb.searchQuery.lat,
+      lon: this.glb.searchQuery.lon,
       startdate: this.glb.searchQuery.startdate.replace('-' , '/').replace('-' , '/'),
       enddate: this.glb.searchQuery.enddate.replace('-' , '/').replace('-' , '/') ,
       starttime: this.glb.searchQuery.starttime ,
@@ -147,18 +151,19 @@ export class SearchPage implements OnInit {
       daysdif: this.glb.daysdif,
       offset: this.offset
     };
+   // console.log(searchRequest);
     let id = this.glb.user.id;
     if (!this.loginSer.isLoggedIn()){
       id = '0';
     }
-    this.util.debug('id: ', id);
+   // this.util.debug('id: ', id);
     const result = await this.db.fetchSearchreq(id, searchRequest);
 
     if (result['status'] === 'success') {
-      this.cars = result['data'];
+      this.glb.cars = result['data'];
       this.isLoading = false;
     } else {
-      this.cars = [];
+      this.glb.cars = [];
       this.isLoading = false;
     }
 
@@ -171,7 +176,7 @@ export class SearchPage implements OnInit {
   if (!this.loginSer.isLoggedIn()){
     id = '0';
   }
-  const resp = await this.db.addHistoCar(this.cars[index]['id'], 
+  const resp = await this.db.addHistoCar(this.glb.cars[index]['id'], 
                                           index,
                                           this.glb.searchQuery.startdate.replace('-' , '/').replace('-' , '/'),
                                           this.glb.searchQuery.enddate.replace('-' , '/').replace('-' , '/') , 
@@ -182,7 +187,7 @@ export class SearchPage implements OnInit {
                                           this.glb.searchQuery.address);
    
     this.util.debug('this.glb.daysdif RESERVE CAR SEARCH', this.glb.daysdif);
-    let CarData = this.cars[index];
+    let CarData = this.glb.cars[index];
     const modal = await this.modalController.create({
       component: ReservePage,
       // backdropDismiss: false,
@@ -198,9 +203,9 @@ export class SearchPage implements OnInit {
   myFunction() {
     const debutTimestamp = new Date(this.glb.searchQuery.startdate.replace('-' , '/')).getTime();
     const finTimestamp = new Date(this.glb.searchQuery.enddate.replace('-' , '/')).getTime();
-    console.log(this.glb.searchQuery.startdate + ' , ' + this.glb.searchQuery.enddate);
-    this.util.debug('this.glb.daysdif SEARCH', this.glb.daysdif);
-    console.log(this.glb.daysdif);
+   // console.log(this.glb.searchQuery.startdate + ' , ' + this.glb.searchQuery.enddate);
+   // this.util.debug('this.glb.daysdif SEARCH', this.glb.daysdif);
+   // console.log(this.glb.daysdif);
     if (debutTimestamp > finTimestamp) {
       console.log("error");
     } else {
@@ -211,11 +216,11 @@ export class SearchPage implements OnInit {
       daysdif = daysdif / 60;
       daysdif = daysdif / 24;
       this.daysdif = daysdif;
-      console.log(this.daysdif);
+      //console.log(this.daysdif);
       this.updateSearch();
     }
 
-    console.log(this.glb.daysdif);
+   // console.log(this.glb.daysdif);
   }
   getFrontPic(piclist) {
     return this.glb.hostServer + piclist;

@@ -20,6 +20,204 @@ export class AddCarModalPage implements OnInit {
 
   sliderOne: any;
   selectedMarque = '';
+  adresse = [
+    {
+      city: 'Alger' ,
+      lat: '36.7753606',
+      lon: '3.0601882',
+    },
+    {
+      city: 'Oran' ,
+      lat: '35.7032751',
+      lon: '-0.6492976',
+    },
+    {
+      city: 'Constantine' ,
+      lat: '36.364519',
+      lon: '6.60826',
+    },
+    {
+      city: 'Annaba' ,
+      lat: '36.8982165',
+      lon: '7.7549272',
+    },
+    {
+      city: 'Blida' ,
+      lat: '36.4701645',
+      lon: '2.8287985',
+    },
+    {
+      city: 'Batna' ,
+      lat: '35.3384291',
+      lon: '5.7315453',
+    },
+    {
+      city: 'Djelfa' ,
+      lat: '34.342841',
+      lon: '3.2172531',
+    },
+    {
+      city: 'Sétif' ,
+      lat: '36.1892751',
+      lon: '5.403493',
+    },
+    {
+      city: 'Sidi bel Abbès' ,
+      lat: '34.682268',
+      lon: '-0.4357555',
+    },
+    {
+      city: 'Biskra' ,
+      lat: '34.320341',
+      lon: '4.7246792',
+    },
+    {
+      city: 'Tébessa' ,
+      lat: '35.124945',
+      lon: '7.9011735',
+    },
+    {
+      city: 'El Oued' ,
+      lat: '33.215441',
+      lon: '7.1553214',
+    },
+    {
+      city: 'Skikda' ,
+      lat: '36.7545115',
+      lon: '6.8856255',
+    },
+    {
+      city: 'Tiaret' ,
+      lat: '34.8947575',
+      lon: '1.5945792',
+    },
+    {
+      city: 'Béjaia' ,
+      lat: '36.7511783',
+      lon: '5.0643687',
+    },
+    {
+      city: 'Tlemcen' ,
+      lat: '34.881789',
+      lon: '-1.316699',
+    },
+    {
+      city: 'Ouargla' ,
+      lat: '30.9980145',
+      lon: '6.7664536',
+    },
+    {
+      city: 'Béchar' ,
+      lat: '29.8607761',
+      lon: '-2.880289',
+    },
+    {
+      city: 'Mostaganem' ,
+      lat: '36.0026915',
+      lon: '0.3686867',
+    },
+    {
+      city: 'Bordj Bou Arreridj' ,
+      lat: '36.095506',
+      lon: '4.6611002',
+    },
+    {
+      city: 'Chlef ' ,
+      lat: '36.20342',
+      lon: '1.2680696',
+    },
+    {
+      city: 'Souk Ahras' ,
+      lat: '36.1378681',
+      lon: '7.8262426',
+    },
+    {
+      city: 'Médéa' ,
+      lat: '35.9752045',
+      lon: '3.0123504',
+    },
+    {
+      city: 'Tindouf' ,
+      lat: '36.1529057',
+      lon: '5.6911588',
+    },
+    {
+      city: 'El Tarf' ,
+      lat: '36.6713563',
+      lon: '8.070134',
+    },
+    {
+      city: 'El Eulma' ,
+      lat: '36.1529057',
+      lon: '5.6911588',
+    },
+    {
+      city: 'Touggourt' ,
+      lat: '36.1529057',
+      lon: '5.6911588',
+    },
+    {
+      city: 'Ghardaïa ' ,
+      lat: '30.979872',
+      lon: '3.0990851',
+    },
+    {
+      city: 'Saïda' ,
+      lat: '34.743349',
+      lon: '0.2440764',
+    },
+    {
+      city: 'Laghouat' ,
+      lat: '33.7504405',
+      lon: '2.6431094',
+    },
+    {
+      city: 'MSila' ,
+      lat: '35.1300205',
+      lon: '4.2003107',
+    },
+    {
+      city: 'Jijel' ,
+      lat: '36.7292188',
+      lon: '5.9607776',
+    },
+    {
+      city: 'Relizane' ,
+      lat: '35.8363185',
+      lon: '0.9118537',
+    },
+    {
+      city: 'Guelma ' ,
+      lat: '36.3491635',
+      lon: '7.409499',
+    },
+    {
+      city: 'Aïn Beïda' ,
+      lat: '35.7952839',
+      lon: '7.3894346',
+    },
+    {
+      city: 'Khenchela' ,
+      lat: '34.9133455',
+      lon: '6.9059431',
+    },
+    {
+      city: 'Bousaada' ,
+      lat: '35.2133123',
+      lon: '4.1809702',
+    },
+    {
+      city: 'Mascara' ,
+      lat: '35.3978385',
+      lon: '0.2430195',
+    },
+    {
+      city: 'Tizi ouzzou' ,
+      lat: '36.6816175',
+      lon: '4.237186',
+    },
+  ];
+
   Marks = [
     {
       marque: 'Peugeot' ,
@@ -361,6 +559,7 @@ export class AddCarModalPage implements OnInit {
   };
   steps = 0;
   currentStep = 1;
+  searchResults =[];
   formData = [
     {
       marque: [ '0' , 'marque' ],
@@ -380,7 +579,9 @@ export class AddCarModalPage implements OnInit {
       needConf: false
     },
     {
-      address: ['' , 'adresserdv']
+      address: ['' , 'adresserdv'],
+      lat: '',
+      lon: '',
     },
     {
       prix: ['' , 'price']
@@ -734,6 +935,8 @@ export class AddCarModalPage implements OnInit {
         this.formData[1].carburant[0] = this.carData['engine'];
         this.formData[1].boitevitesse = this.carData['vitesse'];
         this.formData[3].address[0]= this.carData['city'];
+        this.formData[3].lat= this.carData['lat'];
+        this.formData[3].lon= this.carData['lon'];
         this.formData[4].prix[0] = this.carData['pricePerDay'];
         this.formData[2].needConf = this.carData['needConfirm'];
 
@@ -797,7 +1000,22 @@ export class AddCarModalPage implements OnInit {
 
   }
 
-  
+  updateSearch(){
+    this.searchResults = [];
+    if (this.formData[3].address[0].length > 0 ){
+        for (let i=0 ; i< this.adresse.length; i++){
+          if (this.adresse[i].city.toLowerCase().includes(this.formData[3].address[0].toLowerCase())){
+            this.searchResults.push(this.adresse[i]);
+          } 
+        }
+    } 
+  }
+  chooseItem(item){
+    this.formData[3].address[0] = item.city;
+    this.formData[3].lat = item.lat;
+    this.formData[3].lon = item.lon;
+    this.searchResults = [];
+  }
 
   
 

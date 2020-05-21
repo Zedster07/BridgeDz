@@ -206,8 +206,13 @@
                                           <ion-icon name="key"></ion-icon>
                                       </div>
                                     </div>
-                                    <input type="text" class="form-control" id="inlineFormInputGroup_ag" placeholder="Adresse" value="{{this.glb.user_modify.password}}"  [(ngModel)]="this.glb.AgencyLogData.data['address']">
+                                    <input type="text" class="form-control" id="inlineFormInputGroup_ag" placeholder="Adresse" (ngModelChange)="updateSearch()" value="{{this.glb.user_modify.password}}" (click)="$event.stopPropagation()" [(ngModel)]="this.glb.AgencyLogData.data['address']">
                                 </div>
+                                <ion-list *ngIf="this.searchResults.length > 0">
+                                  <ion-item *ngFor="let item of this.searchResults" tappable   (click)="chooseItem(item)">
+                                    {{ item['display_name'] }}
+                                  </ion-item>
+                                </ion-list>
                             </div>
                           </div>
                   </fieldset>

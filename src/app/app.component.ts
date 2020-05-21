@@ -10,6 +10,7 @@ import { AgencyModalPage } from './modals/agency-modal/agency-modal.page';
 import { ClientMenuListComponent } from './client/client-menu-list/client-menu-list.component';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
+import { GeolocService } from './services/geoloc.service';
 import { UtilService } from './services/util.service';
 
 @Component({
@@ -45,6 +46,8 @@ export class AppComponent   {
   };
   isLoading = true;
   address = '';
+  searchResults = [];
+  geo = false;
 
   myDate = this.todaysDate.getDate() + '/' + (this.todaysDate.getMonth() + 1) + '/' +this.todaysDate.getFullYear();
   disabledDates_start: Date[] = [
@@ -168,6 +171,7 @@ export class AppComponent   {
     public popoverController: PopoverController,
     private platform: Platform,
     private splashScreen: SplashScreen,
+    public geoloc: GeolocService,
     private statusBar: StatusBar,
     public loginServ: LoginService,
     private route: Router,
@@ -185,14 +189,15 @@ export class AppComponent   {
     const browserLang = translate.getBrowserLang();
     this.glb.currentLang = browserLang.match(/en|fr|ar|br/) ? browserLang : 'en';
     translate.use(this.glb.currentLang);
-    
+    //console.log('date');
+    //console.log(this.glb.searchQuery.enddate);
   }
   onScroll(event) {
-    console.log(event);
+    //console.log(event);
   }
   LoginAct() {
     if (this.loginServ.isLoggedIn()) {
-      console.log("app.component.ts");
+      //console.log("app.component.ts");
       this.route.navigate(['client']);
     } else {
       this.route.navigate(['login']);
@@ -217,26 +222,32 @@ export class AppComponent   {
   }
 
   myFunction() {
-    this.datePickerObj_end.disabledDates = [];
-    this.datePickerObj_end.highlightedDates = [];
-    this.disableDate( new Date(this.glb.searchQuery.startdate));
-    this.glb.daysdif = 1;
-    this.strart_date = new Date(this.glb.searchQuery.startdate);
-    this.util.debug('myFunction this.glb.searchQuery.startdate)', this.glb.searchQuery.startdate);
-    this.util.debug('myFunction strart_date', this.strart_date);
+    //this.util.debug('myFunction this.glb.sync app.component', this.glb.sync);
+    if (this.glb.sync > 4){
+      this.datePickerObj_end.disabledDates = [];
+      this.datePickerObj_end.highlightedDates = [];
+      this.disableDate( new Date(this.glb.searchQuery.startdate));
+      this.glb.daysdif = 1;
+      this.strart_date = new Date(this.glb.searchQuery.startdate);
+      this.util.debug('myFunction app.component', this.glb.searchQuery.startdate);
+     // this.util.debug('myFunction strart_date', this.strart_date);
+    }
+    this.glb.sync++;
   }
 
   myFunction_end() {
+    //this.util.debug('myFunction_end this.glb.sync app.component', this.glb.sync);
+    if (this.glb.sync > 4){
     const debutTimestamp = this.strart_date.getTime();
 
     const finTimestamp_ = new Date(this.glb.searchQuery.enddate);
-    this.util.debug('finTimestamp_ app.component', finTimestamp_);
-    this.util.debug('debutTimestamp app.component', debutTimestamp);
+    this.util.debug('myFunction_end app.component', finTimestamp_);
+    //this.util.debug('myFunction_end app.component', debutTimestamp);
     const finTimestamp = finTimestamp_.getTime();
-    this.util.debug('finTimestamp app.component', finTimestamp);
+    //this.util.debug('finTimestamp app.component', finTimestamp);
 
     if (debutTimestamp > finTimestamp) {
-      console.log("error");
+      //console.log("error");
     } else {
       const ms = finTimestamp - debutTimestamp;
       let daysdif = ms / 1000;
@@ -245,7 +256,13 @@ export class AppComponent   {
       daysdif = daysdif / 24;
       this.glb.daysdif = daysdif;
     }
-    this.util.debug('this.glb.daysdif APPCOMP MYFUNCTION-END', this.glb.daysdif);
+    if (this.glb.daysdif > 0 && this.glb.daysdif < 1){
+      this.glb.daysdif = 1;
+    }
+    this.updateResult();
+    //this.util.debug('this.glb.daysdif APPCOMP MYFUNCTION-END', this.glb.daysdif);
+    }
+    this.glb.sync++;
   } 
 
   disableDate(start_date){
@@ -253,9 +270,12 @@ export class AppComponent   {
     let current_month = this.util.getCurrentMonthNumber();
     let current_day = this.util.getCurrentDayNumber();
 
-    let year = this.util.getYearNumber(start_date);
-    let month = this.util.getMonthNumber(start_date);
-    let day = this.util.getDayNumber(start_date);
+    var temp = start_date;
+    temp.setDate(start_date.getDate()+1);
+
+    let year = this.util.getYearNumber(temp);
+    let month = this.util.getMonthNumber(temp);
+    let day = this.util.getDayNumber(temp);
     
     this.glb.searchQuery.enddate = year + '/' + (month ) + '/' + day;
 
@@ -301,6 +321,77 @@ export class AppComponent   {
 
 
   } 
+
+  addressLookup(address: string) {
+    if (address.length > 3 && this.geo === true) {
+      this.geoloc.addressLookup(address, 'dz', 4).subscribe(results => {
+        this.searchResults = results;
+      });
+    } else {
+      this.searchResults = [];
+    }
+  }
+
+  updateSearch() {
+    if (this.glb.searchQuery.address  == '') {
+      this.searchResults  = [];
+     return;
+    }
+    this.addressLookup(this.glb.searchQuery.address);
+    if (this.searchResults != undefined && this.searchResults.length != 0){
+      // console.log(this.searchResults[0]['display_name']);
+    }
+    if(this.geo === false){
+        this.geo = true;
+    }
+  }
+
+  async updateResult() {
+    this.isLoading = true;
+
+    //console.log('we are here');
+
+    const searchRequest = {
+      address : this.glb.searchQuery.address,
+      lat: this.glb.searchQuery.lat,
+      lon: this.glb.searchQuery.lon,
+      startdate: this.glb.searchQuery.startdate.replace('-' , '/').replace('-' , '/'),
+      enddate: this.glb.searchQuery.enddate.replace('-' , '/').replace('-' , '/') ,
+      starttime: this.glb.searchQuery.starttime ,
+      endtime: this.glb.searchQuery.endtime,
+      filter: this.searchFilter,
+      daysdif: this.glb.daysdif,
+      offset: this.offset
+    };
+   // console.log(searchRequest);
+    let id = this.glb.user.id;
+    if (!this.loginServ.isLoggedIn()){
+      id = '0';
+    }
+   // this.util.debug('id: ', id);
+    const result = await this.db.fetchSearchreq(id, searchRequest);
+
+    if (result['status'] === 'success') {
+      this.glb.cars = result['data'];
+      this.isLoading = false;
+    } else {
+      this.glb.cars = [];
+      this.isLoading = false;
+    }
+
+  }
+
+
+  chooseItem(item: any) {
+    this.glb.searchQuery.address = item['display_name'];
+    this.glb.searchQuery.lat = item['lat'];
+    this.glb.searchQuery.lon = item['lon'];
+    this.geo = false;
+    this.searchResults = [];
+    this.updateResult();
+  }
+
+
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();

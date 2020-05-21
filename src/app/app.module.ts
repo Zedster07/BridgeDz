@@ -26,6 +26,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment.prod';
 import { GlobalsService } from './services/globals.service';
 import { LoginService } from './services/login.service';
+import { GeolocService } from './services/geoloc.service';
 import { LoadingService } from './services/loading.service';
 import { AlertService } from './services/alert.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -64,6 +65,7 @@ import { VoituresPipe } from './admin/voitures.pipe';
 import { StartLocClientPage } from './modals/start-loc-client/start-loc-client.page';
 import { StartLocAgencyPage } from './modals/start-loc-agency/start-loc-agency.page';
 import { SearchGoogleAddressPage } from './modals/search-google-address/search-google-address.page';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 
 
 
@@ -120,6 +122,7 @@ export function createTranslateLoader(http: HttpClient) {
     Ionic4DatepickerModule,
     IonicTimepickerModule,
     HttpClientModule,
+    LeafletModule,
     NgbModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({
@@ -151,6 +154,7 @@ export function createTranslateLoader(http: HttpClient) {
     LoadingService,
     AlertService,
     LoginService,
+    GeolocService,
     AuthGuardService,
     DbinteractionsService,
     WebView,

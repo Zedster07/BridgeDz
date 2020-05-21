@@ -6,6 +6,7 @@ import { AlertService } from '../../services/alert.service';
 import { LoginService } from '../../services/login.service';
 import { UtilService } from '../../services/util.service';
 import { UserData } from '../../interfaces/user-data';
+import { GeolocService } from '../../services/geoloc.service';
 import { Router } from '@angular/router';
 import { account_status } from 'src/app/interfaces/account_status';
 
@@ -86,6 +87,8 @@ export class ProfilePage implements OnInit {
     versoimg: this.emptyFormdata
   };
 
+  searchResults = [];
+
 
 
 
@@ -95,6 +98,7 @@ export class ProfilePage implements OnInit {
     private alertt: AlertService,
     private loading: LoadingService,
     private route: Router,
+    public geoloc: GeolocService,
     private util: UtilService,
     private cdRef:ChangeDetectorRef) { 
     this.usertmp = JSON.parse(JSON.stringify(this.glb.user_modify));
@@ -454,6 +458,38 @@ async updateRibInfo() {
 
   async modifyCancel(index) {    
     this.route.navigate(['dashboard','duser']);
+}
+
+addressLookup(address: string) {
+  console.log('addressLookup');
+  if (address.length > 3) {
+    this.geoloc.addressLookup(address, 'dz', 4).subscribe(results => {
+      this.searchResults = results;
+    });
+  } else {
+    this.searchResults = [];
+  }
+  console.log(this.searchResults);
+}
+
+updateSearch() {
+  console.log(this.usertmp.address);
+  if (this.glb.AgencyLogData.data['address']  == '') {
+    this.searchResults  = [];
+   return;
+  }
+  this.addressLookup(this.glb.AgencyLogData.data['address']);
+  if (this.searchResults != undefined && this.searchResults.length != 0){
+     console.log(this.searchResults[0]['display_name']);
+  }
+  
+}
+
+
+chooseItem(item: any) {
+  this.glb.AgencyLogData.data['address'] = item['display_name'];
+  console.log(item);
+  this.searchResults = [];
 }
 
  
