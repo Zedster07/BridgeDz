@@ -893,8 +893,9 @@ export class AddCarModalPage implements OnInit {
       dismissed: true
     });
   }
-  slideNext(slideView) {
+  async slideNext(slideView) {
     if (this.checkStep(this.currentStep)) {
+      let w = await this.AddCarForm.update();
       this.AddCarForm.lockSwipes(false);
       this.steps = (this.steps + 0.2) > 1 ? 1 : this.steps + 0.2;
       slideView.slideNext(500);

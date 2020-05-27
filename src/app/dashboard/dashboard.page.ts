@@ -246,7 +246,6 @@ export class DashboardPage implements OnInit {
         const resp = await this.db.fetchKbis(this.glb.AgencyLogData.id);
         if (resp['status'] === 'success'){
           this.glb.kbis_modify = resp['data'];
-          this.util.debug('ngOnInt kbis', this.glb.kbis_modify);
         } 
       }
       // fetch RIB info if not loaded before.
@@ -254,7 +253,6 @@ export class DashboardPage implements OnInit {
         const resp_rib = await this.db.fetchRib(this.glb.AgencyLogData.id);
         if (resp_rib['status'] === 'success'){
           this.glb.rib_modify = resp_rib['data'];
-          this.util.debug('ngOnInt rib', this.glb.kbis_modify);
         } 
       }
     }
@@ -267,7 +265,6 @@ export class DashboardPage implements OnInit {
           
           this.glb.event_agency = resp_event['data'];
           this.util2.eventPreparation(this.glb.event_agency, this.glb.events);
-          this.util.debug('fetchEventAgency', this.glb.events);
         }
       } 
     }
@@ -284,12 +281,13 @@ export class DashboardPage implements OnInit {
       }
     }
 
+    this.loading.dismissLoading();
+
     if (islogged === 'true' || this.glb.ifAdmin(this.glb.user.role)) {
       if(this.glb.bookings.length === 0 || this.glb.ifAdmin(this.glb.user.role)){
         const res_booking = await this.db.fetchBooking('-1', this.glb.AgencyLogData.id);
         if(res_booking.status === 'success'){
           this.glb.bookings = res_booking.data;
-          this.util.debug(' fetchBooking', 'fetchBooking');
         }
       }
     }
@@ -299,7 +297,6 @@ export class DashboardPage implements OnInit {
         const res_wallet = await this.db.fetchWallet(this.glb.AgencyLogData.id, this.glb.user.id);
         if(res_wallet.status === 'success'){
           this.glb.wallet = res_wallet.data;
-          this.util.debug(' res_wallet', 'res_wallet');
         }
       }
     }
@@ -309,13 +306,13 @@ export class DashboardPage implements OnInit {
     this.glb.resetDashBoard();
     this.glb.car_perf = [];
     this.util2.buildPerfCars(this.glb.cars, this.glb.bookings, this.glb.car_perf, this.glb.booking_state, this.glb.booking_state_c);
-    this.util2.fillSummarizeInfo(this.glb.cars, this.glb.wallet, this.glb.summariez_info);
+    this.util2.fillSummarizeInfo(this.glb.cars, this.glb.wallet, this.glb.summariez_info);  
+
+
+
+    //
 
     HomePage.returned.next();
-
-    this.util.debug('util 2 wallet', 'dashboard should dismiss');
-    this.loading.dismissLoading();
-    this.util.debug('util 2 wallet', 'dashboard should dismissed');
     } else if (!this.glb.ifAdmin(this.glb.user.role)){
       this.router.navigate(['client']);
     }

@@ -24,7 +24,7 @@
               <ion-label> <ion-icon name="Key" color="medium"></ion-icon> </ion-label>
               <ion-input placeholder="Password" type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" [(ngModel)]="normalLogin.password"> </ion-input>
           </ion-item>
-          
+          <a id="password" (click)="passwordForgotten()">Mot de passe oublié ?</a>
           <ion-button expand="block" class="login-input" color="primary" (click)="normallogin()">
             <ion-icon name="log-in" slot="start"></ion-icon>
             Se connecter

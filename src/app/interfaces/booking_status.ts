@@ -7,5 +7,10 @@ export enum booking_status {
     on_going =6
   }
 
-
+export enum paiement_status {
+   validated = 1,
+   not_yet_validated = 0,
+   refunded = 2,
+   not_validated = 3
+}
 

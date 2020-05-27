@@ -13,32 +13,7 @@ export class CnotificationsPage implements OnInit {
   moseov = false;
   iconName = 'radio-button-off';
   demandeLoc = [
-    {
-      id: 1,
-      title: 'Demand 1',
-      start: '12/03/2019 à 10h',
-      end: '15/03/2019 à 10h',
-      duree: '3 jours',
-      prix: '120 euros',
-      rdv: '10h à Aéroport de XXXX',
-      apermis: 'XX années',
-      accepted: 0,
-      read: false,
-      icon: 'radio-button-off'
-    },
-    {
-      id: 2,
-      title: 'Demand 2',
-      start: '12/03/2019 à 10h',
-      end: '15/03/2019 à 10h',
-      duree: '3 jours',
-      prix: '120 euros',
-      rdv: '10h à Aéroport de XXXX',
-      apermis: 'XX années',
-      accepted: 1,
-      read: true,
-      icon: 'checkmark-circle'
-    }
+    
   ];
 
   unreadD = 1;

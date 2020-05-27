@@ -36,7 +36,22 @@ export class LocationsPage implements OnInit {
       component: StartLocAgencyPage,
       backdropDismiss: true,
       componentProps: {
-        data: this.mylocations[index]
+        data: this.mylocations[index],
+        type_book : 0,
+        inv_step : 0
+      }
+    });
+    return await modal.present();
+  }
+
+  async endL(index) {
+    const modal = await this.modalController.create({
+      component: StartLocAgencyPage,
+      backdropDismiss: false,
+      componentProps: {
+        data: this.mylocations[index],
+        type_book : 0,
+        inv_step : 1
       }
     });
     return await modal.present();
@@ -53,6 +68,11 @@ export class LocationsPage implements OnInit {
           this.mylocations[i]['startRenting'] = '1';
         } else {
           this.mylocations[i]['startRenting'] = '0';
+        }
+        if(this.util.ifSameDay(this.mylocations[i]['endDate'], new Date())){
+          this.mylocations[i]['endRenting'] = '1';
+        } else {
+          this.mylocations[i]['endRenting'] = '0';
         }
       }
     }

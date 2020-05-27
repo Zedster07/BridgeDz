@@ -8,7 +8,7 @@ import { AlertService } from '../../../services/alert.service';
 import { LoginService } from '../../../services/login.service';
 import { UtilService } from '../../../services/util.service';
 import { UserData } from '../../../interfaces/user-data';
-import { AgencyData } from '../../../interfaces/agency_data';
+import { paiement_status } from '../../../interfaces/booking_status';
 import { CarData } from '../../../interfaces/car_data';
 import { Router } from '@angular/router';
 
@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
 export class DdetagencyPage implements OnInit {
 
   tabVal = 'edit';
+  subTabVal = 'pe'
   isAdmin = false;
   recto_temp = false;
   verso_temp = false;
@@ -71,7 +72,14 @@ export class DdetagencyPage implements OnInit {
     versoimg: this.emptyFormdata
   };
 
-
+  paiement = ['x', 'y'];
+  historical_wallet = [];
+  wallet = [];
+  bookings = [];
+  s_month_h;
+  e_month_h;
+  s_year;
+  e_year;
 
   constructor(
     public glb: GlobalsService ,
@@ -87,6 +95,9 @@ export class DdetagencyPage implements OnInit {
   setTabVal( val: string) {
     this.tabVal = val;
   }
+  setSubTabVal( val: string) {
+    this.subTabVal = val;
+  }
 
 
   getFrontPic(car: any) {
@@ -96,6 +107,13 @@ export class DdetagencyPage implements OnInit {
   
   showTab(val: string): boolean {
     if (val === this.tabVal) {
+      return true;
+    }
+    return false;
+  }
+
+  showSubTab(val: string): boolean {
+    if (val === this.subTabVal) {
       return true;
     }
     return false;
@@ -189,7 +207,53 @@ export class DdetagencyPage implements OnInit {
     if (this.glb.kbis_modify['picture_verso'] === ''){
       this.verso_temp = true;
     }
-
+    const resp = await this.db.fetchWallet(this.glb.agency_modify['id'], this.glb.user.id);
+    if(resp['status'] === 'success'){
+      if(resp['status'] === 'success'){
+        this.wallet = resp['data'];
+        let s_month:number, s_year:number, e_month:number, e_year:number, s_month_h:string, e_month_h:string;
+         s_month= parseInt(this.wallet['next_pay'].split(' ')[0].split('-')[1]);
+         s_year= parseInt(this.wallet['next_pay'].split(' ')[0].split('-')[0]);
+        if (s_month === 12){
+           e_month = 1;
+           e_year = s_year + 1;
+        } else {
+           e_month = s_month + 1;
+           e_year  = s_year;
+        }
+         s_month_h = this.util.monthConvertor(s_month);
+         e_month_h = this.util.monthConvertor(e_month);
+         this.s_month_h = s_month_h;
+         this.s_year = s_year;
+         this.e_month_h = e_month_h;
+         this.e_year = e_year;
+        } 
+      }
+    const resp_histo = await this.db.fetchHistoricalWallet(this.glb.agency_modify['id'],this.glb.user.id, resp['data']['id']);
+    if(resp_histo['status'] === 'success'){
+      this.historical_wallet = resp_histo['data'];
+    }
+    const resp_book = await this.db.fetchBookingAgency(this.glb.agency_modify['id'],this.glb.user.id);
+    if(resp_book['status'] === 'success'){
+      this.bookings = resp_book['data'];
+      for (let i = 0; i< this.bookings.length; i++){
+        switch (parseInt(this.bookings[i]['valid_paiement'])){
+          case paiement_status.not_validated :
+              this.bookings[i]['valid_paiement_h'] = 'paiment non validé';
+            break;
+          case paiement_status.not_yet_validated :
+            this.bookings[i]['valid_paiement_h'] = 'paiement non encore validé'
+            break;
+          case paiement_status.refunded :
+            this.bookings[i]['valid_paiement_h'] = 'paiement validé - comission annulation'
+            break;
+          case paiement_status.validated :
+            this.bookings[i]['valid_paiement_h'] = 'paiement valide'
+            break;
+        }  
+     }
+    }
+ 
   }
 
   async showAddReductions() {
@@ -292,8 +356,13 @@ export class DdetagencyPage implements OnInit {
     }
   }
 
-  
+
+  pay(item){
+  }
+
   ngOnInit() {
   }
+
+
 
 }

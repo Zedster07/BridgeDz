@@ -19,6 +19,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
      private modalCtrl: ModalController
    ) { }
    step = 1;
+   inv_step ;
+   type_book ;
    bookData = '';
    isloading = false;
    msg = 'Uploading the pictures ...';
@@ -73,12 +75,20 @@ import { Component, OnInit, ViewChild } from '@angular/core';
      });
    }
    async slideNext(slideView) {
+     console.log(this.step);
      if (this.step === 6 ) {
        if (this.isloading === false ) {
          this.msg = 'Waiting a moment ...';
-         const res = await this.db.startLocnew(this.bookData['bid'] , this.uploaded , this.bookData['clientID']);
+         if (this.inv_step === 0) {
+         const res = await this.db.startLocnew(this.bookData['bid'] , this.uploaded , this.bookData['clientID'], this.inv_step, this.type_book);
          if (res['status'] === 'success') {
-           this.close();
+          this.close();
+           } 
+         } else if (this.inv_step === 1){
+          const res = await this.db.endLocnew(this.bookData['bid'] , this.uploaded , this.bookData['clientID'], this.inv_step, this.type_book);
+          if (res['status'] === 'success') {
+            this.close();
+             } 
          }
        }
      }
@@ -92,6 +102,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
      }
      this.step = this.step < 5 ? this.step + 1 : this.step;
      this.Inventaire.lockSwipes(false);
+     let xx = await this.Inventaire.update();
      slideView.slideNext(500);
      this.Inventaire.lockSwipes(true);
    }
@@ -133,6 +144,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
    async ngOnInit() {
      this.Inventaire.lockSwipes(true);
      this.bookData = this.navParams.get('data');
+     this.inv_step = this.navParams.get('inv_step');
+     this.type_book = this.navParams.get('type_book');
      //const res = await this.db.startLocA(this.bookData);
    }
  }

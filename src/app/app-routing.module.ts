@@ -23,6 +23,8 @@ const routes: Routes = [
   { path: 'checkout', loadChildren: './modals/checkout/checkout.module#CheckoutPageModule' },
   { path: 'validation-request', loadChildren: './dashboard/validation-request/validation-request.module#ValidationRequestPageModule' },
   { path: 'booking-out', loadChildren: './modals/booking-out/booking-out.module#BookingOutPageModule' },
+  { path: 'pwd', loadChildren: './pwd/pwd.module#PwdPageModule' },
+  { path: 'pwd/:token', loadChildren: './pwd/pwd.module#PwdPageModule' },
 
 
 ];

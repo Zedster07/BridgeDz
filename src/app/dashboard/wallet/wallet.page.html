@@ -1,27 +1,78 @@
 <ion-content class="ion-padding" >
-    <ion-card class="credit text-center">
-      <ion-card-header>
-        <ion-title class="ion-padding">Mon Portefeuille</ion-title>
-        
-        <ion-icon name="wallet" style="font-size: 75px;"></ion-icon>
-      </ion-card-header>
-      <ion-card-content>
-        <h2>Solde Actuel : 0 €</h2>
-      </ion-card-content>
-      <ion-button expand="full" class="ion-no-margin">ENCAISSER</ion-button>
-    </ion-card>
 
-    <ion-card class="credit text-center">
-      <ion-card-header>
-        <ion-title class="ion-padding">Mes paiement à venir</ion-title>
-        
-        <ion-icon name="cash" style="font-size: 75px;"></ion-icon>
-      </ion-card-header>
-      <ion-card-content>
-        <h2>A payer : 0 € prévu le DD/MM/YYYY</h2>
-      </ion-card-content>
-      <ion-button expand="full" color="success" class="ion-no-margin">Payer</ion-button>
-    </ion-card>
+  <div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Solde Actuel</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.wallet.theoBalance}}</div>
+            </div>
+            <ion-icon slot="start" src="../../../assets/icons/wallet_theo.svg" style="font-size: 75px;color:#595959;"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Mes paiement à venir</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.wallet.realBalance}}</div>
+            </div>
+            <ion-icon slot="start" src="../../../assets/icons/wallet_bridgy.svg" style="font-size: 75px; color:#595959;"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Revenus hors Bridgy</div>
+              <div class="row no-gutters align-items-center">
+                <div class="col-auto">
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{this.wallet.outBalance}}</div>
+                </div>
+                <div class="col">
+                  <div class="progress progress-sm mr-2">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ion-icon slot="start" src="../../../assets/icons/wallet_money.svg" style="font-size: 75px;color:#595959"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total des revenus</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.total}}</div>
+            </div>
+            <ion-icon slot="start" src="../../../assets/icons/wallet_total.svg" style="font-size: 75px;color:#595959;"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    
 
 
     <ion-item-divider style="margin-bottom: 30px;"></ion-item-divider>
@@ -29,8 +80,11 @@
       <li class="nav-item" (click)="setTabVal('pe')">
         <span class="nav-link" [ngClass]="{'active': showTab('pe')}" id="pe-tab" data-toggle="tab" href="#pe" role="tab" aria-controls="pe" aria-selected="true">Paiement Effectués</span>
       </li>
+      <li class="nav-item" (click)="setTabVal('pa')">
+        <span class="nav-link" [ngClass]="{'active': showTab('pa')}" id="pa-tab" data-toggle="tab" href="#pa" role="tab" aria-controls="pa" aria-selected="true">Paiement à venir</span>
+      </li>
       <li class="nav-item" (click)="setTabVal('pf')">
-        <span class="nav-link" [ngClass]="{'active': showTab('pf')}" id="pf-tab" data-toggle="tab" href="#pf" role="tab" aria-controls="pf" aria-selected="false">Paiement à Venir</span>
+        <span class="nav-link" [ngClass]="{'active': showTab('pf')}" id="pf-tab" data-toggle="tab" href="#pf" role="tab" aria-controls="pf" aria-selected="false">Paiement par location</span>
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -39,29 +93,55 @@
           <table class="table table-striped">
             <thead>
                 <tr>
-                  <th>Facture</th>
-                  <th>Date</th>
+                  <th>Numéro</th>
+                  <th>Date de réglement</th>
+                  <th>Période</th>
                   <th>Somme</th>
-                  <th>Demmande</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>12/03/2019</td>
-                  <td>300, 00 Euros</td>
-                  <td>A la demande / Fin du mois</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>12/04/2019</td>
-                  <td>253, 12 Euros</td>
-                  <td>A la demande / Fin du mois</td>
+                <tr *ngFor="let item of histo_wallet; let i = index">
+                  <th scope="row">{{i + 1}}</th>
+                  <td>{{item['paiement_date']}}</td>
+                  <td>{{item['month']}}/{{item['year']}}</td>
+                  <td>{{item['value']}}</td>
                 </tr>
             </tbody>
           </table>
         </div>
       </div>
+      
+      <div class="tab-pane fade"  [ngClass]="{'active show': showTab('pa')}" id="pa" role="tabpanel" aria-labelledby="pa-tab">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th>Numéro</th>
+                  <th>Date prévue de réglement</th>
+                  <th>Période</th>
+                  <th>Somme</th>
+                  <th>Payer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <th scope="row">{{1}}</th>
+                  <td>{{wallet['next_pay']}}</td>
+                  <td>{{s_month_h}}/{{s_year}} - {{e_month_h}}/{{e_year}} </td>
+                  <td>{{wallet['realBalance']}}</td>
+                  <ion-button class="table-link" (click)="pay()">
+                    <span class="fa-stack">
+                        <i class="fa fa-university fa-stack-1x fa-inverse"></i>
+                    </span>
+                    Demander un paiment
+                  </ion-button>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
       <div class="tab-pane fade" id="pf"  [ngClass]="{'active show': showTab('pf')}"  role="tabpanel" aria-labelledby="pf-tab">
           <div class="table-responsive">
               <table class="table table-striped">
@@ -71,23 +151,19 @@
                       <th>Date</th>
                       <th>Voiture</th>
                       <th>Somme</th>
-                      <th>Date de paiement</th>
+                      <th>Validité</th>
+                      <th>Date de paiement prévu</th>
+                      
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>12/04/2019</td>
-                      <td>Mégane</td>
-                      <td>200, 00 euros</td>
-                      <td>01/06/2019</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>12/04/2019</td>
-                      <td>Clio</td>
-                      <td>150, 00 euros</td>
-                      <td>01/07/2019</td>
+                    <tr *ngFor="let item of booking; let i = index">
+                      <th scope="row">{{i}}</th>
+                      <td>{{item['postdate']}}</td>
+                      <td>{{item['model']}} {{item['brand']}} - {{item['vin']}}</td>
+                      <td>{{item['com_agency']}}</td>
+                      <td>{{item['valid_paiement_h']}}</td>
+                      <td>{{item['postdate']}}</td>
                     </tr>
                 </tbody>
               </table>

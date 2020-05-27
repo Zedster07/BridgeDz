@@ -7,6 +7,7 @@ import { LoginService } from '../services/login.service';
 import { AlertService } from '../services/alert.service';
 import { LoadingService } from '../services/loading.service';
 import { GlobalsService } from '../services/globals.service';
+import { Httpresponse } from '../interfaces/httpresponse';
 import { DbinteractionsService } from '../services/dbinteractions.service';
 import { role_user } from '../interfaces/role_user';
 import { login_type } from '../interfaces/login_type';
@@ -14,7 +15,7 @@ import { support_type } from '../interfaces/support_type';
 import { UtilService } from '../services/util.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import {TranslateService} from '@ngx-translate/core';
-import { HttpClient  } from '@angular/common/http';  
+import { HttpClient , HttpErrorResponse , HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -154,6 +155,23 @@ export class LoginPage implements OnInit {
       }
     }
   }
+
+  /*async generateNewPassword(){
+    const httpParams = new HttpParams()
+    .append('request', 'regeneratePassword');
+    return await this.http.post<Httpresponse>(this.glb.hostServer + 'login.php', httpParams).toPromise().then( resp => {
+      return resp;
+    }).catch(err => {
+      console.error(err);
+      return false;
+    });
+  }*/
+  
+  async passwordForgotten(){
+      this.route.navigate(['pwd']);
+  }
+
+
   
   validateEmail(email: string) {
     // tslint:disable-next-line: max-line-length

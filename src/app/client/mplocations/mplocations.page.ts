@@ -55,7 +55,20 @@ export class MplocationsPage implements OnInit {
       component: StartLocClientPage,
       backdropDismiss: false,
       componentProps: {
-        data: this.mylocations[index]
+        data: this.mylocations[index],
+        inv_step : 0
+      }
+    });
+    return await modal.present();
+  }
+
+  async endL(index) {
+    const modal = await this.modalController.create({
+      component: StartLocClientPage,
+      backdropDismiss: false,
+      componentProps: {
+        data: this.mylocations[index],
+        inv_step : 1
       }
     });
     return await modal.present();
@@ -71,6 +84,11 @@ export class MplocationsPage implements OnInit {
           this.mylocations[i]['startRenting'] = '1';
         } else {
           this.mylocations[i]['startRenting'] = '0';
+        }
+        if(this.util.ifSameDay(this.mylocations[i]['endDate'], new Date())){
+          this.mylocations[i]['endRenting'] = '1';
+        } else {
+          this.mylocations[i]['endRenting'] = '0';
         }
       }
       console.log(this.mylocations);

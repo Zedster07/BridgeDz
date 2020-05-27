@@ -347,6 +347,47 @@ export class UtilService {
     return s.join(dec);
   }
 
+  monthConvertor(month: number) {
+    switch (month){
+      case 1 :
+        return 'MONTH.JANUARY';
+        break;
+      case 2 :
+        return 'MONTH.FEBRUARY';
+        break;
+      case 3 :
+        return 'MONTH.MARCH';
+        break;
+      case 4 :
+        return 'MONTH.APRIL';
+        break;
+      case 5 : 
+        return 'MONTH.MAI';
+        break;
+      case 6 :
+        return 'MONTH.JUNE';
+        break;
+      case 7 :
+        return 'MONTH.JULY';
+        break;
+      case 8 :
+        return 'MONTH.AUGUST';
+        break;
+      case 9 :
+        return 'MONTH.SEPTMBER';
+        break;
+      case 10 :
+        return 'MONTH.OCOTOBER';
+        break;
+      case 11 :
+        return 'MONTH.NOVOMBER';
+        break;
+      case 12 :
+        return 'MONTH.DECEMBER';
+        break;
+    }
+  }
+
   
   
   

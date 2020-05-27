@@ -177,9 +177,6 @@ export class Util2Service {
       summariez_info.real_balance = wallet['realBalance'];
       summariez_info.theo_balance = wallet['theoBalance'];
     } 
-    this.util.debug('util 2 summariez_info', summariez_info);
-    this.util.debug('util 2 cars', cars);
-    this.util.debug('util 2 wallet', wallet);
   }
 
 

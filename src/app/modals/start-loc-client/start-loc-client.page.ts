@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
  })
  export class StartLocClientPage implements OnInit {
    bookData = {};
+   inv_step;
+
    constructor(
      private navParams: NavParams,
      private modalCtrl: ModalController,
@@ -22,6 +24,7 @@ import { Component, OnInit } from '@angular/core';
 
    async ngOnInit() {
      this.bookData = this.navParams.get('data');
+     this.inv_step = this.navParams.get('inv_step');
      const res = await this.db.startLoc(this.bookData['id'] , this.bookData['vehicleID']);
    }
 

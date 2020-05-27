@@ -75,6 +75,28 @@ export class DbinteractionsService {
       });
     }
 
+    async passwordForgotten(email, token) {
+      const httpParams = new HttpParams()
+      .append('request', 'passwordForgotten').append('email', email).append('token', token);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpParams).toPromise().then( resp => {
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async changePwd(pwd, new_pwd, token) {
+      const httpParams = new HttpParams()
+      .append('request', 'changePwd').append('pwd', pwd).append('new_pwd', new_pwd).append('token', token);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpParams).toPromise().then( resp => {
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
     async fetchAvail_v1(idcar) {
       const httpparams = new HttpParams().append('request' , 'fetchAvail_v1').
       append('idcar' , idcar).
@@ -700,6 +722,17 @@ export class DbinteractionsService {
       });
     }
 
+    async fetchBookingAgency(id: string, userid: string): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'fetchBookingAgency').append('agencyid' , id).append('id_requestor',userid);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
     async fetchCarsUsers(id: string, userid: string): Promise<any> {
       console.log(userid);
       const httpparams = new HttpParams().append('request' , 'fetchCarsUser').append('user_id' , id).append('requestor_id',userid);
@@ -786,10 +819,11 @@ export class DbinteractionsService {
       });
     }
 
-    async startLocnew(id , pictures , clientID): Promise<any> {
+    async startLocnew(id , pictures , clientID, inv_step, type_book): Promise<any> {
       const httpparams = new HttpParams().append('request' , 'startLoc').append('clientID' , clientID)
       .append('idbooking' , id).append('fll' , pictures['fll']).append('flr' , pictures['flr'])
-      .append('bll' , pictures['bll']).append('blr' , pictures['blr']).append('inside', pictures['inside']);
+      .append('bll' , pictures['bll']).append('blr' , pictures['blr']).append('inside', pictures['inside'])
+      .append('inv_step', inv_step).append('type_book', type_book);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         console.log(resp);
         return resp;
@@ -798,9 +832,36 @@ export class DbinteractionsService {
         return false;
       });
     }
+
+    async endLocnew(id , pictures , clientID, inv_step, type_book): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'endLoc').append('clientID' , clientID)
+      .append('idbooking' , id).append('fll' , pictures['fll']).append('flr' , pictures['flr'])
+      .append('bll' , pictures['bll']).append('blr' , pictures['blr']).append('inside', pictures['inside'])
+      .append('inv_step', inv_step).append('type_book', type_book);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
     async clientLocResponse(response , id): Promise<any> {
       const httpparams = new HttpParams().append('request' , 'clientLocResponse')
-      .append('bookid' , id).append('value' , response);
+      .append('bookid' , id).append('value' , response).append('type_book', '0');
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async clientEndLocResponse(response , id): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'clientEndLocResponse')
+      .append('bookid' , id).append('value' , response).append('type_book', '0');
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         console.log(resp);
         return resp;
@@ -888,12 +949,12 @@ export class DbinteractionsService {
           notification['title'] = element['title'];
           notification['desc'] = element['message'];
           notification['read'] = this.isRead(element['read_stat']);
+          notification['clientTar'] =element['clientTar'];
           notification['icon'] = notification['read'] ? 'checkmark-circle' : 'radio-button-off';
           notifications.push(notification);
         }
       });
-      this.glb.notifications = notifications;
-      this.glb.unreadNotif = unread;
+
       if (type === 1) {
         this.glb.notifications = notifications;
         this.glb.unreadNotif = unread;

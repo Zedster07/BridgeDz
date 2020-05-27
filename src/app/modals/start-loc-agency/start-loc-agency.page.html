@@ -24,31 +24,31 @@
 
 <ion-content>
   <ion-slides #Inventaire [options]="slideOptsOne" style="height: 100%;">
-    <ion-slide style="height: 100%;" (click)="uploadPic('bll')">
+    <ion-slide style="height: 100%;" [ngClass]="{activem: step == 1}" (click)="uploadPic('bll')">
         <div class="container" id="bll" style="height: 100%; width: 100%; background-image: url('http://localhost/bridgedz/images/bll.jpg'); background-position: center center; background-size: cover;">
 
         </div>
         <input type="file" id="bllfile" style="display: none;">
     </ion-slide>
-    <ion-slide style="height: 100%;" (click)="uploadPic('blr')">
+    <ion-slide style="height: 100%;" [ngClass]="{activem: step == 2}" (click)="uploadPic('blr')">
       <div class="container" id="blr" style="height: 100%; width: 100%; background-image: url('http://localhost/bridgedz/images/blr.jpg'); background-position: center center; background-size: cover;">
 
       </div>
       <input type="file" id="blrfile" style="display: none;">
   </ion-slide>
-  <ion-slide style="height: 100%;" (click)="uploadPic('flr')">
+  <ion-slide style="height: 100%;"  [ngClass]="{activem: step == 3}"  (click)="uploadPic('flr')">
     <div class="container" id="flr" style="height: 100%; width: 100%; background-image: url('http://localhost/bridgedz/images/flr.jpg'); background-position: center center; background-size: cover;">
 
     </div>
     <input type="file" id="flrfile" style="display: none;">
 </ion-slide>
-<ion-slide style="height: 100%;" (click)="uploadPic('fll')">
+<ion-slide style="height: 100%;" [ngClass]="{activem: step == 4}"  (click)="uploadPic('fll')">
   <div class="container" id="fll" style="height: 100%; width: 100%; background-image: url('http://localhost/bridgedz/images/fll.jpg'); background-position: center center; background-size: cover;">
 
   </div>
   <input type="file" id="fllfile" style="display: none;">
 </ion-slide>
-<ion-slide style="height: 100%;" (click)="uploadPic('inside')">
+<ion-slide style="height: 100%;" [ngClass]="{activem: step == 5}"  (click)="uploadPic('inside')">
   <div class="container" id="inside" style="height: 100%; width: 100%; background-image: url('http://localhost/bridgedz/images/inside.jpg'); background-position: center center; background-size: cover;">
 
   </div>
