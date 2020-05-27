@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Paiment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<form (submit)="handleForm($event)">
+<div #cardElement>
+
+</div>
+
+<p>{{ cardErrors }}</p>
+
+<button>
+  Payer
+</button>
+
+</form>
+
+</ion-content>

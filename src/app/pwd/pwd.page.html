@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+    <ion-title [routerLink]="['']" routerLinkActive="router-link-active" >BridgeDz</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row style="height:100vh; display: flex;" id="login-container">
+    <ion-col class="login-form" size-lg="6" size-md="12" size-sm="12"  size-xs="12" *ngIf="pageSelected == 'pwd_request'">
+        <h1 id="login-title">Mot de passe oublié </h1>
+        
+        <ion-item-group>
+          <div class="login-input alert alert-danger" role="alert" id="loginerror">
+            A simple danger alert—check it out!
+          </div>
+          <ion-item  class="login-input">
+              <ion-label> <ion-icon name="mail" color="medium"></ion-icon> </ion-label>
+              <ion-input placeholder="Email" pattern ="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="email"> </ion-input>
+          </ion-item>
+          <ion-button expand="block" class="login-input" color="primary" (click)="pwdForgotten()">
+            <ion-icon name="log-in" slot="start"></ion-icon>
+            Changer 
+          </ion-button>
+        </ion-item-group>
+      
+
+    </ion-col>
+
+    <ion-col class="login-form" size-lg="6" size-md="12" size-sm="12"  size-xs="12" *ngIf="pageSelected == 'pwd_change'">
+      <h1 id="login-title">Mot de passe oublié </h1>
+      
+      <ion-item-group>
+        <div class="login-input alert alert-danger" role="alert" id="loginerror">
+          A simple danger alert—check it out!
+        </div>
+        <ion-item  class="login-input">
+            <ion-label> <ion-icon name="mail" color="medium"></ion-icon> </ion-label>
+            <ion-input placeholder="Password"  [(ngModel)]="pwd"> </ion-input>
+        </ion-item>
+        <ion-item  class="login-input">
+          <ion-label> <ion-icon name="mail" color="medium"></ion-icon> </ion-label>
+          <ion-input placeholder="Confirm Password" [(ngModel)]="new_pwd"> </ion-input>
+        </ion-item>
+        <ion-button expand="block" class="login-input" color="primary" (click)="pwdChange()">
+          <ion-icon name="log-in" slot="start"></ion-icon>
+          Changer 
+        </ion-button>
+      </ion-item-group>
+    
+
+  </ion-col>
+
+    <ion-col id="login-pic" size-lg="6" size-md="12" size-sm="12"  size-xs="12"></ion-col>
+  </ion-row>
+
+</ion-content>
