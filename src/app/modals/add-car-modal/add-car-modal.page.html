@@ -151,6 +151,110 @@
       </div>
       
     </ion-slide>
+
+
+    <ion-slide>
+      <div class="container">
+        <div class="row ustify-content-center align-items-center">
+          <div class="col-12 pb-3 text-left">
+            <div class="header">
+              <h6 id="subtitle" class="ion-no-padding">AJOUTER UNE VOITURE</h6>
+              <h2 id="title" class="ion-no-padding">Condition de la location</h2>
+            </div>
+
+         
+
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <h4 id="title" class="ion-no-padding">Caution</h4>
+              <ion-item>
+                <label>Caution</label>
+                <ion-checkbox slot="end" [(ngModel)]="formData[6].caution"></ion-checkbox>
+              </ion-item>
+              <label *ngIf="formData[6].caution === true" for="marque">Montant de la caution</label>
+               <div  *ngIf="formData[6].caution === true" class="input-group" id="adr">
+                   <input type="text" class="form-control" id="matricule" placeholder="Montant de la caution" [(ngModel)]="formData[6].caution_value">
+                   <div class="input-group-append">
+                    <span class="input-group-text">€ / Jour</span>
+                  </div>
+               </div>
+              </div>
+             </div>
+
+           
+
+             <div class="form-row">
+              <div class="form-group col-12" style="flex-direction: column;">
+                <h4 id="title" class="ion-no-padding">Distance de la location</h4>
+
+                <label for="marque">Kilométrage autorisé par jour</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="price" placeholder="KM" [(ngModel)]="formData[6].Km">
+                  <div class="input-group-append">
+                    <span class="input-group-text">KM / J</span>
+                  </div>
+              </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12" style="flex-direction: column;">
+                <label for="marque">Prix par kilométre dépassé</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="price" placeholder="KM" [(ngModel)]="formData[6].Km_price">
+                  <div class="input-group-append">
+                    <span class="input-group-text">€ / KM</span>
+                  </div>
+              </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12" style="flex-direction: column;">
+                <label for="marque">Anciennté du permis de conduire</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="price" placeholder="KM" [(ngModel)]="formData[6].license_seniority">
+                  <div class="input-group-append">
+                    <span class="input-group-text"> Ans </span>
+                  </div>
+              </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <h4 id="title" class="ion-no-padding">Pieces acceptés</h4>
+                <ion-list>
+                  <ion-item>
+                    <label>Piece d'identité</label>
+                    <ion-checkbox slot="end" [(ngModel)]="this.formData[6].pieces.identinty"></ion-checkbox>
+                  </ion-item>
+                  <ion-item>
+                    <label>Permis de conduire</label>
+                    <ion-checkbox slot="end" [(ngModel)]="this.formData[6].pieces.driving"></ion-checkbox>
+                  </ion-item>
+                  <ion-item>
+                    <label>Passport</label>
+                    <ion-checkbox slot="end" [(ngModel)]="this.formData[6].pieces.passport"></ion-checkbox>
+                  </ion-item>
+                </ion-list>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12">
+              <h4 id="title" class="ion-no-padding">Périmitre de location</h4>
+              <ion-item>
+                <label>Etrangé accepté</label>
+                <ion-checkbox slot="end" [(ngModel)]="formData[6].foreign_accepted"></ion-checkbox>
+              </ion-item>
+              </div>
+             </div>
+             
+          </div>
+        </div>
+      </div>    
+    </ion-slide>
+
+
     <ion-slide>
       <div class="container">
         <div class="row ustify-content-center align-items-center">
@@ -322,9 +426,9 @@
         Précedent
       </ion-button>
       <ion-button color="primary" fill="solid" (click)="slideNext(AddCarForm)">
-        <span *ngIf="this.steps < 1">Suivant</span>
-        <span *ngIf="this.steps === 1 && this.type === 0">Confirmer</span>
-        <span *ngIf="this.steps === 1 && this.type === 1">Mettre à jour</span>
+        <span *ngIf="this.currentStep < 7">Suivant</span>
+        <span *ngIf="this.currentStep === 7 && this.type === 0">Confirmer</span>
+        <span *ngIf="this.currentStep === 7 && this.type === 1">Mettre à jour</span>
       </ion-button>
     </ion-buttons>
 

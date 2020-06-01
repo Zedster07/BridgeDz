@@ -599,6 +599,19 @@ export class AddCarModalPage implements OnInit {
         cote2 : [false , false, 0, ''],
         inside : [false , false, 0, ''],
       }
+    },
+    {
+      caution : false,
+      caution_value : 100,
+      Km : 300,
+      Km_price : 0.1,
+      license_seniority : 2,
+      pieces : {
+        identinty : true,
+        driving : true,
+        passport : true
+      },
+      foreign_accepted : true
     }
   ];
 
@@ -734,7 +747,7 @@ export class AddCarModalPage implements OnInit {
           carburanterror.style.border = '1px solid green';
           return true;
         }
-      case 4:
+      case 5:
         const addresserror = document.getElementById(this.formData[3].address[1]);
         if (this.formData[3].address[0] === '') {
           addresserror.style.border = '1px solid red';
@@ -743,7 +756,7 @@ export class AddCarModalPage implements OnInit {
           addresserror.style.border = '1px solid green';
           return true;
         }
-      case 5:
+      case 6:
         const prixerror = document.getElementById(this.formData[4].prix[1]);
         if (Number(this.formData[4].prix[0]) <= 0 ) {
           prixerror.style.border = '1px solid red';
@@ -752,20 +765,24 @@ export class AddCarModalPage implements OnInit {
           prixerror.style.border = '1px solid green';
           return true;
         }
-      case 6:
+      case 7:
         const pics = ['avant' , 'arriere' , 'cote1' , 'cote2' , 'inside'];
         let i = 0;
         let count = 0;
         for (const key in this.formData[5]) {
           if (this.formData[5].hasOwnProperty(key)) {
             const picError = document.getElementById(pics[i] + 'item');
-            //console.log(key);
-            //console.log(this.formData[5]['picsMeta']);
-            //console.log(this.formData[5]);
+           
             if (key !== 'picsMeta') {
-              if (this.formData[5][key] === null || !this.formData[5]['picsMeta'][key][1]) {
+              if (!this.formData[5]['picsMeta'][key][1]) {
+                console.log("not ok");
+                console.log(this.formData[5][key]);
+                console.log(this.formData[5]['picsMeta'][key]);
                 picError.style.color = 'red';
               } else {
+                console.log(" ok");
+                console.log(this.formData[5][key]);
+                console.log(this.formData[5]['picsMeta'][key]);
                 picError.style.color = 'green';
                 count += 1;
               }
@@ -815,14 +832,14 @@ export class AddCarModalPage implements OnInit {
     }
   }
   
-  generateOptionsList() {
+  generateOptionsList(listInput) {
     let list = ''; let i = 0;
-    for (const key in this.formData[2]) {
-      if (this.formData[2].hasOwnProperty(key)) {
+    for (const key in listInput) {
+      if (listInput.hasOwnProperty(key)) {
         if (i !== 0) {
           list += ',';
         }
-        if (this.formData[2][key] === true) {
+        if (listInput[key] === true) {
           list += '1';
         } else {
           list += '0';
@@ -851,8 +868,11 @@ export class AddCarModalPage implements OnInit {
     this.loading.presentLoading();
     const formdata = new FormData();
     const picsList = this.generateCarPicsList();
-    const optionsList = this.generateOptionsList();
-    const resp =  await this.db.dbUpdateCar(this.formData, picsList, optionsList, id); //Add security backend
+    const optionsList = this.generateOptionsList(this.formData[2]);
+    const optionsRenting = this.generateOptionsList(this.formData[6].pieces);
+    console.log("optionsRenting");
+    console.log(optionsRenting);
+    const resp =  await this.db.dbUpdateCar(this.formData, picsList, optionsList, optionsRenting, id); //Add security backend
     console.log(resp)
     if (resp) {
       console.log('success');
@@ -866,10 +886,13 @@ export class AddCarModalPage implements OnInit {
     this.loading.presentLoading();
     const formdata = new FormData();
     const picsList = this.generateCarPicsList();
-    const optionsList = this.generateOptionsList();
+    const optionsList = this.generateOptionsList(this.formData[2]);
+    const optionsRenting = this.generateOptionsList(this.formData[6].pieces);
+    console.log("optionsRenting");
+    console.log(optionsRenting);
     let car_guid = this.util.newGuid();
     console.log(car_guid);
-    const resp =  await this.db.dbconfirmAddCar(this.formData, picsList, optionsList, car_guid);
+    const resp =  await this.db.dbconfirmAddCar(this.formData, picsList, optionsList, optionsRenting, car_guid);
     console.log(resp)
     if (resp) {
       console.log('success');
@@ -897,15 +920,15 @@ export class AddCarModalPage implements OnInit {
     if (this.checkStep(this.currentStep)) {
       let w = await this.AddCarForm.update();
       this.AddCarForm.lockSwipes(false);
-      this.steps = (this.steps + 0.2) > 1 ? 1 : this.steps + 0.2;
+      this.steps = (this.steps + 0.16) > 1 ? 1 : this.steps + 0.16;
       slideView.slideNext(500);
       this.AddCarForm.lockSwipes(true);
       this.currentStep += 1;
       console.log( this.currentStep);
-      if (this.currentStep === 7 && this.type === 0) { // just for debug purpose (have to be === 7)
+      if (this.currentStep === 8 && this.type === 0) { // just for debug purpose (have to be === 7)
         this.confirmAddCar();
       }
-      if(this.currentStep === 7 && this.type === 1){ // just for debug purpose (have to be === 7)
+      if(this.currentStep === 8 && this.type === 1){ // just for debug purpose (have to be === 7)
         this.updateCar(this.carData['id']);
         this.util.debug('updateCar', this.carData['id']);
         this.util.debug('formData', this.formData);
@@ -917,7 +940,7 @@ export class AddCarModalPage implements OnInit {
   slidePrev(slideView) {
     this.currentStep -= 1;
     this.AddCarForm.lockSwipes(false);
-    this.steps = (this.steps - 0.2) < 0  ? 0 : this.steps - 0.2;
+    this.steps = (this.steps - 0.16) < 0  ? 0 : this.steps - 0.16;
     slideView.slidePrev(500);
     this.AddCarForm.lockSwipes(true);
   }
@@ -933,13 +956,41 @@ export class AddCarModalPage implements OnInit {
 
         this.formData[0].marque[0] = this.carData['brand'];
         this.formData[0].model[0] = this.carData['model'];
+        this.formData[0].matricule = this.carData['vin'];
         this.formData[1].carburant[0] = this.carData['engine'];
         this.formData[1].boitevitesse = this.carData['vitesse'];
         this.formData[3].address[0]= this.carData['city'];
         this.formData[3].lat= this.carData['lat'];
         this.formData[3].lon= this.carData['lon'];
         this.formData[4].prix[0] = this.carData['pricePerDay'];
-        this.formData[2].needConf = this.carData['needConfirm'];
+        this.formData[2].needConf = false;
+        this.formData[6].Km = this.carData['Km'];
+        this.formData[6].Km_price = this.carData['Km_price'];
+        this.formData[6].foreign_accepted = false;
+        this.formData[6].license_seniority = this.carData['license_seniority'];
+        this.formData[6].caution  = false;
+        this.formData[6].caution_value =this.carData['caution_value'];
+
+        if (this.carData['needConfirm'] !== '0'){
+          this.formData[2].needConf = true;
+        } 
+        if (this.carData['caution'] !== '0'){
+          this.formData[6].caution = true;
+        } 
+        if (this.carData['foreign_accepted'] !== '0'){
+          this.formData[6].foreign_accepted  = true;
+        }
+  
+
+        if (this.getOptionlist(this.carData['accepted_peices'], 0) !== null){
+          this.formData[6].pieces.identinty = this.getOptionlist(this.carData['accepted_peices'], 0);
+        } 
+        if (this.getOptionlist(this.carData['accepted_peices'], 1) !== null){
+          this.formData[6].pieces.driving = this.getOptionlist(this.carData['accepted_peices'], 1);
+        } 
+        if (this.getOptionlist(this.carData['accepted_peices'], 2) !== null){
+          this.formData[6].pieces.passport = this.getOptionlist(this.carData['accepted_peices'], 2);
+        } 
 
         if (this.getOptionlist(this.carData['options'], 0) !== null){
           this.formData[2].clim = this.getOptionlist(this.carData['options'], 0);
@@ -958,12 +1009,14 @@ export class AddCarModalPage implements OnInit {
         }
         
         this.formData[5].picsMeta['avant'][0] = true;
+        this.formData[5].picsMeta['avant'][1] = true;
         this.formData[5].picsMeta['avant'][2] = 1;
         if (this.getPicList(this.carData['picturesList'], 0) !== null){
           this.formData[5].picsMeta['avant'][3] = this.glb.hostServer + this.getPicList(this.carData['picturesList'], 0);
            } 
 
         this.formData[5].picsMeta['arriere'][0] = true;
+        this.formData[5].picsMeta['arriere'][1] = true;
         this.formData[5].picsMeta['arriere'][2] = 1;
 
         if (this.getPicList(this.carData['picturesList'], 1) !== null){
@@ -971,6 +1024,7 @@ export class AddCarModalPage implements OnInit {
            } 
 
         this.formData[5].picsMeta['cote1'][0] = true;
+        this.formData[5].picsMeta['cote1'][1] = true;
         this.formData[5].picsMeta['cote1'][2] = 1;
         if (this.getPicList(this.carData['picturesList'], 2) !== null){
           this.formData[5].picsMeta['cote1'][3]  = this.glb.hostServer + this.getPicList(this.carData['picturesList'], 2);
@@ -978,14 +1032,16 @@ export class AddCarModalPage implements OnInit {
 
 
         this.formData[5].picsMeta['cote2'][0] = true;
+        this.formData[5].picsMeta['cote2'][1] = true;
         this.formData[5].picsMeta['cote2'][2] = 1;
         if (this.getPicList(this.carData['picturesList'], 3) !== null){
           this.formData[5].picsMeta['cote2'][3]  = this.glb.hostServer + this.getPicList(this.carData['picturesList'], 3);
            } 
 
         this.formData[5].picsMeta['inside'][0] = true;
+        this.formData[5].picsMeta['inside'][1] = true;
         this.formData[5].picsMeta['inside'][2] = 1;
-        if (this.getPicList(this.carData['picturesList'], 3) !== null){
+        if (this.getPicList(this.carData['picturesList'], 4) !== null){
           this.formData[5].picsMeta['inside'][3]  = this.glb.hostServer + this.getPicList(this.carData['picturesList'], 4);
            } 
 

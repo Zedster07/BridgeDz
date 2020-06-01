@@ -67,7 +67,7 @@
          <ion-button *ngIf="mylocations[i]['valid_paiement'] === '1'" class="ion-margin" color="success" expand="full" (click)="generateBilling(i)">
             Facture
           </ion-button>
-          <ion-button *ngIf="mylocations[i]['booking_state'] === '5' || mylocations[i]['booking_state'] === '6' || mylocations[i]['booking_state'] === '7'" class="ion-margin" color="success" expand="full" (click)="generateBilling(i)">
+          <ion-button *ngIf="mylocations[i]['booking_state'] === '5' || mylocations[i]['booking_state'] === '6' || mylocations[i]['booking_state'] === '7'" class="ion-margin" color="success" expand="full" (click)="pay(i)">
             Payer
            </ion-button>
           <ion-button *ngIf="mylocations[i]['rent_status'] === '1' && (mylocations[i]['booking_state'] === '8' || mylocations[i]['booking_state'] === '0' || mylocations[i]['booking_state'] === '1' || mylocations[i]['booking_state'] === '5' || mylocations[i]['booking_state'] === '6' || mylocations[i]['booking_state'] === '7')" class="ion-margin" color="danger" expand="full" (click)="cancelBooking(i)">

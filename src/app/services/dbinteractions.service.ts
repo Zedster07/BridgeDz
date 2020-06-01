@@ -300,6 +300,23 @@ export class DbinteractionsService {
       });
     }
 
+    async confirmReserveCar(req) {
+      const httpparams = new HttpParams().append('request' , 'confirmBookCar')
+      .append('totalPrice' , req.totalprice).append('id_booking' , req.id_booking)
+      .append('guid_book' , req.guid_book).append('validPaiement' , req.validPaiement)
+      .append('booking_state', req.booking_state).append('rent_state', req.rent_state).append('id_transaction', req.id_transaction)
+      .append('id_source', req.id_source).append('startdate', req.startdate)
+      .append('starttime', req.starttime).append('enddate', req.enddate)
+      .append('endtime', req.endtime);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        return resp;
+        console.log(resp);
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
     async reserveCarOut(req) {
       const httpparams = new HttpParams().append('request' , 'bookCarOut')
       .append('iduser' , req.idClient).append('startdate' , req.startdate)
@@ -1006,7 +1023,7 @@ export class DbinteractionsService {
 
     }
 
-    async dbUpdateCar(data: any, picsList:any, optionsList:any, id:string): Promise<boolean> {
+    async dbUpdateCar(data: any, picsList:any, optionsList:any, optionsRenting: any, id:string): Promise<boolean> {
       const httpparams = new HttpParams()
 
       .append('marque' , data[0].marque[0]).append('piclist' , picsList)
@@ -1021,6 +1038,13 @@ export class DbinteractionsService {
       .append('prix' , data[4].prix[0])
       .append('needConfirmation' , data[2].needConf)
       .append('vin', data[0].matricule)
+      .append('Km', data[6].Km)
+      .append('Km_price', data[6].Km_price)
+      .append('license_seniority', data[6].license_seniority)
+      .append('foreign_accepted', data[6].foreign_accepted)
+      .append('caution', data[6].caution)
+      .append('caution_value', data[6].caution_value)
+      .append('accepted_peices', optionsRenting)
       .append('request' , 'updateCar');
 
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
@@ -1066,7 +1090,7 @@ export class DbinteractionsService {
     }
 
 
-    async dbconfirmAddCar(data: any, picsList:any, optionsList:any, guid_car: any): Promise<boolean> {
+    async dbconfirmAddCar(data: any, picsList:any, optionsList:any, optionsRenting: any, guid_car: any): Promise<boolean> {
       const httpparams = new HttpParams()
 
       .append('marque' , data[0].marque[0]).append('piclist' , picsList)
@@ -1079,9 +1103,16 @@ export class DbinteractionsService {
       .append('prix' , data[4].prix[0])
       .append('needConfirmation' , data[2].needConf)
       .append('request' , 'addCar')
+      .append('Km', data[6].Km)
+      .append('Km_price', data[6].Km_price)
+      .append('license_seniority', data[6].license_seniority)
+      .append('caution', data[6].caution)
+      .append('caution_value', data[6].caution_value)
+      .append('foreign_accepted', data[6].foreign_accepted)
+      .append('accepted_peices', optionsRenting)
       .append('vin', data[0].matricule)
       .append('lat', data[3].lat)
-      .append('lon', data[3].lon)
+      .append('lon', data[3].lon)   
       .append('guid_car', guid_car);
 
       /*.append('request' , 'addCar').append('id' , this.glb.user.id)

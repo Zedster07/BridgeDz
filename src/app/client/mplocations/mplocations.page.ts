@@ -4,6 +4,7 @@ import { GlobalsService } from 'src/app/services/globals.service';
 import { UtilService } from 'src/app/services/util.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { ReservePage } from 'src/app/modals/reserve/reserve.page';
 import { booking_state } from 'src/app/interfaces/booking_state';
 import { BillingService } from 'src/app/services/billing.service';
 import { ModalController } from '@ionic/angular';
@@ -61,6 +62,36 @@ export class MplocationsPage implements OnInit {
     });
     return await modal.present();
   }
+
+  async pay(index){
+
+    console.log(this.mylocations[index]['startDate']);
+    console.log(this.mylocations[index]['endDate']);
+    const debutTimestamp = new Date(this.mylocations[index]['startDate']).getTime();
+    const finTimestamp = new Date(this.mylocations[index]['endDate']).getTime();
+
+    console.log(debutTimestamp);
+    console.log(finTimestamp);
+
+    const ms = finTimestamp - debutTimestamp;
+      let daysdif = ms / 1000;
+      daysdif = daysdif / 60;
+      daysdif = daysdif / 60;
+      daysdif = daysdif / 24;
+
+      console.log(daysdif);
+    const modal = await this.modalController.create({
+      component: ReservePage,
+      //backdropDismiss: false,
+      componentProps: {
+        type: '1',
+        days: daysdif,
+        data: this.mylocations[index]
+      }
+    });
+    return await modal.present();
+
+  } 
 
   async endL(index) {
     const modal = await this.modalController.create({
