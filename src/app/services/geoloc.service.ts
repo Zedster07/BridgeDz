@@ -28,7 +28,7 @@ export class GeolocService {
   ) { }
 
   addressLookup(req: any, country: string, limit: number): Observable<NominatimResponse[]> {
-    console.log('do we pass by here');
+    //console.log('do we pass by here');
     let url = `https://${this.BASE_NOMINATIM_URL}/search?format=json&q=${req}&${this.DEFAULT_VIEW_BOX}&${country}&limit=${limit}&bounded=1&admin_level=2`;
     return this.http
       .get(url).pipe(

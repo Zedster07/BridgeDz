@@ -4,5 +4,6 @@ export enum rent_state {
     inventory_before_start = 2,
     ongoing = 3,
     inventory_after_start = 4,
-    terminated = 5
+    terminated = 5,
+    canceled = 6
     }

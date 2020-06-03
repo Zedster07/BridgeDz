@@ -189,20 +189,19 @@ export class AppComponent   {
     const browserLang = translate.getBrowserLang();
     this.glb.currentLang = browserLang.match(/en|fr|ar|br/) ? browserLang : 'en';
     translate.use(this.glb.currentLang);
-    //console.log('date');
-    //console.log(this.glb.searchQuery.enddate);
+
   }
   onScroll(event) {
-    //console.log(event);
   }
+
   LoginAct() {
     if (this.loginServ.isLoggedIn()) {
-      //console.log("app.component.ts");
       this.route.navigate(['client']);
     } else {
       this.route.navigate(['login']);
     }
   }
+
   async showAgencyModal() {
     const modal = await this.modalController.create({
       component: AgencyModalPage,
@@ -222,49 +221,48 @@ export class AppComponent   {
   }
 
   myFunction() {
-    //this.util.debug('myFunction this.glb.sync app.component', this.glb.sync);
-    if (this.glb.sync > 4){
+    if (this.glb.sync){
+      this.util.debug('this.glb.sync myFunction', this.glb.sync);
       this.datePickerObj_end.disabledDates = [];
       this.datePickerObj_end.highlightedDates = [];
       this.disableDate( new Date(this.glb.searchQuery.startdate));
       this.glb.daysdif = 1;
       this.strart_date = new Date(this.glb.searchQuery.startdate);
-      this.util.debug('myFunction app.component', this.glb.searchQuery.startdate);
-     // this.util.debug('myFunction strart_date', this.strart_date);
     }
-    this.glb.sync++;
   }
 
+  myFunction_time(){
+    this.glb.sync = true;
+  }
+
+  myFunction_time_end(){
+    if (!this.glb.sync){
+       this.updateResult();
+   }
+  }
   myFunction_end() {
-    //this.util.debug('myFunction_end this.glb.sync app.component', this.glb.sync);
-    if (this.glb.sync > 4){
-    const debutTimestamp = this.strart_date.getTime();
 
-    const finTimestamp_ = new Date(this.glb.searchQuery.enddate);
-    this.util.debug('myFunction_end app.component', finTimestamp_);
-    //this.util.debug('myFunction_end app.component', debutTimestamp);
-    const finTimestamp = finTimestamp_.getTime();
-    //this.util.debug('finTimestamp app.component', finTimestamp);
-
-    if (debutTimestamp > finTimestamp) {
-      //console.log("error");
-    } else {
-      const ms = finTimestamp - debutTimestamp;
-      let daysdif = ms / 1000;
-      daysdif = daysdif / 60;
-      daysdif = daysdif / 60;
-      daysdif = daysdif / 24;
-      this.glb.daysdif = daysdif;
-    }
-    if (this.glb.daysdif > 0 && this.glb.daysdif < 1){
-      this.glb.daysdif = 1;
-    }
+    if (this.glb.sync){
+      const debutTimestamp = this.strart_date.getTime();
+      const finTimestamp_ = new Date(this.glb.searchQuery.enddate);
+      const finTimestamp = finTimestamp_.getTime();
+      if (debutTimestamp > finTimestamp) {
+      } else {
+        const ms = finTimestamp - debutTimestamp;
+        let daysdif = ms / 1000;
+        daysdif = daysdif / 60;
+        daysdif = daysdif / 60;
+        daysdif = daysdif / 24;
+        this.glb.daysdif = daysdif;
+      }
+      if (this.glb.daysdif > 0 && this.glb.daysdif < 1){
+        this.glb.daysdif = 1;
+      }
     this.updateResult();
-    //this.util.debug('this.glb.daysdif APPCOMP MYFUNCTION-END', this.glb.daysdif);
-    }
-    this.glb.sync++;
+    } 
   } 
 
+  
   disableDate(start_date){
     let current_year = this.util.getCurrentYearNumber();
     let current_month = this.util.getCurrentMonthNumber();
@@ -333,6 +331,7 @@ export class AppComponent   {
   }
 
   updateSearch() {
+   
     if (this.glb.searchQuery.address  == '') {
       this.searchResults  = [];
      return;
@@ -383,6 +382,7 @@ export class AppComponent   {
 
 
   chooseItem(item: any) {
+    //console.log('chooseItem');
     this.glb.searchQuery.address = item['display_name'];
     this.glb.searchQuery.lat = item['lat'];
     this.glb.searchQuery.lon = item['lon'];

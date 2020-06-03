@@ -116,9 +116,10 @@
               [labels]="this.glb.pieChartLabels" 
               [chartType]="pieChartType"
               [options]="pieChartOptions"
-              
+        
               [plugins]="pieChartPlugins"
               [legend]="pieChartLegend">
+
           </canvas>
           </div>
         </div>
@@ -188,7 +189,7 @@
           </div>
           <h4 class="small font-weight-bold">{{ 'RENTRING.CANCLED_DISPLAY'  | translate }} <span class="float-right">{{ this.glb.booking_state.cancled}}</span></h4>
           <div class="progress mb-4">
-            <div class="progress-bar bg-warning" role="progressbar" [style.width]="this.glb.booking_state_c.cancled"aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-warning" role="progressbar" [style.width]="this.glb.booking_state_c.cancled" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
           <h4 class="small font-weight-bold">{{ 'RENTRING.WAITING_FOR_CONFIRM_DISPLAY'  | translate }} <span class="float-right">{{ this.glb.booking_state.waiting_for_validation}}</span></h4>
           <div class="progress mb-4">
@@ -200,7 +201,7 @@
           </div>
           <h4 class="small font-weight-bold"> {{ 'RENTRING.DONE_DISPLAY'  | translate }} <span class="float-right">{{  this.glb.booking_state.done }}</span></h4>
           <div class="progress">
-            <div class="progress-bar bg-success" role="progressbar" [style.width]="this.glb.booking_state_c.done" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-success" role="progressbar" [style.width]=" this.glb.booking_state_c.done" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
       </div>
@@ -212,25 +213,25 @@
           <h6 class="m-0 font-weight-bold text-primary">{{ 'COMMON.RENTING_EX_HISTORICAL'  | translate }}</h6>
         </div>
         <div class="card-body">
-          <h4 class="small font-weight-bold"> {{ 'RENTRING.ONGOING_DISPLAY'  | translate }} <span class="float-right">20%</span></h4>
+          <h4 class="small font-weight-bold"> {{ 'RENTRING.ONGOING_DISPLAY'  | translate }} <span class="float-right">{{ this.glb.booking_state_out.on_going }}</span></h4>
           <div class="progress mb-4">
-            <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-danger" role="progressbar" [style.width]="this.glb.booking_state_out_c.on_going" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-          <h4 class="small font-weight-bold">{{ 'RENTRING.CANCLED_DISPLAY'  | translate }} <span class="float-right">40%</span></h4>
+          <h4 class="small font-weight-bold">{{ 'RENTRING.CANCLED_DISPLAY'  | translate }} <span class="float-right">{{ this.glb.booking_state_out.cancled}}</span></h4>
           <div class="progress mb-4">
-            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-warning" role="progressbar" [style.width]="this.glb.booking_state_out_c.cancled" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-          <h4 class="small font-weight-bold">{{ 'RENTRING.WAITING_FOR_CONFIRM_DISPLAY'  | translate }} <span class="float-right">60%</span></h4>
+          <h4 class="small font-weight-bold">{{ 'RENTRING.WAITING_FOR_CONFIRM_DISPLAY'  | translate }} <span class="float-right">{{ this.glb.booking_state_out.waiting_for_validation}}</span></h4>
           <div class="progress mb-4">
-            <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar" role="progressbar" [style.width]="this.glb.booking_state_out_c.waiting_for_validation" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-          <h4 class="small font-weight-bold">{{ 'RENTRING.VALIDATED_DISPLAY'  | translate }} <span class="float-right">80%</span></h4>
+          <h4 class="small font-weight-bold">{{ 'RENTRING.VALIDATED_DISPLAY'  | translate }} <span class="float-right">{{  this.glb.booking_state_out.verified }}</span></h4>
           <div class="progress mb-4">
-            <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-info" role="progressbar" [style.width]="this.glb.booking_state_out_c.verified" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-          <h4 class="small font-weight-bold"> {{ 'RENTRING.DONE_DISPLAY'  | translate }} <span class="float-right">Complete!</span></h4>
+          <h4 class="small font-weight-bold"> {{ 'RENTRING.DONE_DISPLAY'  | translate }} <span class="float-right">{{  this.glb.booking_state_out.done }}</span></h4>
           <div class="progress">
-            <div class="progress-bar bg-success" role="progressbar" value="25" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-success" role="progressbar" [style.width]="this.glb.booking_state_out_c.done" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
       </div>

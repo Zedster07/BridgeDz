@@ -2,6 +2,8 @@ import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import {ChangeDetectionStrategy,ViewEncapsulation, } from '@angular/core';
 import {TranslateService, TranslatePipe, TranslateModule} from '@ngx-translate/core';
 import { WeekViewHour } from 'calendar-utils';
+
+import { rent_state } from '../../interfaces/rent_state';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { GlobalsService } from 'src/app/services/globals.service';
@@ -13,7 +15,6 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label, Color, SingleDataSet, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 import { Subject } from 'rxjs';
 import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay, CalendarView} from 'angular-calendar';
-
 import { booking_status } from '../../interfaces/booking_status';
 
 @Component({
@@ -145,22 +146,40 @@ export class HomePage implements OnInit {
     monkeyPatchChartJsTooltip();
 
     HomePage.returned.subscribe(res => {
+      console.log("home page update");
+      this.bpiChartData[0]['data'][0] = 0;
+      this.bpiChartData[0]['data'][1] = 0;
       this.glb.resetDashBoard();
       this.car_perf_display = [];
       this.sortNbrRenting();
       this.util2.fillSummarizeInfo(this.glb.cars, this.glb.wallet, this.glb.summariez_info);
-      //TODO update chart stats
+ 
+      this.pieChartPlugins = [];
+      this.bpiChartData[0]['data'][0]  = parseFloat(this.glb.wallet['theoBalance']);
+      this.bpiChartData[0]['data'][1]  = parseFloat(this.glb.wallet['outBalance']);
+      
+      this.glb.car_perf = [];
+      this.util2.buildPerfCars(this.glb.cars, this.glb.bookings, this.glb.car_perf, this.glb.booking_state, this.glb.booking_state_c, booking_status.booked_inside, false);
+      this.util2.buildPerfCars(this.glb.cars, this.glb.bookings, this.glb.car_perf, this.glb.booking_state_out, this.glb.booking_state_out_c, booking_status.booked_outside, true);
       this.refreshView();
     });
 
   }
 
   
+  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
 
 
   async ionViewWillEnter() {  
     this.car_perf_display = [];
-                      
+     
+    
     // retreive dashboard home data
     this.loading.presentLoading();
     let agncy_id = this.glb.AgencyLogData.id;
@@ -170,7 +189,7 @@ export class HomePage implements OnInit {
 
   if (this.glb.cars.length === 0 || this.glb.bookings.length === 0 || this.glb.ifAdmin(this.glb.user.role))
   {
-    this.glb.resetDashBoard();
+    
     this.car_perf_display = [];
     this.glb.cars = [];
     this.glb.bookings = [];
@@ -190,7 +209,8 @@ export class HomePage implements OnInit {
       }
     }
 
-    this.util2.buildPerfCars(this.glb.cars, this.glb.bookings, this.glb.car_perf, this.glb.booking_state, this.glb.booking_state_c);
+    
+  
   }
 
     
@@ -219,12 +239,25 @@ export class HomePage implements OnInit {
     }
 
 
+
     
-    this.sortNbrRenting();
-    this.util2.fillSummarizeInfo(this.glb.cars, this.glb.wallet, this.glb.summariez_info);
+
     
+    this.glb.resetDashBoard();
+      this.car_perf_display = [];
+      this.sortNbrRenting();
+
+      this.util2.fillSummarizeInfo(this.glb.cars, this.glb.wallet, this.glb.summariez_info);
+      this.bpiChartData[0]['data'][0]  = parseFloat(this.glb.wallet['theoBalance']);
+      this.bpiChartData[0]['data'][1]  = parseFloat(this.glb.wallet['outBalance']);
+
+      console.log(this.glb.wallet);
+      this.glb.car_perf = [];
+      this.util2.buildPerfCars(this.glb.cars, this.glb.bookings, this.glb.car_perf, this.glb.booking_state, this.glb.booking_state_c, booking_status.booked_inside, false);
+      this.util2.buildPerfCars(this.glb.cars, this.glb.bookings, this.glb.car_perf, this.glb.booking_state_out, this.glb.booking_state_out_c, booking_status.booked_outside, true);
+      this.refreshView();
+
    
-    this.refresh.next(); 
     this.translator.get(['MONTH.YEAR_BEFOR',
                          'MONTH.JANUARY',
                          'MONTH.FEBRUARY',
@@ -317,13 +350,16 @@ export class HomePage implements OnInit {
                             }
                           }
                         } );
-
+   
     this.loading.dismissLoading();
   }
 
   refreshView(): void {
     this.refresh.next();  
   }
+
+
+  
 
   /*fillSummarizeInfo(){
     const today = new Date();
@@ -429,8 +465,9 @@ export class HomePage implements OnInit {
   /**/
 
   sortSum(){
+    //console.log('lets says');
     this.car_perf_display=[];
-    this.car_perf.sort((a, b)=> b.sum - a.sum);
+    this.glb.car_perf.sort((a, b)=> b.sum - a.sum);
     let index =this.glb.car_perf.length > 6 ? 6 : this.glb.car_perf.length;
     if(this.display_all === 0){
        for (let i =0; i<index; i++){
@@ -439,11 +476,12 @@ export class HomePage implements OnInit {
   } else {
     this.car_perf_display = this.glb.car_perf;
   } 
+  
 }
 
 sortNbrRenting(){
   this.car_perf_display=[];
-  this.util.debug('util2 1 sortNbrRenting', this.car_perf_display );
+  
   this.glb.car_perf.sort((a, b)=> b.nbr_renting - a.nbr_renting);
   let index =this.glb.car_perf.length > 6 ? 6 : this.glb.car_perf.length;
   if(this.display_all === 0){
@@ -453,6 +491,8 @@ sortNbrRenting(){
   } else {
     this.car_perf_display = this.glb.car_perf;
   } 
+  this.util.debug('util2 1 sortNbrRenting', this.car_perf_display );
+  this.util.debug('util2 1 glb car', this.glb.car_perf );
 } 
 
   displayAll(){

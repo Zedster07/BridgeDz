@@ -74,6 +74,7 @@ export class HomePage implements OnInit {
   ];
   debutDateStr = this.myDate;
   finDateStr = this.todaysDate.getFullYear() + '-' + (this.todaysDate.getMonth() + 1)  + '-' + (this.todaysDate.getDay() + 1);
+
   datePickerObj: any = {
     fromDate: new Date(), // default null
     toDate: new Date('2021-12-28'), // default null
@@ -273,6 +274,7 @@ export class HomePage implements OnInit {
   }
 
   gotosearch() {
+    this.glb.sync = false;
     this.route.navigate(['search']);
   }
 
@@ -288,7 +290,6 @@ export class HomePage implements OnInit {
     return await pop.present();
   }
   ionViewWillEnter() {
-     this.glb.sync = 0;
     if (window.screen.width <= 360 ) {
       this.isPhone = true;
     } else {

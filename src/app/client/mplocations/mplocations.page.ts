@@ -63,12 +63,16 @@ export class MplocationsPage implements OnInit {
     return await modal.present();
   }
 
+  async note(index){
+  } 
+
   async pay(index){
 
     console.log(this.mylocations[index]['startDate']);
     console.log(this.mylocations[index]['endDate']);
-    const debutTimestamp = new Date(this.mylocations[index]['startDate']).getTime();
-    const finTimestamp = new Date(this.mylocations[index]['endDate']).getTime();
+    const regex = /-/gi;
+    const debutTimestamp = new Date((this.mylocations[index]['startDate']).replace(regex ,'/')).getTime();
+    const finTimestamp = new Date((this.mylocations[index]['endDate']).replace(regex ,'/')).getTime();
 
     console.log(debutTimestamp);
     console.log(finTimestamp);

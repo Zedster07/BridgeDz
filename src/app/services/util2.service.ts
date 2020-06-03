@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { GlobalsService } from './globals.service';
 import { UtilService } from './util.service';
 import { LoadingService } from './loading.service';
+import { booking_status } from '../interfaces/booking_status';
+import { rent_state } from '../interfaces/rent_state';
 import {TranslateService, TranslatePipe, TranslateModule} from '@ngx-translate/core';
 
 @Injectable({
@@ -198,33 +200,44 @@ export class Util2Service {
   } 
 
 
-  buildBookingInState(bookings, booking_state, booking_state_c){
+  buildBookingInState(bookings, booking_state_v, booking_state_c, type){
     for (let i= 0; i< bookings.length ; i++){
-      switch (bookings[i]['status']){
-        case '0':
-          booking_state.done++;
+      if (type === parseInt(bookings[i]['status'])){
+      switch (parseInt(bookings[i]['rent_status'])){
+        case rent_state.terminated:
+          booking_state_v.done++;
         break;
-        case '1':
-          booking_state.cancled++;
+        case rent_state.canceled:
+          booking_state_v.cancled++;
         break;
-        case '2':
-          booking_state.waiting_for_validation++;
+        case rent_state.waiting_for_start:
+          booking_state_v.verified++;
         break;
-        case '3':
-          booking_state.verified++;
+        case rent_state.ongoing:
+          booking_state_v.on_going++;
         break;
-        case '4':
-          booking_state.on_going++;
+        case rent_state.inventory_before_start:
+          booking_state_v.verified++;
+        break;
+        case rent_state.inventory_after_start:
+          booking_state_v.on_going++;
+        break;
+        case rent_state.ongoing:
+          booking_state_v.on_going++;
+        break;
+        default : 
+          booking_state_v.waiting_for_validation++;
         break;
       }   
+      }  
     } 
     
-    let max = this.maxStatus(booking_state);  
-    booking_state_c.done = ((booking_state.done / max) * 100).toString() +'%';
-    booking_state_c.cancled = ((booking_state.cancled / max) * 100).toString() +'%';
-    booking_state_c.waiting_for_validation = ((booking_state.waiting_for_validation / max) * 100).toString() +'%';
-    booking_state_c.verified = ((booking_state.verified / max) * 100).toString() +'%';
-    booking_state_c.on_going = ((booking_state.on_going / max) * 100).toString() +'%';
+    let max = this.maxStatus(booking_state_v);  
+    booking_state_c.done =   ((booking_state_v.done / max) * 100).toString() +'%';
+    booking_state_c.cancled = ((booking_state_v.cancled / max) * 100).toString() +'%';
+    booking_state_c.waiting_for_validation = ((booking_state_v.waiting_for_validation / max) * 100).toString() +'%';
+    booking_state_c.verified = ((booking_state_v.verified / max) * 100).toString() +'%';
+    booking_state_c.on_going = ((booking_state_v.on_going / max) * 100).toString() +'%';
   } 
 
   /*sortNbrRenting(car_perf_display, car_perf, display_all){
@@ -255,7 +268,8 @@ export class Util2Service {
 }*/
 
 
-  buildPerfCars(cars, bookings, car_perf, booking_state, booking_state_c){
+  buildPerfCars(cars, bookings, car_perf, booking_state, booking_state_c, type, build_perf){
+    if (build_perf){ 
     for(let i =0 ; i < cars.length ; i++){ 
        let nbr_renting  = 0;
        let sum = 0;
@@ -267,15 +281,16 @@ export class Util2Service {
        }
        const tmp = {
         index :i,
-        model : cars[i]['model'],
-        matricule :cars[i]['brand'],
+        model : cars[i]['model'].toUpperCase() + '  ' + cars[i]['brand'].toUpperCase(),
+        matricule :cars[i]['vin'],
         nbr_renting :nbr_renting,
         sum: sum,
        } 
     car_perf.push(tmp);
     } 
+   } 
     //this.sortNbrRenting(car_perf_display, car_perf, display_all);
-    this.buildBookingInState(bookings, booking_state, booking_state_c);
+    this.buildBookingInState(bookings, booking_state, booking_state_c, type);
   } 
 
   

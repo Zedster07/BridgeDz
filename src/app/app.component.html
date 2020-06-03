@@ -129,7 +129,7 @@
                   <ion-icon name="Clock"></ion-icon> Temps 
                 </ion-label>
                 <div class="input-container">
-                  <ion-input  [(ngModel)]="glb.searchQuery.starttime" [liIonicTimepicker]="timePickerObj" (ionChange)="myFunction()"></ion-input>
+                  <ion-input  [(ngModel)]="glb.searchQuery.starttime" [liIonicTimepicker]="timePickerObj" (ionChange)="myFunction_time_end()"></ion-input>
                 </div>
                 </ion-item>
               </ion-item>
@@ -150,7 +150,7 @@
                     <ion-icon name="Clock"></ion-icon> Temps
                   </ion-label>
                   <div class="input-container">
-                    <ion-input readonly [(ngModel)]="glb.searchQuery.endtime" [liIonicTimepicker]="timePickerObj" (ionChange)="myFunction()"></ion-input>
+                    <ion-input readonly [(ngModel)]="glb.searchQuery.endtime" [liIonicTimepicker]="timePickerObj" (ionChange)="myFunction_time()"></ion-input>
                   </div>
                 </ion-item>
               </ion-item>

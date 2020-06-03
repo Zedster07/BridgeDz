@@ -1,5 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="end" >
+        <ion-button (click)="close()">
+          <ion-icon name="close" ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  
+    
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <ion-slides [options]="slideOpts2" #reserve style="height: 100%; width: 100%; padding: 0px;">
+  <ion-slides  [options]="slideOpts2" #reserve style="height: 100%; width: 100%; padding: 0px;">
     <ion-slide style="height: 100%; width: 100%; flex-direction: column; align-items: center; justify-content: start;">
 
         <ion-slides pager="true" [options]="slideOpts" style="height: 300px; width: 100%;">
@@ -28,9 +40,13 @@
       <div style="width: 100%; margin: 0 auto; text-align: center; position: absolute; bottom: 0; " class="border">
         <h1 style="font-size: 40px;">{{days*data['pricePerDay']}}€</h1>
         <h5>POUR {{this.days}} JOUR<span *ngIf="this.days > 1">S</span></h5>
-        <ion-button size="large" expand="block" (click)="slideNext(reserve)">
+        <ion-button *ngIf ="this.type !== '1'" size="large" expand="block" (click)="slideNext(reserve)">
           <ion-icon name="calendar" slot="start"></ion-icon>
           Réserver
+        </ion-button>
+        <ion-button *ngIf ="this.type === '1'" size="large" expand="block" (click)="slideNext_c(reserve)">
+          <ion-icon name="calendar" slot="start"></ion-icon>
+          Je paye
         </ion-button>
       </div>
 
@@ -68,7 +84,7 @@
         </ion-footer>
     </ion-slide>-->
 
-    <ion-slide>
+    <ion-slide >
 
       <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout">
         <!-- show the pre checkout page-->

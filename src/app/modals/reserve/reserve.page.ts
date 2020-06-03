@@ -24,6 +24,7 @@ export class ReservePage implements OnInit {
   data = {};
   type = '';
   renting = {};
+  didInit = false;
   steps = 0;
   stripe;
   card;
@@ -46,6 +47,7 @@ export class ReservePage implements OnInit {
 
 
   constructor(
+    public modalCtrl: ModalController,
     private navParams: NavParams ,
     private glb: GlobalsService,
     private db: DbinteractionsService,
@@ -206,33 +208,37 @@ export class ReservePage implements OnInit {
           let tmp = pics.substring(index , indexEnd);
           this.picsList.push(this.glb.hostServer + tmp);
           pics = pics.substring(indexEnd + 1);
-         // console.log('tmp = ' + tmp);
-         // console.log('pics = ' + pics);
         }
       }
 
     if (this.type === '1'){
-      console.log('111');
-      this.reserve.update();
-      this.reserve.lockSwipes(false);
-      this.reserve.slideNext();
-      this.reserve.lockSwipes(true);
+      this.slideNext_c(this.reserve);
       const elements = this.stripe.elements();
       this.card = elements.create('card');
       this.card.mount(this.cardElement.nativeElement);
       this.card.addEventListener('change', ({error}) => { 
       this.cardErrors = error && error.message;
       });
+  
+
     } 
       
       
   }
 
-  slideNext(slideView) {
+  close() {
+    this.modalCtrl.dismiss({
+      dismissed: true
+    });
+  }
+
+  slideNext_c(slideView) {
     this.reserve.lockSwipes(false);
+    this.currentStep = 0;
     this.steps = (this.steps + 0.5) > 1 ? 1 : this.steps + 0.5;
     this.currentStep += 1;
-    if (this.currentStep === 1 && (this.data['needConfirm'] === '0')){
+    console.log(this.currentStep);
+    if ((this.currentStep === 1 && this.type === '1')){
       slideView.slideNext(500);
       this.reserve.lockSwipes(true);
       const elements = this.stripe.elements();
@@ -242,7 +248,23 @@ export class ReservePage implements OnInit {
       this.cardErrors = error && error.message;
       });
     }
-    if (this.currentStep === 1 && (this.data['needConfirm'] === '1')){
+  }
+
+  slideNext(slideView) {
+    this.reserve.lockSwipes(false);
+    this.steps = (this.steps + 0.5) > 1 ? 1 : this.steps + 0.5;
+    this.currentStep += 1;
+    if ((this.currentStep === 1 && (this.data['needConfirm'] === '0'))|| (this.currentStep === 1 && this.type === '1')){
+      slideView.slideNext(500);
+      this.reserve.lockSwipes(true);
+      const elements = this.stripe.elements();
+      this.card = elements.create('card');
+      this.card.mount(this.cardElement.nativeElement);
+      this.card.addEventListener('change', ({error}) => { 
+      this.cardErrors = error && error.message;
+      });
+    }
+    if (this.currentStep === 1 && (this.data['needConfirm'] === '1') && (this.type !== '1')){
       this.reserverCar(0, 0, 0);
     } 
   }

@@ -6,6 +6,8 @@ import { GlobalsService } from '../services/globals.service';
 import { UtilService } from '../services/util.service';
 import { HomePage } from './home/home.page';
 import { Util2Service } from '../services/util2.service';
+import { booking_status } from '../interfaces/booking_status';
+import { rent_state } from '../interfaces/rent_state';
 import { DashboardMenuListComponent } from './dashboard-menu-list/dashboard-menu-list.component';
 import { LanguagePage } from '../language/language.page';
 import { LoginService } from '../services/login.service';
@@ -305,8 +307,10 @@ export class DashboardPage implements OnInit {
 
     this.glb.resetDashBoard();
     this.glb.car_perf = [];
-    this.util2.buildPerfCars(this.glb.cars, this.glb.bookings, this.glb.car_perf, this.glb.booking_state, this.glb.booking_state_c);
+    this.util2.buildPerfCars(this.glb.cars, this.glb.bookings, this.glb.car_perf, this.glb.booking_state, this.glb.booking_state_c, booking_status.booked_inside, false);
+    this.util2.buildPerfCars(this.glb.cars, this.glb.bookings, this.glb.car_perf, this.glb.booking_state_out, this.glb.booking_state_out_c, booking_status.booked_outside, true);
     this.util2.fillSummarizeInfo(this.glb.cars, this.glb.wallet, this.glb.summariez_info);  
+   
 
 
 

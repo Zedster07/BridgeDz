@@ -55,7 +55,7 @@
           <ion-button *ngIf="mylocations[i]['rent_status'] === '1' && (mylocations[i]['booking_state'] === '8' || mylocations[i]['booking_state'] === '0' || mylocations[i]['booking_state'] === '1' || mylocations[i]['booking_state'] === '5' || mylocations[i]['booking_state'] === '6' || mylocations[i]['booking_state'] === '7')" class="ion-margin" expand="full"  color="light">
             Changer l'Heure
         </ion-button>
-          <ion-button *ngIf="mylocations[i]['startRenting'] === '1' && mylocations[i]['rent_status'] === '1' && mylocations[i]['booking_state'] === '8'" class="ion-margin" expand="full"  color="primary"  (click)="startL(i)">
+          <ion-button *ngIf="mylocations[i]['startRenting'] === '1' && (mylocations[i]['rent_status'] === '1' || mylocations[i]['rent_status'] === '2') && mylocations[i]['booking_state'] === '8'" class="ion-margin" expand="full"  color="primary"  (click)="startL(i)">
             Démarrer
          </ion-button> 
          <ion-button *ngIf="mylocations[i]['endRenting'] === '1' && mylocations[i]['rent_status'] === '3' && mylocations[i]['booking_state'] === '8' " class="ion-margin" expand="full"  color="primary"  (click)="endL(i)">
@@ -66,6 +66,9 @@
         </ion-button>               
          <ion-button *ngIf="mylocations[i]['valid_paiement'] === '1'" class="ion-margin" color="success" expand="full" (click)="generateBilling(i)">
             Facture
+          </ion-button>
+          <ion-button *ngIf="mylocations[i]['valid_paiement'] === '1'" class="ion-margin" color="success" expand="full" (click)="note(i)">
+            Laisser un commentaire
           </ion-button>
           <ion-button *ngIf="mylocations[i]['booking_state'] === '5' || mylocations[i]['booking_state'] === '6' || mylocations[i]['booking_state'] === '7'" class="ion-margin" color="success" expand="full" (click)="pay(i)">
             Payer
