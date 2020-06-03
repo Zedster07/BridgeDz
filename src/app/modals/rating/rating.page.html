@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+
+  <ion-title>Laissez un commentaire</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div style=" width: 100%; height: 100%; padding: 10px;" >
+  <div class="row">
+    <div class="col-12">
+    <div class="row p-2">
+      <p>Comment c'etait l'acceuil</p>
+      <div class="col-12">
+        <button (click)="change(0, 0)">
+        <ion-icon [attr.name]="isActive[0]['first']" color="warning"></ion-icon>
+        </button>
+        <button (click)="change(1, 0)">
+          <ion-icon [attr.name]="isActive[0]['second']" color="warning"></ion-icon>
+        </button>
+        <button (click)="change(2, 0)">
+          <ion-icon [attr.name]="isActive[0]['third']"  color="warning"></ion-icon>
+        </button>
+        <button (click)="change(3, 0)">
+          <ion-icon [attr.name]="isActive[0]['fouth']"  color="warning"></ion-icon>
+        </button>
+        <button (click)="change(4, 0)">
+          <ion-icon [attr.name]="isActive[0]['fifth']"  color="warning"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="row p-2">
+      <p>Comment c'etait la voiture</p>
+      <div class="col-12">
+        <button (click)="change(0, 1)">
+        <ion-icon [attr.name]="isActive[1]['first']" color="warning"></ion-icon>
+        </button>
+        <button (click)="change(1, 1)">
+          <ion-icon [attr.name]="isActive[1]['second']" color="warning"></ion-icon>
+        </button>
+        <button (click)="change(2, 1)">
+          <ion-icon [attr.name]="isActive[1]['third']"  color="warning"></ion-icon>
+        </button>
+        <button (click)="change(3, 1)">
+          <ion-icon [attr.name]="isActive[1]['fouth']"  color="warning"></ion-icon>
+        </button>
+        <button (click)="change(4, 1)">
+          <ion-icon [attr.name]="isActive[1]['fifth']"  color="warning"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <p>laisser un commentaire</p>
+  <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="Commentaire" [(ngModel)]="isActive[2]['comment']"></textarea>
+  </div>
+
+
+  <ion-footer>
+    <ion-toolbar>
+    <ion-button (click)="cancel()" color="light">Annuler </ion-button>
+    <ion-button (click)="validate()" >Enovyer </ion-button>
+  </ion-toolbar>  
+  </ion-footer>

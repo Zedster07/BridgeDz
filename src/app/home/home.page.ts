@@ -241,15 +241,10 @@ export class HomePage implements OnInit {
 
   myFunction_end() {
     const debutTimestamp = this.strart_date.getTime();
-
     const finTimestamp_ = new Date(this.glb.searchQuery.enddate);
-    //this.util.debug('finTimestamp_ app.component', finTimestamp_);
-    //this.util.debug('debutTimestamp app.component', debutTimestamp);
     const finTimestamp = finTimestamp_.getTime();
-    //this.util.debug('finTimestamp app.component', finTimestamp);
 
     if (debutTimestamp > finTimestamp) {
-      //console.log("error");
     } else {
       const ms = finTimestamp - debutTimestamp;
       let daysdif = ms / 1000;
@@ -261,12 +256,10 @@ export class HomePage implements OnInit {
     if (this.glb.daysdif > 0 && this.glb.daysdif < 1){
       this.glb.daysdif = 1;
     }
-    //this.util.debug('this.glb.daysdif APPCOMP MYFUNCTION-END', this.glb.daysdif);
   } 
 
   LoginAct() {
     if (this.loginserv.isLoggedIn()) {
-      //console.log("home.page.ts");
       this.route.navigate(['client']);
     } else {
       this.route.navigate(['login']);
@@ -313,9 +306,6 @@ export class HomePage implements OnInit {
       this.isPhone = false;
     }
     this.glb.globalLoading(false);
-    //this.initializeMapOptions();
-
-  
   }
 
 

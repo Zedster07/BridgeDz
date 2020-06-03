@@ -63,6 +63,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { trigger, state, style, transition, animate } from '@angular/animations'
 import { VoituresPipe } from './admin/voitures.pipe';
 import { StartLocClientPage } from './modals/start-loc-client/start-loc-client.page';
+import { RatingPage } from './modals/rating/rating.page';
 import { StartLocAgencyPage } from './modals/start-loc-agency/start-loc-agency.page';
 import { SearchGoogleAddressPage } from './modals/search-google-address/search-google-address.page';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
@@ -94,13 +95,14 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, AgencyModalPage , AddCarModalPage , CarValidateModalPage , CheckoutPage , ReductionsPage , AccessHoursPage , CarAvailabilityPage , CarAvailabilityV1Page,  ReservePage , 
+  declarations: [AppComponent, AgencyModalPage , AddCarModalPage , CarValidateModalPage , CheckoutPage , ReductionsPage , RatingPage , AccessHoursPage , CarAvailabilityPage , CarAvailabilityV1Page,  ReservePage , 
     MenuListComponent , ClientMenuListComponent , StartLocClientPage, StartLocAgencyPage, SearchGoogleAddressPage , BookingOutPage],
   entryComponents: [
     AgencyModalPage,
     CarValidateModalPage,
     BookingOutPage,
     CheckoutPage,
+    RatingPage,
     AddCarModalPage,
     ReductionsPage,
     AccessHoursPage ,

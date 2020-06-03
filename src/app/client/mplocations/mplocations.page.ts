@@ -9,6 +9,7 @@ import { booking_state } from 'src/app/interfaces/booking_state';
 import { BillingService } from 'src/app/services/billing.service';
 import { ModalController } from '@ionic/angular';
 import { StartLocClientPage } from 'src/app/modals/start-loc-client/start-loc-client.page';
+import { RatingPage } from 'src/app/modals/rating/rating.page';
 
 
 
@@ -64,6 +65,16 @@ export class MplocationsPage implements OnInit {
   }
 
   async note(index){
+    console.log(this.mylocations[index]);
+    const modal = await this.modalController.create({
+      component: RatingPage,
+      backdropDismiss: true,
+      componentProps: {
+        car_id: this.mylocations[index]['vehicleID'],
+        booking_id: this.mylocations[index]['bid'],
+      }
+    });
+    return await modal.present();
   } 
 
   async pay(index){

@@ -176,6 +176,27 @@ export class DbinteractionsService {
       }); 
     }
 
+    async review(car_id, booking_id, note) {
+
+      const httpparams = new HttpParams().
+      append('reviewerID' , this.glb.user.id).
+      append('concernedID' , car_id).
+      append('booking_id' , booking_id).
+      append('rate' , note[1].note).
+      append('rate_reception' , note[0].note).
+      append('comment' , note[2].comment).
+      append('typeConcerned', '1').
+      append('request', 'review');
+
+     return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      }); 
+    }
+
     
 
 
