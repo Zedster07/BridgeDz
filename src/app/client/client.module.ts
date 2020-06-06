@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
-
+import { LanguagePage } from '../language/language.page';
 import { ClientPage } from './client.page';
 import { Ionic4DatepickerModule } from '@logisticinfotech/ionic4-datepicker';
 import { IonicTimepickerModule } from '@logisticinfotech/ionic-timepicker';

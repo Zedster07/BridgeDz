@@ -9,19 +9,19 @@
 <ion-content>
   <ion-toolbar color="light">
     <ion-title>
-      Jours
+      {{ 'MODAL_AH.DAY'  | translate }} 
     </ion-title>
   </ion-toolbar>
   <ion-row class="ion-padding">
     <ion-col>
       <ion-radio-group id="vitesse" [(ngModel)]="data.alldays">
         <ion-item>
-          <ion-label>Toujours</ion-label>
+          <ion-label>{{ 'MODAL_AH.ALWAYS'  | translate }} </ion-label>
           <ion-radio slot="start" value="all" checked (ionSelect)="toggleDays('all')"></ion-radio>
         </ion-item>
     
         <ion-item>
-          <ion-label>Spécifier</ion-label>
+          <ion-label>{{ 'MODAL_AH.ALWAYS'  | translate }}</ion-label>
           <ion-radio slot="start" value="specific" (ionSelect)="toggleDays('specific')" ></ion-radio>
         </ion-item>
       </ion-radio-group>
@@ -32,16 +32,16 @@
     <ion-col>
       <div class="input-group mb-2">
         <div class="input-group-prepend">
-          <div class="input-group-text">de</div>
+          <div class="input-group-text">{{ 'MODAL_AH.FROM'  | translate }}</div>
         </div>
         <select class="form-control" id="daysde" disabled [(ngModel)]="data.startdate"> 
-          <option selected value="samedi">Samedi</option>
-          <option value="dimanche">Dimanche</option>
-          <option value="lundi">Lundi</option>
-          <option value="mardi">Mardi</option>
-          <option value="mercredi">Mercredi</option>
-          <option value="jeudi">Jeudi</option>
-          <option value="vendredi">Vendredi</option>
+          <option selected value="samedi">{{ 'MODAL_AH.SATURDAY'  | translate }}</option>
+          <option value="dimanche">{{ 'MODAL_AH.SUNDAY'  | translate }}</option>
+          <option value="lundi">{{ 'MODAL_AH.MONDAY'  | translate }}</option>
+          <option value="mardi">{{ 'MODAL_AH.TUESDAY'  | translate }}</option>
+          <option value="mercredi">{{ 'MODAL_AH.WENDNESDAY'  | translate }}</option>
+          <option value="jeudi">{{ 'MODAL_AH.THURSDAY'  | translate }}</option>
+          <option value="vendredi">{{ 'MODAL_AH.FRIDAY'  | translate }}</option>
         </select>
       </div>
         
@@ -50,16 +50,16 @@
     <ion-col>
       <div class="input-group mb-2">
         <div class="input-group-prepend">
-          <div class="input-group-text">à</div>
+          <div class="input-group-text">{{ 'MODAL_AH.TO'  | translate }}</div>
         </div>
         <select class="form-control" id="daysa" disabled [(ngModel)]="data.enddate">
-          <option value="samedi">Samedi</option>
-          <option value="dimanche">Dimanche</option>
-          <option value="lundi">Lundi</option>
-          <option value="mardi">Mardi</option>
-          <option value="mercredi">Mercredi</option>
-          <option value="jeudi">Jeudi</option>
-          <option value="vendredi" selected>Vendredi</option>
+          <option value="samedi">{{ 'MODAL_AH.SATURDAY'  | translate }}</option>
+          <option value="dimanche">{{ 'MODAL_AH.SUNDAY'  | translate }}</option>
+          <option value="lundi">{{ 'MODAL_AH.MONDAY'  | translate }}</option>
+          <option value="mardi">{{ 'MODAL_AH.TUESDAY'  | translate }}</option>
+          <option value="mercredi">{{ 'MODAL_AH.WENDNESDAY'  | translate }}</option>
+          <option value="jeudi">{{ 'MODAL_AH.THURSDAY'  | translate }}</option>
+          <option value="vendredi" selected>{{ 'MODAL_AH.FRIDAY'  | translate }}</option>
         </select>
       </div>
       
@@ -67,7 +67,7 @@
   </ion-row>
   <ion-toolbar color="light">
     <ion-title>
-      Heures
+      {{ 'MODAL_AH.HOURS'  | translate }}
     </ion-title>
   </ion-toolbar>
   <ion-row class="ion-padding">
@@ -75,7 +75,7 @@
       
       <div class="input-group mb-2">
         <div class="input-group-prepend">
-          <div class="input-group-text">de</div>
+          <div class="input-group-text">{{ 'MODAL_AH.FROM'  | translate }}</div>
         </div>
         <ion-datetime class="form-control" displayFormat="HH:mm" value="12:00" [(ngModel)]="data.starttime"></ion-datetime>    
       </div>
@@ -85,7 +85,7 @@
     <ion-col>
       <div class="input-group mb-2">
         <div class="input-group-prepend">
-          <div class="input-group-text">à</div>
+          <div class="input-group-text">{{ 'MODAL_AH.TO'  | translate }}</div>
         </div>
         <ion-datetime class="form-control" displayFormat="HH:mm" value="12:00" [(ngModel)]="data.endtime"></ion-datetime>    
       </div>
@@ -101,7 +101,7 @@
   <ion-toolbar>
     <ion-buttons slot="end" class="ion-padding">
       <ion-button color="primary" (click)="saveChanges()"> 
-        mettre à jour
+        {{ 'MODAL_AH.UPDATE'  | translate }}
       </ion-button>
     </ion-buttons>
       

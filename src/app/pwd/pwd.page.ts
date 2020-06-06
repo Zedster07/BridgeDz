@@ -5,6 +5,7 @@ import { UtilService } from '../services/util.service';
 import { GlobalsService } from '../services/globals.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { DbinteractionsService } from '../services/dbinteractions.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-pwd',
@@ -24,6 +25,7 @@ export class PwdPage implements OnInit {
      private db : DbinteractionsService,
      private alert : AlertService,
      private loading: LoadingService,
+     translate: TranslateService,
      private route: Router,
      private router: ActivatedRoute,
      private util: UtilService

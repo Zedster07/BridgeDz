@@ -8,6 +8,7 @@ import { HomePage } from './home.page';
 import { Ionic4DatepickerModule } from '@logisticinfotech/ionic4-datepicker';
 import { IonicTimepickerModule } from '@logisticinfotech/ionic-timepicker';
 import { MenuListComponent } from '../menu-list/menu-list.component';
+import {TranslateModule} from '@ngx-translate/core';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     FormsModule,
     IonicModule,
     Ionic4DatepickerModule,
+    TranslateModule.forChild(),
     IonicTimepickerModule,
     LeafletModule,
     RouterModule.forChild([

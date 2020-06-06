@@ -78,7 +78,7 @@ export class AgencyPage implements OnInit {
       error.textContent = 'Entrez un numéro de téléphonr valide.';
       error.style.display = 'block';
     }
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); // to change the message
     let guid_agency = this.util.newGuid();
     const res = await this.db.dbcreateAgency(this.newAgency, guid_agency);
     this.loading.dismissLoading();
@@ -88,14 +88,14 @@ export class AgencyPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT');
     this.type = this.aroute.snapshot.paramMap.get('type');
     await this.fetchAcc();
     this.loading.dismissLoading();
   }
 
   async ionViewWillEnter() {
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT');
     this.type = this.aroute.snapshot.paramMap.get('type');
     await this.fetchAcc();
     this.loading.dismissLoading();

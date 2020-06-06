@@ -10,10 +10,10 @@
              <ion-col size-lg="4" size-md="12" size-sm="12"  size-xs="12">
                <ion-item class="form-item">
                  <ion-label position="floating">
-                  <ion-icon name="search"></ion-icon> Adresse
+                  <ion-icon name="search"></ion-icon> {{ 'APP.ADRESS'  | translate }} 
                  </ion-label>
                  <div class="input-container">
-                  <ion-input placeholder="Adresse" (ionChange)="updateSearch()" class=""  (click)="$event.stopPropagation()" [(ngModel)]="this.glb.searchQuery.address"></ion-input>
+                  <ion-input placeholder="{{ 'APP.ADRESS_1'  | translate }} " (ionChange)="updateSearch()" class=""  (click)="$event.stopPropagation()" [(ngModel)]="this.glb.searchQuery.address"></ion-input>
                       <ion-list *ngIf="this.searchResults.length > 0">
                         <ion-item *ngFor="let item of this.searchResults" tappable   (click)="chooseItem(item)">
                           {{ item['display_name'] }}
@@ -32,7 +32,7 @@
               <ion-item>
               <ion-item class="datetimepickers">
                 <ion-label position="floating">
-                  <ion-icon name="calendar"></ion-icon> Debut 
+                  <ion-icon name="calendar"></ion-icon> {{ 'APP.START'  | translate }}  
                 </ion-label>
                 <div class="input-container">
                   <ion-input  [(ngModel)]="glb.searchQuery.startdate" [liIonic4Datepicker]="datePickerObj" (ionChange)="myFunction()"></ion-input>
@@ -40,7 +40,7 @@
               </ion-item>
               <ion-item class="datetimepickers">
                 <ion-label position="floating">
-                  <ion-icon name="Clock"></ion-icon> Temps 
+                  <ion-icon name="Clock"></ion-icon> {{ 'APP.TIME'  | translate }}  
                 </ion-label>
                 <div class="input-container">
                   <ion-input readonly [(ngModel)]="glb.searchQuery.starttime" [liIonicTimepicker]="timePickerObj" (ionchange)="myFunction()"></ion-input>
@@ -54,7 +54,7 @@
               <ion-item class="searchinput"> 
                 <ion-item class="datetimepickers">
                     <ion-label position="floating">
-                      <ion-icon name="calendar"></ion-icon> Fin 
+                      <ion-icon name="calendar"></ion-icon> {{ 'APP.END'  | translate }}   
                     </ion-label>
                     <div class="input-container">
                       <ion-input  [disabled]="isDOBDisable" [(ngModel)]="glb.searchQuery.enddate" [liIonic4Datepicker]="datePickerObj_end" (ionChange)="myFunction_end()"></ion-input>
@@ -62,7 +62,7 @@
                   </ion-item>
                   <ion-item class="datetimepickers">
                     <ion-label position="floating">
-                      <ion-icon name="Clock"></ion-icon> Temps
+                      <ion-icon name="Clock"></ion-icon> {{ 'APP.TIME'  | translate }}
                     </ion-label>
                     <div class="input-container">
                       <ion-input readonly [(ngModel)]="glb.searchQuery.endtime" [liIonicTimepicker]="timePickerObj" (ionChange)="myFunction()"></ion-input>
@@ -73,7 +73,7 @@
               </div>
 
             <ion-col>  
-              <button color="primary" expand="full" (click)="gotosearch()" padding style="height: 100%; width: 100%; font-size: 1.2rem; border-radius:10px !important; background-color: var(--ion-color-primary); color: white;">Rechercher</button>
+              <button color="primary" expand="full" (click)="gotosearch()" padding style="height: 100%; width: 100%; font-size: 1.2rem; border-radius:10px !important; background-color: var(--ion-color-primary); color: white;">{{ 'APP.SEARCH'  | translate }} </button>
             </ion-col>
 
            </ion-row>

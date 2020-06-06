@@ -18,15 +18,15 @@
         <div class="row ustify-content-center align-items-center">
           <div class="col-12 pb-3 text-left">
             <div class="header">
-              <h6 id="subtitle" class="ion-no-padding">AJOUTER UNE VOITURE</h6>
-              <h2 id="title" class="ion-no-padding">Confirmez le modèle de votre voiture</h2>
+              <h6 id="subtitle" class="ion-no-padding"> {{ 'MODAL_ADD_CAR.ADD_CAR'  | translate }} </h6>
+              <h2 id="title" class="ion-no-padding">{{ 'MODAL_ADD_CAR.MSG_1_1'  | translate }}</h2>
             </div>
             <ion-item-divider></ion-item-divider>
             <div class="form-row">
               <div class="form-group col-md-12">
-                <label for="marque">Marque</label>
+                <label for="marque">{{ 'MODAL_ADD_CAR.BRAND'  | translate }}</label>
                 <ion-select class="form-control" id="marque" [(ngModel)]="formData[0].marque[0]" (ionChange)="chosenMarqueID($event)">
-                  <ion-select-option value="0" selected>Marque</ion-select-option>
+                  <ion-select-option value="0" selected>{{ 'MODAL_ADD_CAR.BRAND'  | translate }}</ion-select-option>
                   <ion-select-option *ngFor="let item of this.Marks" value="{{item.value}}">{{item.marque}}</ion-select-option>
                   
                 </ion-select>
@@ -34,25 +34,25 @@
             </div>
             <div class="form-row">
               <div class="form-group col-md-12">
-                <label for="marque">Modèle</label>
+                <label for="marque">{{ 'MODAL_ADD_CAR.MODEL'  | translate }}</label>
                 <ion-select class="form-control" id="modele" [(ngModel)]="formData[0].model[0]">
-                  <ion-select-option value="0" selected>Modèle</ion-select-option>
+                  <ion-select-option value="0" selected>{{ 'MODAL_ADD_CAR.MODEL'  | translate }}</ion-select-option>
                   <ion-select-option *ngFor="let item of Models[formData[0].marque[0]]"  value="{{item.value}}">{{item.model}}</ion-select-option>
                 </ion-select>
               </div>
             </div>
             <div class="form-row">
              <div class="form-group col-12">
-              <label for="adr">Matricule</label>
+              <label for="adr">{{ 'MODAL_ADD_CAR.VIN'  | translate }}</label>
               <div class="input-group" id="adr">
-                  <input type="text" class="form-control" id="matricule" placeholder="Matricule" [(ngModel)]="formData[0].matricule">
+                  <input type="text" class="form-control" id="matricule" placeholder="{{ 'MODAL_ADD_CAR.VIN'  | translate }}" [(ngModel)]="formData[0].matricule">
               </div>
              </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-12">
                 <div class="alert alert-info shadow-sm">
-                  Dans quelque minutes, votre annonce sera mise en ligne.
+                  {{ 'MODAL_ADD_CAR.MSG_1_2'  | translate }}
                 </div>
               </div>
             </div>
@@ -66,44 +66,44 @@
         <div class="row ustify-content-center align-items-center">
           <div class="col-12 pb-3 text-left">
             <div class="header">
-              <h6 id="subtitle" class="ion-no-padding">AJOUTER UNE VOITURE</h6>
-              <h2 id="title" class="ion-no-padding">Ajoutez plus de détails</h2>
+              <h6 id="subtitle" class="ion-no-padding">{{ 'MODAL_ADD_CAR.ADD_CAR'  | translate }}</h6>
+              <h2 id="title" class="ion-no-padding">{{ 'MODAL_ADD_CAR.MSG_2_1'  | translate }}</h2>
             </div>
             <div class="form-row">
               <div class="form-group col-md-12">
-                <label for="marque">Carburant</label>
+                <label for="marque">{{ 'MODAL_ADD_CAR.OIL'  | translate }}</label>
                 <ion-select class="form-control" id="carburant" [(ngModel)]="formData[1].carburant[0]">
-                  <ion-select-option value="0" selected>Carburant</ion-select-option>
-                  <ion-select-option value="diesel">Diesel</ion-select-option>
-                  <ion-select-option value="ess ence">Essence</ion-select-option>
-                  <ion-select-option value="diesel">Electrique</ion-select-option>
-                  <ion-select-option value="ess ence">Hybride</ion-select-option>
+                  <ion-select-option value="0" selected>{{ 'MODAL_ADD_CAR.OIL'  | translate }}</ion-select-option>
+                  <ion-select-option value="diesel">{{ 'MODAL_ADD_CAR.GAS_OIL'  | translate }}</ion-select-option>
+                  <ion-select-option value="essence">{{ 'MODAL_ADD_CAR.GAS_OIL'  | translate }}</ion-select-option>
+                  <ion-select-option value="Electirque">{{ 'MODAL_ADD_CAR.ELECTRIC'  | translate }}</ion-select-option>
+                  <ion-select-option value="Hybrid">{{ 'MODAL_ADD_CAR.HYBRID'  | translate }}</ion-select-option>
                 </ion-select>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-12">
-              <label for="vitesse">Boite de vitesse</label>
+              <label for="vitesse">{{ 'MODAL_ADD_CAR.GEARBOX'  | translate }}</label>
               <ion-radio-group id="vitesse" [(ngModel)]="formData[1].boitevitesse">
                 <ion-item>
-                  <ion-label>Manuelle</ion-label>
+                  <ion-label>{{ 'MODAL_ADD_CAR.MANUAL'  | translate }}</ion-label>
                   <ion-radio slot="start" value="manuelle" checked></ion-radio>
                 </ion-item>
             
                 <ion-item>
-                  <ion-label>Automatique</ion-label>
+                  <ion-label>{{ 'MODAL_ADD_CAR.AUTO'  | translate }}</ion-label>
                   <ion-radio slot="start" value="automatique" ></ion-radio>
                 </ion-item>
               </ion-radio-group>
             </div>
             </div>
-            <!-- <div class="form-row">
+             <div class="form-row">
               <div class="form-group col-md-12">
                 <div class="alert alert-info shadow-sm">
-                  Ces informations permetront aux conducteurs de choisir votre véhicule.
+                  {{ 'MODAL_ADD_CAR.MSG_2_2'  | translate }}
                 </div>
               </div>
-            </div> -->
+            </div> 
              
           </div>
         </div>
@@ -115,30 +115,30 @@
         <div class="row ustify-content-center align-items-center">
           <div class="col-12 pb-3 text-left">
             <div class="header">
-              <h6 id="subtitle" class="ion-no-padding">AJOUTER UNE VOITURE</h6>
-              <h2 id="title" class="ion-no-padding">Des options en plus ?</h2>
+              <h6 id="subtitle" class="ion-no-padding">{{ 'MODAL_ADD_CAR.ADD_CAR'  | translate }}</h6>
+              <h2 id="title" class="ion-no-padding">{{ 'MODAL_ADD_CAR.MSG_3_1'  | translate }}</h2>
             </div>
             <div class="form-row">
               <div class="form-group col-md-12">
                 <ion-list>
                   <ion-item>
-                    <label>Climatisation</label>
+                    <label>{{ 'MODAL_ADD_CAR.AC'  | translate }}</label>
                     <ion-checkbox slot="end" [(ngModel)]="formData[2].clim"></ion-checkbox>
                   </ion-item>
                   <ion-item>
-                    <label>Régulateur de vitesse</label>
+                    <label>{{ 'MODAL_ADD_CAR.REGULATOR'  | translate }}</label>
                     <ion-checkbox slot="end" [(ngModel)]="formData[2].regvit"></ion-checkbox>
                   </ion-item>
                   <ion-item>
-                    <label>GPS</label>
+                    <label>{{ 'MODAL_ADD_CAR.GPS'  | translate }}</label>
                     <ion-checkbox slot="end" [(ngModel)]="formData[2].gps"></ion-checkbox>
                   </ion-item>
                   <ion-item>
-                    <label>Siege bébé</label>
+                    <label>{{ 'MODAL_ADD_CAR.BABY'  | translate }}</label>
                     <ion-checkbox slot="end" [(ngModel)]="formData[2].siegebb"></ion-checkbox>
                   </ion-item>
                   <ion-item>
-                    <label>Lecteur CD</label>
+                    <label>{{ 'MODAL_ADD_CAR.MULTIMEDIA'  | translate }}</label>
                     <ion-checkbox slot="end" [(ngModel)]="formData[2].leCD"></ion-checkbox>
                   </ion-item>
                 </ion-list>
@@ -158,24 +158,24 @@
         <div class="row ustify-content-center align-items-center">
           <div class="col-12 pb-3 text-left">
             <div class="header">
-              <h6 id="subtitle" class="ion-no-padding">AJOUTER UNE VOITURE</h6>
-              <h2 id="title" class="ion-no-padding">Condition de la location</h2>
+              <h6 id="subtitle" class="ion-no-padding">{{ 'MODAL_ADD_CAR.ADD_CAR'  | translate }}</h6>
+              <h2 id="title" class="ion-no-padding">{{ 'MODAL_ADD_CAR.RENTING_CONDITION'  | translate }}</h2>
             </div>
 
          
 
             <div class="form-row">
               <div class="form-group col-md-12">
-                <h4 id="title" class="ion-no-padding">Caution</h4>
+                <h4 id="title" class="ion-no-padding">{{ 'MODAL_ADD_CAR.CAUTION'  | translate }}</h4>
               <ion-item>
-                <label>Caution</label>
+                <label>{{ 'MODAL_ADD_CAR.CAUTION_MANDATROY'  | translate }}</label>
                 <ion-checkbox slot="end" [(ngModel)]="formData[6].caution"></ion-checkbox>
               </ion-item>
-              <label *ngIf="formData[6].caution === true" for="marque">Montant de la caution</label>
+              <label *ngIf="formData[6].caution === true" for="marque">{{ 'MODAL_ADD_CAR.BAIL_AMOUNT'  | translate }}</label>
                <div  *ngIf="formData[6].caution === true" class="input-group" id="adr">
-                   <input type="text" class="form-control" id="matricule" placeholder="Montant de la caution" [(ngModel)]="formData[6].caution_value">
+                   <input type="text" class="form-control" id="matricule" placeholder="{{ 'MODAL_ADD_CAR.BAIL_AMOUNT'  | translate }}" [(ngModel)]="formData[6].caution_value">
                    <div class="input-group-append">
-                    <span class="input-group-text">€ / Jour</span>
+                    <span class="input-group-text">{{ 'MODAL_ADD_CAR.EURO_DAY'  | translate }}</span>
                   </div>
                </div>
               </div>
@@ -185,35 +185,35 @@
 
              <div class="form-row">
               <div class="form-group col-12" style="flex-direction: column;">
-                <h4 id="title" class="ion-no-padding">Distance de la location</h4>
+                <h4 id="title" class="ion-no-padding">{{ 'MODAL_ADD_CAR.DISTANCE'  | translate }}</h4>
 
-                <label for="marque">Kilométrage autorisé par jour</label>
+                <label for="marque">{{ 'MODAL_ADD_CAR.AUTORIZED_KILO'  | translate }}</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" id="price" placeholder="KM" [(ngModel)]="formData[6].Km">
+                  <input type="number" class="form-control" id="price" placeholder="{{ 'MODAL_ADD_CAR.AUTORIZED_KILO'  | translate }}" [(ngModel)]="formData[6].Km">
                   <div class="input-group-append">
-                    <span class="input-group-text">KM / J</span>
+                    <span class="input-group-text">{{ 'MODAL_ADD_CAR.KM_J'  | translate }}</span>
                   </div>
               </div>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-12" style="flex-direction: column;">
-                <label for="marque">Prix par kilométre dépassé</label>
+                <label for="marque">{{ 'MODAL_ADD_CAR.KILO_PRICE'  | translate }}</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" id="price" placeholder="KM" [(ngModel)]="formData[6].Km_price">
+                  <input type="number" class="form-control" id="price" placeholder="{{ 'MODAL_ADD_CAR.KILO_PRICE'  | translate }}" [(ngModel)]="formData[6].Km_price">
                   <div class="input-group-append">
-                    <span class="input-group-text">€ / KM</span>
+                    <span class="input-group-text">{{ 'MODAL_ADD_CAR.EUR_KM'  | translate }}</span>
                   </div>
               </div>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-12" style="flex-direction: column;">
-                <label for="marque">Anciennté du permis de conduire</label>
+                <label for="marque">{{ 'MODAL_ADD_CAR.LICENSE_DRIVING'  | translate }}</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" id="price" placeholder="KM" [(ngModel)]="formData[6].license_seniority">
+                  <input type="number" class="form-control" id="price" placeholder="{{ 'MODAL_ADD_CAR.LICENSE_DRIVING'  | translate }}" [(ngModel)]="formData[6].license_seniority">
                   <div class="input-group-append">
-                    <span class="input-group-text"> Ans </span>
+                    <span class="input-group-text"> {{ 'MODAL_ADD_CAR.YEARS'  | translate }} </span>
                   </div>
               </div>
               </div>
@@ -221,18 +221,18 @@
 
             <div class="form-row">
               <div class="form-group col-md-12">
-                <h4 id="title" class="ion-no-padding">Pieces acceptés</h4>
+                <h4 id="title" class="ion-no-padding">{{ 'MODAL_ADD_CAR.ATTACHEMENT'  | translate }}</h4>
                 <ion-list>
                   <ion-item>
-                    <label>Piece d'identité</label>
+                    <label>{{ 'MODAL_ADD_CAR.IDENTITY'  | translate }}</label>
                     <ion-checkbox slot="end" [(ngModel)]="this.formData[6].pieces.identinty"></ion-checkbox>
                   </ion-item>
                   <ion-item>
-                    <label>Permis de conduire</label>
+                    <label>{{ 'MODAL_ADD_CAR.DRIVING_LICENSE'  | translate }}</label>
                     <ion-checkbox slot="end" [(ngModel)]="this.formData[6].pieces.driving"></ion-checkbox>
                   </ion-item>
                   <ion-item>
-                    <label>Passport</label>
+                    <label>{{ 'MODAL_ADD_CAR.PASSPORT'  | translate }}</label>
                     <ion-checkbox slot="end" [(ngModel)]="this.formData[6].pieces.passport"></ion-checkbox>
                   </ion-item>
                 </ion-list>
@@ -241,9 +241,9 @@
 
             <div class="form-row">
               <div class="form-group col-md-12">
-              <h4 id="title" class="ion-no-padding">Périmitre de location</h4>
+              <h4 id="title" class="ion-no-padding">{{ 'MODAL_ADD_CAR.RENTING_PERIM'  | translate }}</h4>
               <ion-item>
-                <label>Etrangé accepté</label>
+                <label>{{ 'MODAL_ADD_CAR.FORIGN'  | translate }}</label>
                 <ion-checkbox slot="end" [(ngModel)]="formData[6].foreign_accepted"></ion-checkbox>
               </ion-item>
               </div>
@@ -260,20 +260,20 @@
         <div class="row ustify-content-center align-items-center">
           <div class="col-12 pb-3 text-left">
             <div class="header">
-              <h6 id="subtitle" class="ion-no-padding">AJOUTER UNE VOITURE</h6>
-              <h2 id="title" class="ion-no-padding">Ou donnerez-vous rendez-vous au locataire ?</h2>
+              <h6 id="subtitle" class="ion-no-padding">{{ 'MODAL_ADD_CAR.ADD_CAR'  | translate }}</h6>
+              <h2 id="title" class="ion-no-padding">{{ 'MODAL_ADD_CAR.MSG_4_1'  | translate }}</h2>
             </div>
             <ion-item-divider></ion-item-divider>
             <div class="form-row">
               <div class="form-group col-12">
-                <label for="adr">Adresse du rendez-vous</label>
+                <label for="adr">{{ 'MODAL_ADD_CAR.ADD_RENDEZ_VOUS'  | translate }}</label>
                 <div class="input-group" id="adr">
                     <div class="input-group-prepend">
                       <div class="input-group-text">
                         <ion-icon name="pin"></ion-icon>
                       </div>
                     </div>
-                    <input type="text" class="form-control" id="adresserdv" (ngModelChange)="updateSearch()" placeholder="Adresse" [(ngModel)]="formData[3].address[0]">
+                    <input type="text" class="form-control" id="adresserdv" (ngModelChange)="updateSearch()" placeholder="{{ 'MODAL_ADD_CAR.ADD_RENDEZ_VOUS'  | translate }}" [(ngModel)]="formData[3].address[0]">
                 </div>
                 <ion-list *ngIf="this.searchResults.length > 0">
                   <ion-item *ngFor="let item of this.searchResults" tappable   (click)="chooseItem(item)">
@@ -286,7 +286,7 @@
             <div class="form-row">
               <div class="form-group col-md-12">
                 <div class="alert alert-info shadow-sm">
-                  Cette adresse sera utilisé pour permettre aux locataires de rèserver votre voiture.
+                  {{ 'MODAL_ADD_CAR.MSG_4_2'  | translate }}
                 </div>
               </div>
             </div>
@@ -300,16 +300,16 @@
         <div class="row ustify-content-center align-items-center">
           <div class="col-12 pb-3 text-left">
             <div class="header">
-              <h6 id="subtitle" class="ion-no-padding">AJOUTER UNE VOITURE</h6>
-              <h2 id="title" class="ion-no-padding">Votre prix</h2>
+              <h6 id="subtitle" class="ion-no-padding">{{ 'MODAL_ADD_CAR.ADD_CAR'  | translate }}</h6>
+              <h2 id="title" class="ion-no-padding">{{ 'MODAL_ADD_CAR.YOUR_PRICE'  | translate }}</h2>
             </div>
             <ion-item-divider></ion-item-divider>
             <div class="form-row">
               <div class="form-group col-12 text-center" style="flex-direction: column;">
                 <div class="input-group">
-                  <input type="number" class="form-control" id="price" placeholder="Prix" [(ngModel)]="formData[4].prix[0]">
+                  <input type="number" class="form-control" id="price" placeholder="{{ 'MODAL_ADD_CAR.PRICE'  | translate }}" [(ngModel)]="formData[4].prix[0]">
                   <div class="input-group-append">
-                    <span class="input-group-text">€ / J</span>
+                    <span class="input-group-text">{{ 'MODAL_ADD_CAR.EURO_DAY'  | translate }}</span>
                   </div>
               </div>
               </div>
@@ -318,7 +318,7 @@
             <div class="form-row">
               <div class="form-group col-md-12">
                 <div class="alert alert-info shadow-sm">
-                  Vous pouvez modifier vos prix plus tard.
+                  {{ 'MODAL_ADD_CAR.MSG_5_1'  | translate }}
                 </div>
               </div>
             </div>
@@ -334,8 +334,8 @@
         <div class="row ustify-content-center align-items-center">
           <div class="col-12 pb-3 text-left">
             <div class="header">
-              <h6 id="subtitle" class="ion-no-padding">AJOUTER UNE VOITURE</h6>
-              <h2 id="title" class="ion-no-padding">Les photos</h2>
+              <h6 id="subtitle" class="ion-no-padding">{{ 'MODAL_ADD_CAR.ADD_CAR'  | translate }}</h6>
+              <h2 id="title" class="ion-no-padding">{{ 'MODAL_ADD_CAR.PICTURE'  | translate }}</h2>
             </div>
             
             <div class="form-row">
@@ -348,7 +348,7 @@
                       <input type="file" id="avantfile" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
-                      Photo Avant
+                      {{ 'MODAL_ADD_CAR.PIC_1'  | translate }}
                       <p><ion-progress-bar *ngIf="this.formData[5].picsMeta['avant'][0]" [attr.color]="this.formData[5].picsMeta['avant'][2] === 1 ? 'success' : 'primary'" value="this.formData[5].picsMeta['avant'][2]"></ion-progress-bar></p>
                     </ion-label>
                   </ion-item>
@@ -358,7 +358,7 @@
                       <input type="file" id="arrierefile" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
-                      Photo Arrière
+                      {{ 'MODAL_ADD_CAR.PIC_2'  | translate }}
                       <p><ion-progress-bar *ngIf="this.formData[5].picsMeta['arriere'][0]" [attr.color]="this.formData[5].picsMeta['arriere'][2] === 1 ? 'success' : 'primary'" value="this.formData[5].picsMeta['arriere'][2]"></ion-progress-bar></p>
                     </ion-label>
                     
@@ -371,7 +371,7 @@
                       <input type="file" id="cote1file" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
-                      Photo Coté
+                      {{ 'MODAL_ADD_CAR.PIC_3'  | translate }}
                       <p><ion-progress-bar *ngIf="this.formData[5].picsMeta['cote1'][0]" [attr.color]="this.formData[5].picsMeta['cote1'][2] === 1 ? 'success' : 'primary'" value="this.formData[5].picsMeta['cote1'][2]"></ion-progress-bar></p>
                     </ion-label>
                   </ion-item>
@@ -381,7 +381,7 @@
                       <input type="file" id="cote2file" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
-                      Photo Coté
+                      {{ 'MODAL_ADD_CAR.PIC_4'  | translate }}
                       <p><ion-progress-bar *ngIf="this.formData[5].picsMeta['cote2'][0]" [attr.color]="this.formData[5].picsMeta['cote2'][2] === 1 ? 'success' : 'primary'" value="this.formData[5].picsMeta['cote2'][2]"></ion-progress-bar></p>
                     </ion-label>
                   </ion-item>
@@ -391,7 +391,7 @@
                       <input type="file" id="insidefile" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
-                      Photo intérieur
+                      {{ 'MODAL_ADD_CAR.PIC_5'  | translate }}
                       <p><ion-progress-bar *ngIf="this.formData[5].picsMeta['inside'][0]" [attr.color]="this.formData[5].picsMeta['inside'][2] === 1 ? 'success' : 'primary'" value="this.formData[5].picsMeta['inside'][2]"></ion-progress-bar></p>
                     </ion-label>
                   </ion-item>
@@ -412,8 +412,8 @@
     <ion-toolbar *ngIf="this.currentStep === 3">
       <ion-item>
         <label>
-          <h5>Need Confirmation</h5>
-          <p>Chaque réservation nécessite votre confirmation</p>
+          <h5>{{ 'MODAL_ADD_CAR.NEED_CONF'  | translate }}</h5>
+          <p>{{ 'MODAL_ADD_CAR.MSG_6'  | translate }}</p>
         </label>
         <ion-checkbox slot="end" [(ngModel)]="formData[2].needConf"></ion-checkbox>
       </ion-item>
@@ -423,12 +423,12 @@
     <ion-buttons slot="end" class="ion-padding">
       <ion-button color="dark" (click)="slidePrev(AddCarForm)" *ngIf="this.steps !== 0">
         <ion-icon name="arrow-round-back" slot="start"></ion-icon>
-        Précedent
+        {{ 'MODAL_ADD_CAR.PREVIOUS'  | translate }}
       </ion-button>
       <ion-button color="primary" fill="solid" (click)="slideNext(AddCarForm)">
-        <span *ngIf="this.currentStep < 7">Suivant</span>
-        <span *ngIf="this.currentStep === 7 && this.type === 0">Confirmer</span>
-        <span *ngIf="this.currentStep === 7 && this.type === 1">Mettre à jour</span>
+        <span *ngIf="this.currentStep < 7">{{ 'MODAL_ADD_CAR.NEXT'  | translate }}</span>
+        <span *ngIf="this.currentStep === 7 && this.type === 0">{{ 'MODAL_ADD_CAR.CONFIRM'  | translate }}</span>
+        <span *ngIf="this.currentStep === 7 && this.type === 1">{{ 'MODAL_ADD_CAR.UPDATE'  | translate }}</span>
       </ion-button>
     </ion-buttons>
 

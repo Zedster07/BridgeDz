@@ -10,6 +10,7 @@ import { BillingService } from 'src/app/services/billing.service';
 import { ModalController } from '@ionic/angular';
 import { StartLocClientPage } from 'src/app/modals/start-loc-client/start-loc-client.page';
 import { RatingPage } from 'src/app/modals/rating/rating.page';
+import {TranslateService} from '@ngx-translate/core';
 
 
 
@@ -26,6 +27,7 @@ export class MplocationsPage implements OnInit {
      private modalController: ModalController,
      public glb: GlobalsService,
      private bill: BillingService,
+     translate: TranslateService,
      public util: UtilService,
      public loading:LoadingService,
      public alert: AlertService

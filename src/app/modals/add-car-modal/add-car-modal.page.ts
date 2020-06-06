@@ -865,7 +865,7 @@ export class AddCarModalPage implements OnInit {
   }
 
   async updateCar(id){
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT_1'); //TODO
     const formdata = new FormData();
     const picsList = this.generateCarPicsList();
     const optionsList = this.generateOptionsList(this.formData[2]);
@@ -883,7 +883,7 @@ export class AddCarModalPage implements OnInit {
     } 
   } 
   async confirmAddCar() {
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT_1'); //TODO
     const formdata = new FormData();
     const picsList = this.generateCarPicsList();
     const optionsList = this.generateOptionsList(this.formData[2]);

@@ -41,7 +41,7 @@ export class ReductionsPage implements OnInit {
   }
 
   async updateBR(request: string) {
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT_1'); //TODO
     let id_agency = this.glb.AgencyLogData.id;
     if (this.glb.ifAdmin(this.glb.user.role)){
       id_agency = this.glb.agency_modify['id'];

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from '../services/globals.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-menu-list',
@@ -8,7 +9,7 @@ import { GlobalsService } from '../services/globals.service';
 })
 export class MenuListComponent implements OnInit {
 
-  constructor(private glb: GlobalsService) {
+  constructor(private glb: GlobalsService, translate: TranslateService,) {
 
   }
   dissmisPopover() {

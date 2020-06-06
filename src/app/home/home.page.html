@@ -10,18 +10,18 @@
           
             <ion-row>
               <ion-col id="title">
-                  <h1>Anticiper en quelque seconde votre voyage en Algérie</h1>
-                  <h4>Réserver votre voiture en ligne, et récupérer là dès votre arrivée à l’aéroport.</h4>
+                  <h1>{{ 'APP.MSG1_1'  | translate }}</h1>
+                  <h4>{{ 'APP.MSG1_2'  | translate }}</h4>
               </ion-col>
             </ion-row>
              <ion-row style="padding: 20px; background-color: rgba(0,0,0,.6)"> 
                <ion-col size-lg="4" size-md="12" size-sm="12"  size-xs="12" class="searchFormCol">
                  <ion-item class="form-item">
                    <ion-label position="floating">
-                    <ion-icon name="search"></ion-icon> Adresse
+                    <ion-icon name="search"></ion-icon> {{ 'APP.ADRESS'  | translate }}
                    </ion-label>
                    <div class="input-container">
-                    <ion-input placeholder="Adresse" (ionChange)="updateSearch()" class=""  [(ngModel)]="this.glb.searchQuery.address"></ion-input>
+                    <ion-input placeholder="{{ 'APP.ADRESS_1'  | translate }}" (ionChange)="updateSearch()" class=""  [(ngModel)]="this.glb.searchQuery.address"></ion-input>
                     <ion-list *ngIf="this.searchResults.length > 0">
                       <ion-item *ngFor="let item of this.searchResults" tappable   (click)="chooseItem(item)">
                         {{ item['display_name'] }}
@@ -38,7 +38,7 @@
                 <ion-item>
                 <ion-item class="datetimepickers">
                   <ion-label position="floating">
-                    <ion-icon name="calendar"></ion-icon> Debut 
+                    <ion-icon name="calendar"></ion-icon> {{ 'APP.START'  |  translate}} 
                   </ion-label>
                   <div class="input-container">
                     <ion-input  [(ngModel)]="glb.searchQuery.startdate" [liIonic4Datepicker]="datePickerObj" (ionChange)="myFunction()"></ion-input>
@@ -46,7 +46,7 @@
                 </ion-item>
                 <ion-item class="datetimepickers">
                   <ion-label position="floating">
-                    <ion-icon name="Clock"></ion-icon> Temps 
+                    <ion-icon name="Clock"></ion-icon> {{ 'APP.TIME'  | translate }} 
                   </ion-label>
                   <div class="input-container">
                     <ion-input readonly [(ngModel)]="glb.searchQuery.starttime" [liIonicTimepicker]="timePickerObj" (ionchange)="myFunction()"></ion-input>
@@ -59,7 +59,7 @@
                 <ion-item> 
                 <ion-item class="datetimepickers">
                     <ion-label position="floating">
-                      <ion-icon name="calendar"></ion-icon> Fin 
+                      <ion-icon name="calendar"></ion-icon> {{ 'APP.END'  | translate }}  
                     </ion-label>
                     <div class="input-container">
                       <ion-input  [disabled]="isDOBDisable" [(ngModel)]="glb.searchQuery.enddate" [liIonic4Datepicker]="datePickerObj_end" (ionChange)="myFunction_end()"></ion-input>
@@ -67,7 +67,7 @@
                   </ion-item>
                   <ion-item class="datetimepickers">
                     <ion-label position="floating">
-                      <ion-icon name="Clock"></ion-icon> Temps
+                      <ion-icon name="Clock"></ion-icon> {{ 'APP.TIME'  | translate }}  
                     </ion-label>
                     <div class="input-container">
                       <ion-input readonly [(ngModel)]="glb.searchQuery.endtime" [liIonicTimepicker]="timePickerObj" (ionchange)="myFunction()"></ion-input>
@@ -78,7 +78,7 @@
 
                  <ion-col style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px;">
                    
-                      <button color="primary" expand="full" (click)="gotosearch()" padding style="height: 100%; width: 100%; font-size: 1.2rem !important; background-color: var(--ion-color-primary); color: white;">Rechercher</button>
+                      <button color="primary" expand="full" (click)="gotosearch()" padding style="height: 100%; width: 100%; font-size: 1.2rem !important; background-color: var(--ion-color-primary); color: white;">{{ 'APP.SEARCH'  | translate }} </button>
                 
                  </ion-col>
              </ion-row>
@@ -93,40 +93,40 @@
             <div class="card">
               <img src="../../assets/images/dashbaord.jpg" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">J’indique l’aéroport de ma destination et la période mon voyage</h5>
-                <p class="card-text">Je personnalise encore plus ma recherche en choisiant les option et enindiquant l’heure de mon arrivée.</p>
-                <p class="card-text"><small class="text-muted">Je cherche</small></p>
+                <h5 class="card-title">{{ 'APP.MSG3_1_1'  | translate }} </h5>
+                <p class="card-text">{{ 'APP.MSG3_1_2'  | translate }}</p>
+                <p class="card-text"><small class="text-muted">{{ 'APP.MSG3_1_3'  | translate }}</small></p>
               </div>
             </div>
             <div class="card">
               <img src="../../assets/images/dashbaord.jpg" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">Je sélectionne le véhicule qui me convient et je le réserve</h5>
-                <p class="card-text">Je fais attention. Certains véhicules nécessitent une confirmation au préalable du propréitaire.</p>
-                <p class="card-text"><small class="text-muted">Je réserve</small></p>
+                <h5 class="card-title">{{ 'APP.MSG3_2_1'  | translate }}</h5>
+                <p class="card-text">{{ 'APP.MSG3_2_2'  | translate }}</p>
+                <p class="card-text"><small class="text-muted">{{ 'APP.MSG3_2_3'  | translate }}</small></p>
               </div>
             </div>
             <div class="card">
               <img src="../../assets/images/dashbaord.jpg" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">Je récupérer le véhicule à mon arrivée à l’aéroport</h5>
-                <p class="card-text">Avant de récupérer le véhicule, je le photographie en présence du bailleur et je télécharge les photos</p>
-                <p class="card-text"><small class="text-muted">Je récuépre</small></p>
+                <h5 class="card-title">{{ 'APP.MSG3_3_1'  | translate }}</h5>
+                <p class="card-text">{{ 'APP.MSG3_3_2'  | translate }}</p>
+                <p class="card-text"><small class="text-muted">{{ 'APP.MSG3_3_3'  | translate }}</small></p>
               </div>
             </div>
             <div class="card">
               <img src="../../assets/images/dashbaord.jpg" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">Je restitue le véhicule avant mon départ à l’aéroport</h5>
-                <p class="card-text">Avant de restituer le véhicule, je le photographie en présence du bailleur et je télécharge les photos</p>
-                <p class="card-text"><small class="text-muted">Je rend</small></p>
+                <h5 class="card-title">{{ 'APP.MSG3_4_1'  | translate }}</h5>
+                <p class="card-text">{{ 'APP.MSG3_4_2'  | translate }}</p>
+                <p class="card-text"><small class="text-muted">{{ 'APP.MSG3_4_3'  | translate }}</small></p>
               </div>
             </div>
           </div>
         </div>
       </ion-col>
       <ion-col size="12" id="recent_cars" style="padding-bottom: 10vh; padding-top: 10vh;  text-align: center; --background: none; background-color: #f1f1f1;">
-        <h1 class="section-title">Une voiture est réservée toutes les 3 minutes</h1>
+        <h1 class="section-title">{{ 'APP.MSG4'  | translate }}</h1>
         <ion-row id="recent-cards-container" style="margin:0 auto;">
           <ion-col size="12">
             <ion-slides [options]="isPhone ? mySlideOptionsPhone : mySlideOptions">
@@ -134,7 +134,7 @@
                 <ion-card style="background-color: white;">
                   <ion-card-header>
                     <ion-img src="assets/images/clio.jpg"></ion-img>
-                    <ion-card-subtitle>2014  5 places</ion-card-subtitle>
+                    <ion-card-subtitle>2014  5 </ion-card-subtitle>
                     <ion-card-title>Renault Clio</ion-card-title>
                   </ion-card-header>
                 
@@ -187,7 +187,7 @@
         </ion-row>
       </ion-col>
       <ion-col id="apps" size="12" style="padding-bottom: 10vh; padding-top: 10vh; text-align: center;" >
-          <h1 class="section-title">Encore plus simple avec l'appli</h1>
+          <h1 class="section-title">{{ 'APP.MSG5_1'  | translate }}</h1>
           <ion-row id="apps-content">
             <ion-col  size-lg="4" size-md="12" size-sm="12"  size-xs="12">
               <a class="btn-app" href="#">
@@ -195,7 +195,7 @@
                   <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.681 4.391c-.746.91-1.905 1.571-3.148 1.406-.167-1.157.414-2.481 1.076-3.225.829-.827 2.072-1.49 3.15-1.572.165 1.24-.332 2.481-1.078 3.391zm2.653 7.857c.082 3.144 2.816 4.219 2.9 4.384 0 .082-.414 1.49-1.492 2.977-.911 1.24-1.823 2.564-3.232 2.564-1.408 0-1.905-.827-3.48-.827-1.657 0-2.154.744-3.481.827-1.326.083-2.403-1.323-3.315-2.646-1.823-2.646-3.23-7.443-1.326-10.67.912-1.571 2.57-2.646 4.31-2.646 1.326-.082 2.651.91 3.48.91.828 0 2.404-1.159 4.061-.992.662 0 2.651.247 3.894 2.067-.165.082-2.32 1.406-2.32 4.052z" fill="var(--ion-color-danger)"></path></svg>
                 </span>
                 <span class="btn-app-text">
-                  App Store
+                  {{ 'APP.MSG5_2'  | translate }}
                 </span>
               </a>
             </ion-col>
@@ -206,7 +206,7 @@
                   </span>
                 
                   <span class="btn-app-text">
-                    Google Play
+                    {{ 'APP.MSG5_3'  | translate }}
                   </span>
                 </a>
             </ion-col>
@@ -225,48 +225,46 @@
                   <ion-img [src]="glb.hostServer + 'images/Logo.png'" width="200"></ion-img>
                 </ion-col>
                 <ion-col size="10">
-                  <h4>À PROPOS</h4>
+                  <h4>{{ 'APP.MSG6_1_1'  | translate }}</h4>
                   <p>
-                      Drivy est une plateforme de mise en relation qui rapproche les voyageurs souhaitant se rendre en Algérie aux agences de location de véhicule locales. Elle fournit un moyen facilement accessible via son navigateur web ou via son smartphone d’anticiper l’organisation de son voyage en Algérie. 
-                      Avec Drivy, votre voyage s’anticipe.  Réserver en quelques clics une voiture, récupérez-la à l’aéroport, profitez de votre voyage et restituez-la le jour de votre départ à l’aéroport.
+                    {{ 'APP.MSG6_1_2'  | translate }}
                   </p>
                 </ion-col>
               </ion-row>
             </ion-col>
             <ion-col id="links" offset-lg="2" size-lg="2" size-md="12" size-sm="12"  size-xs="12">
-              <h4>EN SAVOIR PLUS</h4>
+              <h4>{{ 'APP.MSG6_2_1'  | translate }}</h4>
               <ul>
-                <li>Comment ça marche ?</li>
-                <li>Besoin d’aide ?</li>
-                <li>CSG-CSV</li>
-                <li>Contact. 
-                </li>
+                <li>{{ 'APP.MSG6_2_2'  | translate }}</li>
+                <li>{{ 'APP.MSG6_2_3'  | translate }}</li>
+                <li>{{ 'APP.MSG6_2_4'  | translate }}</li>
+                <li>{{ 'APP.MSG6_2_5'  | translate }}</li>
               </ul>
             </ion-col>
 
             <ion-col id="links2" size-lg="2" size-md="12" size-sm="12"  size-xs="12">
-              <h4>DÉCOUVRIR</h4>
+              <h4>{{ 'APP.MSG6_3_1'  | translate }}</h4>
                 <ul>
-                  <li>Je souhaite devenir partenaire</li>
-                  <li>Tarifs de location. </li>
-                  <li>Notre responsabilité. </li>
-                  <li>On recrute</li>
+                  <li>{{ 'APP.MSG6_3_2'  | translate }}</li>
+                  <li>{{ 'APP.MSG6_3_3'  | translate }}</li>
+                  <li>{{ 'APP.MSG6_3_4'  | translate }}</li>
+                  <li>{{ 'APP.MSG6_3_5'  | translate }}</li>
                 </ul>
             </ion-col>
             <ion-col id="links3" size-lg="2" size-md="12" size-sm="12"  size-xs="12">
-              <h4>Suivez-Nous</h4>
+              <h4>{{ 'APP.MSG6_4_1'  | translate }}</h4>
                 <ul>
-                  <li><ion-item color="dark"><ion-icon name="logo-facebook" size="large"></ion-icon><span style="margin-left: 15px;" >Facebook</span></ion-item></li>
-                 <li>  <ion-item color="dark"><ion-icon name="logo-linkedin" size="large"></ion-icon> <span style="margin-left: 15px;" >LinkedIn</span> </ion-item></li>
-                  <li> <ion-item color="dark"><ion-icon name="logo-instagram" size="large"></ion-icon> <span style="margin-left: 15px;" >Instagram</span> </ion-item></li>
-                  <li> <ion-item color="dark"><ion-icon name="logo-twitter" size="large"></ion-icon> <span style="margin-left: 15px;" >Twitter</span> </ion-item></li>
+                  <li><ion-item color="dark"><ion-icon name="logo-facebook" size="large"></ion-icon><span style="margin-left: 15px;" >{{ 'APP.MSG6_4_2'  | translate }}</span></ion-item></li>
+                 <li>  <ion-item color="dark"><ion-icon name="logo-linkedin" size="large"></ion-icon> <span style="margin-left: 15px;" >{{ 'APP.MSG6_4_3'  | translate }}</span> </ion-item></li>
+                  <li> <ion-item color="dark"><ion-icon name="logo-instagram" size="large"></ion-icon> <span style="margin-left: 15px;" >{{ 'APP.MSG6_4_4'  | translate }}</span> </ion-item></li>
+                  <li> <ion-item color="dark"><ion-icon name="logo-twitter" size="large"></ion-icon> <span style="margin-left: 15px;" >{{ 'APP.MSG6_4_5'  | translate }}</span> </ion-item></li>
                 </ul>
             </ion-col>
           </ion-row>
           <ion-item-divider color="dark"></ion-item-divider>
           <ion-row>
             <ion-col size="12" style="text-align: center; padding: 20px; color: rgb(185,185,185);">
-                © Bridgy 2019 - Tous droits réservés
+                © {{ 'APP.MSG6_5'  | translate }}
             </ion-col>
           </ion-row>
           

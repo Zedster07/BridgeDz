@@ -162,7 +162,7 @@ export class ProfilePage implements OnInit {
 
   async accParamsUpdate() {
     console.log('first step');
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
     const res = await this.db.setAccParams(this.fromBoolToString(this.glb.accparams));
     this.loading.dismissLoading();
     if (res) {
@@ -202,7 +202,7 @@ export class ProfilePage implements OnInit {
     this.verifyAccData.dateo = this.verifyAccData.dateo.split('T')[0];
     if (this.checkLicenceInfo()) {
       console.log("phone 1 ok");
-      this.loading.presentLoading();
+      this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
       const recto = await this.db.uploadLicence(this.verifyAccData.rectoimg);
       if ( !recto ) {
         console.log("phone 1 nok");
@@ -241,12 +241,12 @@ export class ProfilePage implements OnInit {
     let pass = true;
     if (this.glb.user.password !== this.usertmp.password && this.glb.ifAdmin(this.glb.user.role) === false ) {
       something = await this.alertt.confirmPassword();
-      this.loading.presentLoading();
+      this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
       pass = await this.alertt.checkPass(something);
       this.loading.dismissLoading();
     }
     if (pass || this.glb.ifAdmin(this.glb.user.role) === false) {
-      this.loading.presentLoading();
+      this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
       if (this.proilePicFormData !== null || this.glb.ifAdmin(this.glb.user.role) === false) {
         const response = await this.db.uploadProfilePic(this.proilePicFormData);
         if (response && response['success']) {
@@ -269,7 +269,7 @@ export class ProfilePage implements OnInit {
   }
 
   async UpdateAgncyInfo() {
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
     if (this.proilePicFormData !== null) {
         const response = await this.db.uploadProfilePic(this.proilePicFormData);
         if (response && response['success']) {
@@ -288,7 +288,7 @@ export class ProfilePage implements OnInit {
 
   async updateKbisInfo() {
 
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
     const recto = await this.db.uploadLicence(this.updateKbis.rectoimg);
     if ( !recto ) {
       this.loading.dismissLoading();
@@ -316,7 +316,7 @@ export class ProfilePage implements OnInit {
 }
 
 async updateRibInfo() {
-  this.loading.presentLoading();
+  this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
   this.glb.rib_modify['pay_choice'] = this.util.getRaidoButtonChoice("pay");
   this.util.debug('updateRibInfo', this.glb.rib_modify )
   const res = await this.db.updateRibInfo();
@@ -342,7 +342,7 @@ async updateRibInfo() {
 
       const reader  = new FileReader();
       reader.onloadstart = () => {
-        this.loading.presentLoading();
+        this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
       };
       reader.onload = () => {
         const formdata = new FormData();
@@ -381,7 +381,7 @@ async updateRibInfo() {
       const reader  = new FileReader();
 
       reader.onloadstart = () => {
-        this.loading.presentLoading();
+        this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
       };
 
       reader.onload = () => {
@@ -421,7 +421,7 @@ async updateRibInfo() {
     return false;
   }
   async getAccParam() {
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
     const data = await this.db.getAccParams();
     this.loading.dismissLoading();
     if (data) {

@@ -3,8 +3,10 @@ import { PopoverController, PickerController, ModalController } from '@ionic/ang
 import { GlobalsService } from '../services/globals.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { MenuListComponent } from '../menu-list/menu-list.component';
+import { UtilService } from '../services/util.service';
 import { AgencyModalPage } from '../modals/agency-modal/agency-modal.page';
 import { ClientMenuListComponent } from './client-menu-list/client-menu-list.component';
+import { LanguagePage } from '../language/language.page';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-client',
@@ -13,11 +15,14 @@ import { Router } from '@angular/router';
 })
 export class ClientPage implements OnInit {
   respMenu = false;
+  path_lang ="";
+
   constructor(
     private route: Router ,
     public popoverController: PopoverController,
     public glb: GlobalsService,
     public modalController: ModalController,
+    private util: UtilService,
     private db: DbinteractionsService) {
       setInterval(() => {
         this.db.fetchNotifications('1');
@@ -69,6 +74,23 @@ export class ClientPage implements OnInit {
     });
     return await modal.present();
   }
+
+  async selectLang(ev: any) {
+    const pop = await this.popoverController.create({
+      component: LanguagePage,
+      event: ev,
+      translucent: false,
+    });
+    pop.onDidDismiss().then((result) => {
+      if(result['data'] !==  undefined) {
+        console.log(result['data']);
+        this.path_lang = '../../assets/images/' + this.util.getImgLang(result['data']);
+      }
+    });
+    
+    const resp = await pop.present(); 
+  }
+
   ionViewWillEnter() {
     this.glb.isMainPage = false;
   }

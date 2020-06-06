@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { FirebaseUIModule } from 'firebaseui-angular';
 import { IonicModule } from '@ionic/angular';
-
+import {TranslateModule} from '@ngx-translate/core';
 import { LoginPage } from './login.page';
 
 const routes: Routes = [
@@ -19,6 +19,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule.forChild(),
     FirebaseUIModule,
     RouterModule.forChild(routes)
   ],

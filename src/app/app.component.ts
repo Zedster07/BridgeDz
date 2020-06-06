@@ -12,6 +12,7 @@ import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import { GeolocService } from './services/geoloc.service';
 import { UtilService } from './services/util.service';
+import { LanguagePage } from './language/language.page';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +31,7 @@ export class AppComponent   {
   strart_date = new Date();
   end_date = new Date();
 
+  path_lang = '';
   cars = [];
   daysdif = 1;
   offset = '0';
@@ -54,8 +56,7 @@ export class AppComponent   {
   ];
   disabledDates_end : Date[] = [
   ];
-  debutDateStr = this.todaysDate.getFullYear() + '/' + (this.todaysDate.getMonth() + 1) + '/' + (this.todaysDate.getDate())  ;
-  finDateStr =  this.todaysDate.getFullYear() + '/' + (this.todaysDate.getMonth() + 1) + '/' + (this.todaysDate.getDate() + 3)  ;
+ 
   timePickerObj: any = {
     inputTime: '11:01 PM', // for 12 hour time in timePicker
     timeFormat: '', // default 'hh:mm A'
@@ -202,6 +203,22 @@ export class AppComponent   {
     }
   }
 
+  async selectLang(ev: any) {
+    const pop = await this.popoverController.create({
+      component: LanguagePage,
+      event: ev,
+      translucent: false,
+    });
+    pop.onDidDismiss().then((result) => {
+      if(result['data'] !==  undefined) {
+        console.log(result['data']);
+        this.path_lang = '../../assets/images/' + this.util.getImgLang(result['data']);
+      }
+    });
+    
+    const resp = await pop.present(); 
+  }
+
   async showAgencyModal() {
     const modal = await this.modalController.create({
       component: AgencyModalPage,
@@ -221,8 +238,8 @@ export class AppComponent   {
   }
 
   myFunction() {
+   
     if (this.glb.sync){
-      this.util.debug('this.glb.sync myFunction', this.glb.sync);
       this.datePickerObj_end.disabledDates = [];
       this.datePickerObj_end.highlightedDates = [];
       this.disableDate( new Date(this.glb.searchQuery.startdate));
@@ -236,13 +253,16 @@ export class AppComponent   {
   }
 
   myFunction_time_end(){
+    
     if (!this.glb.sync){
+      console.log('myFunction_time_end');
        this.updateResult();
    }
   }
   myFunction_end() {
-
+    
     if (this.glb.sync){
+      console.log('myFunction_end');
       const debutTimestamp = this.strart_date.getTime();
       const finTimestamp_ = new Date(this.glb.searchQuery.enddate);
       const finTimestamp = finTimestamp_.getTime();

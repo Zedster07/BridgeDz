@@ -460,7 +460,7 @@ export class DbinteractionsService {
       .append('enddate' , data.enddate)
       .append('starttime' , data.starttime)
       .append('endtime' , data.endtime);
-      this.loading.presentLoading();
+      this.loading.presentLoading_generic('LOGIN.LOADING_WAIT_1'); //TODO
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         this.loading.dismissLoading();
         return resp;

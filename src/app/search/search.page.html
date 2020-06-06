@@ -6,7 +6,7 @@
         <ion-card style="background-color: white;">
           <ion-card-content>
             <ion-item-group class="ion-padding">
-              <h2>Prix</h2>
+              <h2>{{ 'SEARCH.PRICE'  | translate }}</h2>
               <ion-item>
                 <ion-range dualKnobs="true" pin="true" [(ngModel)]="searchFilter.price" snaps="true" min="0" max="200" step="2" (ionChange)="myFunction()">
                   <ion-icon size="small" slot="start" name="remove-circle-outline"></ion-icon>
@@ -16,21 +16,21 @@
             </ion-item-group>
            
             <div class="ion-padding">
-              <h2 style="margin-bottom: 20px;">Vitesse</h2>
+              <h2 style="margin-bottom: 20px;">{{ 'SEARCH.SPEED'  | translate }}</h2>
               
                 <ion-radio-group id="vitesse" [(ngModel)]="searchFilter.moteur" (ionChange)="myFunction()"> 
                   <ion-item>
-                    <ion-label>Manuelle</ion-label>
+                    <ion-label>{{ 'SEARCH.MANUAL'  | translate }}</ion-label>
                     <ion-radio slot="start" value="manuelle" checked></ion-radio>
                   </ion-item>
               
                   <ion-item>
-                    <ion-label>Automatique</ion-label>
+                    <ion-label>{{ 'SEARCH.AUTO'  | translate }}</ion-label>
                     <ion-radio slot="start" value="automatique" ></ion-radio>
                   </ion-item>
 
                   <ion-item>
-                    <ion-label>Peu importe</ion-label>
+                    <ion-label>{{ 'SEARCH.BOTH'  | translate }}</ion-label>
                     <ion-radio slot="start" value="all" ></ion-radio>
                   </ion-item>
                   
@@ -38,26 +38,26 @@
               
             </div>
             <div class="ion-padding">
-              <h2 style="margin-bottom: 20px;">Equipements</h2>
+              <h2 style="margin-bottom: 20px;">{{ 'SEARCH.OPTIONS'  | translate }}</h2>
               <ion-list>
                 <ion-item>
-                  <label>Climatisation</label>
+                  <label>{{ 'SEARCH.AC'  | translate }}</label>
                   <ion-checkbox slot="end" [(ngModel)]="searchFilter.clim" (ionChange)="myFunction()"></ion-checkbox>
                 </ion-item>
                 <ion-item>
-                  <label>Régulateur de vitesse</label>
+                  <label>{{ 'SEARCH.REGULATOR'  | translate }}</label>
                   <ion-checkbox slot="end" [(ngModel)]="searchFilter.rv" (ionChange)="myFunction()"></ion-checkbox>
                 </ion-item>
                 <ion-item>
-                  <label>GPS</label>
+                  <label>{{ 'SEARCH.GPS'  | translate }}</label>
                   <ion-checkbox slot="end" [(ngModel)]="searchFilter.gps" (ionChange)="myFunction()"></ion-checkbox>
                 </ion-item>
                 <ion-item>
-                  <label>Siege bébé</label>
+                  <label>{{ 'SEARCH.BABY'  | translate }}</label>
                   <ion-checkbox slot="end" [(ngModel)]="searchFilter.sb" (ionChange)="myFunction()"></ion-checkbox>
                 </ion-item>
                 <ion-item>
-                  <label>Lecteur CD</label>
+                  <label>{{ 'SEARCH.MULTIMEDIA'  | translate }}</label>
                   <ion-checkbox slot="end" [(ngModel)]="searchFilter.lc" (ionChange)="myFunction()"></ion-checkbox>
                 </ion-item>
               </ion-list>
@@ -71,9 +71,9 @@
       </div>
     
       <div class="col-9" *ngIf="!isLoading">
-        <h4 color="light" class="ion-padding">Résultats 1 - {{glb.cars.length}}</h4>
+        <h4 color="light" class="ion-padding">{{ 'SEARCH.RESULT'  | translate }} 0 - {{glb.cars.length}}</h4>
         <div class="alert alert-info" role="alert" *ngIf="glb.cars.length === 0">
-          Aucun résultat trouvé !
+          {{ 'SEARCH.NO_FOUND'  | translate }}
         </div>
         <div class="row">
           <div class="col-6" *ngFor="let item of glb.cars; let i = index;">
@@ -87,7 +87,7 @@
               <ion-card-content >
                 <div class="row ion-padding">
                   <div class="col-6">
-                    <ion-card-subtitle> 2014  5 places</ion-card-subtitle>
+                    <ion-card-subtitle> 2014  5 {{ 'APP.PLACES'  | translate }}</ion-card-subtitle>
                     <ion-card-title style="margin-top: 5px; margin-bottom: 5px;">{{item.brand.toUpperCase()}} {{item.model.toUpperCase()}}</ion-card-title>
                     <ion-icon [attr.name]="item.Revs < 1 ? 'star-outline' : 'star' " color="warning"></ion-icon>
                     <ion-icon [attr.name]="item.Revs < 2 ? 'star-outline' : 'star' " color="warning"></ion-icon>
@@ -98,7 +98,7 @@
                   <div class="col-6">
                     <div style="float: right; text-align: center;">
                       <h1 style="font-size: 40px; color: black;">{{item.pricePerDay}}€</h1>
-                      <h3>{{this.glb.daysdif*item.pricePerDay}}€ POUR {{this.glb.daysdif}} JOUR<span *ngIf="this.glb.daysdif > 1">S</span></h3>
+                      <h3>{{this.glb.daysdif*item.pricePerDay}}€ {{ 'SEARCH.FOR'  | translate }} {{this.glb.daysdif}} {{ 'SEARCH.DAY'  | translate }}<span *ngIf="this.glb.daysdif > 1">S</span></h3>
                     </div>
                     
                   </div>

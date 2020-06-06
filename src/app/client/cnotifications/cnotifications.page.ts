@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { GlobalsService } from 'src/app/services/globals.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
+import {TranslateService} from '@ngx-translate/core';
+
 @Component({
   selector: 'app-cnotifications',
   templateUrl: './cnotifications.page.html',
@@ -18,7 +20,7 @@ export class CnotificationsPage implements OnInit {
 
   unreadD = 1;
   unreadN = 2;
-  constructor(private elem: ElementRef , public glb: GlobalsService, private db: DbinteractionsService) {}
+  constructor(private elem: ElementRef , public glb: GlobalsService, private db: DbinteractionsService, translate: TranslateService,) {}
   acceptDemand(val: number) {
     this.demandeLoc[val - 1].accepted = 1;
     this.demandeLoc[val - 1].read = true;

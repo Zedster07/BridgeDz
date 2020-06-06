@@ -255,6 +255,8 @@ export class ReservePage implements OnInit {
     this.steps = (this.steps + 0.5) > 1 ? 1 : this.steps + 0.5;
     this.currentStep += 1;
     if ((this.currentStep === 1 && (this.data['needConfirm'] === '0'))|| (this.currentStep === 1 && this.type === '1')){
+
+    if (this.authService.isLoggedIn()) { 
       slideView.slideNext(500);
       this.reserve.lockSwipes(true);
       const elements = this.stripe.elements();
@@ -263,6 +265,25 @@ export class ReservePage implements OnInit {
       this.card.addEventListener('change', ({error}) => { 
       this.cardErrors = error && error.message;
       });
+    } else {
+      const book = {
+        totalprice: this.days * this.data['pricePerDay'],
+        unitPrice : this.data['pricePerDay'],
+        startdate: this.glb.searchQuery.startdate ,
+        starttime : this.glb.searchQuery.starttime,
+        enddate: this.glb.searchQuery.enddate,
+        endtime : this.glb.searchQuery.endtime,
+        adress : this.glb.searchQuery.address,
+        car: this.data,
+        days: this.days,
+        idCar: this.data['id'],
+      };
+      this.load.dismissLoading();
+      this.glb.prevAction = 'book';
+      this.glb.prevBook = book;
+      this.closeModal();
+      this.route.navigate(['login']);
+      }
     }
     if (this.currentStep === 1 && (this.data['needConfirm'] === '1') && (this.type !== '1')){
       this.reserverCar(0, 0, 0);

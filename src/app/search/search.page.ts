@@ -6,8 +6,10 @@ import { ReservePage } from 'src/app/modals/reserve/reserve.page';
 import { GlobalsService } from '../services/globals.service';
 import { LoginService } from '../services/login.service';
 import { UtilService } from '../services/util.service';
+
 import { AgencyModalPage } from '../modals/agency-modal/agency-modal.page';
 import { ClientMenuListComponent } from '../client/client-menu-list/client-menu-list.component';
+import {TranslateService} from '@ngx-translate/core';
 @Component({
   selector: 'app-search',
   templateUrl: './search.page.html',
@@ -47,6 +49,7 @@ export class SearchPage implements OnInit {
     public modalController: ModalController,
     public popoverController: PopoverController,
     public loginSer: LoginService,
+    translate: TranslateService,
     public util: UtilService) { 
   }
 

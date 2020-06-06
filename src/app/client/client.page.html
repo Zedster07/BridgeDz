@@ -14,12 +14,19 @@
             <ion-label (click)="presentPopover($event)">
               <ion-icon name="arrow-dropdown"></ion-icon>
             </ion-label>
-          </ion-chip>
+        </ion-chip>
+        <ion-buttons slot="end" style="margin-right: 20px; order:9;">
+            <img src="{{ this.path_lang }}">
+            <ion-label (click)="selectLang($event)">
+              <ion-icon name="arrow-dropdown"></ion-icon>
+            </ion-label>
+        </ion-buttons>
+        
       <ion-button size="small">
         Des Questions?
       </ion-button>
       <ion-button expand="full" size="small" color="primary" fill="solid">
-        <span class="ion-padding">Louer une voitures</span>
+        <span class="ion-padding">Louer undddde voitures</span>
       </ion-button>
    </ion-buttons>
   </ion-toolbar>

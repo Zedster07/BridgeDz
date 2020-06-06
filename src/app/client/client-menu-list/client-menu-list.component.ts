@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { GlobalsService } from 'src/app/services/globals.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-client-menu-list',
@@ -13,6 +14,7 @@ export class ClientMenuListComponent implements OnInit {
   constructor(
     private logins: LoginService,
     public glb: GlobalsService, 
+    translate: TranslateService,
     private db: DbinteractionsService,) { }
   logout() {
     this.dissmisPopover();

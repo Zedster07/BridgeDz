@@ -5,6 +5,7 @@ import { GeolocService } from '../../services/geoloc.service';
 import { DbinteractionsService } from '../../services/dbinteractions.service';
 import { UtilService } from '../../services/util.service';
 import { MenuListComponent } from 'src/app/menu-list/menu-list.component';
+import {TranslateService} from '@ngx-translate/core';
 
 import { Router } from '@angular/router';
 
@@ -161,6 +162,7 @@ export class AccueilPage implements OnInit {
     private util : UtilService,
     private db : DbinteractionsService,
     public glb: GlobalsService ,
+    translate: TranslateService,
     public geoloc: GeolocService,
      private route: Router ) { }
   async presentPopover(ev: any) {

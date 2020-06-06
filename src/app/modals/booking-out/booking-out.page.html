@@ -18,14 +18,14 @@
         <div class="row ustify-content-center align-items-center">
           <div class="col-12 pb-3 text-left">
             <div class="header">
-              <h6 id="subtitle" class="ion-no-padding">Selectionnez la période</h6>
+              <h6 id="subtitle" class="ion-no-padding">{{ 'MODAL_BOOKING_OUT.SELECT_PERIOD'  | translate }}</h6>
               <!--<h2 id="title" class="ion-no-padding">Confirmez le modèle de votre voiture</h2>-->
             </div>
             <ion-item-divider></ion-item-divider>
             
             <div class="form-row">
               <div class="form-group col-md-12">
-                <label for="marque">Véhicule</label>
+                <label for="marque">{{ 'MODAL_BOOKING_OUT.VEHICLE'  | translate }}</label>
                   <select [(ngModel)]="car"  (change)="updateSelect()">
                     <option [ngValue]="item" *ngFor="let item of cars" data-secondary-text="item.brand" data-icon="this.glb.hostServer + item.FrontPic" class="rounded-circle">{{item.model}}</option>
                   </select>
@@ -60,7 +60,7 @@
             <div class="form-row">
               <div class="form-group col-md-12">
                 <div class="alert alert-info shadow-sm">
-                  Dans quelque minutes, votre annonce sera mise en ligne.
+                  {{ 'MODAL_BOOKING_OUT.MSG_1'  | translate }}
                 </div>
               </div>
             </div>
@@ -76,7 +76,7 @@
             <div class="row ustify-content-center align-items-center">
               <div class="col-12 pb-3 text-left">
                 <div class="header">
-                  <h6 id="subtitle" class="ion-no-padding">Rensigner les information du client</h6>
+                  <h6 id="subtitle" class="ion-no-padding">{{ 'MODAL_BOOKING_OUT.MSG_2_1'  | translate }}</h6>
                 </div>
                 <ion-item-divider></ion-item-divider>
                 
@@ -88,7 +88,7 @@
                             <ion-icon name="person"></ion-icon>
                         </div>
                       </div>
-                      <input type="text" class="form-control" id="control_id" placeholder="Nom" [(ngModel)]="fname">
+                      <input type="text" class="form-control" id="control_id" placeholder="{{ 'MODAL_BOOKING_OUT.NAME'  | translate }}" [(ngModel)]="fname">
                     </div>
                   </div>
                 </div>
@@ -101,7 +101,7 @@
                             <ion-icon name="person"></ion-icon>
                         </div>
                       </div>
-                      <input type="text" class="form-control" id="control_id" placeholder="Prénom" [(ngModel)]="lname">
+                      <input type="text" class="form-control" id="control_id" placeholder="{{ 'MODAL_BOOKING_OUT.NICKNAME'  | translate }}" [(ngModel)]="lname">
                     </div>
                   </div>
                 </div>
@@ -114,7 +114,7 @@
                             <ion-icon name="navigate"></ion-icon>
                         </div>
                       </div>
-                      <input type="text" class="form-control" id="Adresse" placeholder="Adresse" [(ngModel)]="adresse">
+                      <input type="text" class="form-control" id="Adresse" placeholder="{{ 'MODAL_BOOKING_OUT.ADDRESS'  | translate }}" [(ngModel)]="adresse">
                     </div>
                   </div>
                 </div>
@@ -127,7 +127,7 @@
                             <ion-icon name="call"></ion-icon>
                         </div>
                       </div>
-                      <input type="text" class="form-control" id="tel" placeholder="téléphone" [(ngModel)]="telephone">
+                      <input type="text" class="form-control" id="tel" placeholder="{{ 'MODAL_BOOKING_OUT.TELEPHONE'  | translate }}" [(ngModel)]="telephone">
                     </div>
                   </div>
                 </div>
@@ -140,7 +140,7 @@
                             <ion-icon name="mail"></ion-icon>
                         </div>
                       </div>
-                      <input type="text" class="form-control" id="email" placeholder="Email" [(ngModel)]="email">
+                      <input type="text" class="form-control" id="email" placeholder="{{ 'MODAL_BOOKING_OUT.EMAIL'  | translate }}" [(ngModel)]="email">
                     </div>
                   </div>
                 </div>
@@ -153,7 +153,7 @@
                                 <ion-icon name="calendar"></ion-icon>
                             </div>
                           </div>
-                          <ion-datetime class="form-control text-left" id="dob_exp" placeholder="Date de validité du permis" displayFormat="YYYY-MM-DD" [(ngModel)]="licenseDate"></ion-datetime>
+                          <ion-datetime class="form-control text-left" id="dob_exp" placeholder="{{ 'MODAL_BOOKING_OUT.EXPIRATION_DATE'  | translate }}" displayFormat="YYYY-MM-DD" [(ngModel)]="licenseDate"></ion-datetime>
                       </div>
                   </div>
                 </div>
@@ -164,7 +164,7 @@
                         <input type="file" id="rectofile" style="display: none;">
                       </ion-thumbnail>
                     <ion-label>
-                     Permis Recto
+                      {{ 'MODAL_BOOKING_OUT.DRIVING_LICENSE_RECTO'  | translate }}
                     <p><ion-progress-bar *ngIf="this.formData" [attr.color]="this.formData === 1 ? 'success' : 'primary'" value="this.formData"></ion-progress-bar></p>
                   </ion-label>
                 </ion-item>
@@ -174,14 +174,14 @@
                        <input type="file" id="versofile" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
-                      Permis Verso
+                      {{ 'MODAL_BOOKING_OUT.DRIVING_LICENSE_VERSO'  | translate }}
                       <p><ion-progress-bar *ngIf="this.formData" [attr.color]="this.formData === 1 ? 'success' : 'primary'" value="this.formData"></ion-progress-bar></p>
                     </ion-label>
                 </ion-item>
                 <div class="form-row">
                   <div class="form-group col-md-12">
                     <div class="alert alert-info shadow-sm">
-                      Dans quelque minutes, votre annonce sera mise en ligne.
+                      {{ 'MODAL_BOOKING_OUT.MSG2_2'  | translate }}
                     </div>
                   </div>
                 </div>
@@ -197,7 +197,7 @@
           <div class="row ustify-content-center align-items-center">
             <div class="col-12 pb-3 text-left">
               <div class="header">
-                <h6 id="subtitle" class="ion-no-padding">Rensigner le prix</h6>
+                <h6 id="subtitle" class="ion-no-padding">{{ 'MODAL_BOOKING_OUT.MSG_PRICE'  | translate }}</h6>
               </div>
               <ion-item-divider></ion-item-divider>
               <div class="form-row">
@@ -205,18 +205,18 @@
                   <div class="input-group">
                     <input type="number" class="form-control" id="price" (input)="onSearchChange($event.target.value)" [(ngModel)]="this.price">
                     <div class="input-group-append">
-                      <span class="input-group-text">€ / J</span>
+                      <span class="input-group-text">{{ 'MODAL_ADD_CAR.EURO_DAY'  | translate }}</span>
                     </div>
                 </div>
                 </div>
               </div>
-              <!-- caution -->
+              <!-- duration -->
               <div class="form-row">
                 <div class="form-group col-12 text-center" style="flex-direction: column;">
                   <div class="input-group">
                     <input type="number" class="form-control" id="Caution"  [(ngModel)]="this.dayDiff">
                     <div class="input-group-append">
-                      <span class="input-group-text">€ / J</span>
+                      <span class="input-group-text">{{ 'MODAL_AH.DAY'  | translate }}</span>
                     </div>
                 </div>
                 </div>
@@ -227,7 +227,7 @@
                   <div class="input-group">
                     <input type="number" class="form-control" id="Total"  [(ngModel)]="this.totalPrice">
                     <div class="input-group-append">
-                      <span class="input-group-text">€ / J</span>
+                      <span class="input-group-text">{{ 'MODAL_ADD_CAR.EURO_DAY'  | translate }}</span>
                     </div>
                 </div>
                 </div>
@@ -236,7 +236,7 @@
               <div class="form-row">
                 <div class="form-group col-md-12">
                   <div class="alert alert-info shadow-sm">
-                    Dans quelque minutes, votre annonce sera mise en ligne.
+                    {{ 'MODAL_BOOKING_OUT.MSG_3'  | translate }}
                   </div>
                 </div>
               </div>
@@ -257,11 +257,11 @@
     <ion-buttons slot="end" class="ion-padding">
       <ion-button color="dark" (click)="slidePrev(bookingOut)" *ngIf="this.steps !== 0">
         <ion-icon name="arrow-round-back" slot="start"></ion-icon>
-        Précedent
+        {{ 'MODAL_ADD_CAR.PREVIOUS'  | translate }}
       </ion-button>
       <ion-button color="primary" fill="solid" (click)="slideNext(bookingOut)">
-        <span *ngIf="this.step < 2">Suivant</span>
-        <span *ngIf="this.step === 2 "> Valider</span>
+        <span *ngIf="this.step < 2">{{ 'MODAL_ADD_CAR.NEXT'  | translate }}</span>
+        <span *ngIf="this.step === 2 ">{{ 'MODAL_ADD_CAR.CONFIRM'  | translate }}</span>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

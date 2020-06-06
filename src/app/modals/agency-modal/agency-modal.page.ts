@@ -104,7 +104,7 @@ export class AgencyModalPage implements OnInit {
       return false;
     }
 
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOADINLOGIN.LOADING_WAIT_1G_WAIT'); //TODO
     let guid_agency = this.util.newGuid();
     const res = await this.db.dbcreateAgency(this.newAgency, guid_agency);
     this.loading.dismissLoading();

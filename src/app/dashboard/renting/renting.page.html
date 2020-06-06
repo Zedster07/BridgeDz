@@ -11,12 +11,12 @@
 
         <div class="row">
           <div class="col-12 ion-margin" style="border-bottom: 1px solid silver; padding:0px; padding-bottom: 10px;">
-            <h3>Mes Locations Hors Bridgy</h3>
+            <h3>{{ 'RENTINGS_C.OUTSIDE'  | translate }}</h3>
           </div>
         </div>
         <!-- Cars -->
         <div class="alert alert-info" role="alert" *ngIf="mylocations.length === 0">
-          Aucun résultat trouvé !
+          {{ 'RENTINGS_C.NO_RENTING'  | translate }}
         </div>
         <div *ngFor="let item of mylocations; let i = index;"> 
         <div class="row">
@@ -33,39 +33,39 @@
                 <ion-icon name="star" color="warning"></ion-icon>
             </span>
             <h6>{{item['city']}}</h6>
-            <p> {{item['startDate']}} à {{item['start_time']}} - {{item['endDate']}} à {{item['end_time']}} </p>
+            <p> {{item['startDate']}} {{ 'RENTINGS_C.TO'  | translate }} {{item['start_time']}} - {{item['endDate']}} {{ 'RENTINGS_C.TO'  | translate }} {{item['end_time']}} </p>
             <ion-button fill="outline" color="success" *ngIf="mylocations[i]['booking_state'] === '8'" disabled>
               <ion-icon name="checkbox-outline" slot="start"></ion-icon>
-              Confirmé
+              {{ 'RENTINGS_C.CONFIRM'  | translate }}
             </ion-button>
             <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['booking_state'] === '0' || mylocations[i]['booking_state'] === '1' " disabled>
               <ion-icon name="clock" slot="start"></ion-icon>
-              En attent de validation
+              {{ 'RENTINGS_C.WAITING_FOR_VALID'  | translate }}
             </ion-button>
             <ion-button fill="outline" color="danger" *ngIf="mylocations[i]['booking_state'] === '2' || mylocations[i]['booking_state'] === '3' || mylocations[i]['booking_state'] === '4'" disabled>
               <ion-icon name="clock" slot="start"></ion-icon>
-              Décliné
+              {{ 'RENTINGS_C.DECLINED'  | translate }}
             </ion-button>
             <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['booking_state'] === '5' || mylocations[i]['booking_state'] === '6' || mylocations[i]['booking_state'] === '7'" disabled>
               <ion-icon name="clock" slot="start"></ion-icon>
-              En attent de paiement
+              {{ 'RENTINGS_C.WAITING_FOR_PAYMENT'  | translate }}
             </ion-button>
             <ion-button fill="outline" color="danger" *ngIf="mylocations[i]['booking_state'] === '9' || mylocations[i]['booking_state'] === '10' || mylocations[i]['booking_state'] === '11'" disabled>
               <ion-icon name="clock" slot="start"></ion-icon>
-              Annulé
+              {{ 'RENTINGS_C.CANCLED'  | translate }}
             </ion-button>
 
             <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['rent_status'] === '1' || mylocations[i]['rent_status'] === '2'" disabled>
               <ion-icon name="checkbox-outline" slot="start"></ion-icon>
-              Location prévue le {{item['startDate']}} 
+              {{ 'RENTINGS_C.EXCPECTED'  | translate }} {{item['startDate']}} 
             </ion-button>
             <ion-button fill="outline" color="success" *ngIf="mylocations[i]['rent_status'] === '3'" disabled>
               <ion-icon name="clock" slot="start"></ion-icon>
-              Location en cours.
+              {{ 'RENTINGS_C.EXCPECTED'  | translate }}
             </ion-button>
             <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['rent_status'] === '4' || mylocations[i]['rent_status'] === '5' " disabled>
               <ion-icon name="clock" slot="start"></ion-icon>
-              Location terminée le {{item['endDate']}} 
+              {{ 'RENTINGS_C.EXCPECTED'  | translate }} {{item['endDate']}} 
             </ion-button>
            
     
@@ -74,25 +74,25 @@
             <div>
               
               <ion-button *ngIf="mylocations[i]['rent_status'] === '1' && (mylocations[i]['booking_state'] === '8' || mylocations[i]['booking_state'] === '0' || mylocations[i]['booking_state'] === '1' || mylocations[i]['booking_state'] === '5' || mylocations[i]['booking_state'] === '6' || mylocations[i]['booking_state'] === '7')" class="ion-margin" expand="full"  color="light">
-                Changer l'Heure
+                {{ 'RENTINGS_C.CHANGE_HOUR'  | translate }}
             </ion-button>
               <ion-button *ngIf="mylocations[i]['startRenting'] === '1' && mylocations[i]['rent_status'] === '1' && mylocations[i]['booking_state'] === '8'" class="ion-margin" expand="full"  color="primary"  (click)="startL(i)">
-                Démarrer
+                {{ 'RENTINGS_C.START'  | translate }}
              </ion-button> 
              <ion-button *ngIf="mylocations[i]['endRenting'] === '1' && mylocations[i]['rent_status'] === '3' && mylocations[i]['booking_state'] === '8' " class="ion-margin" expand="full"  color="primary"  (click)="endL(i)">
-                Finir
+              {{ 'RENTINGS_C.END'  | translate }}
              </ion-button>  
              <ion-button *ngIf="mylocations[i]['endRenting'] === '0' && mylocations[i]['rent_status'] === '3' && mylocations[i]['booking_state'] === '8' " class="ion-margin" expand="full"  color="primary"  (click)="endL(i)">
-                Finir la location
+              {{ 'RENTINGS_C.END_RENT'  | translate }}
             </ion-button>               
              <ion-button *ngIf="mylocations[i]['valid_paiement'] === '1'" class="ion-margin" color="success" expand="full" (click)="generateBilling(i)">
-                Facture
+              {{ 'RENTINGS_C.INVOICE'  | translate }}
               </ion-button>
               <ion-button *ngIf="mylocations[i]['booking_state'] === '0' || mylocations[i]['booking_state'] === '1'" class="ion-margin" color="success" expand="full" (click)="generateBilling(i)">
-                accepter
+                {{ 'RENTINGS_C.ACCEPT'  | translate }}
                </ion-button>
               <ion-button *ngIf="mylocations[i]['rent_status'] === '1' && (mylocations[i]['booking_state'] === '8' || mylocations[i]['booking_state'] === '0' || mylocations[i]['booking_state'] === '1' || mylocations[i]['booking_state'] === '5' || mylocations[i]['booking_state'] === '6' || mylocations[i]['booking_state'] === '7')" class="ion-margin" color="danger" expand="full" (click)="cancelBooking(i)">
-                Annuler
+                {{ 'RENTINGS_C.CANCLE'  | translate }}
               </ion-button>
               
               </div>

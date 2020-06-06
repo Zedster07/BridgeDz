@@ -280,7 +280,7 @@ export class CarValidateModalPage implements OnInit {
  
 
     async updateVehicleInfo(index) {
-      this.loading.presentLoading();
+      this.loading.presentLoading_generic('LOGIN.LOADING_WAIT_1'); //TODO
       const resp =  await this.db.dbUpdateCarLic(this.formData, index); //Add security backend
       console.log(resp)
       if (resp) {

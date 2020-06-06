@@ -65,6 +65,7 @@ import { VoituresPipe } from './admin/voitures.pipe';
 import { StartLocClientPage } from './modals/start-loc-client/start-loc-client.page';
 import { RatingPage } from './modals/rating/rating.page';
 import { StartLocAgencyPage } from './modals/start-loc-agency/start-loc-agency.page';
+import { LanguagePage } from './language/language.page';
 import { SearchGoogleAddressPage } from './modals/search-google-address/search-google-address.page';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 
@@ -95,12 +96,13 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, AgencyModalPage , AddCarModalPage , CarValidateModalPage , CheckoutPage , ReductionsPage , RatingPage , AccessHoursPage , CarAvailabilityPage , CarAvailabilityV1Page,  ReservePage , 
+  declarations: [AppComponent, AgencyModalPage , AddCarModalPage , CarValidateModalPage , CheckoutPage , ReductionsPage , LanguagePage , RatingPage , AccessHoursPage , CarAvailabilityPage , CarAvailabilityV1Page,  ReservePage , 
     MenuListComponent , ClientMenuListComponent , StartLocClientPage, StartLocAgencyPage, SearchGoogleAddressPage , BookingOutPage],
   entryComponents: [
     AgencyModalPage,
     CarValidateModalPage,
     BookingOutPage,
+    LanguagePage,
     CheckoutPage,
     RatingPage,
     AddCarModalPage,

@@ -232,7 +232,7 @@ export class DashboardPage implements OnInit {
     const islogged = this.db.getStorage('accloggedin');
 
     if (islogged === 'true') {
-      this.loading.presentLoading();
+
       const id = this.db.getStorage('accID');
       const res = await this.db.FetchAcc();
       if (res.status === 'success') {
@@ -283,7 +283,6 @@ export class DashboardPage implements OnInit {
       }
     }
 
-    this.loading.dismissLoading();
 
     if (islogged === 'true' || this.glb.ifAdmin(this.glb.user.role)) {
       if(this.glb.bookings.length === 0 || this.glb.ifAdmin(this.glb.user.role)){

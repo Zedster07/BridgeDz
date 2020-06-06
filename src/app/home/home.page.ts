@@ -14,7 +14,7 @@ import {Observable} from 'rxjs';
 import {NominatimResponse} from '../../../node_modules/angular-osm';
 import {map} from 'rxjs/operators';
 import { UtilService } from '../services/util.service';
-
+import {TranslateService} from '@ngx-translate/core';
 
 
 
@@ -199,6 +199,7 @@ export class HomePage implements OnInit {
     private zone: NgZone,
     private modalCtrl: ModalController,
     private http: HttpClient,
+    translate: TranslateService,
     private util: UtilService,
     private loading: LoadingService ) {
       if (window.screen.width <= 360 ) {

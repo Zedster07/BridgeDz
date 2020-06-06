@@ -181,7 +181,7 @@ export class HomePage implements OnInit {
      
     
     // retreive dashboard home data
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
     let agncy_id = this.glb.AgencyLogData.id;
     if(this.glb.ifAdmin(this.glb.user.role)){
       agncy_id ='-1';

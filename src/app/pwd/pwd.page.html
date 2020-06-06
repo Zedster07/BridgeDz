@@ -10,7 +10,7 @@
 <ion-content>
   <ion-row style="height:100vh; display: flex;" id="login-container">
     <ion-col class="login-form" size-lg="6" size-md="12" size-sm="12"  size-xs="12" *ngIf="pageSelected == 'pwd_request'">
-        <h1 id="login-title">Mot de passe oublié </h1>
+        <h1 id="login-title">{{ 'LOGIN.FORGET'  | translate }}</h1>
         
         <ion-item-group>
           <div class="login-input alert alert-danger" role="alert" id="loginerror">
@@ -18,11 +18,11 @@
           </div>
           <ion-item  class="login-input">
               <ion-label> <ion-icon name="mail" color="medium"></ion-icon> </ion-label>
-              <ion-input placeholder="Email" pattern ="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="email"> </ion-input>
+              <ion-input placeholder="{{ 'LOGIN.EMAIL'  | translate }}" pattern ="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="email"> </ion-input>
           </ion-item>
           <ion-button expand="block" class="login-input" color="primary" (click)="pwdForgotten()">
             <ion-icon name="log-in" slot="start"></ion-icon>
-            Changer 
+            {{ 'LOGIN.CHANGE'  | translate }}
           </ion-button>
         </ion-item-group>
       
@@ -30,7 +30,7 @@
     </ion-col>
 
     <ion-col class="login-form" size-lg="6" size-md="12" size-sm="12"  size-xs="12" *ngIf="pageSelected == 'pwd_change'">
-      <h1 id="login-title">Mot de passe oublié </h1>
+      <h1 id="login-title"> {{ 'LOGIN.FORGET'  | translate }} </h1>
       
       <ion-item-group>
         <div class="login-input alert alert-danger" role="alert" id="loginerror">
@@ -38,15 +38,15 @@
         </div>
         <ion-item  class="login-input">
             <ion-label> <ion-icon name="mail" color="medium"></ion-icon> </ion-label>
-            <ion-input placeholder="Password"  [(ngModel)]="pwd"> </ion-input>
+            <ion-input placeholder="{{ 'LOGIN.PASSWORD'  | translate }}"  [(ngModel)]="pwd"> </ion-input>
         </ion-item>
         <ion-item  class="login-input">
           <ion-label> <ion-icon name="mail" color="medium"></ion-icon> </ion-label>
-          <ion-input placeholder="Confirm Password" [(ngModel)]="new_pwd"> </ion-input>
+          <ion-input placeholder="{{ 'LOGIN.CONFIRM_PASSWORD'  | translate }}" [(ngModel)]="new_pwd"> </ion-input>
         </ion-item>
         <ion-button expand="block" class="login-input" color="primary" (click)="pwdChange()">
           <ion-icon name="log-in" slot="start"></ion-icon>
-          Changer 
+          {{ 'PROFIL.CHANGE'  | translate }} 
         </ion-button>
       </ion-item-group>
     

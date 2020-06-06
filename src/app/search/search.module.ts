@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { Ionic4DatepickerModule } from '@logisticinfotech/ionic4-datepicker';
 import { IonicTimepickerModule } from '@logisticinfotech/ionic-timepicker';
 import { IonicModule } from '@ionic/angular';
-
+import {TranslateModule} from '@ngx-translate/core';
 import { SearchPage } from './search.page';
 import { ClientMenuListComponent } from '../client/client-menu-list/client-menu-list.component';
 
@@ -20,6 +20,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    TranslateModule.forChild(),
     IonicModule,
     Ionic4DatepickerModule,
     IonicTimepickerModule,

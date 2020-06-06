@@ -5,6 +5,8 @@ import { HttpClient , HttpErrorResponse , HttpParams } from '@angular/common/htt
 import { LoadingService } from './loading.service';
 import { Httpresponse } from '../interfaces/httpresponse';
 import { ModalController } from '@ionic/angular';
+import {TranslateService} from '@ngx-translate/core';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +17,7 @@ export class AlertService {
     private glb: GlobalsService ,
     private http: HttpClient ,
     private loading: LoadingService,
+    private translate: TranslateService,
     public modalController: ModalController) { }
   async confirmPassword() {
     let something: any;
@@ -70,10 +73,22 @@ export class AlertService {
     });
   }
   async presentAlert(title: string , msg: string) {
+    let title_t ;
+    let msg_t;
+    let button_t;
+    this.translate.get(title).subscribe((res: string) => {
+      title_t = res;
+    });
+    this.translate.get(msg).subscribe((res:string)=> {
+      msg_t = res;
+    });
+    this.translate.get('BUTTON.BUTTON_OK').subscribe((res:string)=> {
+      button_t = res;
+    });
     const alert = await this.alertt.create({
-      header: title,
-      message: msg,
-      buttons: ['OK']
+      header: title_t,
+      message: msg_t,
+      buttons: [button_t]
     });
 
     await alert.present();

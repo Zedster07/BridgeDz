@@ -288,7 +288,7 @@ export class UtilService {
   }
 
   getAccParam_1(accparams:any, data: any) {
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT_1'); //TODO
     
     console.log(data);
     this.loading.dismissLoading();

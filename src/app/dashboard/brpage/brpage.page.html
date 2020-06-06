@@ -3,24 +3,24 @@
         <div class="col-12 ion-margin" style="border-bottom: 1px solid silver; padding:0px; padding-bottom: 10px;">
           <ion-button (click)="showAddReductions()">
             <ion-icon name="add"></ion-icon>
-            Ajouter Un Bon de réduction</ion-button>
+            {{ 'BRPAGE.ADD_VOUCHER'  | translate }}</ion-button>
         </div>
     </div>
      <div class="row" *ngIf="bonredList.length === 0">
        <div class="col">
-        <p>Vous n'avez aucun bon de reduction!</p>
+        <p>{{ 'BRPAGE.MSG_1'  | translate }}</p>
        </div>
      </div> 
   <table class="table" *ngIf="bonredList.length > 0">
       <thead>
           <tr>
-            <th scope="col">#Code Promo</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Status</th>
-            <th scope="col">Offre</th>
-            <th scope="col">Debut</th>
-            <th scope="col">Fin</th>
-            <th scope="col">options</th>
+            <th scope="col">{{ 'BRPAGE.PROMO'  | translate }}</th>
+            <th scope="col">{{ 'BRPAGE.NAME'  | translate }}</th>
+            <th scope="col">{{ 'BRPAGE.STATUS'  | translate }}</th>
+            <th scope="col">{{ 'BRPAGE.OFFER'  | translate }}</th>
+            <th scope="col">{{ 'BRPAGE.FROM'  | translate }}</th>
+            <th scope="col">{{ 'BRPAGE.TO'  | translate }}</th>
+            <th scope="col">{{ 'BRPAGE.OPTION'  | translate }}</th>
           </tr>
         </thead>
         <tbody>
@@ -31,7 +31,7 @@
               <th>-{{item.value}}{{getType(i)}}</th>
               <td>{{item.debut}}</td>
               <td>{{item.fin}}</td>        
-              <td><ion-button (click)="showEditReductions(i)">Editer</ion-button>&nbsp;&nbsp;&nbsp;<ion-button color="danger" (click)="delReduction(i)">supprimer</ion-button></td>
+              <td><ion-button (click)="showEditReductions(i)">{{ 'BRPAGE.EDIT'  | translate }}</ion-button>&nbsp;&nbsp;&nbsp;<ion-button color="danger" (click)="delReduction(i)">{{ 'BRPAGE.DELETE'  | translate }}</ion-button></td>
             </tr>
         </tbody>
   </table>

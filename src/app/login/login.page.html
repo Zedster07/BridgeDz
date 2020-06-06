@@ -10,7 +10,7 @@
 <ion-content>
   <ion-row style="height:100vh; display: flex;" id="login-container">
     <ion-col class="login-form" size-lg="6" size-md="12" size-sm="12"  size-xs="12" *ngIf="pageSelected == 'login'">
-        <h1 id="login-title">Connectez-vous </h1>
+        <h1 id="login-title"> {{ 'LOGIN.LOGIN'  | translate }} </h1>
         
         <ion-item-group>
           <div class="login-input alert alert-danger" role="alert" id="loginerror">
@@ -18,27 +18,27 @@
           </div>
           <ion-item  class="login-input">
               <ion-label> <ion-icon name="mail" color="medium"></ion-icon> </ion-label>
-              <ion-input placeholder="Email" pattern ="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="normalLogin.email"> </ion-input>
+              <ion-input placeholder="{{ 'LOGIN.EMAIL'  | translate }}" pattern ="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="normalLogin.email"> </ion-input>
           </ion-item>
           <ion-item class="login-input">
               <ion-label> <ion-icon name="Key" color="medium"></ion-icon> </ion-label>
-              <ion-input placeholder="Password" type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" [(ngModel)]="normalLogin.password"> </ion-input>
+              <ion-input placeholder="{{ 'LOGIN.PASSWORD'  | translate }}" type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" [(ngModel)]="normalLogin.password"> </ion-input>
           </ion-item>
-          <a id="password" (click)="passwordForgotten()">Mot de passe oublié ?</a>
+          <a id="password" (click)="passwordForgotten()">{{ 'LOGIN.FORGET'  | translate }} </a>
           <ion-button expand="block" class="login-input" color="primary" (click)="normallogin()">
             <ion-icon name="log-in" slot="start"></ion-icon>
-            Se connecter
+            {{ 'LOGIN.LOG_IN'  | translate }}
           </ion-button>
           <ion-button expand="block" class="login-input" color="success" (click)="changepPage('register')"> 
             <ion-icon name="add" slot="start"></ion-icon> 
-             S'inscrire
+            {{ 'LOGIN.REGISTER'  | translate }}
           </ion-button>
 
     
         </ion-item-group>
       
         <span>
-          ou
+          {{ 'LOGIN.OR'  | translate }}
         </span>
         
         <firebase-ui (signInSuccessWithAuthResult)="successCallback($event)"
@@ -48,7 +48,7 @@
         <h1 id="login-title">
           
           
-          S'inscrire 
+          {{ 'LOGIN.REGISTER'  | translate }} 
         </h1>
         <ion-item-group>
           <div class="login-input alert alert-danger" role="alert" id="signuperror">
@@ -56,29 +56,29 @@
           </div>
             <ion-item  class="login-input">
                 <ion-label> <ion-icon name="person" color="medium"></ion-icon> </ion-label>
-                <ion-input placeholder="Username" [(ngModel)]="signupData.username"> </ion-input>
+                <ion-input placeholder="{{ 'LOGIN.USERNAME'  | translate }}" [(ngModel)]="signupData.username"> </ion-input>
             </ion-item>
             <ion-item  class="login-input">
                 <ion-label> <ion-icon name="mail" color="medium"></ion-icon> </ion-label>
-                <ion-input placeholder="Email" pattern ="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="signupData.email"> </ion-input>
+                <ion-input placeholder="{{ 'LOGIN.EMAIL'  | translate }}" pattern ="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="signupData.email"> </ion-input>
             </ion-item>
             <ion-item class="login-input">
                 <ion-label> <ion-icon name="Key" color="medium"></ion-icon> </ion-label>
-                <ion-input type="password" placeholder="Password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" [(ngModel)]="signupData.password" > </ion-input>
+                <ion-input type="password" placeholder="{{ 'LOGIN.PASSWORD'  | translate }}" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" [(ngModel)]="signupData.password" > </ion-input>
             </ion-item>
             <ion-item class="login-input">
                 <ion-label> <ion-icon name="Key" color="medium"></ion-icon> </ion-label>
-                <ion-input type="password" placeholder="Confirm Password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" [(ngModel)]="signupData.re_password"> </ion-input>
+                <ion-input type="password" placeholder="{{ 'LOGIN.CONFIRM_PASSWORD'  | translate }}" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" [(ngModel)]="signupData.re_password"> </ion-input>
             </ion-item>
             
             <ion-button expand="block" class="login-input" color="primary" (click)="Register()"> 
               <ion-icon name="add" slot="start"></ion-icon> 
-               S'inscrire
+              {{ 'LOGIN.REGISTER'  | translate }}
             </ion-button>
             <ion-buttons  class="login-input">
               <ion-button expand="block" (click)="changepPage('login')">
                   <ion-icon name="arrow-round-back" slot="start"></ion-icon>
-                  Return 
+                  {{ 'LOGIN.RETRUN'  | translate }}
               </ion-button>
             </ion-buttons>
 

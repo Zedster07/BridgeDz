@@ -18,14 +18,14 @@
         <div class="row ustify-content-center align-items-center">
           <div class="col-12 pb-3 text-left">
             <div class="header">
-              <h6 id="subtitle" class="ion-no-padding">AJOUTER LA CARTE GRISE</h6>
-              <h2 id="title" class="ion-no-padding">Confirmez le modèle de votre voiture</h2>
+              <h6 id="subtitle" class="ion-no-padding">{{ 'MODAL_CAR_VALID.MSG_1'  | translate }}</h6>
+              <h2 id="title" class="ion-no-padding">{{ 'MODAL_CAR_VALID.MSG_2_1'  | translate }}</h2>
             </div>
             <ion-item-divider></ion-item-divider>
             <div class="form-row">
               <div class="form-group col-md-12">
-                <label for="marque">License</label>
-                <input type="text" class="form-control" id="car_doc_id" placeholder="réf de carte grise"  [(ngModel)]="formData[0].car_doc_id">
+                <label for="marque">{{ 'MODAL_CAR_VALID.LICENSE'  | translate }}</label>
+                <input type="text" class="form-control" id="car_doc_id" placeholder="{{ 'MODAL_CAR_VALID.LICENSE'  | translate }}"  [(ngModel)]="formData[0].car_doc_id">
               </div>
             </div>
             <ion-item (click)="uploadPic('license')" id="licenseitem">
@@ -35,14 +35,14 @@
                 <input type="file" id="licensefile" style="display: none;">
               </ion-thumbnail>
               <ion-label>
-                Carte grise
+                {{ 'MODAL_CAR_VALID.REGISTR_CARD'  | translate }}
                 <p><ion-progress-bar *ngIf="this.formData[0].picsMeta['license'][0]" [attr.color]="this.formData[0].picsMeta['license'][2] === 1 ? 'success' : 'primary'" value="this.formData[0].picsMeta['license'][2]"></ion-progress-bar></p>
               </ion-label>
             </ion-item>
             <div class="form-row">
               <div class="form-group col-md-12">
                 <div class="alert alert-info shadow-sm">
-                  Dans quelque minutes, votre annonce sera mise en ligne.
+                  {{ 'MODAL_CAR_VALID.MSG_2_2'  | translate }}
                 </div>
               </div>
             </div>
@@ -56,14 +56,14 @@
         <div class="row ustify-content-center align-items-center">
           <div class="col-12 pb-3 text-left">
             <div class="header">
-              <h6 id="subtitle" class="ion-no-padding">AJOUTER L'ASSURENCE</h6>
-              <h2 id="title" class="ion-no-padding">Confirmez le modèle de votre voiture</h2>
+              <h6 id="subtitle" class="ion-no-padding">{{ 'MODAL_CAR_VALID.MSG_1'  | translate }}</h6>
+              <h2 id="title" class="ion-no-padding">{{ 'MODAL_CAR_VALID.MSG_3_1'  | translate }}</h2>
             </div>
             <ion-item-divider></ion-item-divider>
             <div class="form-row">
               <div class="form-group col-md-12">
-                <label for="marque">Assurence</label>
-                <input type="text" class="form-control" id="insu_id" placeholder="réf du control technique"  [(ngModel)]="formData[1].insu_id">
+                <label for="marque">{{ 'MODAL_CAR_VALID.INSURANCE'  | translate }}</label>
+                <input type="text" class="form-control" id="insu_id" placeholder="{{ 'MODAL_CAR_VALID.INSURANCE'  | translate }}"  [(ngModel)]="formData[1].insu_id">
               </div>
             </div>
             <div class="form-row">
@@ -74,7 +74,7 @@
                             <ion-icon name="calendar"></ion-icon>
                         </div>
                       </div>
-                      <ion-datetime class="form-control text-left" id="insu_exp" placeholder="Date expiration" displayFormat="YYYY-MM-DD" [(ngModel)]="formData[1].insu_exp"></ion-datetime>
+                      <ion-datetime class="form-control text-left" id="insu_exp" placeholder="{{ 'MODAL_CAR_VALID.EXPIRATION_DATE'  | translate }}" displayFormat="YYYY-MM-DD" [(ngModel)]="formData[1].insu_exp"></ion-datetime>
                   </div>
               </div>
             </div>
@@ -84,14 +84,14 @@
                 <input type="file" id="insurancefile" style="display: none;">
               </ion-thumbnail>
               <ion-label>
-                Photo Arrière
+                {{ 'MODAL_CAR_VALID.INSURANC_PICTURE'  | translate }}
                 <p><ion-progress-bar *ngIf="this.formData[1].picsMeta['insurance'][0]" [attr.color]="this.formData[1].picsMeta['insurance'][2] === 1 ? 'success' : 'primary'" value="this.formData[1].picsMeta['insurance'][2]"></ion-progress-bar></p>
               </ion-label>
             </ion-item>
             <div class="form-row">
               <div class="form-group col-md-12">
                 <div class="alert alert-info shadow-sm">
-                  Dans quelque minutes, votre annonce sera mise en ligne.
+                  {{ 'MODAL_CAR_VALID.MSG_3_2'  | translate }}
                 </div>
               </div>
             </div>
@@ -105,14 +105,14 @@
         <div class="row ustify-content-center align-items-center">
           <div class="col-12 pb-3 text-left">
             <div class="header">
-              <h6 id="subtitle" class="ion-no-padding">AJOUTER LE CONTROLE TECHNIQUE</h6>
-              <h2 id="title" class="ion-no-padding">Confirmez le modèle de votre voiture</h2>
+              <h6 id="subtitle" class="ion-no-padding">{{ 'MODAL_CAR_VALID.TECHNICAL_CONTROL'  | translate }}</h6>
+              <h2 id="title" class="ion-no-padding">{{ 'MODAL_CAR_VALID.MSG_4_1'  | translate }}</h2>
             </div>
             <ion-item-divider></ion-item-divider>
             <div class="form-row">
               <div class="form-group col-md-12">
                 <label for="marque">Controle</label>
-                <input type="text" class="form-control" id="control_id" placeholder="réf de carte grise" [(ngModel)]="formData[2].control_id">
+                <input type="text" class="form-control" id="control_id" placeholder="{{ 'MODAL_CAR_VALID.CONTROL'  | translate }}" [(ngModel)]="formData[2].control_id">
               </div>
             </div>
             <div class="form-row">
@@ -123,7 +123,7 @@
                             <ion-icon name="calendar"></ion-icon>
                         </div>
                       </div>
-                      <ion-datetime class="form-control text-left" id="control_exp" placeholder="Date expiration" displayFormat="YYYY-MM-DD" [(ngModel)]="formData[2].control_exp"></ion-datetime>
+                      <ion-datetime class="form-control text-left" id="control_exp" placeholder="{{ 'MODAL_CAR_VALID.CONTROL_EXIRATION'  | translate }}" displayFormat="YYYY-MM-DD" [(ngModel)]="formData[2].control_exp"></ion-datetime>
                   </div>
               </div>
             </div>
@@ -133,14 +133,14 @@
                       <input type="file" id="controlfile" style="display: none;">
                     </ion-thumbnail>
                     <ion-label>
-                      Photo Coté
+                      {{ 'MODAL_CAR_VALID.TECHNCIAL_PICTURE'  | translate }}
                       <p><ion-progress-bar *ngIf="this.formData[2].picsMeta['control'][0]" [attr.color]="this.formData[2].picsMeta['control'][2] === 1 ? 'success' : 'primary'" value="this.formData[2].picsMeta['control'][2]"></ion-progress-bar></p>
                     </ion-label>
                   </ion-item>
             <div class="form-row">
               <div class="form-group col-md-12">
                 <div class="alert alert-info shadow-sm">
-                  Dans quelque minutes, votre annonce sera mise en ligne.
+                  {{ 'MODAL_CAR_VALID.MSG_4_2'  | translate }}
                 </div>
               </div>
             </div>
@@ -156,11 +156,11 @@
     <ion-buttons slot="end" class="ion-padding">
       <ion-button color="dark" (click)="slidePrev(AddLicenseCarForm)" *ngIf="this.steps !== 0">
         <ion-icon name="arrow-round-back" slot="start"></ion-icon>
-        Précedent
+        {{ 'MODAL_CAR_VALID.PREVIOUS'  | translate }}
       </ion-button>
       <ion-button color="primary" fill="solid" (click)="slideNext(AddLicenseCarForm)">
-        <span *ngIf="this.steps < 1">Suivant</span>
-        <span *ngIf="this.steps === 1 && this.type === 1"> Mettre à jour</span>
+        <span *ngIf="this.steps < 1">{{ 'MODAL_CAR_VALID.PREVIOUS'  | translate }}</span>
+        <span *ngIf="this.steps === 1 && this.type === 1"> {{ 'MODAL_CAR_VALID.CONFIRM'  | translate }}</span>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

@@ -8,6 +8,7 @@ import { GeolocService } from '../../services/geoloc.service';
 import { LoginService } from '../../services/login.service';
 import { UserData } from '../../interfaces/user-data';
 import { account_status } from 'src/app/interfaces/account_status';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-monprofile',
@@ -81,6 +82,7 @@ export class MonprofilePage implements OnInit {
     private log: LoginService,
     private db: DbinteractionsService,
     private alertt: AlertService,
+    translate: TranslateService,
     private loading: LoadingService,
     public geoloc: GeolocService,
     public util: UtilService ) {
@@ -165,7 +167,7 @@ export class MonprofilePage implements OnInit {
 
   async accParamsUpdate() {
     this.glb.toReload  = 0;
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); // TODO
     const res = await this.db.setAccParams(this.fromBoolToString(this.glb.accparams));
     this.loading.dismissLoading();
     if (res) {
@@ -209,7 +211,7 @@ export class MonprofilePage implements OnInit {
   async VerifyAccount() {
     this.verifyAccData.dateo = this.verifyAccData.dateo.split('T')[0];
     if (this.checkLicenceInfo()) {
-      this.loading.presentLoading();
+      this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); // TODO
       const recto = await this.db.uploadLicence(this.verifyAccData.rectoimg);
       if ( !recto ) {
         this.loading.dismissLoading();
@@ -266,7 +268,7 @@ export class MonprofilePage implements OnInit {
       this.loading.dismissLoading();
     }*/
     if (pass) {
-      this.loading.presentLoading();
+      this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); // TODO
       if (this.proilePicFormData !== null ) {
         const response = await this.db.uploadProfilePic(this.proilePicFormData);
         if (response && response['success']) {
@@ -302,7 +304,7 @@ export class MonprofilePage implements OnInit {
       const preview = document.getElementById(imghandler) as HTMLImageElement;
       const reader  = new FileReader();
       reader.onloadstart = () => {
-        this.loading.presentLoading();
+        this.loading.presentLoading_generic('LOADING_WAIT'); // TODO
       };
       reader.onload = () => {
         const formdata = new FormData();
@@ -329,7 +331,7 @@ export class MonprofilePage implements OnInit {
       const reader  = new FileReader();
 
       reader.onloadstart = () => {
-        this.loading.presentLoading();
+        this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
       };
 
       reader.onload = () => {
@@ -355,7 +357,7 @@ export class MonprofilePage implements OnInit {
 
 
   async getAccParam() {
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
     const data = await this.db.getAccParams();
     console.log(data);
     this.loading.dismissLoading();

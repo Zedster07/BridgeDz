@@ -50,7 +50,7 @@ export class BrpagePage implements OnInit {
 
   async delReduction(i) {
     let id = this.db.getStorage('accID');
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
     if (this.glb.ifAdmin(this.glb.user.role)) {
       id = this.glb.agency_modify['id'];
     }
@@ -105,7 +105,7 @@ export class BrpagePage implements OnInit {
   async fetchBR() {
     let id = this.db.getStorage('accID');
     const bnredListtmp = [];
-    this.loading.presentLoading();
+    this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
     if (this.glb.ifAdmin(this.glb.user.role)) {
       id = '';
     }

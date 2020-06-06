@@ -13,14 +13,14 @@ ssss
         [(viewDate)]="viewDate"
         (viewDateChange)="closeOpenMonthViewDay()"
       >
-        Previous
+      {{ 'MODAL_AVAIL_CAR.PREVIOUS'  | translate }}
       </div>
       <div
         class="btn btn-outline-secondary"
         mwlCalendarToday
         [(viewDate)]="viewDate"
       >
-        Today
+      {{ 'MODAL_AVAIL_CAR.TODAY'  | translate }}
       </div>
       <div
         class="btn btn-primary"
@@ -29,7 +29,7 @@ ssss
         [(viewDate)]="viewDate"
         (viewDateChange)="closeOpenMonthViewDay()"
       >
-        Next
+      {{ 'MODAL_AVAIL_CAR.NEXT'  | translate }}
       </div>
     </div>
   </div>
@@ -50,7 +50,7 @@ ssss
 <ion-footer >
   <ion-toolbar>
       <ion-button  color="primary"  (click)="saveChanges()"> 
-        mettre à jour
+        {{ 'MODAL_AVAIL_CAR.UPDATE'  | translate }}
       </ion-button>
   <div>
     {{ msg_display }}

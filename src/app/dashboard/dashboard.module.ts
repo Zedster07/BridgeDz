@@ -80,7 +80,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule.forChild(),
   ],
-  entryComponents: [DashboardMenuListComponent, LanguagePage],
-  declarations: [DashboardPage , DashboardMenuListComponent, LanguagePage]
+  entryComponents: [DashboardMenuListComponent],
+  declarations: [DashboardPage , DashboardMenuListComponent]
 })
 export class DashboardPageModule {}
