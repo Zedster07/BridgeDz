@@ -2,6 +2,8 @@ import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import {ChangeDetectionStrategy,ViewEncapsulation, } from '@angular/core';
 import {TranslateService, TranslatePipe, TranslateModule} from '@ngx-translate/core';
 import { WeekViewHour } from 'calendar-utils';
+import { registerLocaleData } from '@angular/common';
+
 
 import { rent_state } from '../../interfaces/rent_state';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
@@ -78,7 +80,7 @@ export class HomePage implements OnInit {
   booking = [];
   wallet = [];
   historical_wallet = [];
-   
+  locale= this.glb.currentLang;
   index_perf  = 0;
   display_all = 0;
   

@@ -233,11 +233,19 @@ export class GlobalsService {
     };
   }
   correctPassword( pass: string ) {
-    if ( pass === '' ) {
+    const regex = RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,10}$', 'g');
+    
+    if ( pass === undefined || pass === ''  ) {
+      console.log('undefiend --- ');
       return 0;
     } else if ( pass.length < 6 ) {
+      console.log(1);
       return 1;
-    } else {
+    } else if (!regex.test(pass)) {
+      console.log(4);
+      return 4;
+    }else {
+      console.log(2);
       return 2;
     }
   }

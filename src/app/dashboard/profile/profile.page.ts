@@ -166,7 +166,7 @@ export class ProfilePage implements OnInit {
     const res = await this.db.setAccParams(this.fromBoolToString(this.glb.accparams));
     this.loading.dismissLoading();
     if (res) {
-      this.alertt.presentAlert('Success!' , 'Updated successfully!');
+      this.alertt.presentAlert('POPUP.ACC_UPDATE_TITLE' , 'POPUP.ACC_UPDATE_MSG');
     }
   }
 
@@ -177,19 +177,19 @@ export class ProfilePage implements OnInit {
 
   checkLicenceInfo(): boolean {
     if ( this.verifyAccData.lid === '') {
-      this.alertt.presentAlert('Error!' , 'Permis Id est requis!');
+      this.alertt.presentAlert('POPUP.CHECK_LIC_MSG_1_TITLE' , 'POPUP.CHECK_LIC_MSG_1_MSG');
       return false;
     } else {
       if ( isNaN(Number(this.verifyAccData.lid)) ) {
-        this.alertt.presentAlert('Error!' , 'Please enter a valid permis ID!');
+        this.alertt.presentAlert('POPUP.CHECK_LIC_MSG_2_TITLE' , 'POPUP.CHECK_LIC_MSG_2_MSG');
         return false;
       } else {
         if ( this.verifyAccData.dateo === '' || this.verifyAccData.payso === '0') {
-          this.alertt.presentAlert('Error!' , 'Date et Pays d\'obtention requis!');
+          this.alertt.presentAlert('POPUP.CHECK_LIC_MSG_3_TITLE' , 'POPUP.CHECK_LIC_MSG_3_MSG');
           return false;
         } else {
           if (this.verifyAccData.rectoimg.get('file') === null || this.verifyAccData.versoimg.get('file') === null) {
-            this.alertt.presentAlert('Error!' , 'Veuillez télécharger les deux faces de votre pièce d\'identité');
+            this.alertt.presentAlert('POPUP.CHECK_LIC_MSG_4_TITLE' , 'POPUP.CHECK_LIC_MSG_4_MSG');
             return false;
           }
         }
@@ -201,20 +201,16 @@ export class ProfilePage implements OnInit {
   async VerifyAccount() {
     this.verifyAccData.dateo = this.verifyAccData.dateo.split('T')[0];
     if (this.checkLicenceInfo()) {
-      console.log("phone 1 ok");
       this.loading.presentLoading_generic('LOGIN.LOADING_WAIT'); //TODO
       const recto = await this.db.uploadLicence(this.verifyAccData.rectoimg);
       if ( !recto ) {
-        console.log("phone 1 nok");
         this.loading.dismissLoading();
-        this.alertt.presentAlert('Error!' , 'Something Went wrong, Please try again later.');
+        this.alertt.presentAlert('POPUP.VERIFY_ACCOUNT_1_TITLE' , 'POPUP.VERIFY_ACCOUNT_1_MSG');
       } else {
-        console.log("phone 2 ok");
         const verso = await this.db.uploadLicence(this.verifyAccData.versoimg);
         if ( !verso ) {
-          console.log("phone 2 nok");
           this.loading.dismissLoading();
-          this.alertt.presentAlert('Error!' , 'Something Went wrong, Please try again later.');
+          this.alertt.presentAlert('POPUP.VERIFY_ACCOUNT_1_TITLE' , 'POPUP.VERIFY_ACCOUNT_1_MSG');
         } else {
           const LiImgPaths = {
             rectoimg: recto['path'] ,
@@ -256,7 +252,7 @@ export class ProfilePage implements OnInit {
           console.log(this.glb.user.pic);
           await this.db.updateprofileinfos(this.usertmp);
         } else {
-          this.alertt.presentAlert('Error!' , 'Something Went wrong, Please try again later.');
+          this.alertt.presentAlert('POPUP.ERROR_TITLE' , 'POPUP.ERROR_MSG');
         }
       } else {
         await this.db.updateprofileinfos(this.usertmp);
@@ -277,11 +273,13 @@ export class ProfilePage implements OnInit {
           this.glb.AgencyLogData.data['picture'] = response['path'];
           console.log(this.glb.AgencyLogData.data['picture']);
           await this.db.updateAgencyinfos(this.glb.AgencyLogData);
+          this.alertt.presentAlert('POPUP.PWD_UPDATE_PROFIL_TITLE' , 'POPUP.PWD_UPDATE_PROFIL_MSG');
         } else {
-          this.alertt.presentAlert('Error!' , 'Something Went wrong, Please try again later.');
+          this.alertt.presentAlert('POPUP.ERROR_TITLE' , 'POPUP.ERROR_MSG');
         }
-      } else {
+      } else {    
         await this.db.updateAgencyinfos(this.glb.AgencyLogData);
+        this.alertt.presentAlert('POPUP.PWD_UPDATE_PROFIL_TITLE' , 'POPUP.PWD_UPDATE_PROFIL_MSG');
       }
       this.loading.dismissLoading();
   }
@@ -292,12 +290,12 @@ export class ProfilePage implements OnInit {
     const recto = await this.db.uploadLicence(this.updateKbis.rectoimg);
     if ( !recto ) {
       this.loading.dismissLoading();
-      this.alertt.presentAlert('Error!' , 'Something Went wrong, Please try again later. -recto ');
+      this.alertt.presentAlert('POPUP.VERIFY_ACCOUNT_1_TITLE' , 'POPUP.VERIFY_ACCOUNT_1_MSG');
     } else {
       const verso = await this.db.uploadLicence(this.updateKbis.versoimg);
       if ( !verso ) {
         this.loading.dismissLoading();
-        this.alertt.presentAlert('Error!' , 'Something Went wrong, Please try again later. - verso');
+        this.alertt.presentAlert('POPUP.KBIS_UPDATE_PROFIL_TITLE' , 'POPUP.KBIS_UPDATE_PROFIL_MSG');
       } else {
         const LiImgPaths = {
           rectoimg: recto['path'] ,
@@ -308,6 +306,7 @@ export class ProfilePage implements OnInit {
         if (result.status === 'success')  {
           this.glb.kbis_modify = result.data;
           this.glb.AgencyLogData.status = account_status.review;
+          this.alertt.presentAlert('POPUP.KBIS_UPDATE_PROFIL_TITLE' , 'POPUP.KBIS_UPDATE_PROFIL_MSG');
         }
         this.loading.dismissLoading();
       }
@@ -323,6 +322,7 @@ async updateRibInfo() {
   this.loading.dismissLoading();
   if (res.message === 'Success'){  
     this.glb.rib_modify =  res.data;
+    this.alertt.presentAlert('POPUP.RIB_UPDATE_PROFIL_TITLE' , 'POPUP.RIB_UPDATE_PROFIL_MSG');
   }
 }
 

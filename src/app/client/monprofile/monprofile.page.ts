@@ -171,7 +171,7 @@ export class MonprofilePage implements OnInit {
     const res = await this.db.setAccParams(this.fromBoolToString(this.glb.accparams));
     this.loading.dismissLoading();
     if (res) {
-      this.alertt.presentAlert('Success!' , 'Updated successfully!');
+      this.alertt.presentAlert('POPUP.ACC_UPDATE_TITLE' , 'POPUP.ACC_UPDATE_MSG');
     }
   }
 
@@ -186,19 +186,19 @@ export class MonprofilePage implements OnInit {
 
   checkLicenceInfo(): boolean {
     if ( this.verifyAccData.lid === '') {
-      this.alertt.presentAlert('Error!' , 'Permis Id est requis!');
+      this.alertt.presentAlert('POPUP.CHECK_LIC_MSG_1_TITLE' , 'POPUP.CHECK_LIC_MSG_1_MSG');
       return false;
     } else {
       if ( isNaN(Number(this.verifyAccData.lid)) ) {
-        this.alertt.presentAlert('Error!' , 'Please enter a valid permis ID!');
+        this.alertt.presentAlert('POPUP.CHECK_LIC_MSG_2_TITLE' , 'POPUP.CHECK_LIC_MSG_2_MSG');
         return false;
       } else {
         if ( this.verifyAccData.dateo === '' || this.verifyAccData.payso === '0') {
-          this.alertt.presentAlert('Error!' , 'Date et Pays d\'obtention requis!');
+          this.alertt.presentAlert('POPUP.CHECK_LIC_MSG_3_TITLE' , 'POPUP.CHECK_LIC_MSG_3_MSG');
           return false;
         } else {
           if (this.verifyAccData.rectoimg.get('file') === null || this.verifyAccData.versoimg.get('file') === null) {
-            this.alertt.presentAlert('Error!' , 'Veuillez télécharger les deux faces de votre pièce d\'identité');
+            this.alertt.presentAlert('POPUP.CHECK_LIC_MSG_4_TITLE' , 'POPUP.CHECK_LIC_MSG_4_MSG');
             return false;
           }
         }
@@ -215,12 +215,12 @@ export class MonprofilePage implements OnInit {
       const recto = await this.db.uploadLicence(this.verifyAccData.rectoimg);
       if ( !recto ) {
         this.loading.dismissLoading();
-        this.alertt.presentAlert('Error!' , 'Something Went wrong, Please try again later.');
+        this.alertt.presentAlert('POPUP.VERIFY_ACCOUNT_1_TITLE' , 'POPUP.VERIFY_ACCOUNT_1_MSG');
       } else {
         const verso = await this.db.uploadLicence(this.verifyAccData.versoimg);
         if ( !verso ) {
           this.loading.dismissLoading();
-          this.alertt.presentAlert('Error!' , 'Something Went wrong, Please try again later.');
+          this.alertt.presentAlert('POPUP.VERIFY_ACCOUNT_1_TITLE' , 'POPUP.VERIFY_ACCOUNT_1_MSG');
         } else {
           const LiImgPaths = {
             rectoimg: recto['path'] ,
@@ -235,7 +235,7 @@ export class MonprofilePage implements OnInit {
             this.glb.user.licenseRecot = LiImgPaths.rectoimg;
             this.glb.user.licenseVerso = LiImgPaths.rectoimg;
             this.glb.user.status_verified = (account_status.review).toString();
-            //this.verified = '1';
+            this.alertt.presentAlert('POPUP.VERIFY_ACC_TITLE' , 'POPUP.VERIFY_ACC_MSG');
           }
           this.loading.dismissLoading();
         }
@@ -246,16 +246,18 @@ export class MonprofilePage implements OnInit {
 
   async updatePassword(){
     let pass = await this.alertt.checkPass(this.password);
-    console.log(pass);
-    console.log(this.new_password);
-    console.log(this.password_confirm);
-    if((pass) && this.new_password === this.password_confirm){
-        console.log('lets change');
+    if((pass) && this.new_password === this.password_confirm && (this.glb.correctPassword(this.password_confirm) === 2)){
         let change = await this.db.updatePassword(this.new_password, this.usertmp.id);
         this.password ='';
         this.password_confirm ='';
         this.new_password ='';
-        this.alertt.presentAlert('Mot de passe','votre mot de passe vient de changer');
+        this.alertt.presentAlert('POPUP.PWD_UPDATE_TITLE' , 'POPUP.PWD_UPDATE_MSG');
+    } else if (!pass){
+      this.alertt.presentAlert('POPUP.PWD_UPDATE_1_TITLE' , 'POPUP.PWD_UPDATE_1_MSG');
+    } else if (this.new_password !== this.password_confirm) {
+      this.alertt.presentAlert('POPUP.PWD_UPDATE_2_TITLE' , 'POPUP.PWD_UPDATE_ERROR_MSG');
+    } else if (this.new_password.length !== 2){
+      this.alertt.presentAlert('POPUP.PWD_UPDATE_2_TITLE' , 'POPUP.PWD_FORMAT_NOT_CORRECT');
     }
   }
   async UpdateProfile() {
@@ -278,7 +280,7 @@ export class MonprofilePage implements OnInit {
           console.log(this.glb.user.pic);
           await this.db.updateprofileinfos(this.usertmp);
         } else {
-          this.alertt.presentAlert('Error!' , 'Something Went wrong, Please try again later.');
+          this.alertt.presentAlert('POPUP.ERROR_TITLE' , 'POPUP.ERROR_MSG');
         }
       } else {
         await this.db.updateprofileinfos(this.usertmp);

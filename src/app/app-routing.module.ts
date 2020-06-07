@@ -25,6 +25,7 @@ const routes: Routes = [
   { path: 'booking-out', loadChildren: './modals/booking-out/booking-out.module#BookingOutPageModule' },
   { path: 'pwd', loadChildren: './pwd/pwd.module#PwdPageModule' },
   { path: 'pwd/:token', loadChildren: './pwd/pwd.module#PwdPageModule' },
+  { path: 'mplocations', loadChildren: './client/mplocations/mplocations.module#MplocationsPageModule' },
   { path: 'rating', loadChildren: './modals/rating/rating.module#RatingPageModule' },
 
 

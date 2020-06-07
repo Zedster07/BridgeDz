@@ -5,7 +5,7 @@
         <h3>Notifications</h3>
       </div>
   </div> -->
-  <h1 style="padding:30px; background-color:#f1f1f1;">Notifications</h1>
+  <h1 style="padding:30px; background-color:#f1f1f1;">{{ 'DASHBOARD.NOTIFICATIONS'  | translate }}</h1>
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" (click)="setTabVal('general')">
       <span class="nav-link" [ngClass]="{'active': showTab('general')}" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">Général <ion-badge color="primary" slot="end" *ngIf="glb.AgencyLogData.notificationsCount > 0">{{glb.AgencyLogData.notificationsCount}}</ion-badge></span>
@@ -23,7 +23,7 @@
             </ion-item>
             <ion-item *ngIf="this.glb.AgencyLogData.notificationDat.length === 0">
               <ion-label >
-                Vous n'avez aucune notification
+                {{ 'DASHBOARD.NOTIFICATIONS_MS'  | translate }}
               </ion-label>
             </ion-item>
           </ion-list>

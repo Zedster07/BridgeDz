@@ -5,7 +5,8 @@ import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { GlobalsService } from 'src/app/services/globals.service';
 import { UtilService } from 'src/app/services/util.service';
-import { account_status } from 'src/app/interfaces/account_status';
+import { AlertService } from '../../services/alert.service';
+
 @Component({
   selector: 'app-brpage',
   templateUrl: './brpage.page.html',
@@ -30,6 +31,7 @@ export class BrpagePage implements OnInit {
     private modalController: ModalController,
     private loading: LoadingService,
     private db: DbinteractionsService,
+    private alertt: AlertService,
     public glb: GlobalsService,
     public util: UtilService) { }
   async showAddReductions() {
@@ -56,7 +58,10 @@ export class BrpagePage implements OnInit {
     }
     const res = await this.db.delBR(this.bonredList[i].id, id);
     if (res) {
+      this.alertt.presentAlert('POPUP.BR_DELETE_TITLE' , 'POPUP.BR_DELETE_MSG');
       this.fetchBR();
+    } else {
+      this.alertt.presentAlert('POPUP.BR_DELETE_TITLE' , 'POPUP.BR_DELETE_ERROR_MSG');
     }
     this.loading.dismissLoading();
   }

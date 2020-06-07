@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { GlobalsService } from 'src/app/services/globals.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-demandeslocs',
@@ -17,13 +18,15 @@ export class DemandeslocsPage implements OnInit {
   constructor(
     private elem: ElementRef ,
     public glb: GlobalsService,
-    private db: DbinteractionsService) {
+    private db: DbinteractionsService,
+    private alertt: AlertService,) {
       
     }
 
   async acceptDemand(val: number) {
     const res = await this.db.answerDemand('1' , this.glb.AgencyLogData.demandeLoc[val]['bookid']);
     if (res['status'] === 'success'){
+      this.alertt.presentAlert('POPUP.LOC_REQUEST_RESPONSE_TITLE' , 'POPUP.LOC_REQUEST_RESPONSE_MSG');
       this.glb.AgencyLogData.demandeLoc.splice(val, 1);
     } 
 
@@ -32,6 +35,7 @@ export class DemandeslocsPage implements OnInit {
   async rejectDemand(val: number) {
     const res = await this.db.answerDemand('-1' , this.glb.AgencyLogData.demandeLoc[val]['bookid'] );
     if (res['status'] === 'success'){
+      this.alertt.presentAlert('POPUP.LOC_REQUEST_RESPONSE_TITLE' , 'POPUP.LOC_REQUEST_RESPONSE_ERROR_MSG');
       this.glb.AgencyLogData.demandeLoc.splice(val, 1);
     } 
     //const elem = document.getElementById('item-dem-' + this.glb.AgencyLogData.demandeLoc[val]['bookid']);

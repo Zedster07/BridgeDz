@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-
+import { registerLocaleData } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 //import { NgxGaugeModule } from 'ngx-gauge';
 import { HomePage } from './home.page';
@@ -12,6 +12,13 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
+import localefr from '@angular/common/locales/fr';
+import localeen from '@angular/common/locales/en';
+import localear from '@angular/common/locales/ar';
+
+registerLocaleData(localefr);
+registerLocaleData(localeen);
+registerLocaleData(localear);
 
 const routes: Routes = [
   {

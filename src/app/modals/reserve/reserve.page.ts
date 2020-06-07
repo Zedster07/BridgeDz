@@ -4,6 +4,7 @@ import { GlobalsService } from 'src/app/services/globals.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
+import { AlertService } from '../../services/alert.service';
 import { booking_status } from 'src/app/interfaces/booking_status';
 import { booking_state } from 'src/app/interfaces/booking_state';
 import { rent_state } from 'src/app/interfaces/rent_state';
@@ -49,6 +50,7 @@ export class ReservePage implements OnInit {
   constructor(
     public modalCtrl: ModalController,
     private navParams: NavParams ,
+    private alertt: AlertService,
     private glb: GlobalsService,
     private db: DbinteractionsService,
     private authService: LoginService,
@@ -177,15 +179,21 @@ export class ReservePage implements OnInit {
       const res = await this.db.reserveCar(book);
       if (res['status'] === 'success') {
         this.load.dismissLoading();
+        if (bookingState === booking_state.booked_paid){
+          this.alertt.presentAlert('POPUP.BOOKING_PAID_TITLE' , 'POPUP.BOOKING_PAID_MSG');
+        } else {
+          this.alertt.presentAlert('POPUP.BOOKING_REQUEST_DONE_TITLE' , 'POPUP.BOOKING_REQUEST_DONE_MSG');
+        }
         this.closeModal();
+        this.route.navigate(['mplocations']);
       }
     } else {
       //TODO Inform the client that the booking isn't done.
       this.load.dismissLoading();
+      this.alertt.presentAlert('POPUP.BOOKING_NOT_PAID_TITLE' , 'POPUP.BOOKING_NOT_PAID_MSG');
       this.glb.prevAction = 'book';
       this.glb.prevBook = book;
       this.closeModal();
-      this.route.navigate(['login']);
     }
   }
 

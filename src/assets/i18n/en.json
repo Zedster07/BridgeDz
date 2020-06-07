@@ -41,7 +41,8 @@
         "DISCOUNTS": "Discounts",
         "RENTINGS_WAITING_FOR_VALID": "Rentings requests",
         "PROFILE": "Profile",
-        "VALIDATION_REQUEST" : "Approve accounts"
+        "VALIDATION_REQUEST" : "Approve accounts",
+        "NOTIFICATIONS_MS": "You have no notifications"
       },
 
       "PROFILE" : {
@@ -378,6 +379,27 @@
       "ALGERIA" : "ALGERIA",
       "FRANCE" : "FRANCE",
 
+      "MODIFY_AGENCY" :"Modify my agency",
+      "VALIDATE_AGENCY" : "Validate my agency",
+      "ACCOUNT_PARAM" : "Account parameters",
+      "PAIMENT_PARAM" : "Checkout parameters",
+      "MSG_1" : "Think to validate your agency by adding a valid KBIS",
+      "MSG_2" : "Your documents are in review. Your agency will be validated within 24h.",
+      "MSG_3" : "Your agency is validated.",
+      "AGENCY_INFO" : "Your agency information",
+      "TVA" : "VAT Number",
+      "DOC" :"Creation date",
+      "KBIS_RECTO" : "Front of KBIS (Jpg)",
+      "KBIS_VERSO" : "Back of KBIS (Jpg)",
+      "ATTACHEMENT" : "Attachement",
+      "PAIEMENT_CHOICE" : "Your checkout preference",
+      "PC_MSG_1" :"Through a bank transfer at each renting",
+      "PC_MSG_2" :"Through a payment at the end of each month.",
+      "BANK" : "Your bank",
+      "REF" : "Reference",
+      "CNAME" :"Account name",
+      "IBAN" :"IBAN",
+
       "CHECKOUT_PAIM": "Checkout parameters"
 
     },
@@ -587,12 +609,85 @@
     },
 
     "DEMANDLOC":{
-      "MSG_1":"طلبات التأجير",
-      "FROM": "تأجير من",
-      "TO": "تأجير ل",
-      "PRICE" :"السعر الكلي",
-      "ACCEPT": "قبول",
-      "REJECT": "رفض",
-      "MSG_2" : "ليس لديك طلب جديد!"
-    }
+      "MSG_1":"Renting Requests",
+      "FROM": "Renting from",
+      "TO": "Renting to",
+      "PRICE" :"Total price",
+      "ACCEPT": "Accept",
+      "REJECT": "Decline",
+      "MSG_2" : "You have no new booking request"
+    },
+
+    "POPUP":{
+      "BOOKING_CANCEL_TITLE": "reservation canceled",
+      "BOOKING_CANCEL_MSG": "your reservation is successfully canceled",
+      "ACC_UPDATE_TITLE": "Updating your settings",
+      "ACC_UPDATE_MSG": "Your parameters are updated sucessfully",
+      "CHECK_LIC_MSG_1_TITLE":"Error",
+      "CHECK_LIC_MSG_1_MSG": "The Driver license Id field is required",
+      "CHECK_LIC_MSG_2_TITLE":"Error",
+      "CHECK_LIC_MSG_2_MSG": "Driver's license id format is not correct",
+      "CHECK_LIC_MSG_3_TITLE":"Error",
+      "CHECK_LIC_MSG_3_MSG": "The date and country of the permit fields are mondatory",
+      "CHECK_LIC_MSG_4_TITLE":"Error",
+      "CHECK_LIC_MSG_4_MSG": "Please download both sides of your driver's license.",
+      "VERIFY_ACCOUNT_1_TITLE": "Error",
+      "VERIFY_ACCOUNT_1_MSG": "The photo could not be downloaded correctly. Thank you try again later.",
+      "ERROR_TITLE": "Error",
+      "ERROR_MSG": "We have a problem. Thank you try again later",
+
+      "PWD_CHANGE_TITLE": "Password",
+      "PWD_CHANGE_MSG": "We have just sent you an email to renew your password",
+      "PWD_UPDATE_1_TITLE": "Password",
+      "PWD_UPDATE_MSG": "Your password is updated correctly",
+      "PWD_UPDATE_1_MSG": "Your confirmation password does not match with your password", 
+      "PWD_UPDATE_TITLE": "Password",
+      "PWD_UPDATE_2_TITLE": "Password",
+      "PWD_UPDATE_ERROR_MSG": "Your confirmation password doesn't match with your new password",
+      "PWD_FORMAT_NOT_CORRECT" : "Your password format isn't correct",
+
+      "PWD_UPDATE_RATING_TITLE": "Evaluation",
+      "PWD_UPDATE_RATING_MSG": "Thanks for your review. We hope your rental went well",
+      "PWD_UPDATE_PROFIL_TITLE": "Update",
+      "PWD_UPDATE_PROFIL_MSG": "Your profile is updated correctly",
+      "PWD_CREATE_ACCOUNT_TITLE": "Account creation",
+      "PWD_CREATE_ACCOUNT_MSG": "Good news. Your account is created",
+
+      "VERIFY_ACC_TITLE": "Account approval",
+      "VERIFY_ACC_MSG": "Thank you for filling your driver's license information. Your account will be validated within 24 hours",
+ 
+      "BOOKING_PAID_TITLE" :"Reservation done",
+      "BOOKING_PAID_MSG": "Your reservation is done. We will send you a confirmation email with your invoice",
+      "BOOKING_REQUEST_DONE_TITLE" :"Rental request done",
+      "BOOKING_REQUEST_DONE_MSG": "Your reservation request is sent. We will send you an email once your request has been accepted",
+      "BOOKING_NOT_PAID_TITLE" :"Payment failed",
+      "BOOKING_NOT_PAID_MSG": "Your payment has not been taken into account. Please renew your payment",
+
+      "KBIS_UPDATE_PROFIL_TITLE": "KBIS Update",
+      "KBIS_UPDATE_PROFIL_MSG": "Your KBIS information have been updated correctly",
+
+      "RIB_UPDATE_PROFIL_TITLE": "RIB update",
+      "RIB_UPDATE_PROFIL_MSG": "the information of your payment parameters are updated correctly",
+
+      "AVAIL_UPDATE_TITLE" : "Availability update",
+      "AVAIL_UPDATE_MSG" : "Changes in the availability of your car have been taken into account",
+
+      "VALID_CAR_TITLE" : "Updating documents",
+      "VALID_CAR_MSG" : "Your documents will be subject to verification. Your car will be validated within a maximum of 24 hours",
+      "VALID_CAR_ERROR_MSG" : "Your documents cannot be downloaded. Thank you try again later",
+
+      "ADD_CAR_TITLE" : "Adding a car",
+      "ADD_CAR_MSG" : "Your car has created. Do not forget to validate it by clicking on validate my car",
+      "ADD_CAR_ERROR_MSG" : "Your car was not created. Thank you try again later",
+
+      "LOC_REQUEST_RESPONSE_TITLE" :"Reservation request",
+      "LOC_REQUEST_RESPONSE_MSG" :"You have accepted this rental. We inform the customer quickly to precede payment",
+      "LOC_REQUEST_RESPONSE_ERROR_MSG" :"You have declined this reservation. We update your car calendar",
+
+      "BR_DELETE_TITLE" :"Voucher",
+      "BR_DELETE_MSG" :"You have just deleted your coupon",
+      "BR_DELETE_ERROR_MSG" :"Your voucher has not been deleted. Please try again later"
+ 
+ 
+   }
   }

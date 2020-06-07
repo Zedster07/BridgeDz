@@ -45,7 +45,7 @@ export class MplocationsPage implements OnInit {
   async cancelBooking(index){
     const res = await this.db.cancelBooking(this.mylocations[index]['bid'], this.mylocations[index]['guid_book'], booking_state.cancel_by_client);
     if(res['status'] === 'success'){
-      this.alert.presentAlert('réservation annullée', 'votre réservation est annulée avec succés');
+      this.alert.presentAlert('POPUP.BOOKING_CANCEL_TITLE', 'POPUP.BOOKING_CANCEL_MSG');
       this.mylocations[index]['bstatus'] = booking_state.cancel_by_client;
       //TODO
     }

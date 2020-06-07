@@ -146,10 +146,10 @@
             <table class="table">
               <thead>
                   <tr>
-                    <th scope="col">Voiture</th>
-                    <th scope="col">Matricule</th>
-                    <th scope="col" (click)="sortNbrRenting()">No. </th>
-                    <th scope="col" (click)="sortSum()">Somme.</th>
+                    <th scope="col">{{ 'MODAL_BOOKING_OUT.VEHICLE'  | translate }}</th> 
+                    <th scope="col">{{ 'MODAL_ADD_CAR.VIN'  | translate }}</th> 
+                    <th scope="col" (click)="sortNbrRenting()">{{ 'WALLET.AMOUNT'  | translate }}. </th> 
+                    <th scope="col" (click)="sortSum()">{{ 'INDICATOR.NBR_RENTING'  | translate }}</th> 
                   </tr>
               </thead>
               <tbody>
@@ -251,14 +251,14 @@
                     [(viewDate)]="viewDate"
                     (viewDateChange)="closeOpenMonthViewDay()"
                   >
-                    Previous
+                  {{ 'CALANDAR.LAST_MONTH'  | translate }}
                 </div>
                 <div
                     class="btn btn-outline-secondary"
                     mwlCalendarToday
                     [(viewDate)]="viewDate"
                   >
-                    Today
+                  {{ 'CALANDAR.TODAY'  | translate }}
                 </div>
                 <div
                     class="btn btn-primary"
@@ -267,7 +267,7 @@
                     [(viewDate)]="viewDate"
                     (viewDateChange)="closeOpenMonthViewDay()"
                   >
-                    Next
+                  {{ 'CALANDAR.NEXT_MONTH'  | translate }}
                 </div>
             </div> 
           </div>
@@ -280,6 +280,7 @@
             <mwl-calendar-month-view
               *ngSwitchCase="'month'"
               [viewDate]="viewDate"
+              [locale]="this.glb.currentLang"
               [events]="this.glb.events"
               [activeDayIsOpen]="activeDayIsOpen"
               [refresh]="refresh"

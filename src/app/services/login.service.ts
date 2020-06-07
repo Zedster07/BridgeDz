@@ -109,7 +109,7 @@ export class LoginService {
       .toPromise().then(resp => {
         console.log(resp);
         if (resp.status === 'success') {
-          this.alertt.presentAlert('Success' , 'Bonne nouvelle, votre compte est crée.');
+          this.alertt.presentAlert('POPUP.PWD_CREATE_ACCOUNT_TITLE' , 'POPUP.PWD_CREATE_ACCOUNT_MSG');
         }
         return resp;
       })

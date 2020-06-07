@@ -1,4 +1,4 @@
-import { Component, OnInit , ViewChild } from '@angular/core';
+import { Component, OnInit , ViewChild, Injectable } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { NavParams , ModalController } from '@ionic/angular';
 import { LoadingService } from 'src/app/services/loading.service';
@@ -15,11 +15,15 @@ import { booking_status } from 'src/app/interfaces/booking_status';
 import { booking_state } from 'src/app/interfaces/booking_state';
 import { rent_state } from 'src/app/interfaces/rent_state';
 
+
 @Component({
   selector: 'app-booking-out',
   templateUrl: './booking-out.page.html',
   styleUrls: ['./booking-out.page.scss'],
 })
+
+
+
 export class BookingOutPage implements OnInit {
 
   @ViewChild('bookingOut' , {static: true}) bookingOut?: IonSlides;

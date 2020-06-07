@@ -1002,6 +1002,38 @@ export class DbinteractionsService {
       }
     }
 
+
+    countNotifs_118(notifs: any , type?) {
+      let unread = 0;
+      let notifications = [];
+      notifs.forEach(element => {
+        let notification = {};
+        if (element['read_stat'] !== '2') {
+          let notification = {};
+          if (element['read_stat'] === '0') {
+            unread += 1;
+          }
+          notification['id'] = element['id'];
+          notification['ntype'] = element['ntype'];
+          notification['target'] = element['target'];
+          notification['title'] = element['title'];
+          notification['desc'] = element['message'];
+          notification['read'] = this.isRead(element['read_stat']);
+          notification['clientTar'] =element['clientTar'];
+          notification['icon'] = notification['read'] ? 'checkmark-circle' : 'radio-button-off';
+          notifications.push(notification);
+        }
+      });
+
+      if (type === 1) {
+        this.glb.notifications = notifications;
+        this.glb.unreadNotif = unread;
+      } else {
+        this.glb.AgencyLogData.notificationDat = notifications;
+        this.glb.AgencyLogData.notificationsCount = unread;
+      }
+    }
+
     async fetchDashNotifications(id) {
       const httpparams = new HttpParams()
       .append('request' , 'fetchNotifications').append('id' , id).append('type', '3');
@@ -1357,7 +1389,7 @@ export class DbinteractionsService {
         console.log(resp.data['pass']);
         //this.glb.user = usertmp;
         //this.glb.user.password = resp.data['password'];
-        this.alertt.presentAlert('Success' , 'Profile info has been updated successfully');
+        this.alertt.presentAlert('POPUP.PWD_UPDATE_PROFIL_TITLE' , 'POPUP.PWD_UPDATE_PROFIL_MSG');
       }).catch( err => {
         console.log(err);
       }).finally( () => {

@@ -3,7 +3,7 @@ import {ChangeDetectionStrategy,ViewEncapsulation, } from '@angular/core';
 import {CalendarEvent, CalendarMonthViewDay, CalendarView} from 'angular-calendar';
 import { WeekViewHour } from 'calendar-utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { booking_status } from '../../interfaces/booking_status';
+import { AlertService } from '../../services/alert.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
 import { GlobalsService } from 'src/app/services/globals.service';
 import { UtilService } from 'src/app/services/util.service';
@@ -33,8 +33,10 @@ export class CarAvailabilityV1Page implements OnInit {
   msg_display : string;
 
   constructor(private cdr: ChangeDetectorRef,
+            public modalCtrl: ModalController,
              private db:DbinteractionsService,
              public glb:GlobalsService,
+             private alertt: AlertService,
              public navParams: NavParams,
              private util :UtilService) {}
 
@@ -177,9 +179,17 @@ export class CarAvailabilityV1Page implements OnInit {
      console.log('datePreBooked');
      console.log(datePreBooked);
     const res = await this.db.updateAvail_v1(dateBusy, dateBookedInside, dateBookedOutside, datePreBooked, this.carIndex);
-    if (res['status'] === 'response') {
+    if (res['status'] === 'success') {
+      this.alertt.presentAlert('POPUP.AVAIL_UPDATE_TITLE' , 'POPUP.AVAIL_UPDATE_MSG');
+      this.closeModal();
     }
-  } 
+  }
+  
+  public closeModal() {
+    this.modalCtrl.dismiss({
+      dismissed: true
+    });
+  }
 
   
 

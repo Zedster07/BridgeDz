@@ -40,7 +40,8 @@
       "DISCOUNTS": "قسيمة خصم ",
       "RENTINGS_WAITING_FOR_VALID": "طلبات التأجير",
       "PROFILE": "الملف الشخصي",
-      "VALIDATION_REQUEST" : "الموافقة على الحسابات"
+      "VALIDATION_REQUEST" : "الموافقة على الحسابات",
+      "NOTIFICATIONS_MS": "لا يوجد لديك إشعارات"
       
     },
 
@@ -138,7 +139,7 @@
   },
 
   "RENTRING_REQUEST" :{
-    "RENTING_REQUEST" : "Renting requests",
+    "RENTING_REQUEST" : "طلبات التأجير",
     "NO_RENTING" : "You have no renting request for the moment",
     "Validate" : "Valider",
     "INFO_RENT_CLIENT" : "Who rent my car"
@@ -380,7 +381,26 @@
   "ALGERIA" : "الجزائر",
   "FRANCE" : "فرنسا",
 
-
+  "MODIFY_AGENCY" :"تعديل وكالتي",
+  "VALIDATE_AGENCY" : "التحقق من صحة الوكالة",
+  "ACCOUNT_PARAM" : "معلمات الحساب",
+  "PAIMENT_PARAM" : "معلمات الخروج",
+  "MSG_1" : "فكر في التحقق من صحة وكالتك بإضافة KBIS صالحة",
+  "MSG_2" : "مستنداتك قيد المراجعة. سيتم التحقق من وكالتك في غضون 24 ساعة.",
+  "MSG_3" : "تم التحقق من وكالتك.",
+  "AGENCY_INFO" : "معلومات وكالتك",
+  "TVA" : "رقم ضريبة القيمة المضافة ",
+  "DOC" :"تاريخ الإنشاء",
+  "KBIS_RECTO" : "الجزء أمام من KBIS(Jpg)",
+  "KBIS_VERSO" : "الجزء الخلفي من KBIS(Jpg)",
+  "ATTACHEMENT" : "مرفق",
+  "PAIEMENT_CHOICE" : "تفضيل الدفع الخاص بك",
+  "PC_MSG_1" :"من خلال تحويل مصرفي في كل تأجير",
+  "PC_MSG_2" :"من خلال الدفع في نهاية كل شهر.",
+  "BANK" : "البنك الخاص بك",
+  "REF" : "مرجع",
+  "CNAME" :"أسم الحساب",
+  "IBAN" :"رقم الحساب بصيغة IBAN",
 
   "CHECKOUT_PAIM": "معلمات الخروج"
 
@@ -564,6 +584,84 @@
   "ACCEPT": "قبول",
   "REJECT": "رفض",
   "MSG_2" : "ليس لديك أي طلبات تأجير جديدة"
+},
+
+"POPUP":{
+  "BOOKING_CANCEL_TITLE": " إلغاء الحجز",
+  "BOOKING_CANCEL_MSG": "تم إلغاء حجزك بنجاح",
+  "ACC_UPDATE_TITLE": "تحديث الإعدادات الخاصة بك",
+  "ACC_UPDATE_MSG": "تم تحديث المعلمات الخاصة بك بنجاح",
+  "CHECK_LIC_MSG_1_TITLE":"خطأ",
+  "CHECK_LIC_MSG_1_MSG": "حقل معرف رخصة القيادة مطلوب",
+  "CHECK_LIC_MSG_2_TITLE":"خطأ",
+  "CHECK_LIC_MSG_2_MSG": "تنسيق معرف رخصة القيادة غير صحيح",
+  "CHECK_LIC_MSG_3_TITLE":"خطأ",
+  "CHECK_LIC_MSG_3_MSG": "تاريخ وبلد حقول الترخيص غير إلزاميين",
+  "CHECK_LIC_MSG_4_TITLE":"خطأ",
+  "CHECK_LIC_MSG_4_MSG": "تحميل الإيجار على جانبي رخصة القيادة الخاصة بك",
+  "VERIFY_ACCOUNT_1_TITLE": "خطأ",
+  "VERIFY_ACCOUNT_1_MSG": "تعذر تنزيل الصورة بشكل صحيح. شكرا لك حاول مرة أخرى في وقت لاحق.",
+  "ERROR_TITLE": "خطأ",
+  "ERROR_MSG": "لدينا مشكلة. شكرا لك حاول مرة أخرى في وقت لاحق",
+
+  "PWD_CHANGE_TITLE": "كلمه السر",
+  "PWD_CHANGE_MSG": "لقد أرسلنا لك للتو رسالة بريد إلكتروني لتجديد كلمة المرور الخاصة بك",
+  "PWD_UPDATE_1_TITLE": "كلمه السر",
+  "PWD_UPDATE_MSG": "تم تحديث كلمة المرور الخاصة بك بشكل صحيح",
+  "PWD_UPDATE_1_MSG": "كلمة المرور لا تتطابق مع كلمة المرور الخاصة بك", 
+  "PWD_UPDATE_TITLE": "كلمه السر",
+  "PWD_UPDATE_2_TITLE": "كلمه السر",
+  "PWD_UPDATE_ERROR_MSG": "كلمة مرور التأكيد الخاصة بك لا تتطابق مع كلمة المرور المحددة",
+  "PWD_FORMAT_NOT_CORRECT" : "تنسيق كلمة المرور الخاصة بك غير صحيح",
+
+
+
+  "PWD_UPDATE_RATING_TITLE": "تقييم",
+  "PWD_UPDATE_RATING_MSG": "شكرا لمراجعتك. نأمل أن تسير إيجارك بشكل جيد",
+  "PWD_UPDATE_PROFIL_TITLE": "تحديث",
+  "PWD_UPDATE_PROFIL_MSG": "تم تحديث ملفك الشخصي بشكل صحيح",
+  "PWD_CREATE_ACCOUNT_TITLE": "إنشاء حساب",
+  "PWD_CREATE_ACCOUNT_MSG": "خبر سار. تم إنشاء حسابك",
+
+
+  "VERIFY_ACC_TITLE": "الموافقة على الحساب",
+  "VERIFY_ACC_MSG": "شكرا لملء معلومات رخصة القيادة الخاصة بك. سيتم التحقق من حسابك في غضون 24 ساعة",
+
+  "BOOKING_PAID_TITLE" :"تم إجراء الحجز",
+  "BOOKING_PAID_MSG": "يتم إجراء الحجز الخاص بك. سنرسل لك رسالة تأكيد بالبريد الإلكتروني مع فاتورتك",
+  "BOOKING_REQUEST_DONE_TITLE" :"تم طلب الإيجار",
+  "BOOKING_REQUEST_DONE_MSG": "تم إرسال طلب الحجز الخاص بك. سنرسل لك بريدًا إلكترونيًا بمجرد قبول طلبك",
+  "BOOKING_NOT_PAID_TITLE" :"عملية الدفع فشلت",
+  "BOOKING_NOT_PAID_MSG": "دفعتك لم تؤخذ في الاعتبار. يرجى تجديد دفعتك",
+
+  "KBIS_UPDATE_PROFIL_TITLE": "تحديث K-BIS",
+  "KBIS_UPDATE_PROFIL_MSG": "تم تحديث معلومات K-BIS بشكل صحيح",
+
+  "RIB_UPDATE_PROFIL_TITLE": "تحديث بيان هوية البنك",
+  "RIB_UPDATE_PROFIL_MSG": "يتم تحديث معلومات معلمات الدفع الخاصة بك بشكل صحيح",
+
+  "AVAIL_UPDATE_TITLE" : "تحديث التوفر",
+  "AVAIL_UPDATE_MSG" : "تم أخذ التغييرات في توفر سيارتك بعين الاعتبار",
+
+
+  "VALID_CAR_TITLE" : "تحديث المستندات",
+  "VALID_CAR_MSG" : "ستخضع مستنداتك للتحقق. سيتم التحقق من صحة سيارتك في غضون 24 ساعة كحد أقصى",
+  "VALID_CAR_ERROR_MSG" : "لا يمكن تنزيل مستنداتك. شكرا لك حاول مرة أخرى في وقت لاحق",
+
+  "ADD_CAR_TITLE" : "إضافة سيارة",
+  "ADD_CAR_MSG" : "تمت إضافة سيارتك. لا تنس التحقق من صحة ذلك عن طريق النقر على التحقق من صحة سيارتي",
+  "ADD_CAR_ERROR_MSG" : "لم يتم إنشاء سيارتك. شكرا لك حاول مرة أخرى في وقت لاحق",
+
+  "LOC_REQUEST_RESPONSE_TITLE" :"طلب حجز",
+  "LOC_REQUEST_RESPONSE_MSG" :"لقد قبلت هذا الإيجار. نبلغ العميل بسرعة حتى يتمكن من الدفع",
+  "LOC_REQUEST_RESPONSE_ERROR_MSG" :"لقد رفضت هذا الحجز. نقوم بتحديث تقويم سيارتك",
+
+  "BR_DELETE_TITLE" :"وصل تخفيض",
+  "BR_DELETE_MSG" :"لقد حذفت للتو قسيمتك",
+  "BR_DELETE_ERROR_MSG" :"لم يتم حذف قسيمتك. الرجاء معاودة المحاولة في وقت لاحق"
+
+
+
 }
 
    

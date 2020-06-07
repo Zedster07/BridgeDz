@@ -50,7 +50,7 @@ export class RatingPage implements OnInit {
   async validate(){
     const resp = await this.db.review(this.car_id, this.bookind_id, this.isActive);
     if( resp['status'] === 'success' ){
-      this.alert.presentAlert('Commentaire', 'Merci pour votre commentaire');
+      this.alert.presentAlert('POPUP.PWD_UPDATE_RATING_TITLE' , 'POPUP.PWD_UPDATE_RATING_MSG');
       this.close();
     }
   }

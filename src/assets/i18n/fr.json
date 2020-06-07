@@ -39,7 +39,8 @@
       "RENTINGS_EX": "Locations hors Birdgy",
       "RENTINGS_WAITING_FOR_VALID": "Demande de locations",
       "PROFILE": "Profile", 
-      "VALIDATION_REQUEST" : "Approuver les comptes"
+      "VALIDATION_REQUEST" : "Approuver les comptes",
+      "NOTIFICATIONS_MS": "Vous n'avez pas encore de notification."
     },
 
     "PROFILE" : {
@@ -169,7 +170,7 @@
 
   "INDICATOR": {
     "PRICE_MEAN" : "Prix moyan de location",
-    "NBR_RENTING": "Nombre de locations"
+    "NBR_RENTING": "Nbr de locations"
   },
 
   "EVENT" :{
@@ -380,9 +381,27 @@
       "AP_RENTING_REMINDER": "Rappel de location",
       "AP_PROMO_EMAIL": "Promotion email",
 
-
-
-
+      "MODIFY_AGENCY" :"Modifier mon agence",
+      "VALIDATE_AGENCY" : "Valider mon agence",
+      "ACCOUNT_PARAM" : "Paramétre du compte",
+      "PAIMENT_PARAM" : "Paramétre de paiement",
+      "MSG_1" : "Pensez à valider votre agence en ajoutant un register de commerce valide.",
+      "MSG_2" : "Vos documents sont encours de revus. Votre agence va etre validé dans un délais maximum de 24h.",
+      "MSG_3" : "Votre gance est validé.",
+      "AGENCY_INFO" : "Les informations de mon agence",
+      "TVA" : "Numéro de la TVA",
+      "DOC" :"Date de création",
+      "KBIS_RECTO" : "Recto du KBIS (Jpg)",
+      "KBIS_VERSO" : "Verso du KBIS (Jpg)",
+      "ATTACHEMENT" : "Piece jointe",
+      "PAIEMENT_CHOICE" : "Vos preference de paiement",
+      "PC_MSG_1" :" A travers un virment bancaire à chaque location",
+      "PC_MSG_2" :" A travers un paiement à chaque fin du mois.",
+      "BANK" : "Votre banque",
+      "REF" : "Réference",
+      "CNAME" :" Attriber un nom à ce compte",
+      "IBAN" :"IBAN",
+      
       "CHECKOUT_PAIM": "Checkout parameters"
 
     },
@@ -564,23 +583,79 @@
       "MSG_2" : "Vous n'avez pas de nouvelle location"
     },
 
-    "LOCATION":{
-    },
+   "POPUP":{
+     "BOOKING_CANCEL_TITLE": "réservation annullée",
+     "BOOKING_CANCEL_MSG": "votre réservation est annulée avec succés",
+     "ACC_UPDATE_TITLE": "Mise à jour de vos paramétres",
+     "ACC_UPDATE_MSG": "Vos paramétres sont mise à jour",
+     "CHECK_LIC_MSG_1_TITLE":"Erreur",
+     "CHECK_LIC_MSG_1_MSG": "Le champs permis Id est obligatoire",
+     "CHECK_LIC_MSG_2_TITLE":"Error",
+     "CHECK_LIC_MSG_2_MSG": "Le format de permis Id n'est pas correcte",
+     "CHECK_LIC_MSG_3_TITLE":"Error",
+     "CHECK_LIC_MSG_3_MSG": "Les champs date et pays d'obtention du permis sont obligatoire",
+     "CHECK_LIC_MSG_4_TITLE":"Error",
+     "CHECK_LIC_MSG_4_MSG": "Veuillez télécharger les deux faces de votre permis de conduire.",
+     "VERIFY_ACCOUNT_1_TITLE": "Error",
+     "VERIFY_ACCOUNT_1_MSG": "La photo n'a pas pu etre téléchargée correctement. Merci de réessayer plus tard.",
+     "ERROR_TITLE": "Error",
+     "ERROR_MSG": "Nous rencontrons un probléme. Merci de réessayer plus tard",
 
-    "PROFIL_DASH":{
-    },
+     "PWD_CHANGE_TITLE": "Mot de passe",
+     "PWD_CHANGE_MSG": "Nous venons de vous envoyer un mail pour renouvler votre mot de passe",
+     "PWD_UPDATE_TITLE": "Mot de passe",
+     "PWD_UPDATE_MSG": "Votre mot de passe est mis à jour correctement",
+     "PWD_UPDATE_1_TITLE": "Mot de passe",
+     "PWD_UPDATE_1_MSG": "Votre ancien mot de passe n'est pas correcte",
+     "PWD_UPDATE_2_TITLE": "Mot de passe",
+     "PWD_UPDATE_ERROR_MSG": "Votre mot de passe de confirmation ne correspond pas à votre mot de passe",
+     "PWD_FORMAT_NOT_CORRECT" : "Votre format de mot de passe n'est pas correcte",
 
-    "RENTING":{
-    },
+     "PWD_UPDATE_RATING_TITLE": "Evaluation",
+     "PWD_UPDATE_RATING_MSG": "Merci de votre évaluation. Nous esspérons que votre location s'est bien déroulée",
+     "PWD_UPDATE_PROFIL_TITLE": "Mise à jour",
+     "PWD_UPDATE_PROFIL_MSG": "Votre profile est mise à jour correctement",
+     "PWD_CREATE_ACCOUNT_TITLE": "Création de compte",
+     "PWD_CREATE_ACCOUNT_MSG": "Bonne nouvelle. Votre compte est crée",
+
+     "VERIFY_ACC_TITLE": "Vérification du compte",
+     "VERIFY_ACC_MSG": "Merci d'avoir rensigner les informations de votre permis de conduire. Votre compte sera validé dans les 24h",
+
+     "BOOKING_PAID_TITLE" :"Réservation effectuée",
+     "BOOKING_PAID_MSG": "Votre réservation est effectuée. Nous vous envoyer un mail de confirmation avec votre facture",
+     "BOOKING_REQUEST_DONE_TITLE" :"Demande de location effectuée",
+     "BOOKING_REQUEST_DONE_MSG": "Votre demande de réservation est envoyée. Nous vous envoyer un mail une fois votre demande acceptée",
+     "BOOKING_NOT_PAID_TITLE" :"Paiement echoué",
+     "BOOKING_NOT_PAID_MSG": "Votre paiement n'a pas été pris en compte. Merci de renouveller votre paiement",
+
+     "KBIS_UPDATE_PROFIL_TITLE": "Mise à jour du KBIS",
+     "KBIS_UPDATE_PROFIL_MSG": "les informations de votre KBIS sont mise à jour correctement",
+
+     "RIB_UPDATE_PROFIL_TITLE": "Mise à jour du RIB",
+     "RIB_UPDATE_PROFIL_MSG": "les informations de vos paramétre de paiement sont mise à jour correctement",
+
+     "AVAIL_UPDATE_TITLE" : "Mise à jour des disponibilités",
+     "AVAIL_UPDATE_MSG" : "Les changements sur les disponbilités de votre voiture ont été pris en compte",
+
+     "VALID_CAR_TITLE" : "Mise à jour de vos documents",
+     "VALID_CAR_MSG" : "Vos documents vont etre soumis à une verification. Votre voiture va etre valider dans un délais max de 24h",
+     "VALID_CAR_ERROR_MSG" : "Vos documents ne peuvent etre téléchargés. Merci de réessayer plus tard",
+
+     "ADD_CAR_TITLE" : "Ajout d'une voiture",
+     "ADD_CAR_MSG" : "Votre voiture a crée. N'oublier de la valider en cliquant sur valider ma voiture",
+     "ADD_CAR_ERROR_MSG" : "Votre voiture n'a pas été crée. Merci de réessayer plus tard",
+
+     "LOC_REQUEST_RESPONSE_TITLE" :"Demande de réservation",
+     "LOC_REQUEST_RESPONSE_MSG" :"Vous avez accepté cette location. Nous informons le client rapidement pour préceder au paiement",
+     "LOC_REQUEST_RESPONSE_ERROR_MSG" :"Vous avez refusé cette location. Nous mettons à jour le calendrier de votre voiture.",
+
+     "BR_DELETE_TITLE" :"Bon de réduction",
+     "BR_DELETE_MSG" :"Vous vendez de supprimer votre bon de réduction",
+     "BR_DELETE_ERROR_MSG" :"Votre bon de récution n'a pas été supprimé. Merci de réessyer plus tard"
 
 
-    "MYCAR":{
-    },
 
-    "MYWALLET":{
-    }
-
-
+  }
 
 
 

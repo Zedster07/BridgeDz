@@ -41,7 +41,7 @@
                                 <ion-icon name="mail"></ion-icon>
                               </div>
                             </div>
-                            <input type="email" class="form-control" id="Email" placeholder="{{'PROFIL.MP_EMAIL'  | translate }}" value="{{glb.user.email}}"[(ngModel)]="usertmp.email" >
+                            <input type="email" class="form-control" id="Email" placeholder="{{'PROFIL.MP_EMAIL'  | translate }}" value="{{glb.user.email}}"[(ngModel)]="usertmp.email" disabled>
                         </div>
                     </div>
                     <div class="form-group col-md-6">
@@ -135,7 +135,7 @@
       <!--                                                                     PASSWORD CONFIRM                                                         -->
       
       <div class="tab-pane fade" id="edit_pass"  [ngClass]="{'active show': showTab('edit_pass')}"  role="tabpanel" aria-labelledby="edit_pass-tab">
-        <div class="mt-5 p-1">
+        <form class="mt-5 p-1">
           <fieldset class="scheduler-border">
             <legend class="scheduler-border">{{'PROFIL.PWD_CHANGE_PWD'  | translate }}</legend>      
             <div class="form-row">
@@ -146,7 +146,7 @@
                         <ion-icon src="../../../assets/icons/password_filled.svg"></ion-icon>
                       </div>
                     </div>
-                    <input class="form-control" type="password" placeholder="{{'PROFIL.PWD_PWD'  | translate }}" [(ngModel)]="password"/>
+                    <input class="form-control" type="password"  id= "old_password" name ="old_password" placeholder="{{'PROFIL.PWD_PWD'  | translate }}"  [(ngModel)]="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required/>
                 </div>
             </div>
             </div>
@@ -158,7 +158,7 @@
                         <ion-icon src="../../../assets/icons/password.svg"></ion-icon>
                       </div>
                     </div>
-                    <input class="form-control" type="password" placeholder="{{'PROFIL.PWD_NEW_PWD'  | translate }}" [(ngModel)]="new_password"/>
+                    <input class="form-control" type="password" id= "new_password" name ="new_password" placeholder="{{'PROFIL.PWD_NEW_PWD'  | translate }}" [(ngModel)]="new_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required/>
                 </div>
             </div>
             </div>
@@ -170,13 +170,13 @@
                         <ion-icon src="../../../assets/icons/password.svg"></ion-icon>
                       </div>
                     </div>
-                    <input class="form-control" type="password" placeholder="{{'PROFIL.PWD_NEW_C_PWD'  | translate }}" [(ngModel)]="password_confirm"/>
+                    <input class="form-control" type="password" id= "pwd_confirm" name ="pwd_confirm" placeholder="{{'PROFIL.PWD_NEW_C_PWD'  | translate }}"  [(ngModel)]="password_confirm" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required/>
                 </div>
             </div>
             </div>
           </fieldset>
             <ion-button color="primary" expand="block" (click)="updatePassword()">{{'PROFIL.PWD_CHANGE'  | translate }}</ion-button>
-        </div>
+        </form>
     </div>
 
       <!--                                                                     VERIFY                                                                   -->

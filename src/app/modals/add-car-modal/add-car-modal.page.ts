@@ -4,6 +4,7 @@ import { NavParams , ModalController } from '@ionic/angular';
 import { LoadingService } from 'src/app/services/loading.service';
 import { HttpEventType , HttpRequest , HttpClient, HttpEvent} from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { AlertService } from '../../services/alert.service';
 import { GlobalsService } from 'src/app/services/globals.service';
 import { UtilService } from 'src/app/services/util.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
@@ -629,6 +630,7 @@ export class AddCarModalPage implements OnInit {
     private glb: GlobalsService,
     private loading: LoadingService,
     private db: DbinteractionsService,
+    private alertt: AlertService,
     private http: HttpClient,
     private util :UtilService,
     public  navParams:NavParams) {}
@@ -875,10 +877,11 @@ export class AddCarModalPage implements OnInit {
     const resp =  await this.db.dbUpdateCar(this.formData, picsList, optionsList, optionsRenting, id); //Add security backend
     console.log(resp)
     if (resp) {
-      console.log('success');
+      this.alertt.presentAlert('POPUP.VALID_CAR_TITLE' , 'POPUP.VALID_CAR_MSG');
       this.finalize();
       this.loading.dismissLoading();
     } else {
+      this.alertt.presentAlert('POPUP.VALID_CAR_TITLE' , 'POPUP.VALID_CAR_ERROR_MSG');
       this.loading.dismissLoading();
     } 
   } 
@@ -899,6 +902,7 @@ export class AddCarModalPage implements OnInit {
       this.finalize();
       this.loading.dismissLoading();
     } else {
+      this.alertt.presentAlert('POPUP.ADD_CAR_TITLE' , 'POPUP.ADD_CAR_ERROR_MSG');
       this.loading.dismissLoading();
     }   
 
@@ -930,8 +934,7 @@ export class AddCarModalPage implements OnInit {
       }
       if(this.currentStep === 8 && this.type === 1){ // just for debug purpose (have to be === 7)
         this.updateCar(this.carData['id']);
-        this.util.debug('updateCar', this.carData['id']);
-        this.util.debug('formData', this.formData);
+   
       }
 
     }

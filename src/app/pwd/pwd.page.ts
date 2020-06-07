@@ -35,20 +35,26 @@ export class PwdPage implements OnInit {
     
     const resp = await this.db.passwordForgotten(this.email, this.util.makeid(20));
     if (resp['status'] === 'success'){
-        this.alert.presentAlert('mot de passe', 'Nous venons de vous envoyer un mail pour renouvler votre mot de passe');
+        this.alert.presentAlert('POPUP.PWD_CHANGE_TITLE' , 'POPUP.PWD_CHANGE_MSG');
       }
    }
 
    async pwdChange(){
      console.log('pwdCahnge');
-     if(this.new_pwd === this.pwd){
+     if(this.new_pwd === this.pwd && this.glb.correctPassword(this.new_pwd) === 2){
         const resp = await this.db.changePwd(this.pwd, this.new_pwd, this.token);
         if (resp['status'] === 'success'){
-          this.alert.presentAlert('mot de passe', 'Votre mot de passe est mis à jour');
+          this.alert.presentAlert('POPUP.PWD_UPDATE_TITLE' , 'POPUP.PWD_UPDATE_MSG');
           this.route.navigate(['login']);
         }
-      } else {
-        this.alert.presentAlert('mot de passe', 'Votre mot de passe de confirmation ne correspond pas à votre mot de passe');
+      } else if (this.new_pwd !== this.pwd){
+        this.alert.presentAlert('POPUP.PWD_UPDATE_TITLE' , 'POPUP.PWD_UPDATE_ERROR_MSG');
+      } else if (this.glb.correctPassword(this.new_pwd) === 0){
+        this.alert.presentAlert('POPUP.PWD_UPDATE_TITLE' , 'POPUP.PWD_FORMAT_NOT_CORRECT');
+      } else if (this.glb.correctPassword(this.new_pwd) === 1){
+        this.alert.presentAlert('POPUP.PWD_UPDATE_TITLE' , 'POPUP.PWD_FORMAT_NOT_CORRECT');
+      }else if (this.glb.correctPassword(this.new_pwd) === 4){
+        this.alert.presentAlert('POPUP.PWD_UPDATE_TITLE' , 'POPUP.PWD_FORMAT_NOT_CORRECT');
       }
     }
 
