@@ -258,7 +258,7 @@ export class ReservePage implements OnInit {
     }
   }
 
-  slideNext(slideView) {
+  async slideNext(slideView) {
     this.reserve.lockSwipes(false);
     this.steps = (this.steps + 0.5) > 1 ? 1 : this.steps + 0.5;
     this.currentStep += 1;
@@ -294,7 +294,17 @@ export class ReservePage implements OnInit {
       }
     }
     if (this.currentStep === 1 && (this.data['needConfirm'] === '1') && (this.type !== '1')){
-      this.reserverCar(0, 0, 0);
+      const resp = await this.db.checkAvail(this.data['id'], this.glb.searchQuery.startdate, this.glb.searchQuery.startdate );
+      if (resp['status'] === 'success'){
+        this.reserverCar(0, 0, 0);
+      } else {
+        this.alertt.presentAlert('POPUP.BOOKING_ALREADY_BOOKED_TITLE' , 'POPUP.BOOKING_ALREADY_BOOKED_MSG');
+        let idx = this.glb.cars.indexOf(this.data);
+        this.glb.cars.splice(idx, 1);
+        console.log(this.glb.cars);
+        this.closeModal();
+        
+      } 
     } 
   }
 
@@ -307,13 +317,13 @@ export class ReservePage implements OnInit {
   }
 
   async onSubmit(form: NgForm) {
+    const resp = await this.db.checkAvail(this.data['id'], this.glb.searchQuery.startdate, this.glb.searchQuery.startdate );
+    if (resp['status'] === 'success'){
     const { source , error} = await this.stripe.createSource(this.card);
     if (error){
       const cardError = error.message;
     } else {
-      
-
-      this.load.presentLoading();
+      this.load.presentLoading(); 
       const resp = await this.db.checkout(source, this.days * this.data['pricePerDay'], this.glb.user.email);
       if (resp['status'] === 'success'){
         this.load.dismissLoading();
@@ -323,12 +333,15 @@ export class ReservePage implements OnInit {
           this.confirmReserverCar(1, resp['data']['id'], resp['data']['source']['id']);
         } 
       } else {
-        //TODO checkout fail // inform user
-       
-      } 
-
+        this.alertt.presentAlert('POPUP.BOOKING_NOT_PAID_TITLE' , 'POPUP.BOOKING_NOT_PAID_MSG');
+      }  
+    } 
+    } else {
+      this.alertt.presentAlert('POPUP.BOOKING_ALREADY_BOOKED_TITLE' , 'POPUP.BOOKING_ALREADY_BOOKED_MSG');
+      let idx = this.glb.cars.indexOf(this.data);
+      this.glb.cars.splice(idx, 1);
+      this.closeModal();
     }
-
   }
 
   onClick() {

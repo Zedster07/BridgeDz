@@ -628,6 +628,9 @@
      "BOOKING_NOT_PAID_TITLE" :"Paiement echoué",
      "BOOKING_NOT_PAID_MSG": "Votre paiement n'a pas été pris en compte. Merci de renouveller votre paiement",
 
+     "BOOKING_ALREADY_BOOKED_TITLE" :"Réservation échouée",
+     "BOOKING_ALREADY_BOOKED_MSG": "La voiture vient à l'instant d'etre réservée",
+
      "KBIS_UPDATE_PROFIL_TITLE": "Mise à jour du KBIS",
      "KBIS_UPDATE_PROFIL_MSG": "les informations de votre KBIS sont mise à jour correctement",
 

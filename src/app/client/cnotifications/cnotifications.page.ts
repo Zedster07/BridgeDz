@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { GlobalsService } from 'src/app/services/globals.service';
 import { DbinteractionsService } from 'src/app/services/dbinteractions.service';
+import { inventoryState } from 'src/app/interfaces/booking_status';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
@@ -31,10 +32,20 @@ export class CnotificationsPage implements OnInit {
   }
 
   async locRespond(value , target) {
-    const res = await this.db.clientLocResponse(value , target);
-    if (res['status'] === 'success') {
-      this.db.fetchNotifications('1');
-    }
+    const book = await this.db.fetchBookingById(target);
+    if (book['status'] === 'success') {
+      if (parseInt(book['data']['started']) === inventoryState.inventory_start_done){
+        const res = await this.db.clientLocResponse(value , target);
+        if (res['status'] === 'success') {
+          this.db.fetchNotifications('1');
+        }
+      } else if  (parseInt(book['data']['started']) === inventoryState.inventory_end_done){
+        const res = await this.db.clientEndLocResponse(value , target);
+        if (res['status'] === 'success') {
+          this.db.fetchNotifications('1');
+        }
+      }
+     }
   }
   
 

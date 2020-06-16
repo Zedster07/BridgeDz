@@ -212,6 +212,20 @@ export class DbinteractionsService {
         return false;
       }); 
     }
+
+    async checkAvail(idCar, startdate, enddate) {
+      const httpparams = new HttpParams().append('request' , 'checkAvail').
+      append('idCar' , idCar).
+      append('enddate' , enddate).
+      append('startdate', startdate);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      }); 
+    }
       
       
 
@@ -901,6 +915,7 @@ export class DbinteractionsService {
       const httpparams = new HttpParams().append('request' , 'clientEndLocResponse')
       .append('bookid' , id).append('value' , response).append('type_book', '0');
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log('are we here');
         console.log(resp);
         return resp;
       }).catch(err => {
@@ -1270,6 +1285,20 @@ export class DbinteractionsService {
       .append('id_requestor' , this.glb.user.id)
       .append('id_agency', id_agency)
       .append('id_car', car_id);  
+      return await this.http.post(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async fetchBookingById( id_booking: string): Promise<any>  {
+      const httpparams = new HttpParams()
+      .append('request' , 'fetchBookingById')
+      .append('id_requestor' , this.glb.user.id)
+      .append('id_booking', id_booking);
       return await this.http.post(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         console.log(resp);
         return resp;

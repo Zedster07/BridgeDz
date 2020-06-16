@@ -663,6 +663,9 @@
       "BOOKING_NOT_PAID_TITLE" :"Payment failed",
       "BOOKING_NOT_PAID_MSG": "Your payment has not been taken into account. Please renew your payment",
 
+      "BOOKING_ALREADY_BOOKED_TITLE" :"Réservation aborted",
+      "BOOKING_ALREADY_BOOKED_MSG": "The car has just been booked",
+
       "KBIS_UPDATE_PROFIL_TITLE": "KBIS Update",
       "KBIS_UPDATE_PROFIL_MSG": "Your KBIS information have been updated correctly",
 

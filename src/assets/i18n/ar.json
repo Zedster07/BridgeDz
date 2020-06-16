@@ -634,6 +634,9 @@
   "BOOKING_NOT_PAID_TITLE" :"عملية الدفع فشلت",
   "BOOKING_NOT_PAID_MSG": "دفعتك لم تؤخذ في الاعتبار. يرجى تجديد دفعتك",
 
+  "BOOKING_ALREADY_BOOKED_TITLE" :"Réservation aborted",
+  "BOOKING_ALREADY_BOOKED_MSG": "The car has just been booked",
+
   "KBIS_UPDATE_PROFIL_TITLE": "تحديث K-BIS",
   "KBIS_UPDATE_PROFIL_MSG": "تم تحديث معلومات K-BIS بشكل صحيح",
 

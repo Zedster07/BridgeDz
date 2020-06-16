@@ -14,3 +14,12 @@ export enum paiement_status {
    not_validated = 3
 }
 
+export enum inventoryState 
+{
+	 inventory_start = 0,
+	 inventory_start_done = 1,
+	 inventory_start_confirmed = 2,
+	 inventory_end_done= 3,
+	 inventory_end_confirmed = 4,
+}
+

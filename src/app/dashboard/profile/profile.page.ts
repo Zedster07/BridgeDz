@@ -184,7 +184,7 @@ export class ProfilePage implements OnInit {
         this.alertt.presentAlert('POPUP.CHECK_LIC_MSG_2_TITLE' , 'POPUP.CHECK_LIC_MSG_2_MSG');
         return false;
       } else {
-        if ( this.verifyAccData.dateo === '' || this.verifyAccData.payso === '0') {
+        if ( this.verifyAccData.dateo === '' || this.verifyAccData.payso === '') {
           this.alertt.presentAlert('POPUP.CHECK_LIC_MSG_3_TITLE' , 'POPUP.CHECK_LIC_MSG_3_MSG');
           return false;
         } else {
