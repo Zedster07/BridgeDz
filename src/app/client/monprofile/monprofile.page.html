@@ -205,16 +205,26 @@
                               <ion-icon name="calendar"></ion-icon>
                           </div>
                         </div>
-                        <ion-datetime class="form-control" placeholder="{{'PROFIL.VP_EXPIRATION_Date'  | translate }}" value="{{verifyAccData.dateo}}" [(ngModel)]="verifyAccData.dateo" [min]="this.util.gettodayISOString()" [max]="this.util.getfuturString()"></ion-datetime>
+                        <ion-datetime class="form-control" placeholder="{{'PROFIL.VP_EXPIRATION_Date'  | translate }}" value="{{verifyAccData.dateo}}" [(ngModel)]="verifyAccData.dateo"></ion-datetime>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <ion-icon name="calendar"></ion-icon>
+                        </div>
+                      </div>
+                      <ion-datetime class="form-control" placeholder="{{'PROFIL.VP_EXPIRATION_Date'  | translate }}" value="{{verifyAccData.datee}}" [(ngModel)]="verifyAccData.datee" [min]="this.util.gettodayISOString()" [max]="this.util.getfuturString()"></ion-datetime>
+                  </div>
+              </div>
+                <!--<div class="form-group col-md-6">
                   <select class="form-control" id="inputPassword4" value="{{verifyAccData.payso}}" [(ngModel)]="verifyAccData.payso">
                     <option value="0" selected>{{'PROFIL.VP_EXPIRATION_COUNTRY'  | translate }}</option>
                     <option value="algeria">{{'PROFIL.ALGERIA'  | translate }}</option>
                     <option value="france">{{'PROFIL.FRANCE'  | translate }}</option>
                   </select>
-                </div>
+                </div>-->
             </div>
             <div class="form-row">
               <div class="form-group col-md-12">

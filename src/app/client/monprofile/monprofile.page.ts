@@ -38,7 +38,7 @@ export class MonprofilePage implements OnInit {
   verifyAccData = {
     lid: '',
     dateo: '',
-    payso: '0',
+    datee: '0',
     rectoimg: this.emptyFormdata,
     versoimg: this.emptyFormdata
   };
@@ -68,7 +68,7 @@ export class MonprofilePage implements OnInit {
     role:'',
     session_guid: '',
     licenseId: '',
-    dlicencePaye: '',
+    dlicenceDateO: '',
     dlicenceDate: '',
     licenseRecot: '',
     licenseVerso: '',
@@ -89,7 +89,7 @@ export class MonprofilePage implements OnInit {
     this.usertmp = JSON.parse(JSON.stringify(this.glb.user));
     this.verifyAccData.lid = this.glb.user.licenseId;
     this.verifyAccData.dateo = this.glb.user.dlicenceDate;
-    this.verifyAccData.payso = this.glb.user.dlicencePaye;
+    this.verifyAccData.datee = this.glb.user.dlicenceDateO;
 
 
     console.log(this.glb.user);
@@ -193,7 +193,7 @@ export class MonprofilePage implements OnInit {
         this.alertt.presentAlert('POPUP.CHECK_LIC_MSG_2_TITLE' , 'POPUP.CHECK_LIC_MSG_2_MSG');
         return false;
       } else {
-        if ( this.verifyAccData.dateo === '' || this.verifyAccData.payso === '0') {
+        if ( this.verifyAccData.dateo === '' || this.verifyAccData.datee === '') {
           this.alertt.presentAlert('POPUP.CHECK_LIC_MSG_3_TITLE' , 'POPUP.CHECK_LIC_MSG_3_MSG');
           return false;
         } else {
@@ -228,10 +228,11 @@ export class MonprofilePage implements OnInit {
           };
           console.log(this.verifyAccData);
           const result = await this.db.finishVerifyAcc(this.verifyAccData , LiImgPaths, this.glb.user);
-          if (result) {
+          console.log(result);
+          if (result['status'] === 'success') {
             this.glb.user.licenseId = this.verifyAccData.lid;
             this.glb.user.dlicenceDate = this.verifyAccData.dateo;
-            this.glb.user.dlicencePaye = this.verifyAccData.payso;
+            this.glb.user.dlicenceDateO = this.verifyAccData.datee;
             this.glb.user.licenseRecot = LiImgPaths.rectoimg;
             this.glb.user.licenseVerso = LiImgPaths.rectoimg;
             this.glb.user.status_verified = (account_status.review).toString();

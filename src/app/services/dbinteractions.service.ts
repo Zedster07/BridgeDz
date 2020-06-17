@@ -1349,7 +1349,7 @@ export class DbinteractionsService {
       .append('id_user' , user.id)
       .append('Lid' , data.lid)
       .append('dateo' , data.dateo)
-      .append('payso' , data.payso)
+      .append('datee' , data.datee)
       .append('imgrecto' , pics.rectoimg)
       .append('imgverso' , pics.versoimg);
       return await this.http.post(this.glb.hostServer + 'core.php',  httpparams).toPromise().then( resp => {

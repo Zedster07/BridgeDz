@@ -23,7 +23,7 @@ export interface UserData {
     session_guid: string;
     licenseId: string;
     status_verified: string;
-    dlicencePaye: string,
+    dlicenceDateO: string,
     dlicenceDate: string,
     licenseRecot: string,
     licenseVerso: string,

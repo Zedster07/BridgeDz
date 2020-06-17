@@ -2,7 +2,7 @@
 
 
 export interface LicenseData {
-    dlicencePaye: string;
+    dlicenceDateO: string;
     id: string;
     dlicenceDate: string;
     rectoimg: string,

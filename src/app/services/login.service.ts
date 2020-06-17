@@ -182,7 +182,7 @@ export class LoginService {
         localStorage.setItem('dlicenceRecto', resp.data['dlicenceRecto']);
         localStorage.setItem('dlicenceVerso', resp.data['dlicenceVerso']);
         localStorage.setItem('dlicenceDate', resp.data['dlicenceDate']);
-        localStorage.setItem('dlicencePaye', resp.data['dlicencePaye']);
+        localStorage.setItem('dlicenceDateO', resp.data['dlicenceDateO']);
         localStorage.setItem('status_verified', resp.data['status_verified']);
         localStorage.setItem('session_guid', this.util.newGuid());
 
@@ -227,7 +227,7 @@ export class LoginService {
     this.glb.user.licenseRecot = localStorage.getItem('dlicenceRecto');
     this.glb.user.licenseVerso = localStorage.getItem('dlicenceVerso');
     this.glb.user.dlicenceDate = localStorage.getItem('dlicenceDate');
-    this.glb.user.dlicencePaye = localStorage.getItem('dlicencePaye');
+    this.glb.user.dlicenceDateO = localStorage.getItem('dlicenceDateO');
     this.glb.user.status_verified = localStorage.getItem('status_verified');
     
    // this.glb.usertmp = this.glb.user;

@@ -109,7 +109,7 @@ getEducationObject(data) {
         },
         ],
         [{
-          text: 'Location de ' + data['brand'] + ' '+ data['model'],
+          text: 'Location de ' + data['brand'] + ' ' + data['model'],
         },
         {
           text: parseInt(data['totalPrice']) / parseInt(data['pricePerDay']),
@@ -171,14 +171,14 @@ getClinetDocumentDefinition(data) {
         ]
       },
       {
-        text: 'Facture N° : ' + data['id'] + '-' + this.glb.user.id + data['bid'] + ' Pour :',
+        text: 'Facture N° : ' + data['id'] + '-' + this.glb.user.id + data['bid'] + ' Pour : ',
         style: 'header'
       },
       {
         columns: [
           [
           {
-            text: this.glb.user.fname,
+            text: 'Mr/Mme ' + this.glb.user.fname,
             style: 'name'
           },
           {
@@ -188,7 +188,7 @@ getClinetDocumentDefinition(data) {
             text: 'Email : ' + this.glb.user.email,
           },
           {
-            text: 'Contant No : ' + this.glb.user.phoneNumber,
+            text: 'Numéro de tél : ' + this.glb.user.phoneNumber,
           },
           {
             text: ''

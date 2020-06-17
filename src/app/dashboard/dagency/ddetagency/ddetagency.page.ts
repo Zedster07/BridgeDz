@@ -60,7 +60,7 @@ export class DdetagencyPage implements OnInit {
     role:'',
     session_guid: '',
     licenseId: '',
-    dlicencePaye: '',
+    dlicenceDateO: '',
     dlicenceDate: '',
     licenseRecot: '',
     licenseVerso: '',

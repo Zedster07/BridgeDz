@@ -252,12 +252,22 @@
                     </div>
                 </div>
                 <div class="form-group col-md-6">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <ion-icon name="calendar"></ion-icon>
+                        </div>
+                      </div>
+                      <ion-datetime class="form-control" placeholder="Date de d’expiration" value="{{verifyAccData.datee}}" [(ngModel)]="verifyAccData.datee"></ion-datetime>
+                  </div>
+              </div>
+                <!--<div class="form-group col-md-6">
                   <select class="form-control" id="inputPassword4" value="{{verifyAccData.payso}}" [(ngModel)]="verifyAccData.payso">
                     <option value="0" selected>Pays d’obtention</option>
                     <option value="algeria">Algérie</option>
                     <option value="france">France</option>
                   </select>
-                </div>
+                </div>-->
             </div>
 
             <div class="form-row">

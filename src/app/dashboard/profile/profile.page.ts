@@ -37,7 +37,7 @@ export class ProfilePage implements OnInit {
   verifyAccData = {
     lid: '',
     dateo: '',
-    payso: '0',
+    datee: '0',
     rectoimg: this.emptyFormdata,
     versoimg: this.emptyFormdata
   };
@@ -66,7 +66,7 @@ export class ProfilePage implements OnInit {
     role:'',
     session_guid: '',
     licenseId: '',
-    dlicencePaye: '',
+    dlicenceDateO: '',
     dlicenceDate: '',
     licenseRecot: '',
     licenseVerso: '',
@@ -104,7 +104,7 @@ export class ProfilePage implements OnInit {
     this.usertmp = JSON.parse(JSON.stringify(this.glb.user_modify));
     this.verifyAccData.dateo = this.glb.user_modify['dlicenceDate'];
     this.verifyAccData.lid = this.glb.user_modify['dlicenceID'];
-    this.verifyAccData.payso = this.glb.user_modify['dlicencePaye'];
+    this.verifyAccData.datee = this.glb.user_modify['dlicenceDateO'];
     this.util.debug('constructor', this.glb.user_modify);
     //this.verifyAccData.rectoimg = this.glb.user_modify['dlicenceRecto'];
     //this.verifyAccData.versoimg = this.glb.user_modify['dlicenceVerso'];
@@ -184,7 +184,7 @@ export class ProfilePage implements OnInit {
         this.alertt.presentAlert('POPUP.CHECK_LIC_MSG_2_TITLE' , 'POPUP.CHECK_LIC_MSG_2_MSG');
         return false;
       } else {
-        if ( this.verifyAccData.dateo === '' || this.verifyAccData.payso === '') {
+        if ( this.verifyAccData.dateo === '' || this.verifyAccData.datee === '') {
           this.alertt.presentAlert('POPUP.CHECK_LIC_MSG_3_TITLE' , 'POPUP.CHECK_LIC_MSG_3_MSG');
           return false;
         } else {
