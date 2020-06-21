@@ -25,7 +25,7 @@
     "@angular/pwa": "^0.803.23",
     "@angular/router": "~8.1.2",
     "@angular/service-worker": "~8.1.2",
-    "@asymmetrik/ngx-leaflet": "^7.0.0",
+    "@asymmetrik/ngx-leaflet": "^6.0.1",
     "@ionic-native/calendar": "^5.20.0",
     "@ionic-native/core": "^5.19.1",
     "@ionic-native/ionic-webview": "^5.19.1",
