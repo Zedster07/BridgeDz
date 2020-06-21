@@ -17,8 +17,9 @@ export class GeolocService {
   service = new google.maps.places.AutocompleteService();
 
   BASE_NOMINATIM_URL: string = 'nominatim.openstreetmap.org';
-  DEFAULT_VIEW_BOX: string = 'countrycodes=';
-
+  
+  DEFAULT_VIEW_BOX: string = 'viewbox=-61.875000%2C18.363310%2C11.469727%2C49.273844';
+//'viewbox=-%%%'
   //DEFAULT_VIEW_BOX: string = 'viewbox=37.0000%2C4.9000%2C35.000%2C3.4000';
 
 
@@ -29,7 +30,7 @@ export class GeolocService {
 
   addressLookup(req: any, country: string, limit: number): Observable<NominatimResponse[]> {
     //console.log('do we pass by here');
-    let url = `https://${this.BASE_NOMINATIM_URL}/search?format=json&q=${req}&${this.DEFAULT_VIEW_BOX}&${country}&limit=${limit}&bounded=1&admin_level=2`;
+    let url = `https://${this.BASE_NOMINATIM_URL}/search?format=json&q=${req}&${this.DEFAULT_VIEW_BOX}&limit=${limit}&bounded=1`;
     return this.http
       .get(url).pipe(
         map((data: any[]) => data.map((item: any) =>(

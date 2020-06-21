@@ -178,7 +178,7 @@ export class AccueilPage implements OnInit {
 
   addressLookup(address: string) {
     if (address.length > 3 && this.geo === true) {
-      this.geoloc.addressLookup(address, 'dz', 4).subscribe(results => {
+      this.geoloc.addressLookup(address, '', 4).subscribe(results => {
         this.searchResults = results;
       });
     } else {

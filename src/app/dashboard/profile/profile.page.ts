@@ -463,7 +463,7 @@ async updateRibInfo() {
 addressLookup(address: string) {
   console.log('addressLookup');
   if (address.length > 3) {
-    this.geoloc.addressLookup(address, 'dz', 4).subscribe(results => {
+    this.geoloc.addressLookup(address, '', 4).subscribe(results => {
       this.searchResults = results;
     });
   } else {
