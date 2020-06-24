@@ -67,6 +67,10 @@ const routes: Routes = [
         path: 'renting',
         loadChildren: './renting/renting.module#RentingPageModule'
       },
+      {
+        path: 'demandeslocs/:id/:guid/:resp',
+        loadChildren: './demandeslocs/demandeslocs.module#DemandeslocsPageModule'
+      },
 
     ]
   }

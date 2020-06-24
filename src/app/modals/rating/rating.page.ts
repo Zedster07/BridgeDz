@@ -12,6 +12,7 @@ export class RatingPage implements OnInit {
 
   car_id;
   bookind_id;
+  user_id;
   isActive = [
  
    {
@@ -43,12 +44,13 @@ export class RatingPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.user_id = this.navParams.get('user_id');
     this.car_id = this.navParams.get('car_id');
     this.bookind_id = this.navParams.get('booking_id');
   }
 
   async validate(){
-    const resp = await this.db.review(this.car_id, this.bookind_id, this.isActive);
+    const resp = await this.db.review(this.user_id, this.car_id, this.bookind_id, this.isActive);
     if( resp['status'] === 'success' ){
       this.alert.presentAlert('POPUP.PWD_UPDATE_RATING_TITLE' , 'POPUP.PWD_UPDATE_RATING_MSG');
       this.close();

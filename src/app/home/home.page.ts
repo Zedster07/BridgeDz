@@ -6,7 +6,10 @@ import { GlobalsService } from '../services/globals.service';
 import { GeolocService } from '../services/geoloc.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { LoginService } from '../services/login.service';
-import { Router } from '@angular/router';
+import { AlertService } from '../services/alert.service';
+import { BillingService } from 'src/app/services/billing.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DbinteractionsService } from '../services/dbinteractions.service';
 import { SearchGoogleAddressPage } from '../modals/search-google-address/search-google-address.page';
 import {latLng, MapOptions, tileLayer, Map, Marker, icon} from 'leaflet';
 import {HttpClient} from '@angular/common/http';
@@ -15,7 +18,10 @@ import {NominatimResponse} from '../../../node_modules/angular-osm';
 import {map} from 'rxjs/operators';
 import { UtilService } from '../services/util.service';
 import {TranslateService} from '@ngx-translate/core';
-
+import {booking_state} from '../interfaces/booking_state';
+import {rent_state} from '../interfaces/rent_state';
+import { prepareSyntheticListenerFunctionName } from '@angular/compiler/src/render3/util';
+import { RatingPage } from 'src/app/modals/rating/rating.page';
 
 
 
@@ -192,7 +198,10 @@ export class HomePage implements OnInit {
   constructor(
     public popoverController: PopoverController ,
     private loginserv: LoginService,
-    private pickerCtrl: PickerController,
+    private db :DbinteractionsService,
+    private bill: BillingService,
+    private router: ActivatedRoute,
+    private alertt: AlertService,
     public glb: GlobalsService,
     public geoloc: GeolocService,
     private route: Router,
@@ -300,14 +309,107 @@ export class HomePage implements OnInit {
       this.glb.isMainPage = true;
     }
   }
-  ngOnInit() {
+  async ngOnInit() {
     if (window.screen.width <= 360 ) {
       this.isPhone = true;
     } else {
       this.isPhone = false;
     }
+
+    let type = '';
+    type = this.router.snapshot.paramMap.get('type');
+    let id_booking = '';
+    id_booking = this.router.snapshot.paramMap.get('id');
+    let id_guid = '';
+    id_guid = this.router.snapshot.paramMap.get('guid');
+    console.log(id_guid);
+    switch (type){
+      case 'respo' :
+        let resp = '';
+        resp = this.router.snapshot.paramMap.get('resp');
+        let token = '';
+        token = this.router.snapshot.paramMap.get('token');
+        const response = await this.db.fetchInfoForCheckout(id_booking, id_guid, token);  
+        if (response.status === 'success'){
+          if (parseInt(response.data['booking_state']) === booking_state.booked_paid){
+            this.alertt.presentAlert('Réservation déja confirmée' , 'Cette réservation est déja confirmée');
+            break;
+          }; 
+          if (  (parseInt(response.data['booking_state']) === booking_state.cancel_by_client) ||  (parseInt(response.data['booking_state']) === booking_state.cancel_by_platform) ){
+              this.alertt.presentAlert('Réservation annulée' , 'Cette réservation est annulée');
+            break;
+          };
+          if ( (parseInt(response.data['booking_state']) === booking_state.declined_agency) ||  (parseInt(response.data['booking_state']) === booking_state.declined_auto)  ||
+          (parseInt(response.data['booking_state']) === booking_state.cancel_by_Agency)){
+            this.alertt.presentAlert('Réservation déclinée' , 'Vous avez déja déclinée cette réservation');
+            break;
+          }; 
+          if ((parseInt(response.data['booking_state']) ===  booking_state.booked_not_paid_1) ||  (parseInt(response.data['booking_state']) === booking_state.booked_not_paid_2 )
+          ||  (parseInt(response.data['booking_state']) === booking_state.booked_not_paid_3 )){
+            this.alertt.presentAlert('Réservation en attente de paiement' , 'Cette réservation est déja confirmée et en attente de paiement');
+            break;
+          };  
+    
+          let res = await this.db.answerDemandFromEx(id_booking, id_guid, resp);
+          if (res['status'] === 'success'){
+            this.alertt.presentAlert('Confirmation de réservation', 'Vous venez de confirmer la location.');
+          }else if (resp === '-1'){
+            this.alertt.presentAlert('Réservation déclinée', 'Vous avez décliné la réservation');
+          }
+          if (this.glb.AgencyLogData.loggedin === true){ 
+            this.route.navigate(['dashboard']);
+          }
+        }
+        break;
+      case 'billing' :
+        if (id_booking !== ''  && id_guid !== ''){
+          console.log('id_booking : ' + id_booking);
+          console.log('id_guid : ' + id_guid);
+          const res = await this.db.fetchBillingDataByIdAndGuid(id_booking, id_guid);
+          if (res['status'] === 'success'){
+            console.log('resp : ' + res.data);
+            this.bill.generateClientBilling(res['data']);
+            this.alertt.presentAlert('Téléchargement de votre facture', 'Votre facture vient detre téléchargée.');
+          } 
+          if (this.loginserv.isLoggedIn()){
+            this.route.navigate(['client']);
+          }
+        }
+        break;
+      case 'rating' :
+        if (id_booking !== ''  && id_guid !== ''){
+          let token = '';
+          token = this.router.snapshot.paramMap.get('token');
+          const response = await this.db.fetchInfoForCheckout(id_booking, id_guid, token);  
+          console.log(response);
+          if (response.status === 'success'){
+            if (parseInt(response.data['booking_state']) === booking_state.booked_paid && 
+            parseInt(response.data['rent_status']) === rent_state.terminated){
+              const modal = await this.modalCtrl.create({
+                component: RatingPage,
+                backdropDismiss: true,
+                componentProps: {
+                  user_id : response.data['clientID'],
+                  car_id: response.data['vehicleID'],
+                  booking_id: response.data['id'],
+                }
+              });
+             await modal.present();
+            }
+          } 
+        }
+      default :
+        break;
+    } 
+ 
+   
     this.glb.globalLoading(false);
+    
+
   }
+
+    
+
 
 
 

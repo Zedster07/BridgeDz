@@ -176,10 +176,10 @@ export class DbinteractionsService {
       }); 
     }
 
-    async review(car_id, booking_id, note) {
+    async review(user_id, car_id, booking_id, note) {
 
       const httpparams = new HttpParams().
-      append('reviewerID' , this.glb.user.id).
+      append('reviewerID' , user_id).
       append('concernedID' , car_id).
       append('booking_id' , booking_id).
       append('rate' , note[1].note).
@@ -226,6 +226,21 @@ export class DbinteractionsService {
         return false;
       }); 
     }
+
+    async checkifPreBooked(idCar, startdate, enddate) {
+      const httpparams = new HttpParams().append('request' , 'checkifPreBooked').
+      append('idCar' , idCar).
+      append('enddate' , enddate).
+      append('startdate', startdate);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      }); 
+    }
+      
       
       
 
@@ -237,6 +252,18 @@ export class DbinteractionsService {
         if (resp['status'] === 'success') {
           this.glb.AgencyLogData.DemandesCount = resp['data'].length;
         }
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async answerDemandFromEx(id_booking , id_guid, resp) {
+      console.log(resp + ' ----- ' + id_booking);
+      const httpparams = new HttpParams().append('request' , 'answerDemandFromEx')
+      .append('resp' , resp).append('id_booking' , id_booking).append('id_guid', id_guid);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         return resp;
       }).catch(err => {
         console.error(err);
@@ -743,6 +770,17 @@ export class DbinteractionsService {
     async fetchCars(id: string, userid: string): Promise<any> {
       console.log(userid);
       const httpparams = new HttpParams().append('request' , 'fetchCars').append('agencyid' , id).append('userid',userid);
+      return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async fetchCarById(id: string): Promise<any> {
+      const httpparams = new HttpParams().append('request' , 'fetchCarById').append('car_id' , id);
       return await this.http.post<Httpresponse>(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         console.log(resp);
         return resp;
@@ -1298,6 +1336,35 @@ export class DbinteractionsService {
       const httpparams = new HttpParams()
       .append('request' , 'fetchBookingById')
       .append('id_requestor' , this.glb.user.id)
+      .append('id_booking', id_booking);
+      return await this.http.post(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async fetchInfoForCheckout( id_booking: string, id_guid : string, id_token : string): Promise<any>  {
+      const httpparams = new HttpParams()
+      .append('request' , 'fetchInfoForCheckout')
+      .append('id_guid' , id_guid)
+      .append('id_token' , id_token)
+      .append('id_booking', id_booking);
+      return await this.http.post(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
+        console.log(resp);
+        return resp;
+      }).catch(err => {
+        console.error(err);
+        return false;
+      });
+    }
+
+    async fetchBillingDataByIdAndGuid( id_booking: string, guid: string): Promise<any>  {
+      const httpparams = new HttpParams()
+      .append('request' , 'fetchBillingDataByIdAndGuid')
+      .append('guid', guid)
       .append('id_booking', id_booking);
       return await this.http.post(this.glb.hostServer + 'core.php', httpparams).toPromise().then( resp => {
         console.log(resp);

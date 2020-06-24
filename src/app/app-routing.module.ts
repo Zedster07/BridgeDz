@@ -6,6 +6,8 @@ import { AuthGuardService } from './services/auth-guard.service';
 const routes: Routes = [
   { path: 'registerValid/:id',loadChildren: './login/login.module#LoginPageModule'  },
   { path: '',  loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+  { path: 'home/:type/:id/:guid/:token/:resp',  loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+  { path: 'home/:type/:id/:guid',  loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   { path: 'login' , loadChildren: './login/login.module#LoginPageModule' },
   { path: 'dashboard',  canActivate: [AuthGuardService] , loadChildren: './dashboard/dashboard.module#DashboardPageModule' },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
@@ -15,7 +17,6 @@ const routes: Routes = [
   { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
   { path: 'faq', loadChildren: './faq/faq.module#FaqPageModule' },
   { path: 'ddetagency', loadChildren: './dashboard/dagency/ddetagency/ddetagency.module#DdetagencyPageModule' },
-  { path: 'renting', loadChildren: './dashboard/renting/renting.module#RentingPageModule' },
   { path: 'car-validate-modal', loadChildren: './modals/car-validate-modal/car-validate-modal.module#CarValidateModalPageModule' },
   { path: 'start-loc-client', loadChildren: './modals/start-loc-client/start-loc-client.module#StartLocClientPageModule' },
   { path: 'start-loc-agency', loadChildren: './modals/start-loc-agency/start-loc-agency.module#StartLocAgencyPageModule' },
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'pwd/:token', loadChildren: './pwd/pwd.module#PwdPageModule' },
   { path: 'mplocations', loadChildren: './client/mplocations/mplocations.module#MplocationsPageModule' },
   { path: 'rating', loadChildren: './modals/rating/rating.module#RatingPageModule' },
-
+  { path: 'search/:type/:id/:guid/token', loadChildren: './search/search.module#SearchPageModule'},
+  { path: 'home/:type/:id/:guid/:token',  loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
 
 ];
 

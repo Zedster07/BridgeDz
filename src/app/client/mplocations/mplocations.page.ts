@@ -72,6 +72,7 @@ export class MplocationsPage implements OnInit {
       component: RatingPage,
       backdropDismiss: true,
       componentProps: {
+        user_id : this.mylocations[index]['clientID'],
         car_id: this.mylocations[index]['vehicleID'],
         booking_id: this.mylocations[index]['bid'],
       }

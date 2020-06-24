@@ -238,8 +238,9 @@ export class AppComponent   {
   }
 
   myFunction() {
-   
-    if (this.glb.sync){
+    console.log(this.glb.searchQuery.enddate);
+    console.log('myFunction');
+    if (this.glb.sync && this.glb.isPrevActionBook){
       this.datePickerObj_end.disabledDates = [];
       this.datePickerObj_end.highlightedDates = [];
       this.disableDate( new Date(this.glb.searchQuery.startdate));
@@ -249,19 +250,21 @@ export class AppComponent   {
   }
 
   myFunction_time(){
+    console.log('myFunction_time');
     this.glb.sync = true;
+    this.glb.isPrevActionBook = true;
   }
 
   myFunction_time_end(){
     
-    if (!this.glb.sync){
+    if (!this.glb.sync && this.glb.isPrevActionBook){
       console.log('myFunction_time_end');
        this.updateResult();
    }
   }
   myFunction_end() {
-    
-    if (this.glb.sync){
+    console.log(this.glb.searchQuery.enddate);
+    if (this.glb.sync && this.glb.isPrevActionBook){
       console.log('myFunction_end');
       const debutTimestamp = this.strart_date.getTime();
       const finTimestamp_ = new Date(this.glb.searchQuery.enddate);
@@ -278,6 +281,7 @@ export class AppComponent   {
       if (this.glb.daysdif > 0 && this.glb.daysdif < 1){
         this.glb.daysdif = 1;
       }
+      console.log(this.glb.searchQuery.enddate);
     this.updateResult();
     } 
   } 
@@ -386,6 +390,12 @@ export class AppComponent   {
     let id = this.glb.user.id;
     if (!this.loginServ.isLoggedIn()){
       id = '0';
+    }
+
+    if ((new Date(searchRequest.enddate).getTime() < new Date().getTime()) || (new Date(searchRequest.startdate).getTime() < new Date().getTime())){
+      this.glb.cars = [];
+      this.isLoading = false;
+      return;
     }
    // this.util.debug('id: ', id);
     const result = await this.db.fetchSearchreq(id, searchRequest);

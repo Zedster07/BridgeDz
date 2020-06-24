@@ -32,6 +32,8 @@ export class GlobalsService {
     endtime: ''
   };
   sync = true;
+  isPrevActionBook = true;
+  isPrevActionBookForPaiement = false;
   hasAgency = false;
   AgencyLogData = {
     loggedin: false,

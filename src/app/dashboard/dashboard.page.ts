@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterEvent } from '@angular/router';
+import { Router, RouterEvent, ActivatedRoute } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PopoverController } from '@ionic/angular';
 import { GlobalsService } from '../services/globals.service';
+import { AlertService } from '../services/alert.service';
 import { UtilService } from '../services/util.service';
 import { HomePage } from './home/home.page';
 import { Util2Service } from '../services/util2.service';
@@ -144,6 +145,8 @@ export class DashboardPage implements OnInit {
     private util: UtilService,
     private loading: LoadingService,
     private authser: LoginService,
+    private route: ActivatedRoute,
+    private alertt: AlertService,
     public translate: TranslateModule,
     private translator: TranslateService,
     private util2: Util2Service) {
@@ -165,8 +168,10 @@ export class DashboardPage implements OnInit {
     console.log(res);
     if (res['status'] === 'success') {
       this.glb.AgencyLogData.demandeLoc = res['data'];
+      this.glb.AgencyLogData.DemandesCount = this.glb.AgencyLogData.demandeLoc.length;
     } else {
-
+      this.glb.AgencyLogData.demandeLoc = [];
+      this.glb.AgencyLogData.DemandesCount = 0;
     }
   }
   logout() {
@@ -201,8 +206,9 @@ export class DashboardPage implements OnInit {
     });
     return await pop.present();
   }
-  ngOnInit() {
-  }
+  async ngOnInit() {
+   
+}
   getData(data , id) {
     let i = 0;
     while (i < data.length ) {

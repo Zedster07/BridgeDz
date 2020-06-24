@@ -101,6 +101,8 @@ export class ReservePage implements OnInit {
       id_source: id_source
     };
 
+    console.log(book);
+
     if (this.authService.isLoggedIn()) {
       const res = await this.db.confirmReserveCar(book);
       if (res['status'] === 'success') {
@@ -190,9 +192,10 @@ export class ReservePage implements OnInit {
     } else {
       //TODO Inform the client that the booking isn't done.
       this.load.dismissLoading();
-      this.alertt.presentAlert('POPUP.BOOKING_NOT_PAID_TITLE' , 'POPUP.BOOKING_NOT_PAID_MSG');
+      //this.alertt.presentAlert('POPUP.BOOKING_NOT_PAID_TITLE' , 'POPUP.BOOKING_NOT_PAID_MSG');
       this.glb.prevAction = 'book';
       this.glb.prevBook = book;
+      this.route.navigate(['login']);
       this.closeModal();
     }
   }
@@ -219,6 +222,8 @@ export class ReservePage implements OnInit {
         }
       }
 
+      console.log('this type onNgint');
+      console.log(this.days);
     if (this.type === '1'){
       this.slideNext_c(this.reserve);
       const elements = this.stripe.elements();
@@ -317,12 +322,20 @@ export class ReservePage implements OnInit {
   }
 
   async onSubmit(form: NgForm) {
+    console.log(this.type);
+    console.log('this.type on submit');
     const resp = await this.db.checkAvail(this.data['id'], this.glb.searchQuery.startdate, this.glb.searchQuery.startdate );
-    if (resp['status'] === 'success'){
+    const res = await this.db.checkifPreBooked(this.data['id'], this.glb.searchQuery.startdate, this.glb.searchQuery.startdate);
+    if (resp['status'] === 'success' || ( res['status'] === 'success' && this.type === '1')){
     const { source , error} = await this.stripe.createSource(this.card);
     if (error){
       const cardError = error.message;
     } else {
+
+      console.log(this.data['pricePerDay']);
+      console.log('this.datapricePerDay');
+      console.log(this.days);
+      console.log('this.days');
       this.load.presentLoading(); 
       const resp = await this.db.checkout(source, this.days * this.data['pricePerDay'], this.glb.user.email);
       if (resp['status'] === 'success'){
@@ -336,6 +349,7 @@ export class ReservePage implements OnInit {
         this.alertt.presentAlert('POPUP.BOOKING_NOT_PAID_TITLE' , 'POPUP.BOOKING_NOT_PAID_MSG');
       }  
     } 
+   
     } else {
       this.alertt.presentAlert('POPUP.BOOKING_ALREADY_BOOKED_TITLE' , 'POPUP.BOOKING_ALREADY_BOOKED_MSG');
       let idx = this.glb.cars.indexOf(this.data);
