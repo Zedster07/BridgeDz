@@ -456,7 +456,7 @@ async updateRibInfo() {
     //console.log(this.glb.accparams);
   }
 
-  async modifyCancel(index) {    
+  async modifyCancel() {    
     this.route.navigate(['dashboard','duser']);
 }
 

@@ -89,6 +89,9 @@ export class ValidationRequestPage implements OnInit {
     this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));*/
   }
   
+  uploadPic(val){
+  }
+
   setRead(val: number) {
     this.unreadN -= 1;
     const elem = document.getElementById('item-' + val);

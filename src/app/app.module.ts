@@ -61,15 +61,21 @@ import { BrowserAnimationsModule } from  '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { trigger, state, style, transition, animate } from '@angular/animations'
-import { VoituresPipe } from './admin/voitures.pipe';
 import { StartLocClientPage } from './modals/start-loc-client/start-loc-client.page';
 import { RatingPage } from './modals/rating/rating.page';
 import { StartLocAgencyPage } from './modals/start-loc-agency/start-loc-agency.page';
 import { LanguagePage } from './language/language.page';
 import { SearchGoogleAddressPage } from './modals/search-google-address/search-google-address.page';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
-
-
+import { CarValidateModalPageModule } from './modals/car-validate-modal/car-validate-modal.module';
+import { BookingOutPageModule } from './modals/booking-out/booking-out.module';
+import { LanguagePageModule } from './language/language.module';
+import { SearchGoogleAddressPageModule } from './modals/search-google-address/search-google-address.module';
+import { StartLocAgencyPageModule } from './modals/start-loc-agency/start-loc-agency.module';
+import { RatingPageModule } from './modals/rating/rating.module';
+import { StartLocClientPageModule } from './modals/start-loc-client/start-loc-client.module';
+import { CheckoutPageModule } from './modals/checkout/checkout.module';
+import { CarAvailabilityV1PageModule } from 'src/app/modals/car-availability-v1/car-availability-v1.module'
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -96,8 +102,8 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, AgencyModalPage , AddCarModalPage , CarValidateModalPage , CheckoutPage , ReductionsPage , LanguagePage , RatingPage , AccessHoursPage , CarAvailabilityPage , CarAvailabilityV1Page,  ReservePage , 
-    MenuListComponent , ClientMenuListComponent , StartLocClientPage, StartLocAgencyPage, SearchGoogleAddressPage , BookingOutPage],
+  declarations: [AppComponent, AgencyModalPage , AddCarModalPage   , ReductionsPage   , AccessHoursPage , CarAvailabilityPage ,  ReservePage , 
+    MenuListComponent , ClientMenuListComponent, ],
   entryComponents: [
     AgencyModalPage,
     CarValidateModalPage,
@@ -133,6 +139,15 @@ export function createTranslateLoader(http: HttpClient) {
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    CarValidateModalPageModule,
+    BookingOutPageModule,
+    LanguagePageModule,
+    SearchGoogleAddressPageModule,
+    StartLocAgencyPageModule,
+    RatingPageModule,
+    StartLocClientPageModule,
+    CheckoutPageModule,
+    CarAvailabilityV1PageModule,
     ChartsModule,
     IonicStorageModule.forRoot(),
     TranslateModule.forRoot({

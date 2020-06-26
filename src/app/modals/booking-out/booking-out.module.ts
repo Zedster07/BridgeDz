@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
 import { BookingOutPage } from './booking-out.page';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
     CommonModule,
     TranslateModule.forChild(),
     FormsModule,
+    NgbModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],

@@ -58,7 +58,7 @@
                 <ion-button *ngIf="mylocations[i]['startRenting'] === '1' && mylocations[i]['rent_status'] === '1' && mylocations[i]['booking_state'] === '8'" class="ion-margin" expand="full"  color="primary"  (click)="startL(i)">
                   {{ 'RENTINGS_C.START'  | translate }}
                </ion-button> 
-               <ion-button *ngIf="mylocations[i]['endRenting'] === '1' && mylocations[i]['rent_status'] === '3' && mylocations[i]['booking_state'] === '8' " class="ion-margin" expand="full"  color="primary"  (click)="endL(i)">
+               <ion-button *ngIf="mylocations[i]['endRenting'] === '1' && mylocations[i]['cancelBooking'] === '3' && mylocations[i]['booking_state'] === '8' " class="ion-margin" expand="full"  color="primary"  (click)="endL(i)">
                 {{ 'RENTINGS_C.END'  | translate }}
                </ion-button>  
                <ion-button *ngIf="mylocations[i]['endRenting'] === '0' && mylocations[i]['rent_status'] === '3' && mylocations[i]['booking_state'] === '8' " class="ion-margin" expand="full"  color="primary"  (click)="endL(i)">

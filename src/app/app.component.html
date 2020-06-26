@@ -148,7 +148,8 @@
                     <ion-icon name="calendar"></ion-icon> {{ 'APP.END'  | translate }}   
                   </ion-label>
                   <div class="input-container">
-                    <ion-input  [disabled]="isDOBDisable" [(ngModel)]="glb.searchQuery.enddate" [liIonic4Datepicker]="datePickerObj_end" (ionChange)="myFunction_end()"></ion-input>
+                    <!--[disabled]="isDOBDisable"-->
+                    <ion-input   [(ngModel)]="glb.searchQuery.enddate" [liIonic4Datepicker]="datePickerObj_end" (ionChange)="myFunction_end()"></ion-input>
                   </div>
                 </ion-item>
                 <ion-item class="datetimepickers">

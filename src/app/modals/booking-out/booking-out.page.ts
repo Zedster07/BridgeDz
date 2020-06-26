@@ -72,7 +72,7 @@ export class BookingOutPage implements OnInit {
 
   constructor(
     public modalCtrl: ModalController,
-    private glb: GlobalsService,
+    public glb: GlobalsService,
     private loading: LoadingService,
     private db: DbinteractionsService,
     private http: HttpClient,

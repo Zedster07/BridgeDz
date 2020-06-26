@@ -502,7 +502,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Solde Actuel</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.glb.wallet.theoBalance}}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.glb.wallet['theoBalance']}}</div>
             </div>
             <ion-icon slot="start" src="../../../assets/icons/wallet_theo.svg" style="font-size: 75px;color:#595959;"></ion-icon>
           </div>
@@ -517,7 +517,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Mes paiement à venir</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.glb.wallet.realBalance}}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.glb.wallet['realBalance']}}</div>
             </div>
             <ion-icon slot="start" src="../../../assets/icons/wallet_bridgy.svg" style="font-size: 75px; color:#595959;"></ion-icon>
           </div>
@@ -534,7 +534,7 @@
               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Revenus hors Bridgy</div>
               <div class="row no-gutters align-items-center">
                 <div class="col-auto">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{this.glb.wallet.outBalance}}</div>
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{this.glb.wallet['outBalance']}}</div>
                 </div>
                 <div class="col">
                   <div class="progress progress-sm mr-2">
@@ -556,7 +556,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total des revenus</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.glb.wallet.totalBalance}}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.glb.wallet['totalBalance']}}</div>
             </div>
             <ion-icon slot="start" src="../../../assets/icons/wallet_total.svg" style="font-size: 75px;color:#595959;"></ion-icon>
           </div>

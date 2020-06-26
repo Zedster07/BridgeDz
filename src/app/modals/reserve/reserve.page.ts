@@ -66,6 +66,9 @@ export class ReservePage implements OnInit {
     });
   }
 
+  slidenext(i){
+  }  
+
   /*slidenext(slideView) {
     this.reserve.lockSwipes(false);
     slideView.slideNext(500);

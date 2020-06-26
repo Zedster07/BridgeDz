@@ -7,7 +7,7 @@
     <li class="nav-item" (click)="setTabVal('vehicles')">
       <span class="nav-link " [ngClass]="{'active': showTab('vehicles')}" id="vehicles-tab" data-toggle="tab" href="#vehicles" role="tab" aria-controls="vehicles" aria-selected="false">Vehicles</span>
     </li>
-    <li *ngIf= "!this.isAdmin" class="nav-item" (click)="setTabVal('user')">
+    <li *ngIf= "!this.glb.ifAdmin(this.glb.user.role)" class="nav-item" (click)="setTabVal('user')">
       <span class="nav-link" [ngClass]="{'active': showTab('user')}" id="user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="user" aria-selected="false">Users</span>
     </li> 
   </ul>
@@ -123,12 +123,12 @@
     <div *ngIf ="this.tabVal==='user'"> 
       <ion-item *ngFor="let item of this.validationUser; let i = index;">
         <ion-label>
-          <h1>{{item.fname+ ' ' +item.lname}}</h1>  
-          <p> Email : {{item.email}}</p>
-          <p> Tél : {{item.phone}}</p>
-          <p> Adresse : {{item.address}}</p>
-          <p> Permis : {{item.dlicenceID}}</p>
-          <p> Permis date : {{item.dlicenceDate}}</p>
+          <h1>{{item['fname'] + ' ' +item['lname']}}</h1>  
+          <p> Email : {{item['email']}}</p>
+          <p> Tél : {{item['phone']}}</p>
+          <p> Adresse : {{item['address']}}</p>
+          <p> Permis : {{item['dlicenceID']}}</p>
+          <p> Permis date : {{item['dlicenceDate']}}</p>
           
           <div class="form-row">
             <ion-item id="cote1item">

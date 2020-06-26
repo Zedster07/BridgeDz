@@ -142,6 +142,8 @@ export class DdetagencyPage implements OnInit {
   modifyCancel() {
   }
 
+  changepic() {
+  } 
 
   changepic2(imghandler: string , filehandler: string) {
     const elem = document.getElementById(filehandler);
@@ -317,7 +319,10 @@ export class DdetagencyPage implements OnInit {
     } 
   } 
 
-  async showEditReductions(id, index){
+  showCarAvailModal(i){
+  } 
+  
+  async showEditReductions(id){
     const modal = await this.modalController.create({
       component: ReductionsPage,
       componentProps: {
@@ -357,7 +362,7 @@ export class DdetagencyPage implements OnInit {
   }
 
 
-  pay(item){
+  pay(){
   }
 
   ngOnInit() {

@@ -17,7 +17,7 @@ export class RentingPage implements OnInit {
   mylocations = [];
 
   constructor(
-     private glb: GlobalsService,
+     public glb: GlobalsService,
      private db: DbinteractionsService,
      private modalController: ModalController,
      public util: UtilService,
@@ -32,7 +32,8 @@ export class RentingPage implements OnInit {
     return this.glb.hostServer + piclist.substring( 0 , piclist.indexOf(','));
   }
 
-  
+  generateBilling(i){
+  }
   async startL(index) {
     const modal = await this.modalController.create({
       component: StartLocAgencyPage,

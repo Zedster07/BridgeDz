@@ -42,7 +42,7 @@
                                     <ion-icon name="mail"></ion-icon>
                                   </div>
                                 </div>
-                                <input type="email" class="form-control" id="inlineFormInputGroup"  placeholder="{{ 'PROFIL.MP_EMAIL'  | translate }}" value="{{glb.user_modify.email}}" [(ngModel)]="usertmp.email">
+                                <input type="email" class="form-control" id="inlineFormInputGroup"  placeholder="{{ 'PROFIL.MP_EMAIL'  | translate }}" value="{{glb.user_modify['email']}}" [(ngModel)]="usertmp.email">
                             </div>
                         </div>
                         <div class="form-group col-md-6">
@@ -52,7 +52,7 @@
                                       <ion-icon name="phone-portrait"></ion-icon>
                                   </div>
                                 </div>
-                                <input type="text" class="form-control" id="mobileid" placeholder="{{ 'PROFIL.MP_MOBILE'  | translate }}" value="{{glb.user_modify.phone}}" [(ngModel)]="usertmp.phoneNumber">
+                                <input type="text" class="form-control" id="mobileid" placeholder="{{ 'PROFIL.MP_MOBILE'  | translate }}" value="{{glb.user_modify['phone']}}" [(ngModel)]="usertmp.phoneNumber">
                             </div>
                         </div>
                       </div>
@@ -64,7 +64,7 @@
                                       <ion-icon name="person"></ion-icon>
                                     </div>
                                   </div>
-                                  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="{{ 'PROFIL.MP_USERNAME'  | translate }}" value="{{glb.user_modify.username}}" [(ngModel)]="usertmp.username"> 
+                                  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="{{ 'PROFIL.MP_USERNAME'  | translate }}" value="{{glb.user_modify['username']}}" [(ngModel)]="usertmp.username"> 
                               </div>
                           </div>
                           <div class="form-group col-md-6">
@@ -74,7 +74,7 @@
                                         <ion-icon name="key"></ion-icon>
                                     </div>
                                   </div>
-                                  <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="{{ 'PROFIL.MP_USERNAME'  | translate }}" value="{{this.glb.user_modify.password}}"  [(ngModel)]="usertmp.password">
+                                  <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="{{ 'PROFIL.MP_USERNAME'  | translate }}" value="{{this.glb.user_modify['password']}}"  [(ngModel)]="usertmp.password">
                               </div>
                           </div>
                         </div>
@@ -84,10 +84,10 @@
                 
               <div class="form-row mt-3">
                 <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="inputEmail4" placeholder="Nom" value="{{glb.user_modify.lname}}" [(ngModel)]="usertmp.lname">
+                  <input type="text" class="form-control" id="inputEmail4" placeholder="Nom" value="{{glb.user_modify['lname']}}" [(ngModel)]="usertmp.lname">
                 </div>
                 <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="inputPassword4" placeholder="Prénom" value="{{glb.user_modify.fname}}" [(ngModel)]="usertmp.fname">
+                  <input type="text" class="form-control" id="inputPassword4" placeholder="Prénom" value="{{glb.user_modify['fname']}}" [(ngModel)]="usertmp.fname">
                 </div>
               </div>
               <div class="form-row">
@@ -148,15 +148,16 @@
         <!---                                             Profil agency                                                                       -->
           <div *ngIf= "!this.isAdmin"  class="tab-pane fade"  [ngClass]="{'active show': showTab('edit_agency')}" id="edit_agency" role="tabpanel" aria-labelledby="edit_agency-tab">
               <div class="mt-5 p-1">
-                  <div class="login-input alert alert-warning" *ngIf="this.glb.AgencyLogData.status === '0'" role="alert" id="loginerror">
+
+                  <div class="login-input alert alert-warning" *ngIf="this.glb.AgencyLogData.status === 0" role="alert" id="loginerror">
                     {{ 'PROFIL.MSG_1'  | translate }}
                   </div>
 
-                  <div class="login-input alert alert-warning" *ngIf="this.glb.AgencyLogData.status === '4'" role="alert" id="loginerror">
+                  <div class="login-input alert alert-warning" *ngIf="this.glb.AgencyLogData.status === 4" role="alert" id="loginerror">
                     {{ 'PROFIL.MSG_2'  | translate }}
                  </div>
 
-                  <div class="login-input alert alert-success" *ngIf="this.glb.AgencyLogData.status === '1'" role="alert">
+                  <div class="login-input alert alert-success" *ngIf="this.glb.AgencyLogData.status === 1" role="alert">
                     {{ 'PROFIL.MSG_3'  | translate }}
                   </div>
                   <div style="width: fit-content; margin: 0 auto;" >
@@ -196,7 +197,7 @@
                                         <ion-icon name="person"></ion-icon>
                                       </div>
                                     </div>
-                                    <input type="text" class="form-control" id="inlineFormInputGroup_ag" placeholder="{{ 'PROFIL.MP_USERNAME'  | translate }}" value="{{glb.user_modify.username}}" [(ngModel)]="this.glb.AgencyLogData.name"> 
+                                    <input type="text" class="form-control" id="inlineFormInputGroup_ag" placeholder="{{ 'PROFIL.MP_USERNAME'  | translate }}" value="{{glb.user_modify['username']}}" [(ngModel)]="this.glb.AgencyLogData.name"> 
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
@@ -206,7 +207,7 @@
                                           <ion-icon name="key"></ion-icon>
                                       </div>
                                     </div>
-                                    <input type="text" class="form-control" id="inlineFormInputGroup_ag" placeholder="{{ 'PROFIL.MP_ADRESS'  | translate }}" (ngModelChange)="updateSearch()" value="{{this.glb.user_modify.password}}" (click)="$event.stopPropagation()" [(ngModel)]="this.glb.AgencyLogData.data['address']">
+                                    <input type="text" class="form-control" id="inlineFormInputGroup_ag" placeholder="{{ 'PROFIL.MP_ADRESS'  | translate }}" (ngModelChange)="updateSearch()" value="{{this.glb.user_modify['password']}}" (click)="$event.stopPropagation()" [(ngModel)]="this.glb.AgencyLogData.data['address']">
                                 </div>
                                 <ion-list *ngIf="this.searchResults.length > 0">
                                   <ion-item *ngFor="let item of this.searchResults" tappable   (click)="chooseItem(item)">
@@ -302,15 +303,15 @@
        <div  class="tab-pane fade" id="verify" [ngClass]="{'active show': showTab('verify')}" role="tabpanel" aria-labelledby="verify-tab">
         <div class="mt-5 p-1">
 
-          <div class="login-input alert alert-warning" *ngIf="this.glb.AgencyLogData.status === '0'" role="alert" id="loginerror">
+          <div class="login-input alert alert-warning" *ngIf="this.glb.AgencyLogData.status === 0" role="alert" id="loginerror">
             {{ 'PROFIL.MSG_1'  | translate }}
          </div>
 
-         <div class="login-input alert alert-warning" *ngIf="this.glb.AgencyLogData.status === '4'" role="alert" id="loginerror">
+         <div class="login-input alert alert-warning" *ngIf="this.glb.AgencyLogData.status === 4" role="alert" id="loginerror">
           {{ 'PROFIL.MSG_2'  | translate }}
          </div>
 
-         <div class="login-input alert alert-success" *ngIf="this.glb.AgencyLogData.status === '1'" role="alert">
+         <div class="login-input alert alert-success" *ngIf="this.glb.AgencyLogData.status === 1" role="alert">
           {{ 'PROFIL.MSG_3'  | translate }}
          </div>
 

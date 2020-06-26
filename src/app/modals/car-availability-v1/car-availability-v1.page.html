@@ -11,10 +11,10 @@ ssss
         mwlCalendarPreviousView
         [view]="view"
         [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
       >
       {{ 'MODAL_AVAIL_CAR.PREVIOUS'  | translate }}
       </div>
+         <!--(viewDateChange)="closeOpenMonthViewDay()"--> 
       <div
         class="btn btn-outline-secondary"
         mwlCalendarToday
@@ -27,13 +27,12 @@ ssss
         mwlCalendarNextView
         [view]="view"
         [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
       >
       {{ 'MODAL_AVAIL_CAR.NEXT'  | translate }}
       </div>
     </div>
   </div>
-  
+          <!--(viewDateChange)="closeOpenMonthViewDay()"--> 
   <div [ngSwitch]="view">
     <mwl-calendar-month-view
       *ngSwitchCase="'month'"

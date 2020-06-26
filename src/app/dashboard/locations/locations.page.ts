@@ -15,7 +15,7 @@ export class LocationsPage implements OnInit {
   mylocations = [];
 
   constructor(
-     private glb: GlobalsService,
+     public glb: GlobalsService,
      private db: DbinteractionsService,
      private modalController: ModalController,
      public util: UtilService) {
@@ -23,6 +23,10 @@ export class LocationsPage implements OnInit {
    }
 
    async ngOnInit() {
+  }
+
+
+  cancelBooking(i) {
   }
 
   getFrontPic(car: any) {
@@ -58,6 +62,9 @@ export class LocationsPage implements OnInit {
   }
 
 
+  generateBilling(i){
+  }
+  
   async ionViewWillEnter() {
     const res = await this.db.getMLocs();
     if (res['status'] === 'success') {

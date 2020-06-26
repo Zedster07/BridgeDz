@@ -99,6 +99,10 @@ export class HomePage implements OnInit {
   myFunction() {
 
   }
+
+  myFunction_end(){
+  }
+   
   ngOnInit() {
   }
 

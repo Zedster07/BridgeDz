@@ -9,7 +9,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ 'WALLET.THEO_BALANCE'  | translate }}</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.wallet.theoBalance}}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.wallet['theoBalance']}}</div>
             </div>
             <ion-icon slot="start" src="../../../assets/icons/wallet_theo.svg" style="font-size: 75px;color:#595959;"></ion-icon>
           </div>
@@ -24,7 +24,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">{{ 'WALLET.REAL_BALANCE'  | translate }}</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.wallet.realBalance}}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{this.wallet['realBalance']}}</div>
             </div>
             <ion-icon slot="start" src="../../../assets/icons/wallet_bridgy.svg" style="font-size: 75px; color:#595959;"></ion-icon>
           </div>
@@ -41,7 +41,7 @@
               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ 'WALLET.OUTSIDE_BRIDGY'  | translate }}</div>
               <div class="row no-gutters align-items-center">
                 <div class="col-auto">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{this.wallet.outBalance}}</div>
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{this.wallet['outBalance']}}</div>
                 </div>
                 <div class="col">
                   <div class="progress progress-sm mr-2">
