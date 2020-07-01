@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GlobalsService } from 'src/app/services/globals.service';
-import pdfMake from 'pdfmake/build/pdfmake';
+import pdfMake from 'pdfmake/build/pdfmake.min';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 

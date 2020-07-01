@@ -9,7 +9,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "bundle-report": "webpack-bundle-analyzer stats.json",
+    "stats": "webpack-bundle-analyzer stats.json"
   },
   "private": true,
   "dependencies": {
@@ -56,7 +58,7 @@
     "firebase": "^7.7.0",
     "firebase-tools": "^7.12.1",
     "firebaseui": "^4.4.0",
-    "firebaseui-angular": "^4.0.1",
+    "firebaseui-angular": "~4.0.1",
     "flatpickr": "^4.6.3",
     "ion2-calendar": "^3.0.0-rc.0",
     "ionic2-calendar": "^0.5.8",
@@ -70,6 +72,7 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "^8.4.1",
     "@angular-devkit/architect": "~0.801.2",
     "@angular-devkit/build-angular": "^0.803.23",
     "@angular-devkit/core": "~8.1.2",
@@ -85,6 +88,7 @@
     "@types/leaflet": "^1.5.12",
     "@types/node": "~8.9.4",
     "codelyzer": "^5.2.1",
+    "compression-webpack-plugin": "^4.0.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-splashscreen": "^5.0.2",
@@ -100,7 +104,8 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "typescript": "~3.4.3",
+    "webpack-bundle-analyzer": "^3.8.0"
   },
   "description": "An Ionic project",
   "cordova": {
