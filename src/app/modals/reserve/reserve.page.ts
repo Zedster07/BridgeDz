@@ -349,6 +349,7 @@ export class ReservePage implements OnInit {
           this.confirmReserverCar(1, resp['data']['id'], resp['data']['source']['id']);
         } 
       } else {
+        this.load.dismissLoading();
         this.alertt.presentAlert('POPUP.BOOKING_NOT_PAID_TITLE' , 'POPUP.BOOKING_NOT_PAID_MSG');
       }  
     } 
