@@ -53,6 +53,10 @@ export class UtilService {
     } 
   }
 
+  public display_date(date){
+    return date.split('-')[0] + '-' + date.split('-')[1] + '-' + date.split('-')[2].split(' ')[0];
+  } 
+
   ifActivated(status: string){
         if (parseInt(status) == account_status.activated) {
             return true;

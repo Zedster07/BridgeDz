@@ -26,7 +26,7 @@
             <ion-icon name="star" color="warning"></ion-icon>
         </span>
         <h6>{{item['city']}}</h6>
-        <p> {{item['startDate']}}  {{ 'RENTINGS_C.TO'  | translate }}  {{item['start_time']}} - {{item['endDate']}}  {{ 'RENTINGS_C.TO'  | translate }} {{item['end_time']}} </p>
+        <p> {{util.display_date(item['startDate'])}}  {{ 'RENTINGS_C.TO'  | translate }}  {{item['start_time']}} - {{util.display_date(item['endDate'])}}  {{ 'RENTINGS_C.TO'  | translate }} {{item['end_time']}} </p>
         <ion-button fill="outline" color="success" *ngIf="mylocations[i]['bstatus'] === '8'" disabled>
           <ion-icon name="checkbox-outline" slot="start"></ion-icon>
           {{ 'RENTINGS_C.CONFIRM'  | translate }} 

@@ -93,6 +93,8 @@ export class RentingPage implements OnInit {
     }  
   }  
 
+   
+
   async ionViewWillEnter() {
     const res = await this.db.getMELocs();
     if (res['status'] === 'success') {

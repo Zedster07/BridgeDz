@@ -33,7 +33,7 @@
                 <ion-icon name="star" color="warning"></ion-icon>
             </span>
             <h6>{{item['city']}}</h6>
-            <p> {{item['startDate']}} {{ 'RENTINGS_C.TO'  | translate }} {{item['start_time']}} - {{item['endDate']}} {{ 'RENTINGS_C.TO'  | translate }} {{item['end_time']}} </p>
+            <p> {{util.display_date(item['startDate'])}} {{ 'RENTINGS_C.TO'  | translate }} {{item['start_time']}} - {{util.display_date(item['endDate'])}} {{ 'RENTINGS_C.TO'  | translate }} {{item['end_time']}} </p>
             <ion-button fill="outline" color="success" *ngIf="mylocations[i]['booking_state'] === '8'" disabled>
               <ion-icon name="checkbox-outline" slot="start"></ion-icon>
               {{ 'RENTINGS_C.CONFIRM'  | translate }}
@@ -57,7 +57,7 @@
 
             <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['rent_status'] === '1' || mylocations[i]['rent_status'] === '2'" disabled>
               <ion-icon name="checkbox-outline" slot="start"></ion-icon>
-              {{ 'RENTINGS_C.EXCPECTED'  | translate }} {{item['startDate']}} 
+              {{ 'RENTINGS_C.EXCPECTED'  | translate }} {{util.display_date(item['startDate'])}} 
             </ion-button>
             <ion-button fill="outline" color="success" *ngIf="mylocations[i]['rent_status'] === '3'" disabled>
               <ion-icon name="clock" slot="start"></ion-icon>
@@ -65,7 +65,7 @@
             </ion-button>
             <ion-button fill="outline" color="warning" *ngIf="mylocations[i]['rent_status'] === '4' || mylocations[i]['rent_status'] === '5' " disabled>
               <ion-icon name="clock" slot="start"></ion-icon>
-              {{ 'RENTINGS_C.EXCPECTED'  | translate }} {{item['endDate']}} 
+              {{ 'RENTINGS_C.EXCPECTED'  | translate }} {{util.display_date(item['endDate'])}} 
             </ion-button>
            
     
