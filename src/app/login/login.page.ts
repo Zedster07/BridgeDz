@@ -88,6 +88,12 @@ export class LoginPage implements OnInit {
         });
         error.style.display = 'block';
         return false;
+      case 4:
+        this.translate.get('POPUP.PWD_FORMAT_NOT_CORRECT').subscribe((res: string) => {
+          error.textContent = res;
+        });
+        error.style.display = 'block';
+        return false;
       default:
         break;
     }

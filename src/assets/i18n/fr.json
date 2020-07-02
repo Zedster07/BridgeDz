@@ -591,7 +591,7 @@
      "CHECK_LIC_MSG_1_TITLE":"Erreur",
      "CHECK_LIC_MSG_1_MSG": "Le champs permis Id est obligatoire",
      "CHECK_LIC_MSG_2_TITLE":"Error",
-     "CHECK_LIC_MSG_2_MSG": "Le format de permis Id n'est pas correcte",
+     "CHECK_LIC_MSG_2_MSG": "Le format de permis Id n'est pas correcte. V",
      "CHECK_LIC_MSG_3_TITLE":"Error",
      "CHECK_LIC_MSG_3_MSG": "Les champs date et pays d'obtention du permis sont obligatoire",
      "CHECK_LIC_MSG_4_TITLE":"Error",
@@ -609,7 +609,7 @@
      "PWD_UPDATE_1_MSG": "Votre ancien mot de passe n'est pas correcte",
      "PWD_UPDATE_2_TITLE": "Mot de passe",
      "PWD_UPDATE_ERROR_MSG": "Votre mot de passe de confirmation ne correspond pas à votre mot de passe",
-     "PWD_FORMAT_NOT_CORRECT" : "Votre format de mot de passe n'est pas correcte",
+     "PWD_FORMAT_NOT_CORRECT" : "Votre mot de passe doit contenir une lettre en minuscule, une lettre en majuscule et un chiffre",
 
      "PWD_UPDATE_RATING_TITLE": "Evaluation",
      "PWD_UPDATE_RATING_MSG": "Merci de votre évaluation. Nous esspérons que votre location s'est bien déroulée",

@@ -18,11 +18,11 @@
           </div>
           <ion-item  class="login-input">
               <ion-label> <ion-icon name="mail" color="medium"></ion-icon> </ion-label>
-              <ion-input placeholder="{{ 'LOGIN.EMAIL'  | translate }}" pattern ="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="normalLogin.email"> </ion-input>
+              <ion-input required="true"  placeholder="{{ 'LOGIN.EMAIL'  | translate }}" pattern ="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="normalLogin.email"> </ion-input>
           </ion-item>
           <ion-item class="login-input">
               <ion-label> <ion-icon name="Key" color="medium"></ion-icon> </ion-label>
-              <ion-input placeholder="{{ 'LOGIN.PASSWORD'  | translate }}" type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" [(ngModel)]="normalLogin.password"> </ion-input>
+              <ion-input required="true" placeholder="{{ 'LOGIN.PASSWORD'  | translate }}" type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" [(ngModel)]="normalLogin.password"> </ion-input>
           </ion-item>
           <a id="password" (click)="passwordForgotten()">{{ 'LOGIN.FORGET'  | translate }} </a>
           <ion-button expand="block" class="login-input" color="primary" (click)="normallogin()">
@@ -60,15 +60,15 @@
             </ion-item>
             <ion-item  class="login-input">
                 <ion-label> <ion-icon name="mail" color="medium"></ion-icon> </ion-label>
-                <ion-input placeholder="{{ 'LOGIN.EMAIL'  | translate }}" pattern ="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="signupData.email"> </ion-input>
+                <ion-input required="true" placeholder="{{ 'LOGIN.EMAIL'  | translate }}" pattern ="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="signupData.email"> </ion-input>
             </ion-item>
             <ion-item class="login-input">
                 <ion-label> <ion-icon name="Key" color="medium"></ion-icon> </ion-label>
-                <ion-input type="password" placeholder="{{ 'LOGIN.PASSWORD'  | translate }}" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" [(ngModel)]="signupData.password" > </ion-input>
+                <ion-input required="true" type="password" placeholder="{{ 'LOGIN.PASSWORD'  | translate }}" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" [(ngModel)]="signupData.password" > </ion-input>
             </ion-item>
             <ion-item class="login-input">
                 <ion-label> <ion-icon name="Key" color="medium"></ion-icon> </ion-label>
-                <ion-input type="password" placeholder="{{ 'LOGIN.CONFIRM_PASSWORD'  | translate }}" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" [(ngModel)]="signupData.re_password"> </ion-input>
+                <ion-input required="true" type="password" placeholder="{{ 'LOGIN.CONFIRM_PASSWORD'  | translate }}" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" [(ngModel)]="signupData.re_password"> </ion-input>
             </ion-item>
             
             <ion-button expand="block" class="login-input" color="primary" (click)="Register()"> 
