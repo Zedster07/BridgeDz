@@ -94,4 +94,48 @@ export class AlertService {
     await alert.present();
   }
 
+  async alertConfirm(title: string , msg: string) : Promise<boolean> {
+    let title_t ;
+    let msg_t;
+    let button_ok;
+    let button_cancel;
+    this.translate.get(title).subscribe((res: string) => {
+      title_t = res;
+    });
+    this.translate.get(msg).subscribe((res:string)=> {
+      msg_t = res;
+    });
+    this.translate.get('BUTTON.BUTTON_OK').subscribe((res:string)=> {
+      button_ok = res;
+    });
+    
+
+    this.translate.get('BUTTON.BOUTTON_CANCEL').subscribe((res:string)=> {
+      button_cancel = res;
+    });
+
+    let resolveFunction: (confirm: boolean) => void;
+     let promise = new Promise<boolean>(resolve => {
+      resolveFunction = resolve;
+      });
+
+    const alert = await this.alertt.create({
+      header: title_t,
+      message: msg_t,
+      buttons: [{
+        text: button_ok,
+        handler: () => resolveFunction(true)
+ 
+      },{
+        text: button_cancel,
+        handler: () => resolveFunction(false)
+      }]
+    });
+
+    await alert.present();
+    return promise;
+   
+  }
+
+
 }

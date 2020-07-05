@@ -124,7 +124,7 @@
     "CONFIRMED" : "Confirmed",
     "WAITING_FOR_CONFIRM" : "Waiting for confirmation",
     "CANCLED" : "Cancled",
-    "CANCEL"  : "Cancel",
+    "CANCEL"  : "إلغاء",
     "PAY" : "Pay",
     "VALIDATED" : "Validated",
     "NOT_PAID" : "Not yet paid",
@@ -407,7 +407,8 @@
 },
 
 "BUTTON" :{
-  "BUTTON_OK" : "نعم"
+  "BUTTON_OK" : "نعم",
+  "BOUTTON_CANCEL" : "إلغاء"
 },
 
 "MODAL_AH":{

@@ -11,6 +11,7 @@ import { ModalController } from '@ionic/angular';
 import { StartLocClientPage } from 'src/app/modals/start-loc-client/start-loc-client.page';
 import { RatingPage } from 'src/app/modals/rating/rating.page';
 import {TranslateService} from '@ngx-translate/core';
+import { rent_state } from 'src/app/interfaces/rent_state';
 
 
 
@@ -21,6 +22,7 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class MplocationsPage implements OnInit {
     mylocations = [];
+    cancelVisible = true;
 
      constructor(
      private db: DbinteractionsService,
@@ -43,14 +45,22 @@ export class MplocationsPage implements OnInit {
   }
 
   async cancelBooking(index){
+    let response;
+    await this.alert.alertConfirm('Annulation', 'Etes-vous sure de vouloir annuler cette réservation ?').then(confirm => {
+      response = confirm;
+    })
+ 
+  if (response){
     const res = await this.db.cancelBooking(this.mylocations[index]['bid'], this.mylocations[index]['guid_book'], booking_state.cancel_by_client);
     if(res['status'] === 'success'){
       this.alert.presentAlert('POPUP.BOOKING_CANCEL_TITLE', 'POPUP.BOOKING_CANCEL_MSG');
       this.mylocations[index]['bstatus'] = booking_state.cancel_by_client;
-      //TODO
+      this.mylocations[index]['rent_status'] = rent_state.canceled;
+      this.mylocations[index]['booking_state'] = booking_state.cancel_by_client;
+      this.cancelVisible = false;
+      }
     }
   }
-
   
    
 

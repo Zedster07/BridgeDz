@@ -7,14 +7,14 @@ import {NominatimResponse} from '../../../node_modules/angular-osm';
 import {map} from 'rxjs/operators';
 
 declare var ol: any;
-declare const google: any;
+//declare const google: any;
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeolocService {
 
-  service = new google.maps.places.AutocompleteService();
+  //service = new google.maps.places.AutocompleteService();
 
   BASE_NOMINATIM_URL: string = 'nominatim.openstreetmap.org';
   
@@ -41,15 +41,15 @@ export class GeolocService {
   }
 
   geoCode(address:any, latitude, longitude) {
-    let geocoder = new google.maps.Geocoder();
+    /*let geocoder = new google.maps.Geocoder();
     geocoder.geocode({ 'address': address }, (results, status) => {
     latitude = results[0].geometry.location.lat();
     longitude = results[0].geometry.location.lng();
-   });
+   });*/
   }
 
   getPrediction(autocomplete, autocompleteItems){
-     this.service.getPlacePredictions({
+     /*this.service.getPlacePredictions({
     input: autocomplete.query,
     componentRestrictions: {
       country: 'dz'
@@ -64,7 +64,7 @@ export class GeolocService {
         });
       }
       });
-    });
+    });*/
   }
 
 }

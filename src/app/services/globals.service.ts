@@ -164,7 +164,7 @@ export class GlobalsService {
   isLoading = false;
   todaysDate = new Date();
   //public hostServer = 'http://localhost:8081/bridgedz/';
-  public hostServer = 'http://51.210.107.61:8080/back/bridgedz/';
+  public hostServer = 'https://www.facilus.fr:8080/back/bridgedz/';
   //public hostServer = '';
 
   constructor(

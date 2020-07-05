@@ -65,12 +65,12 @@ import { StartLocClientPage } from './modals/start-loc-client/start-loc-client.p
 import { RatingPage } from './modals/rating/rating.page';
 import { StartLocAgencyPage } from './modals/start-loc-agency/start-loc-agency.page';
 import { LanguagePage } from './language/language.page';
-import { SearchGoogleAddressPage } from './modals/search-google-address/search-google-address.page';
+//import { SearchGoogleAddressPage } from './modals/search-google-address/search-google-address.page';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import { CarValidateModalPageModule } from './modals/car-validate-modal/car-validate-modal.module';
 import { BookingOutPageModule } from './modals/booking-out/booking-out.module';
 import { LanguagePageModule } from './language/language.module';
-import { SearchGoogleAddressPageModule } from './modals/search-google-address/search-google-address.module';
+//import { SearchGoogleAddressPageModule } from './modals/search-google-address/search-google-address.module';
 import { StartLocAgencyPageModule } from './modals/start-loc-agency/start-loc-agency.module';
 import { RatingPageModule } from './modals/rating/rating.module';
 import { StartLocClientPageModule } from './modals/start-loc-client/start-loc-client.module';
@@ -121,7 +121,7 @@ export function createTranslateLoader(http: HttpClient) {
     ClientMenuListComponent ,
     StartLocClientPage ,
     StartLocAgencyPage ,
-    SearchGoogleAddressPage,
+    //SearchGoogleAddressPage,
 ],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -142,7 +142,7 @@ export function createTranslateLoader(http: HttpClient) {
     CarValidateModalPageModule,
     BookingOutPageModule,
     LanguagePageModule,
-    SearchGoogleAddressPageModule,
+    //SearchGoogleAddressPageModule,
     StartLocAgencyPageModule,
     RatingPageModule,
     StartLocClientPageModule,

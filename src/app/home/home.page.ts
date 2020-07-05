@@ -10,7 +10,7 @@ import { AlertService } from '../services/alert.service';
 import { BillingService } from 'src/app/services/billing.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DbinteractionsService } from '../services/dbinteractions.service';
-import { SearchGoogleAddressPage } from '../modals/search-google-address/search-google-address.page';
+//import { SearchGoogleAddressPage } from '../modals/search-google-address/search-google-address.page';
 import {latLng, MapOptions, tileLayer, Map, Marker, icon} from 'leaflet';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
@@ -244,9 +244,9 @@ export class HomePage implements OnInit {
   }
 
   async showSearchModal() {
-    let modal = await this.modalCtrl.create({component: SearchGoogleAddressPage});
-    let me = this;
-    modal.present();
+    //let modal = await this.modalCtrl.create({component: SearchGoogleAddressPage});
+   // let me = this;
+    //modal.present();
   }
 
   myFunction_end() {

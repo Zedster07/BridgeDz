@@ -405,7 +405,8 @@
     },
 
     "BUTTON" :{
-      "BUTTON_OK" : "OK"
+      "BUTTON_OK" : "OK",
+      "BOUTTON_CANCEL" : "Cancel"
     },
 
     "MODAL_AH":{
