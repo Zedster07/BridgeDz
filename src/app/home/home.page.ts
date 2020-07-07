@@ -13,7 +13,6 @@ import { DbinteractionsService } from '../services/dbinteractions.service';
 //import { SearchGoogleAddressPage } from '../modals/search-google-address/search-google-address.page';
 import {latLng, MapOptions, tileLayer, Map, Marker, icon} from 'leaflet';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
 import {NominatimResponse} from '../../../node_modules/angular-osm';
 import {map} from 'rxjs/operators';
 import { UtilService } from '../services/util.service';
@@ -24,7 +23,8 @@ import { prepareSyntheticListenerFunctionName } from '@angular/compiler/src/rend
 import { RatingPage } from 'src/app/modals/rating/rating.page';
 
 
-
+declare var require: any
+const FileSaver = require('file-saver');
 
 @Component({
   selector: 'app-home',
@@ -70,6 +70,8 @@ export class HomePage implements OnInit {
     pager: true,
     paginationType: 'bullets'
   };
+
+
 
   myDate = this.todaysDate.getFullYear() + '-' + (this.todaysDate.getMonth() + 1)  + '-' + this.todaysDate.getDay();
 
@@ -248,6 +250,8 @@ export class HomePage implements OnInit {
    // let me = this;
     //modal.present();
   }
+
+ 
 
   myFunction_end() {
     const debutTimestamp = this.strart_date.getTime();
@@ -429,10 +433,28 @@ export class HomePage implements OnInit {
     this.glb.searchQuery.lon = item['lon'];
     this.searchResults = [];
     this.geo = false;
-    //console.log(item);
   }
 
+  downloadPdf(item) {
+    switch (item) {
+      case  'CGU':
+          const pdfUrlCGU = this.glb.hostServer + 'legal/CGU.pdf';
+          const pdfNameCGU = 'CGU';
+          FileSaver.saveAs(pdfUrlCGU, pdfNameCGU);
+          break;
+      case 'Charte':
+          const pdfUrlCharte = this.glb.hostServer + 'legal/Charte.pdf';
+          const pdfNameCharte = 'Charte';
+          FileSaver.saveAs(pdfUrlCharte, pdfNameCharte);
+          break; 
+   }
+  }
+
+  
+
+ 
   disableDate(start_date){
+
     let current_year = this.util.getCurrentYearNumber();
     let current_month = this.util.getCurrentMonthNumber();
     let current_day = this.util.getCurrentDayNumber();
